@@ -90,7 +90,7 @@
     background:rgba(253,224,71,.12); border:1px solid rgba(253,224,71,.3); border-radius:999px; padding:2px 9px; text-transform:none;}
   .studio{display:flex; gap:14px; align-items:center; background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.1);
     border-radius:18px; padding:12px; margin-bottom:16px;}
-  .studioPrev{flex:none; width:122px; height:208px; border-radius:22px; overflow:hidden; box-shadow:0 12px 28px rgba(0,0,0,.55),0 0 0 2px rgba(255,255,255,.14); position:sticky; top:8px; align-self:flex-start;}
+  .studioPrev{flex:none; width:118px; height:226px; border-radius:22px; overflow:hidden; box-shadow:0 12px 28px rgba(0,0,0,.55),0 0 0 2px rgba(255,255,255,.14); position:sticky; top:8px; align-self:flex-start;}
   .studioPrev .idolfull{width:100%; height:100%; display:block;}
   .ostyles{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;}
   .ostyle{border:2px solid rgba(255,255,255,.16); background:rgba(255,255,255,.05); color:var(--txt); border-radius:11px; padding:6px 10px; cursor:pointer; font-weight:700; font-size:.74rem; transition:.12s;}
@@ -411,19 +411,21 @@
   .pet .pshadow{ position:absolute; left:50%; bottom:-5px; width:24px; height:7px; transform:translateX(-50%); border-radius:50%; background:radial-gradient(rgba(0,0,0,.45),transparent 70%); }
   @keyframes petbob{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-5px);} }
 
-  .player{ position:absolute; width:50px; height:50px; transform:translate(-50%,-72%); z-index:6; pointer-events:none; }
-  .pchar{ width:50px; height:50px; border-radius:50%; overflow:hidden; border:2.5px solid #fff; box-shadow:0 4px 10px rgba(0,0,0,.5);
-    animation:idleSway 2.4s ease-in-out infinite; }
-  .pchar .idolsvg{ width:100%; height:100%; }
-  .pshadow{ position:absolute; left:50%; bottom:-6px; width:34px; height:9px; transform:translateX(-50%); border-radius:50%;
-    background:radial-gradient(rgba(0,0,0,.55),transparent 70%); animation:shsquash 2.4s ease-in-out infinite; }
-  @keyframes idleSway{ 0%,100%{ transform:rotate(-2deg);} 50%{ transform:rotate(2deg);} }
+  /* perso en pied (corps entier) dans la ville */
+  .player{ position:absolute; transform:translate(-50%,-100%); z-index:6; pointer-events:none; }
+  .pchar{ animation:idleSway 2.6s ease-in-out infinite; transform-origin:bottom center; }
+  .pchar .idolfig{ height:84px; width:auto; display:block; filter:drop-shadow(0 4px 4px rgba(0,0,0,.4)); }
+  .pshadow{ position:absolute; left:50%; bottom:-3px; width:26px; height:7px; transform:translateX(-50%); border-radius:50%;
+    background:radial-gradient(rgba(0,0,0,.5),transparent 70%); animation:shsquash 2.6s ease-in-out infinite; }
+  @keyframes idleSway{ 0%,100%{ transform:rotate(-1.5deg);} 50%{ transform:rotate(1.5deg);} }
   @keyframes shsquash{ 0%,100%{ transform:translateX(-50%) scaleX(1);} 50%{ transform:translateX(-50%) scaleX(.85);} }
-  .player.walk .pchar{ animation:walkbob .34s ease-in-out infinite; }
-  @keyframes walkbob{ 0%,100%{ transform:translateY(0) rotate(0);} 25%{ transform:translateY(-5px) rotate(-6deg);} 75%{ transform:translateY(-5px) rotate(6deg);} }
+  .player.walk .pchar{ animation:walkbob .34s ease-in-out infinite; transform-origin:bottom center; }
+  @keyframes walkbob{ 0%,100%{ transform:translateY(0) rotate(0);} 25%{ transform:translateY(-4px) rotate(-4deg);} 75%{ transform:translateY(-4px) rotate(4deg);} }
   .player.walk .pshadow{ animation:walksh .34s ease-in-out infinite; }
   @keyframes walksh{ 0%,100%{ transform:translateX(-50%) scaleX(1);} 50%{ transform:translateX(-50%) scaleX(.6); opacity:.6;} }
   .player.faceL .pchar{ transform:scaleX(-1); }
+  .player.faceL.walk .pchar{ animation:walkbobL .34s ease-in-out infinite; }
+  @keyframes walkbobL{ 0%,100%{ transform:scaleX(-1) translateY(0) rotate(0);} 25%{ transform:scaleX(-1) translateY(-4px) rotate(4deg);} 75%{ transform:scaleX(-1) translateY(-4px) rotate(-4deg);} }
 
   .enterPrompt{ position:absolute; transform:translate(-50%,-100%); padding:5px 10px; border-radius:999px; font-size:.74rem; font-weight:800; color:#0a0612; white-space:nowrap; pointer-events:none; display:none; z-index:7;
     background:linear-gradient(120deg,#ffd24d,#5ef2b0,#46e6ff); box-shadow:0 4px 10px rgba(0,0,0,.5); }
@@ -707,7 +709,7 @@
     <div class="eq" id="eq"></div>
     <div class="hero-idols" id="heroIdols"></div>
     <h1 class="neon">CM2 <span class="neon2">K-POP</span></h1>
-    <p class="tag">Révise tout le programme CM2 façon idol — 8 matières · scène, combos &amp; bonus K-Pop 💖<br><span style="font-size:.72rem;opacity:.7">v2.3 · idol corps entier · 5 styles de tenue · 13 coiffures</span></p>
+    <p class="tag">Révise tout le programme CM2 façon idol — 8 matières · scène, combos &amp; bonus K-Pop 💖<br><span style="font-size:.72rem;opacity:.7">v2.4 · idol corps entier (silhouette + ville) · 5 tenues · 13 coiffures</span></p>
   </header>
 
   <div class="hud" id="hud" style="display:none;">
@@ -2421,56 +2423,63 @@ function shade(hex,pct){
  return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');
 }
 
-/* TENUES corps entier : chaque style dessine le bas (jambes/pantalon) + le haut */
-function legsSkin(SK){ return `<rect x="50" y="150" width="9" height="50" rx="4.5" fill="${SK.skin}"/><rect x="61" y="150" width="9" height="50" rx="4.5" fill="${SK.skin}"/>`; }
-function legsPants(c,c2){ return `<rect x="49" y="148" width="11" height="54" rx="5" fill="${c}"/><rect x="60" y="148" width="11" height="54" rx="5" fill="${c}"/><path d="M55 150 v50 M66 150 v50" stroke="${c2}" stroke-width="1" opacity=".5"/>`; }
-function shoes(c){ return `<path d="M46 198 h15 v6 a4 4 0 0 1 -4 4 h-11Z" fill="${c}"/><path d="M59 198 h15 v6 a4 4 0 0 1 -4 4 h-11Z" fill="${c}"/>`; }
-function armsSkin(SK){ return `<path d="M41 101 q-11 17 -7 35" stroke="${SK.skin}" stroke-width="8.5" fill="none" stroke-linecap="round"/><path d="M79 101 q11 17 7 35" stroke="${SK.skin}" stroke-width="8.5" fill="none" stroke-linecap="round"/>`; }
-function torsoSkin(SK){ return `<path d="M44 96 q16 -8 32 0 l3 46 q-19 9 -38 0Z" fill="${SK.skin}"/>`; }
+/* TENUES corps entier — silhouette « idol » (tête plus petite, longues jambes)
+   Repères : épaules y70 (x44-76), taille y116, hanches y124, chevilles y238, pieds y238-256 */
+function legsSkin(SK){ return `<rect x="52" y="123" width="8" height="116" rx="4" fill="${SK.skin}"/><rect x="60" y="123" width="8" height="116" rx="4" fill="${SK.skin}"/>`; }
+function legsPants(c,c2){ return `<path d="M49 118 q11 -5 22 0 l-1 122 h-9 l-1 -70 -1 70 h-9Z" fill="${c}"/><path d="M60 120 v118" stroke="${c2}" stroke-width="1.2" opacity=".5"/>`; }
+function shoes(c){ return `<path d="M49 239 h12 v7 a4 4 0 0 1 -4 4 h-12 a3 3 0 0 1 -1 -6Z" fill="${c}"/><path d="M71 239 h-12 v7 a4 4 0 0 0 4 4 h12 a3 3 0 0 0 1 -6Z" fill="${c}"/>`; }
+function armsSkin(SK){ return `<path d="M45 73 q-13 20 -10 47" stroke="${SK.skin}" stroke-width="6.5" fill="none" stroke-linecap="round"/><path d="M75 73 q13 20 10 47" stroke="${SK.skin}" stroke-width="6.5" fill="none" stroke-linecap="round"/>`; }
+function armsSleeve(c,SK){ return `<path d="M45 73 q-13 20 -10 47" stroke="${c}" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M75 73 q13 20 10 47" stroke="${c}" stroke-width="8" fill="none" stroke-linecap="round"/><circle cx="34.5" cy="119" r="3.6" fill="${SK.skin}"/><circle cx="85.5" cy="119" r="3.6" fill="${SK.skin}"/>`; }
+function torsoSkin(SK){ return `<path d="M46 70 q14 -7 28 0 l3 53 q-17 8 -34 0Z" fill="${SK.skin}"/>`; }
 const OSTYLES=[
- {n:"Robe", draw:(C,SK)=>{ const C2=shade(C,-22),C3=shade(C,22);
-   return legsSkin(SK)+shoes("#1b1320")+armsSkin(SK)+
-   `<path d="M42 98 q18 -11 36 0 l6 34 q4 26 10 36 q-34 12 -68 0 q6 -10 10 -36Z" fill="${C}"/>
-    <path d="M42 98 q18 -11 36 0 l1 7 q-19 -8 -38 0Z" fill="${C3}"/>
-    <path d="M51 102 v60 M69 102 v60" stroke="${C2}" stroke-width="1.2" opacity=".45"/>`; }},
- {n:"Top + jupe", draw:(C,SK)=>{ const C2=shade(C,-22);
+ {n:"Robe", draw:(C,SK)=>{ const C2=shade(C,-22),C3=shade(C,24);
+   return legsSkin(SK)+shoes(shade(C,-34))+armsSkin(SK)+
+   `<path d="M44 70 q16 -8 32 0 l9 56 q5 30 13 46 q-42 14 -84 0 q8 -16 13 -46Z" fill="${C}"/>
+    <path d="M44 70 q16 -8 32 0 l1 7 q-19 -8 -38 0Z" fill="${C3}"/>
+    <g stroke="${C2}" stroke-width="1.1" opacity=".4"><path d="M52 76 v94 M68 76 v94 M60 76 v96"/></g>`; }},
+ {n:"Top + jupe", draw:(C,SK)=>{ const C2=shade(C,-24);
    return legsSkin(SK)+shoes("#ff4d6d")+torsoSkin(SK)+armsSkin(SK)+
-   `<path d="M44 98 q16 -9 32 0 l2 22 q-18 8 -36 0Z" fill="${C}"/>
-    <path d="M39 134 q21 -8 42 0 l7 30 q-28 11 -56 0Z" fill="${C}"/>
-    <g stroke="${C2}" stroke-width="1.2" opacity=".5"><path d="M48 136 v26 M56 134 v30 M64 134 v30 M72 136 v26"/></g>`; }},
- {n:"Veste oversize", draw:(C,SK)=>{ const C2=shade(C,-22),C3=shade(C,18);
-   return legsSkin(SK)+shoes("#1b1320")+torsoSkin(SK)+
-   `<path d="M48 116 q12 -6 24 0 l2 22 q-14 6 -28 0Z" fill="#0e1118"/>
-    <path d="M40 96 q9 -6 18 -4 l2 50 q-12 -2 -16 -10 q-7 -16 -4 -36Z" fill="${C}"/>
-    <path d="M80 96 q-9 -6 -18 -4 l-2 50 q12 -2 16 -10 q7 -16 4 -36Z" fill="${C}"/>
-    <path d="M40 96 q-10 16 -5 34" stroke="${C}" stroke-width="9" fill="none" stroke-linecap="round"/>
-    <path d="M80 96 q10 16 5 34" stroke="${C}" stroke-width="9" fill="none" stroke-linecap="round"/>`; }},
- {n:"Survêt", draw:(C,SK)=>{ const C2=shade(C,-22),C3=shade(C,30);
-   return legsPants(C,C2)+shoes("#ffffff")+
-   `<path d="M42 98 q18 -10 36 0 l4 44 q-22 9 -44 0Z" fill="${C}"/>
-    <path d="M40 98 q-10 17 -5 35" stroke="${C}" stroke-width="9" fill="none" stroke-linecap="round"/>
-    <path d="M80 98 q10 17 5 35" stroke="${C}" stroke-width="9" fill="none" stroke-linecap="round"/>
-    <path d="M60 100 v44" stroke="${C3}" stroke-width="2" opacity=".7"/>
-    <path d="M38 104 l3 30 M82 104 l-3 30" stroke="#fff" stroke-width="2" opacity=".6"/>`; }},
- {n:"Combi", draw:(C,SK)=>{ const C2=shade(C,-22),C3=shade(C,22);
+   `<path d="M46 70 q14 -7 28 0 l3 27 q-17 8 -34 0Z" fill="${C}"/>
+    <path d="M44 110 q16 -7 32 0 l9 52 q-25 12 -50 0Z" fill="${C}"/>
+    <g stroke="${C2}" stroke-width="1.2" opacity=".5"><path d="M50 113 v49 M58 110 v53 M66 110 v53 M74 113 v49"/></g>`; }},
+ {n:"Veste oversize", draw:(C,SK)=>{ const C2=shade(C,-24);
+   return legsSkin(SK)+shoes("#1b1320")+torsoSkin(SK)+armsSleeve(C,SK)+
+   `<path d="M50 92 q10 -5 20 0 l2 30 q-12 5 -24 0Z" fill="#0e1118"/>
+    <path d="M42 70 q9 -5 18 -3 l3 56 q-13 -2 -18 -13 q-8 -18 -3 -40Z" fill="${C}"/>
+    <path d="M78 70 q-9 -5 -18 -3 l-3 56 q13 -2 18 -13 q8 -18 3 -40Z" fill="${C}"/>`; }},
+ {n:"Survêt", draw:(C,SK)=>{ const C2=shade(C,-24),C3=shade(C,32);
+   return legsPants(C,C2)+shoes("#ffffff")+armsSleeve(C,SK)+
+   `<path d="M44 70 q16 -8 32 0 l5 54 q-21 9 -42 0Z" fill="${C}"/>
+    <path d="M60 72 v52" stroke="${C3}" stroke-width="2"/>
+    <path d="M40 80 l-4 38 M80 80 l4 38" stroke="#fff" stroke-width="2.4" opacity=".7" fill="none"/>
+    <path d="M52 121 h16" stroke="#fff" stroke-width="2.4" opacity=".6"/>`; }},
+ {n:"Combi", draw:(C,SK)=>{ const C2=shade(C,-24),C3=shade(C,24);
    return legsPants(C,C2)+shoes("#1b1320")+armsSkin(SK)+
-   `<path d="M43 98 q17 -10 34 0 l4 46 q-21 9 -42 0Z" fill="${C}"/>
-    <path d="M43 98 q17 -10 34 0 l1 7 q-18 -7 -36 0Z" fill="${C3}"/>
-    <circle cx="60" cy="120" r="2" fill="${C2}"/><circle cx="60" cy="132" r="2" fill="${C2}"/>`; }},
+   `<path d="M44 70 q16 -8 32 0 l4 54 q-20 9 -40 0Z" fill="${C}"/>
+    <path d="M44 70 q16 -8 32 0 l1 7 q-18 -7 -36 0Z" fill="${C3}"/>
+    <circle cx="60" cy="98" r="1.8" fill="${C2}"/><circle cx="60" cy="110" r="1.8" fill="${C2}"/><circle cx="60" cy="122" r="1.8" fill="${C2}"/>`; }},
 ];
-function idolFull(p,acc=0,style=0,skin=null,outfit=null,ostyle=0){
- const SK=skin||{skin:p.skin,skin2:p.skin2};
- const C=outfit||p.outfit;
+/* corps (sans cadre) : ombre? + tenue + cou + tête réduite */
+function idolBody(p,acc,style,SK,C,ostyle,shadow){
  const OS=OSTYLES[ostyle]||OSTYLES[0];
- return `<svg viewBox="0 0 120 218" class="idolfull" preserveAspectRatio="xMidYMax meet">
-  <defs><radialGradient id="fb${p.id}_${ostyle}" cx="50%" cy="24%" r="95%"><stop offset="0" stop-color="${p.bg1}"/><stop offset="1" stop-color="${p.bg2}"/></radialGradient></defs>
-  <rect width="120" height="218" rx="26" fill="url(#fb${p.id}_${ostyle})"/>
-  <circle cx="20" cy="22" r="2" fill="#fff" opacity=".5"/><circle cx="100" cy="44" r="1.6" fill="#fff" opacity=".4"/><circle cx="96" cy="150" r="1.6" fill="#fff" opacity=".3"/>
-  <ellipse cx="60" cy="210" rx="33" ry="6.5" fill="rgba(0,0,0,.3)"/>
+ return `${shadow?'<ellipse cx="60" cy="252" rx="27" ry="6" fill="rgba(0,0,0,.32)"/>':''}
   ${OS.draw(C,SK)}
-  <rect x="53" y="84" width="14" height="14" rx="6" fill="${SK.skin2}"/>
-  ${headParts(p,style,SK,acc)}
+  <rect x="55" y="52" width="10" height="20" rx="5" fill="${SK.skin2}"/>
+  <g transform="translate(20.4,1) scale(0.66)">${headParts(p,style,SK,acc)}</g>`;
+}
+function idolFull(p,acc=0,style=0,skin=null,outfit=null,ostyle=0){
+ const SK=skin||{skin:p.skin,skin2:p.skin2}; const C=outfit||p.outfit;
+ return `<svg viewBox="0 0 120 264" class="idolfull" preserveAspectRatio="xMidYMax meet">
+  <defs><radialGradient id="fb${p.id}_${ostyle}" cx="50%" cy="22%" r="95%"><stop offset="0" stop-color="${p.bg1}"/><stop offset="1" stop-color="${p.bg2}"/></radialGradient></defs>
+  <rect width="120" height="264" rx="26" fill="url(#fb${p.id}_${ostyle})"/>
+  <circle cx="20" cy="22" r="2" fill="#fff" opacity=".5"/><circle cx="100" cy="44" r="1.6" fill="#fff" opacity=".4"/><circle cx="96" cy="170" r="1.6" fill="#fff" opacity=".3"/>
+  ${idolBody(p,acc,style,SK,C,ostyle,true)}
  </svg>`;
+}
+/* figure transparente (pour la ville) */
+function idolFigure(p,acc=0,style=0,skin=null,outfit=null,ostyle=0){
+ const SK=skin||{skin:p.skin,skin2:p.skin2}; const C=outfit||p.outfit;
+ return `<svg viewBox="28 2 64 258" class="idolfig">${idolBody(p,acc,style,SK,C,ostyle,false)}</svg>`;
 }
 
 function refreshXPchip(){
@@ -2621,7 +2630,7 @@ function buildWorld(){
     inner.insertBefore(el, pl);
   });
 }
-function renderPlayer(){ $("pchar").innerHTML=idolSVG(PALS[avHair],avAcc,avStyle,"world",SKINS[avSkin],OUTFITS[avOutfit].c); }
+function renderPlayer(){ $("pchar").innerHTML=idolFigure(PALS[avHair],avAcc,avStyle,SKINS[avSkin],OUTFITS[avOutfit].c,avOStyle); }
 function renderPet(){ $("pemo").textContent=MASCOTS[avPet].emo; $("pacc").textContent=PET_ACCS[avPetAcc].emo; }
 function placePlayer(){ const p=$("player"); p.style.left=wx+"px"; p.style.top=wy+"px"; }
 function placePet(){ const e=$("pet"); e.style.left=petX+"px"; e.style.top=petY+"px"; }
