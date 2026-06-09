@@ -90,7 +90,7 @@
     background:rgba(253,224,71,.12); border:1px solid rgba(253,224,71,.3); border-radius:999px; padding:2px 9px; text-transform:none;}
   .studio{display:flex; gap:14px; align-items:center; background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.1);
     border-radius:18px; padding:12px; margin-bottom:16px;}
-  .studioPrev{flex:none; width:96px; height:96px; border-radius:18px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,.4); position:relative;}
+  .studioPrev{flex:none; width:140px; height:140px; border-radius:22px; overflow:hidden; box-shadow:0 10px 26px rgba(0,0,0,.5),0 0 0 2px rgba(255,255,255,.14); position:sticky; top:8px; align-self:flex-start;}
   .studioPrev .idolsvg{width:100%; height:100%;}
   .studioOpts{flex:1; min-width:0;}
   .optlabel{font-size:.64rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:2px 0 6px;}
@@ -581,6 +581,22 @@
   .choice.wrong .ch-key{background:var(--bad); color:#3f0a1a;}
   .choice:disabled{cursor:default;}
   .choice:disabled:hover{transform:none;}
+  /* Vrai / Faux */
+  .choice.vf{ justify-content:center; font-family:"Baloo 2",cursive; font-size:1.25rem; padding:18px 14px; }
+  .choice.vfT .ch-key{ background:#34d399; color:#04231a; }
+  .choice.vfF .ch-key{ background:#fb7185; color:#3f0a1a; }
+  .choice.vf .ch-txt{ flex:0; }
+  /* Associer (matching) */
+  .matchHint{ font-size:.82rem; color:var(--muted); text-align:center; margin-bottom:10px; }
+  .matchGrid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .matchCol{ display:flex; flex-direction:column; gap:8px; }
+  .mItem{ background:rgba(255,255,255,.05); border:2px solid rgba(255,255,255,.14); color:var(--txt); border-radius:13px; padding:12px 10px; cursor:pointer; font-weight:600; font-size:.92rem; line-height:1.2; transition:.12s; min-height:48px; }
+  .mItem:hover:not(:disabled){ border-color:var(--pink); transform:translateY(-1px); }
+  .mItem.sel{ border-color:var(--cyan); background:rgba(70,230,255,.16); box-shadow:0 0 0 2px rgba(70,230,255,.3); }
+  .mItem.ok{ background:rgba(52,211,153,.18); border-color:var(--good); color:#d1fae5; opacity:1; }
+  .mItem.mwrong{ background:rgba(251,113,133,.2); border-color:var(--bad); }
+  .mItem.shake{ animation:mshake .3s; } @keyframes mshake{ 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+  .b-six{ background:#1e90a833; color:#7dd3fc; border:1px solid #0ea5b7; }
 
   .slots{display:flex; gap:5px; flex-wrap:wrap; justify-content:center; margin:4px 0 14px; min-height:40px;}
   .slot{width:26px; height:38px; border-bottom:3px solid #5a3f8a; display:flex; align-items:center; justify-content:center; font-size:1.3rem; font-weight:800;}
@@ -641,7 +657,7 @@
     <div class="eq" id="eq"></div>
     <div class="hero-idols" id="heroIdols"></div>
     <h1 class="neon">CM2 <span class="neon2">K-POP</span></h1>
-    <p class="tag">Révise tout le programme CM2 façon idol — 8 matières · scène, combos &amp; bonus K-Pop 💖<br><span style="font-size:.72rem;opacity:.7">v2.0 · 732 questions · modes • jokers • quêtes • trophées</span></p>
+    <p class="tag">Révise tout le programme CM2 façon idol — 8 matières · scène, combos &amp; bonus K-Pop 💖<br><span style="font-size:.72rem;opacity:.7">v2.1 · 750+ questions · Rentrée 6e · vrai-faux • associations • tenues</span></p>
   </header>
 
   <div class="hud" id="hud" style="display:none;">
@@ -664,6 +680,8 @@
           <div class="swatches" id="hairRow"></div>
           <div class="optlabel">Couleur de peau</div>
           <div class="swatches" id="skinRow"></div>
+          <div class="optlabel">👗 Tenue de scène</div>
+          <div class="swatches" id="outfitRow"></div>
           <div class="optlabel">Accessoire <span class="optmini" id="accHint"></span></div>
           <div class="accs" id="accRow"></div>
           <div class="optlabel">🐾 Mascotte</div>
@@ -701,6 +719,7 @@
         <button class="subj" data-cat="geo"      style="--c1:#2dd4bf;--c2:#15803d"><span class="emo">🌍</span><span class="t">Géographie</span><span class="s">Le monde</span></button>
         <button class="subj" data-cat="emc"      style="--c1:#818cf8;--c2:#7c3aed"><span class="emo">⚖️</span><span class="t">EMC</span><span class="s">Citoyenneté</span></button>
         <button class="subj" data-cat="art"      style="--c1:#f472b6;--c2:#9333ea"><span class="emo">🎨</span><span class="t">Histoire de l'art</span><span class="s">Œuvres & artistes</span></button>
+        <button class="subj subj-wide" data-cat="sixieme" style="--c1:#22d3ee;--c2:#0ea5b7"><span class="emo">🎒</span><span class="t">Rentrée en 6ᵉ <span class="kbadge">NOUVEAU</span></span><span class="s">Réussir son entrée au collège · vrai/faux & associations</span></button>
         <button class="subj subj-wide" data-cat="all" style="--c1:#a855f7;--c2:#ec4899"><span class="emo">🎤</span><span class="t">Tout mélangé <span class="kbadge">+ Bonus K-Pop 💜</span></span><span class="s">Le défi ultime · toutes matières</span></button>
       </div>
       <p class="home-note">12 questions par partie · les <b>bonus K-Pop</b> 💜 tombent souvent et rapportent gros · en <b>🔥 Extrême</b> : timer serré, 1 seule vie et points ×5 !</p>
@@ -1486,6 +1505,35 @@ const BANK = {
     {q:"🎨 « Guernica » de Picasso dénonce surtout… ?", t:"qcm", c:["la mer","la guerre","l'amour","la danse"], a:1, d:4},
     {q:"🎨 La statue « Le Penseur » de Rodin est faite en… ?", t:"qcm", c:["marbre","bronze","bois","plâtre"], a:1, d:4},
   ],
+  sixieme:[
+    /* ===== RENTRÉE EN 6ᵉ — collège Jeanne d'Arc (Montrouge) ===== */
+    {q:"🎒 Au collège, un cours dure combien de minutes ?", t:"qcm", c:["45","50","55","60"], a:2, d:1, fact:"En 6e les cours durent 55 minutes. Entre deux cours on sort, on attend le prof, puis on rentre dans la salle suivante."},
+    {q:"🎒 VRAI ou FAUX : au collège on change souvent de salle entre les cours.", t:"vf", a:true, d:1, fact:"Oui ! On se déplace : on sort, on attend le professeur, et on re-rentre. C'est un grand changement par rapport à l'école primaire."},
+    {q:"🎒 VRAI ou FAUX : en 6e, les élèves d'une classe restent ensemble toute l'année.", t:"vf", a:true, d:1, fact:"La classe reste la même toute l'année — ce sont les profs qui changent de salle avec toi."},
+    {q:"🎒 Combien de temps de travail à la maison est conseillé par jour de semaine ?", t:"qcm", c:["15 min","30 min","1 heure","3 heures"], a:2, d:1, fact:"≈ 1h par jour de semaine, soit ~7h/semaine. ~30-40 min pour anticiper, ~20-30 min pour réviser le prochain DST."},
+    {q:"🎒 Combien de professeurs différents a-t-on environ dans l'année de 6e ?", t:"qcm", c:["1 ou 2","3 ou 4","9 ou 10","20"], a:2, d:1, fact:"9 à 10 profs dans l'année, chacun max 4-5h par semaine. Le 1er conseil de classe a lieu en décembre."},
+    {q:"🎒 Quelle matière devient une matière majeure au collège ?", t:"qcm", c:["le sport","l'anglais","les arts plastiques","la musique"], a:1, d:1, fact:"L'anglais devient majeur, avec un gros décalage primaire/collège. L'écrit ET l'oral comptent beaucoup."},
+    {q:"🎒 Un contrôle important au collège s'appelle un… ?", t:"qcm", c:["DST","CDI","BUS","CPE"], a:0, d:1, fact:"DST = Devoir Sur Table. En 6e il y en a environ 1 toutes les 2 semaines."},
+    {q:"🎒 Environ tous les combien y a-t-il un DST en 6e ?", t:"qcm", c:["chaque jour","toutes les semaines","toutes les 2 semaines","une fois par an"], a:2, d:2, fact:"≈ un DST toutes les 2 semaines. En maths, il y en a environ 5 dans l'année — garde une liste de tous les DST d'octobre à juin."},
+    {q:"🎒 En maths, combien de DST environ dans l'année de 6e ?", t:"qcm", c:["2","5","10","20"], a:1, d:2, fact:"≈ 5 DST de maths. Avant chaque DST, relis TOUTES tes anciennes fiches du chapitre."},
+    {q:"🎒 Le 1er conseil de classe de l'année a lieu en quel mois ?", t:"qcm", c:["septembre","octobre","décembre","juin"], a:2, d:2, fact:"Le 1er conseil de classe a lieu en décembre : c'est un bilan de chaque élève par tous les profs."},
+
+    {q:"🎒 Associe chaque jour à la bonne étape pour réviser une leçon", t:"match", d:2,
+      pairs:[["J1-J2","Faire la fiche"],["J3-J4","Apprendre par cœur"],["J5","Refaire les exos non compris"],["J6","Nouveaux exos du manuel"]],
+      fact:"La méthode : J1-J2 faire la fiche, J3-J4 apprendre, J5 refaire les exos ratés, J6 de nouveaux exos. Et relire ses cours 5 min chaque soir !"},
+    {q:"🎒 Associe chaque type de relation à sa définition", t:"match", d:2,
+      pairs:[["Camarade","Dans ta classe, tu ne l'as pas choisi"],["Copain","Vous vous entendez bien (ça peut changer)"],["Ami","Confiance vraie, construite dans le temps"]],
+      fact:"Camarades (à respecter, être solidaire), copains (ça peut évoluer), amis (la vraie confiance). On ne se fait pas un vrai ami en 1 an, et un ami ne t'humilie jamais."},
+
+    {q:"🎒 VRAI ou FAUX : il faut relire ses cours du jour chaque soir, même 5 minutes.", t:"vf", a:true, d:2, fact:"Oui : 5 min de relecture chaque soir suffisent à tout retenir bien plus facilement. Ajoute aussi 5 min de lecture par jour."},
+    {q:"🎒 VRAI ou FAUX : on se fait de vrais amis en seulement quelques semaines.", t:"vf", a:false, d:2, fact:"Faux. Un vrai ami se construit dans le temps. En attendant, sois poli et solidaire avec tes camarades."},
+    {q:"🎒 Qui est ton meilleur allié si quelque chose ne va pas au collège ?", t:"qcm", c:["personne","ton parent","un inconnu","ton téléphone"], a:1, d:2, fact:"Ton parent est ton meilleur allié. En 6e le regard des autres devient très fort : garde le dialogue ouvert et parle tout de suite si ça ne va pas."},
+    {q:"🎒 Pour bien démarrer en septembre, il faut surtout… ?", t:"qcm", c:["se faire remarquer en chahutant","observer chaque prof pour comprendre ses attentes","copier sur les autres","ne jamais parler"], a:1, d:3, fact:"Le « mode suricate » : en septembre, observe chaque prof, comprends ce qu'il attend, et participe pour être identifié·e positivement."},
+    {q:"🎒 En fin d'année, on peut donner des vœux de classe : combien de prénoms ?", t:"qcm", c:["0","1","2","10"], a:2, d:3, fact:"Tu donnes 2 prénoms de camarades avec qui tu aimerais être l'an prochain — au moins 1 vœu est respecté. Pense dès maintenant : avec qui travailles-tu bien ?"},
+    {q:"🎒 VRAI ou FAUX : participer en classe aide à être identifié·e positivement par les profs.", t:"vf", a:true, d:2, fact:"Oui ! Pose des questions, apporte au groupe. Et en langues, s'exprimer à l'oral est obligatoire ET valorisé."},
+    {q:"🎒 Pour rester au calme, mieux vaut… ?", t:"qcm", c:["se mettre près des groupes agités","contourner les poches d'agitation","arriver en retard","oublier son carnet"], a:1, d:3, fact:"Évite les groupes agités pour rester tranquille et concentré·e. En cas de souci, la vie scolaire demande vite le carnet."},
+    {q:"🎒 Pendant les vacances, en français, il faut faire des fiches de… ?", t:"qcm", c:["maths","lecture","sport","dessin"], a:1, d:2, fact:"Des fiches de lecture pour construire ta culture personnelle. Garde-les : chaque été, relis toutes tes fiches de lecture des années passées."},
+  ],
   kpop:[
     {q:"🎤 BONUS — Quel groupe a sorti « Pink Venom » ?", t:"qcm", c:["BTS","BLACKPINK","TWICE","BabyMonster"], a:1},
     {q:"🎤 BONUS — Combien de membres dans BLACKPINK ?", t:"qcm", c:["3","4","5","7"], a:1},
@@ -1580,9 +1628,10 @@ const META = {
   geo:{name:"GÉOGRAPHIE", badge:"b-geo"},
   emc:{name:"EMC", badge:"b-emc"},
   art:{name:"HISTOIRE DE L'ART", badge:"b-art"},
+  sixieme:{name:"6ᵉ COLLÈGE", badge:"b-six"},
   kpop:{name:"⭐ BONUS K-POP ⭐", badge:"b-kpop"},
 };
-const SUBJECTS = ["maths","anglais","sciences","grammaire","histoire","geo","emc","art"];
+const SUBJECTS = ["maths","anglais","sciences","grammaire","histoire","geo","emc","art","sixieme"];
 // réglages par difficulté : multiplicateur de points, vies, secondes par question (0 = pas de timer)
 const DIFF = {
   1:{mult:1, lives:3, time:0,  label:"Facile"},
@@ -1917,6 +1966,19 @@ function render(){
       b.onclick=()=>pickQcm(b,i);
       ch.appendChild(b);
     });
+  }else if(it.t==="vf"){
+    $("choices").style.display="grid"; $("inputWrap").style.display="none";
+    const ch=$("choices"); ch.innerHTML="";
+    [["✓","VRAI",true],["✕","FAUX",false]].forEach(([k,txt,val])=>{
+      const b=document.createElement("button");
+      b.className="choice vf "+(val?"vfT":"vfF");
+      b.innerHTML='<span class="ch-key">'+k+'</span><span class="ch-txt">'+txt+'</span>';
+      b.onclick=()=>pickVF(b,val);
+      ch.appendChild(b);
+    });
+  }else if(it.t==="match"){
+    $("choices").style.display="block"; $("inputWrap").style.display="none";
+    buildMatch(it);
   }else{
     $("choices").style.display="none"; $("inputWrap").style.display="block";
     buildSlots(it.a[0]);
@@ -1935,6 +1997,53 @@ function pickQcm(btn,i){
   if(i===it.a){ btn.classList.add("correct"); win(btn); }
   else{ btn.classList.add("wrong"); $("choices").children[it.a].classList.add("correct"); lose(it.c[it.a]); }
   showNext();
+}
+
+/* ----- VRAI / FAUX ----- */
+function pickVF(btn,val){
+  if(answered) return;
+  answered=true; stopTimer(); sndClick(); refreshJokers();
+  const it=current();
+  [...$("choices").children].forEach(b=>b.disabled=true);
+  if(val===it.a){ btn.classList.add("correct"); win(btn); }
+  else{ btn.classList.add("wrong"); [...$("choices").children].find(b=>b.classList.contains(it.a?"vfT":"vfF")).classList.add("correct"); lose(it.a?"VRAI":"FAUX"); }
+  showNext();
+}
+
+/* ----- ASSOCIER (matching) ----- */
+let matchSel=null, matchDone=0, matchErr=0;
+function buildMatch(it){
+  matchSel=null; matchDone=0; matchErr=0;
+  const lefts=it.pairs.map(p=>p[0]);
+  const rights=shuffle(it.pairs.map((p,i)=>({txt:p[1],i})));
+  const lhtml=it.pairs.map((p,i)=>`<button class="mItem" data-l="${i}">${esc(p[0])}</button>`).join("");
+  const rhtml=rights.map(o=>`<button class="mItem" data-r="${o.i}">${esc(o.txt)}</button>`).join("");
+  $("choices").innerHTML=`<div class="matchHint">👉 Touche un élément à gauche, puis sa réponse à droite</div>
+    <div class="matchGrid"><div class="matchCol">${lhtml}</div><div class="matchCol">${rhtml}</div></div>`;
+  $("choices").querySelectorAll(".mItem").forEach(b=>b.onclick=()=>matchTap(b));
+}
+function matchTap(b){
+  if(answered || b.classList.contains("ok")) return;
+  if(b.dataset.l!=null){ // gauche
+    $("choices").querySelectorAll('[data-l]').forEach(x=>x.classList.remove("sel"));
+    b.classList.add("sel"); matchSel=+b.dataset.l; sndClick(); return;
+  }
+  if(b.dataset.r!=null){ // droite
+    if(matchSel==null){ b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake"),300); return; }
+    const r=+b.dataset.r;
+    const lbtn=$("choices").querySelector('[data-l="'+matchSel+'"]');
+    if(r===matchSel){
+      b.classList.add("ok"); lbtn.classList.add("ok"); lbtn.classList.remove("sel"); b.disabled=true; lbtn.disabled=true;
+      matchSel=null; matchDone++; blip(740,.08,0,.12);
+      if(matchDone===current().pairs.length){ answered=true; stopTimer(); refreshJokers();
+        if(matchErr===0) win($("choices")); else { combo=0; correctCount++; questProgress("correct",1); $("feedback").textContent="✅ Associé ! (avec "+matchErr+" erreur"+(matchErr>1?"s":"")+")"; $("feedback").className="feedback good"; sndGood(); updateHud(); }
+        showNext();
+      }
+    } else {
+      matchErr++; b.classList.add("mwrong"); lbtn.classList.add("mwrong"); sndBad();
+      setTimeout(()=>{ b.classList.remove("mwrong"); lbtn.classList.remove("mwrong","sel"); },420); matchSel=null;
+    }
+  }
 }
 
 function checkInput(){
@@ -2162,7 +2271,12 @@ const SKINS=[
  {skin:"#8d5524",skin2:"#6f3f17"},
  {skin:"#5c3a1e",skin2:"#432a14"},
 ];
-let avHair=0, avAcc=1, avStyle=0, avSkin=0;
+let avHair=0, avAcc=1, avStyle=0, avSkin=0, avOutfit=0;
+// tenues (couleur de la tenue de scène)
+const OUTFITS=[
+ {name:"Idol",c:null},{name:"Noir",c:"#1b1626"},{name:"Rose",c:"#ff2e88"},{name:"Cyan",c:"#0ea5b7"},
+ {name:"Doré",c:"#caa02a"},{name:"Violet",c:"#7c3aed"},{name:"Menthe",c:"#16a085"},{name:"Blanc",c:"#dfe3ec"},
+];
 // mascottes (débloquées avec l'XP) + accessoires de mascotte
 const MASCOTS=[
  {emo:"🐱",name:"Chat",xp:0},{emo:"🐶",name:"Chien",xp:0},{emo:"🐰",name:"Lapin",xp:400},
@@ -2196,15 +2310,17 @@ function accSVG(acc){
     default: return "";
   }
 }
-function idolSVG(p,acc=0,style=0,key="",skin=null){
+function idolSVG(p,acc=0,style=0,key="",skin=null,outfit=null){
  const H=HAIRS[style]||HAIRS[0];
  const SK=skin||{skin:p.skin,skin2:p.skin2};
+ const OUT=outfit||p.outfit;
  return `<svg viewBox="0 0 120 120" class="idolsvg">
  <defs><radialGradient id="bg${p.id}_${key||'h'}" cx="50%" cy="30%" r="80%"><stop offset="0" stop-color="${p.bg1}"/><stop offset="1" stop-color="${p.bg2}"/></radialGradient></defs>
  <rect width="120" height="120" rx="26" fill="url(#bg${p.id}_${key||'h'})"/>
  <circle cx="22" cy="24" r="2" fill="#fff" opacity=".5"/><circle cx="98" cy="32" r="1.6" fill="#fff" opacity=".4"/><circle cx="100" cy="80" r="1.6" fill="#fff" opacity=".35"/>
- <path d="M14 120 q46 -32 92 0Z" fill="${p.outfit}"/>
+ <path d="M14 120 q46 -32 92 0Z" fill="${OUT}"/>
  <path d="M44 120 q16 -16 32 0" fill="none" stroke="${p.accent}" stroke-width="3" opacity=".6"/>
+ <path d="M36 120 q24 -20 48 0" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
  <rect x="53" y="78" width="14" height="16" rx="6" fill="${SK.skin2}"/>
  ${H.back(p)}
  <circle cx="38" cy="58" r="4.6" fill="${SK.skin}"/><circle cx="82" cy="58" r="4.6" fill="${SK.skin}"/>
@@ -2226,10 +2342,11 @@ function refreshXPchip(){
   $("xpChip").textContent="⭐ Niv "+idolLevel(xp)+" · "+xp+" XP";
 }
 function renderStudio(){
-  $("studioPrev").innerHTML=idolSVG(PALS[avHair],avAcc,avStyle,"prev",SKINS[avSkin]);
-  $("styleRow").innerHTML=HAIRS.map((H,i)=>`<button class="styopt ${i===avStyle?'sel':''}" data-st="${i}" title="${H.n}">${idolSVG(PALS[avHair],0,i,'st'+i,SKINS[avSkin])}</button>`).join("");
+  $("studioPrev").innerHTML=idolSVG(PALS[avHair],avAcc,avStyle,"prev",SKINS[avSkin],OUTFITS[avOutfit].c);
+  $("styleRow").innerHTML=HAIRS.map((H,i)=>`<button class="styopt ${i===avStyle?'sel':''}" data-st="${i}" title="${H.n}">${idolSVG(PALS[avHair],0,i,'st'+i,SKINS[avSkin],OUTFITS[avOutfit].c)}</button>`).join("");
   $("hairRow").innerHTML=PALS.map((p,i)=>`<button class="swatch ${i===avHair?'sel':''}" data-h="${i}" style="background:linear-gradient(135deg,${p.hair},${p.hair2})"></button>`).join("");
   $("skinRow").innerHTML=SKINS.map((s,i)=>`<button class="swatch ${i===avSkin?'sel':''}" data-sk="${i}" style="background:linear-gradient(135deg,${s.skin},${s.skin2})"></button>`).join("");
+  $("outfitRow").innerHTML=OUTFITS.map((o,i)=>`<button class="swatch ${i===avOutfit?'sel':''}" data-of="${i}" title="${o.name}" style="background:${o.c?o.c:'linear-gradient(135deg,#ff5fa2,#46e6ff)'}"></button>`).join("");
   const xp=getXP();
   $("accRow").innerHTML=ACCS.map((a,i)=>{
     const locked=xp<a.xp;
@@ -2243,6 +2360,7 @@ function renderStudio(){
   $("petAccRow").querySelectorAll(".petacc").forEach(b=>b.onclick=()=>{ if(getXP()<+b.dataset.xp){ $("accHint").textContent="🔒 Accessoire mascotte à "+b.dataset.xp+" XP"; sndBad(); return; } avPetAcc=+b.dataset.pa; saveAv(); renderStudio(); sndClick(); });
   $("styleRow").querySelectorAll(".styopt").forEach(b=>b.onclick=()=>{ avStyle=+b.dataset.st; saveAv(); renderStudio(); updateHero(); sndClick(); });
   $("skinRow").querySelectorAll(".swatch").forEach(b=>b.onclick=()=>{ avSkin=+b.dataset.sk; saveAv(); renderStudio(); updateHero(); sndClick(); });
+  $("outfitRow").querySelectorAll(".swatch").forEach(b=>b.onclick=()=>{ avOutfit=+b.dataset.of; saveAv(); renderStudio(); updateHero(); sndClick(); });
   $("hairRow").querySelectorAll(".swatch").forEach(b=>b.onclick=()=>{ avHair=+b.dataset.h; saveAv(); renderStudio(); updateHero(); sndClick(); });
   $("accRow").querySelectorAll(".acc").forEach(b=>b.onclick=()=>{
     if(getXP()<+b.dataset.xp){ $("accHint").textContent="🔒 Débloque à "+b.dataset.xp+" XP — joue pour en gagner !"; sndBad(); return; }
@@ -2250,10 +2368,10 @@ function renderStudio(){
   });
   refreshXPchip();
 }
-function saveAv(){ try{localStorage.setItem('cm2kpop_hair',avHair); localStorage.setItem('cm2kpop_acc',avAcc); localStorage.setItem('cm2kpop_style',avStyle); localStorage.setItem('cm2kpop_skin',avSkin); localStorage.setItem('cm2kpop_pet',avPet); localStorage.setItem('cm2kpop_petacc',avPetAcc);}catch(e){} }
+function saveAv(){ try{localStorage.setItem('cm2kpop_hair',avHair); localStorage.setItem('cm2kpop_acc',avAcc); localStorage.setItem('cm2kpop_style',avStyle); localStorage.setItem('cm2kpop_skin',avSkin); localStorage.setItem('cm2kpop_outfit',avOutfit); localStorage.setItem('cm2kpop_pet',avPet); localStorage.setItem('cm2kpop_petacc',avPetAcc);}catch(e){} }
 function updateHero(){
   const n=PALS.length, trio=[(avHair+n-1)%n,avHair,(avHair+1)%n];
-  $("heroIdols").innerHTML=trio.map((i,k)=>idolSVG(PALS[i], k===1?avAcc:0, avStyle, 'hero'+k, SKINS[avSkin])).join("");
+  $("heroIdols").innerHTML=trio.map((i,k)=>idolSVG(PALS[i], k===1?avAcc:0, avStyle, 'hero'+k, SKINS[avSkin], OUTFITS[avOutfit].c)).join("");
 }
 function buildEq(){ $("eq").innerHTML=Array.from({length:9},(_,i)=>`<i style="animation-delay:${(i*.1).toFixed(2)}s;height:${8+Math.random()*14}px"></i>`).join(""); }
 function buildParticles(){
@@ -2275,6 +2393,7 @@ const SVGI={
  emc:`<svg viewBox="0 0 24 24" ${_s}><path d="M12 3v18M5 21h14M6 6.5l12-1.6"/><path d="M6 6.5l-3 6h6zM18 4.9l-3 6h6z"/></svg>`,
  art:`<svg viewBox="0 0 24 24" ${_s}><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.9 1.8-1.9 0-.5-.2-.9-.5-1.2-.3-.4-.5-.8-.5-1.3 0-1 .9-1.8 1.9-1.8H17a4 4 0 0 0 4-4c0-4.3-4-7.8-9-7.8"/><circle cx="7.6" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="10.5" cy="7.8" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="8.3" r="1" fill="currentColor" stroke="none"/></svg>`,
  all:`<svg viewBox="0 0 24 24" ${_s}><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4M8.5 21h7"/></svg>`,
+ sixieme:`<svg viewBox="0 0 24 24" ${_s}><path d="M5 9a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><path d="M9 6V5a3 3 0 0 1 6 0v1"/><path d="M9 13h6"/></svg>`,
 };
 const SVG_MIC=SVGI.all;
 const SVG_SPK=`<svg viewBox="0 0 24 24" ${_s}><path d="M11 5L6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>`;
@@ -2316,6 +2435,7 @@ const BUILD=[
  {cat:"geo",       name:"Agence Voyages",x:240, y:930, c1:"#2dd4bf",c2:"#15803d"},
  {cat:"all",       name:"Scène K-Pop",   x:600, y:980, c1:"#a855f7",c2:"#ec4899"},
  {cat:"emc",       name:"Mairie",        x:960, y:930, c1:"#818cf8",c2:"#7c3aed"},
+ {cat:"sixieme",   name:"Collège 6ᵉ",    x:600, y:330, c1:"#22d3ee",c2:"#0ea5b7"},
 ];
 const NPCS=[
  {x:360,y:330,h:0,st:1,acc:1,sk:0,name:"Yuna",   lines:["Bonjour ! Prête à briller comme une idol ? ✨","En Maths, lis bien l'énoncé avant de répondre 😉","Tu savais ? La Joconde est minuscule : 77×53 cm !"]},
@@ -2363,7 +2483,7 @@ function buildWorld(){
     inner.insertBefore(el, pl);
   });
 }
-function renderPlayer(){ $("pchar").innerHTML=idolSVG(PALS[avHair],avAcc,avStyle,"world",SKINS[avSkin]); }
+function renderPlayer(){ $("pchar").innerHTML=idolSVG(PALS[avHair],avAcc,avStyle,"world",SKINS[avSkin],OUTFITS[avOutfit].c); }
 function renderPet(){ $("pemo").textContent=MASCOTS[avPet].emo; $("pacc").textContent=PET_ACCS[avPetAcc].emo; }
 function placePlayer(){ const p=$("player"); p.style.left=wx+"px"; p.style.top=wy+"px"; }
 function placePet(){ const e=$("pet"); e.style.left=petX+"px"; e.style.top=petY+"px"; }
@@ -2497,7 +2617,7 @@ function checkAchievements(s){ ACHV.forEach(a=>{ if(!s.unlocked.includes(a.id) &
 /* ===================== JOKERS ===================== */
 function refreshJokers(){
   const it=current()||{};
-  [["jk50","fifty",it.t==="qcm"],["jkSkip","skip",true],["jkHint","hint",true]].forEach(([id,key,avail])=>{
+  [["jk50","fifty",it.t==="qcm"],["jkSkip","skip",true],["jkHint","hint",it.t==="qcm"||it.t==="in"]].forEach(([id,key,avail])=>{
     const b=$(id); if(!b) return; const n=jk[key];
     const ic=b.querySelector("i"); if(ic) ic.textContent=n;
     b.disabled = answered || n<=0 || !avail;
@@ -2511,9 +2631,12 @@ function useJoker(key){
   else if(key==="hint"){ if(it.t==="qcm"){ const w=shuffle(wrongChoiceIdxs()); if(w[0]!=null){ const el=$("choices").children[w[0]]; el.classList.add("ko"); el.disabled=true; } } else { $("feedback").textContent="💡 Indice : ça commence par « "+it.a[0][0].toUpperCase()+" »"; $("feedback").className="feedback"; } jk.hint--; sndClick(); }
   else if(key==="skip"){
     jk.skip--; answered=true; stopTimer(); sndWhoosh();
-    if(it.t==="qcm"){ [...$("choices").children].forEach(b=>b.disabled=true); $("choices").children[it.a].classList.add("correct"); }
-    else { $("answer").disabled=true; }
-    $("feedback").innerHTML="⏭️ Passée. La réponse : <b class='corr'>"+(it.t==="qcm"?it.c[it.a]:it.a[0])+"</b>";
+    let ans="";
+    if(it.t==="qcm"){ [...$("choices").children].forEach(b=>b.disabled=true); $("choices").children[it.a].classList.add("correct"); ans=it.c[it.a]; }
+    else if(it.t==="vf"){ [...$("choices").children].forEach(b=>b.disabled=true); ans=it.a?"VRAI":"FAUX"; }
+    else if(it.t==="match"){ $("choices").querySelectorAll(".mItem").forEach(b=>b.disabled=true); ans="(association passée)"; }
+    else { $("answer").disabled=true; ans=it.a[0]; }
+    $("feedback").innerHTML="⏭️ Passée. La réponse : <b class='corr'>"+ans+"</b>";
     $("feedback").className="feedback";
     showNext();
   }
@@ -2572,6 +2695,7 @@ try{ const sh=+localStorage.getItem('cm2kpop_hair'); if(sh>=0 && sh<PALS.length)
      const sc=+localStorage.getItem('cm2kpop_acc'); if(sc>=0 && sc<ACCS.length) avAcc=sc;
      const st=+localStorage.getItem('cm2kpop_style'); if(st>=0 && st<HAIRS.length) avStyle=st;
      const sk=+localStorage.getItem('cm2kpop_skin'); if(sk>=0 && sk<SKINS.length) avSkin=sk;
+     const of=+localStorage.getItem('cm2kpop_outfit'); if(of>=0 && of<OUTFITS.length) avOutfit=of;
      const pt=+localStorage.getItem('cm2kpop_pet'); if(pt>=0 && pt<MASCOTS.length) avPet=pt;
      const pa=+localStorage.getItem('cm2kpop_petacc'); if(pa>=0 && pa<PET_ACCS.length) avPetAcc=pa;
      if(getXP()<ACCS[avAcc].xp) avAcc=1; if(getXP()<MASCOTS[avPet].xp) avPet=0; if(getXP()<PET_ACCS[avPetAcc].xp) avPetAcc=0; }catch(e){}
