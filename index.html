@@ -641,7 +641,7 @@
     <div class="eq" id="eq"></div>
     <div class="hero-idols" id="heroIdols"></div>
     <h1 class="neon">CM2 <span class="neon2">K-POP</span></h1>
-    <p class="tag">Révise tout le programme CM2 façon idol — 8 matières · scène, combos &amp; bonus K-Pop 💖</p>
+    <p class="tag">Révise tout le programme CM2 façon idol — 8 matières · scène, combos &amp; bonus K-Pop 💖<br><span style="font-size:.72rem;opacity:.7">v2.0 · 732 questions · modes • jokers • quêtes • trophées</span></p>
   </header>
 
   <div class="hud" id="hud" style="display:none;">
@@ -2582,7 +2582,13 @@ renderQuest(); renderTrophies();
 updateHud();
 
 // PWA : installable + hors-ligne
-if("serviceWorker" in navigator){ window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{})); }
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("sw.js").then(reg=>{ reg.update(); setInterval(()=>reg.update(), 60000); }).catch(()=>{});
+  });
+  let swReloaded=false;
+  navigator.serviceWorker.addEventListener("controllerchange",()=>{ if(swReloaded)return; swReloaded=true; location.reload(); });
+}
 </script>
 </body>
 </html>
