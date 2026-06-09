@@ -300,6 +300,45 @@
     filter:drop-shadow(0 0 6px #46e6ff); animation:hue 4s linear infinite; }
   .hero::before{ left:8%; top:6px; } .hero::after{ right:9%; top:30px; font-size:1.1rem; }
 
+  /* ============ MODES DE JEU ============ */
+  .modes{ display:flex; gap:8px; margin-bottom:14px; }
+  .mode{ flex:1; border:2px solid rgba(255,255,255,.18); background:rgba(8,6,16,.6); color:var(--txt); border-radius:14px; padding:9px 6px; cursor:pointer; transition:.15s; text-align:center; }
+  .mode b{ display:block; font-size:.9rem; } .mode small{ font-size:.62rem; color:var(--muted); }
+  .mode:hover{ transform:translateY(-2px); }
+  .mode.active{ border-color:transparent; color:#0a0612;
+    background:linear-gradient(135deg,#ff5fa2,#ffd24d,#46e6ff); background-size:200% auto; animation:holoshift 4s linear infinite; }
+  .mode.active small{ color:#241; }
+
+  /* ============ QUÊTE DU JOUR ============ */
+  .quest{ background:rgba(8,6,16,.6); border:1.5px solid transparent; background-image:linear-gradient(rgba(8,6,16,.7),rgba(8,6,16,.7)),linear-gradient(135deg,#ffd24d,#46e6ff); background-origin:border-box; background-clip:padding-box,border-box; border-radius:16px; padding:12px 14px; margin-bottom:14px; }
+  .quest .qHead{ font-family:"Baloo 2",cursive; font-weight:800; font-size:.95rem; display:flex; justify-content:space-between; align-items:center; }
+  .quest .qDone{ color:#5ef2b0; font-size:.78rem; }
+  .quest .qTxt{ font-size:.84rem; color:var(--txt); margin:4px 0 7px; }
+  .quest .qBar{ height:9px; background:#160a2c; border-radius:999px; overflow:hidden; }
+  .quest .qBar>div{ height:100%; background:linear-gradient(90deg,#ffd24d,#5ef2b0,#46e6ff); transition:width .4s; }
+  .quest .qFoot{ font-size:.7rem; color:var(--muted); margin-top:6px; }
+
+  /* ============ JOKERS ============ */
+  .jokers{ display:flex; gap:8px; margin:0 0 14px; }
+  .jk{ flex:1; border:2px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); color:var(--txt); border-radius:12px; padding:9px 4px; cursor:pointer; font-weight:700; font-size:.82rem; transition:.12s; }
+  .jk i{ font-style:normal; font-weight:800; color:#fde047; }
+  .jk:hover:not(:disabled){ transform:translateY(-2px); border-color:var(--pink); }
+  .jk:disabled,.jk.off{ opacity:.35; cursor:default; }
+  .choice.ko{ opacity:.25; text-decoration:line-through; pointer-events:none; filter:grayscale(.7); }
+
+  /* ============ TROPHÉES ============ */
+  .trophies{ display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+  .trophy{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:8px 4px; text-align:center; }
+  .trophy .tEmo{ font-size:1.5rem; display:block; filter:grayscale(1) opacity(.5); }
+  .trophy .tName{ font-size:.56rem; color:var(--muted); display:block; margin-top:2px; line-height:1.1; }
+  .trophy.got{ background:linear-gradient(160deg,rgba(255,95,162,.18),rgba(70,230,255,.12)); border-color:rgba(255,210,77,.5); }
+  .trophy.got .tEmo{ filter:none; } .trophy.got .tName{ color:var(--txt); }
+
+  /* ============ TOAST ============ */
+  .toast{ position:fixed; left:0; right:0; top:14px; z-index:120; display:flex; flex-direction:column; align-items:center; gap:8px; pointer-events:none; }
+  .toastMsg{ background:linear-gradient(120deg,#ff5fa2,#a45cff); color:#fff; font-weight:800; font-size:.85rem; padding:10px 18px; border-radius:999px; box-shadow:0 8px 22px rgba(0,0,0,.5); opacity:0; transform:translateY(-14px); transition:.3s; max-width:90vw; text-align:center; }
+  .toastMsg.show{ opacity:1; transform:translateY(0); }
+
   /* ============ BOUTON EXPLORER + MONDE (overworld) ============ */
   .exploreBtn{ width:100%; display:flex; align-items:center; gap:14px; cursor:pointer; margin:6px 0 4px;
     border:2px solid #fff; border-radius:18px; padding:14px 16px; color:#0a0612; text-align:left;
@@ -591,6 +630,7 @@
     <div id="particles"></div>
   </div>
 
+  <div class="toast" id="toast" aria-live="polite"></div>
   <div class="vignette" aria-hidden="true"></div>
   <div class="holo" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
@@ -643,6 +683,13 @@
         <button class="diff d3" data-d="3"><span class="dico"></span>Difficile</button>
         <button class="diff d4" data-d="4"><span class="dico"></span>Extrême</button>
       </div>
+      <div class="difflabel">Mode de jeu</div>
+      <div class="modes" id="modes">
+        <button class="mode active" data-mode="classic"><b>🎯 Classique</b><small>12 questions</small></button>
+        <button class="mode" data-mode="survie"><b>💀 Survie</b><small>jusqu'à la faute</small></button>
+        <button class="mode" data-mode="chrono"><b>⏱️ Chrono</b><small>90 secondes</small></button>
+      </div>
+      <div class="quest" id="quest"></div>
       <button class="exploreBtn" id="exploreBtn"><span class="exico">🎮</span><span><b>EXPLORER LA VILLE</b><small>Marche et entre dans les lieux pour jouer</small></span></button>
       <div class="seclabel">…ou choisis directement une matière</div>
       <div class="subjects">
@@ -664,6 +711,9 @@
         </div>
         <ol class="boardList" id="boardList"><li class="boardEmpty">Aucune partie encore… sois la 1ʳᵉ idol du classement !</li></ol>
       </div>
+
+      <div class="seclabel" style="margin-top:18px">🏆 Trophées <span class="optmini" id="trophyCount"></span></div>
+      <div class="trophies" id="trophies"></div>
     </div>
 
     <!-- QUIZ -->
@@ -675,6 +725,12 @@
       <div class="progress"><div id="bar"></div></div>
       <div class="question" id="question">—</div>
       <div class="qsub" id="qsub"></div>
+
+      <div class="jokers" id="jokers">
+        <button class="jk" id="jk50" data-jk="fifty">🎯 50/50 <i>1</i></button>
+        <button class="jk" id="jkSkip" data-jk="skip">⏭️ Passer <i>1</i></button>
+        <button class="jk" id="jkHint" data-jk="hint">💡 Indice <i>2</i></button>
+      </div>
 
       <div class="choices" id="choices"></div>
 
@@ -1541,6 +1597,8 @@ let queue=[], idx=0, score=0, combo=0, lives=3, answered=false, muted=false;
 let difficulty=1, maxLives=3;
 let timerId=null, timeLeft=0;
 let playerName="", correctCount=0, bonusCount=0, bestCombo=0;
+let gameMode="classic", roundN=12, wrongCount=0;
+let jk={fifty:1,skip:1,hint:2}, chronoLeft=0, chronoId=null;
 const $ = id=>document.getElementById(id);
 
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
@@ -1675,14 +1733,14 @@ function poolFor(cat,D,n){
 function buildQueue(cat){
   let arr=[];
   if(cat==="all"){
-    const per=Math.ceil(ROUND/SUBJECTS.length)+1;
+    const per=Math.ceil(roundN/SUBJECTS.length)+2;
     SUBJECTS.forEach(c=>{ poolFor(c,difficulty,per).forEach(o=>arr.push(o)); });
-    arr=shuffle(arr).slice(0,ROUND);
+    arr=shuffle(arr).slice(0,roundN);
   }else{
-    arr=poolFor(cat,difficulty,ROUND);
+    arr=poolFor(cat,difficulty,roundN);
   }
   // bonus K-Pop : fréquents ET adaptés à la difficulté choisie
-  const nb = cat==="all"?5:4;
+  const nb = Math.max(2, Math.round(roundN*(cat==="all"?0.42:0.34)));
   const kAll=BANK.kpop.map(o=>({...o,d:o.d||1}));
   const kLvl=kAll.filter(o=>o.d===difficulty);
   let kpool=shuffle(kLvl.filter(o=>!recentQ.includes(o.q))).concat(shuffle(kLvl.filter(o=>recentQ.includes(o.q))));
@@ -1701,10 +1759,12 @@ function startGame(cat){
   playerName = ($("playerName").value||"").trim().slice(0,14);
   try{ localStorage.setItem(NAME_KEY, playerName); }catch(e){}
   const cfg=DIFF[difficulty];
-  maxLives=cfg.lives;
+  roundN = (gameMode==="classic") ? 12 : 60;          // survie/chrono : longue file
+  maxLives = (gameMode==="chrono") ? 999 : cfg.lives;  // chrono : pas de mort
   queue=buildQueue(cat);
-  idx=0; score=0; combo=0; lives=maxLives; answered=false;
-  correctCount=0; bonusCount=0; bestCombo=0;
+  idx=0; score=0; combo=0; lives=maxLives; answered=false; finished=false;
+  correctCount=0; bonusCount=0; bestCombo=0; wrongCount=0;
+  jk={fifty:1, skip:1, hint:2};
   sndStart();
   updateHud();
   document.body.classList.add("playing");
@@ -1712,19 +1772,22 @@ function startGame(cat){
   $("home").style.display="none";
   $("end").style.display="none";
   $("quiz").style.display="block";
+  if(gameMode==="chrono") startChrono(); else stopChrono();
+  questProgress("games",1);
   render();
 }
 
 function updateHud(){
   $("score").textContent=score;
   $("combo").textContent="x"+(combo+1);
-  $("lives").textContent="❤️".repeat(lives)+"🖤".repeat(Math.max(0,maxLives-lives));
+  $("lives").textContent = gameMode==="chrono" ? "∞" : "❤️".repeat(Math.max(0,lives))+"🖤".repeat(Math.max(0,maxLives-lives));
 }
 
 /* ----- TIMER (difficile / extrême) ----- */
-function stopTimer(){ if(timerId){ clearInterval(timerId); timerId=null; } $("timer").classList.remove("warn"); }
+function stopTimer(){ if(timerId){ clearInterval(timerId); timerId=null; } if(gameMode!=="chrono") $("timer").classList.remove("warn"); }
 function startTimer(){
   stopTimer();
+  if(gameMode==="chrono") return;   // le chrono global gère le temps
   const t=DIFF[difficulty].time;
   $("timerPill").style.display = t>0 ? "block" : "none";
   if(t<=0) return;
@@ -1745,7 +1808,7 @@ function timeUp(){
   else{ $("answer").disabled=true; $("answer").classList.add("bad"); }
   $("feedback").innerHTML="⏱️ Trop tard ! La réponse : <b class='corr'>"+(it.t==="qcm"?it.c[it.a]:it.a[0])+"</b>";
   $("feedback").className="feedback bad";
-  combo=0; lives--; sndBad(); setTimeout(sndLife,260); updateHud();
+  combo=0; lives--; wrongCount++; sndBad(); setTimeout(sndLife,260); updateHud(); refreshJokers();
   if(lives<=0){ setTimeout(finish,900); } else showNext();
 }
 
@@ -1828,8 +1891,8 @@ function render(){
   answered=false;
   const it=current(), m=META[it.cat];
   $("badge").textContent=m.name; $("badge").className="badge "+m.badge;
-  $("qcount").textContent=(idx+1)+" / "+queue.length;
-  $("bar").style.width=(idx/queue.length*100)+"%";
+  $("qcount").textContent = gameMode==="classic" ? (idx+1)+" / "+queue.length : ("Q"+(idx+1)+" · ✅ "+correctCount);
+  $("bar").style.width = gameMode==="classic" ? (idx/queue.length*100)+"%" : "100%";
 
   // énoncé + bouton écouter pour l'anglais
   const qhtml = (it.cat==="kpop"?glam(it.q):esc(it.q)) + (it.say?` <button class="listen" id="listenBtn">🔊</button>`:"");
@@ -1861,11 +1924,12 @@ function render(){
     setTimeout(()=>a.focus(),50);
   }
   startTimer();
+  refreshJokers();
 }
 
 function pickQcm(btn,i){
   if(answered) return;
-  answered=true; stopTimer(); sndClick();
+  answered=true; stopTimer(); sndClick(); refreshJokers();
   const it=current();
   [...$("choices").children].forEach(b=>b.disabled=true);
   if(i===it.a){ btn.classList.add("correct"); win(btn); }
@@ -1877,7 +1941,7 @@ function checkInput(){
   if(answered){ next(); return; }
   const it=current(); const a=$("answer"); const u=norm(a.value);
   if(!u){ a.focus(); return; }
-  answered=true; stopTimer(); a.disabled=true;
+  answered=true; stopTimer(); a.disabled=true; refreshJokers();
   const ok = it.a.some(x=>norm(x)===u);
   if(ok){ a.classList.add("good"); win(a); }
   else{ a.classList.add("bad"); lose(it.a[0]); }
@@ -1891,6 +1955,7 @@ function win(anchor){
   const pts = base*mult*(combo+1);
   score+=pts; combo++;
   correctCount++; if(bonus) bonusCount++; if(combo>bestCombo) bestCombo=combo;
+  questProgress("correct",1); questProgress("combo",combo); if(bonus) questProgress("bonus",1);
   if(bonus) sndBonus(); else sndGood();
   if(combo>=3 && combo%2===1) setTimeout(sndCombo,180);   // jingle de palier de combo
   $("combo").classList.add("hot"); setTimeout(()=>$("combo").classList.remove("hot"),400);
@@ -1902,18 +1967,21 @@ function win(anchor){
 }
 
 function lose(correct){
-  combo=0; lives--; sndBad(); setTimeout(sndLife,260);
+  combo=0; wrongCount++;
+  if(gameMode!=="chrono") lives--;
+  sndBad(); setTimeout(sndLife,260);
   $("feedback").innerHTML="❌ Raté… La bonne réponse : <b class='corr'>"+correct+"</b>";
   $("feedback").className="feedback bad";
   updateHud();
-  if(lives<=0){ setTimeout(finish,900); }
+  if(gameMode!=="chrono" && lives<=0){ setTimeout(finish,900); }
 }
 
 function showNext(){
-  if(lives<=0) return;
+  if(gameMode!=="chrono" && lives<=0) return;
+  if(gameMode==="chrono"){ setTimeout(()=>{ if(chronoLeft>0 && $("quiz").style.display!=="none") next(); }, 650); return; }
   showReveal(current());
   $("nextWrap").style.display="flex";
-  $("nextBtn").textContent = (idx>=queue.length-1)?"Voir mon résultat 🏆":"Suivant ➜";
+  $("nextBtn").textContent = (gameMode==="classic" && idx>=queue.length-1)?"Voir mon résultat 🏆":"Suivant ➜";
 }
 
 function next(){
@@ -1932,41 +2000,52 @@ function next(){
   }
 }
 
+let finished=false;
 function finish(){
-  stopTimer();
+  if(finished) return; finished=true;
+  stopTimer(); stopChrono();
   $("hud").style.display="none";
   $("bar").style.width="100%";
   $("quiz").style.display="none";
   $("end").style.display="block";
   $("finalPts").textContent=score+" pts";
-  const ref = ROUND*10*DIFF[difficulty].mult;   // score "plein" approximatif (hors combos)
-  const r = score/ref;
-  const extra = difficulty>=4 ? " 🔥 en mode EXTRÊME, légende absolue !" : "";
+  const dead = (gameMode!=="chrono" && lives<=0);
+  // rang : score plein pour Classique, nb de bonnes réponses pour Survie/Chrono
+  const r = gameMode==="classic" ? score/(ROUND*10*DIFF[difficulty].mult) : correctCount/22;
+  const modeTag = gameMode==="survie" ? " 💀 Survie" : gameMode==="chrono" ? " ⏱️ Chrono" : (difficulty>=4?" 🔥 EXTRÊME":"");
   let emo,name,msg;
-  if(lives<=0){ emo="💔"; name="GAME OVER"; msg="Plus de vies ! Réessaie, tu vas y arriver 💪"; sndGameOver(); }
-  else if(r>=.85){ emo="👑"; name="MAIN VOCALIST · IDOL ULTIME"; msg="Score incroyable !"+extra; sndLevelUp(); }
-  else if(r>=.55){ emo="⭐"; name="CENTER"; msg="Super performance, tu brilles sur scène !"+extra; sndLevelUp(); }
+  if(dead){ emo="💔"; name="GAME OVER"; msg="Plus de vies ! Réessaie, tu vas y arriver 💪"; sndGameOver(); }
+  else if(r>=.85){ emo="👑"; name="MAIN VOCALIST · IDOL ULTIME"; msg="Score incroyable !"+modeTag; sndLevelUp(); }
+  else if(r>=.55){ emo="⭐"; name="CENTER"; msg="Super performance, tu brilles sur scène !"+modeTag; sndLevelUp(); }
   else if(r>=.3){ emo="🎤"; name="TRAINEE CONFIRMÉ"; msg="Bien joué ! Encore un peu d'entraînement."; sndLevelUp(); }
-  else{ emo="🌱"; name="ROOKIE"; msg="Bon début ! Rejoue pour grimper dans le classement."; sndStart(); }
+  else{ emo="🌱"; name="ROOKIE"; msg="Bon début ! Rejoue pour grimper."; sndStart(); }
   $("rankEmo").textContent=emo; $("rankName").textContent=name; $("endMsg").textContent=msg;
   $("homeBtn").textContent = cameFromWorld ? "🏙️ Retour ville" : "🏠 Menu";
-  if(lives>0 && r>=.55){ confetti(); confetti(); }
+  if(!dead && r>=.55){ confetti(); confetti(); }
 
-  // ----- enregistre le score dans le classement -----
-  const total = queue.length;
-  $("endStats").innerHTML = `✅ ${correctCount}/${total} bonnes réponses · 🔥 combo max x${bestCombo+1} · 💜 ${bonusCount} bonus K-Pop`;
+  const modeLbl = gameMode==="survie"?"Survie":gameMode==="chrono"?"Chrono":"Classique";
+  $("endStats").innerHTML = `🎮 ${modeLbl} · ✅ ${correctCount} bonnes réponses · 🔥 combo max x${bestCombo+1} · 💜 ${bonusCount} bonus K-Pop`;
   const entry = { id:Date.now()+"-"+Math.random().toString(36).slice(2,6),
     name: playerName||"Anonyme", score, cat:lastCat, diff:difficulty, hair:avHair, acc:avAcc, style:avStyle, skin:avSkin,
-    correct:correctCount, total, date:Date.now() };
+    correct:correctCount, total:queue.length, date:Date.now() };
   const res = addScore(entry);
   renderBoard("endBoardList", entry.id);
   if(res.isRecord && score>0){ $("newRec").style.display="block"; setTimeout(sndRecord,700); for(let k=0;k<3;k++) setTimeout(confetti,300*k+700); }
   else $("newRec").style.display="none";
 
-  // XP gagnée → peut débloquer des accessoires
+  // XP
   const before=idolLevel(getXP()); addXP(score); const after=idolLevel(getXP());
-  refreshXPchip();
   $("endStats").innerHTML += `<br>✨ +${score} XP gagnés${after>before?` · 🎉 Niveau ${after} atteint !`:""}`;
+
+  // stats & trophées
+  const s=loadStats();
+  s.games++; s.correct+=correctCount; s.bestCombo=Math.max(s.bestCombo,bestCombo+1);
+  if(!dead && wrongCount===0 && correctCount>=8 && gameMode==="classic") s.perfect++;
+  if(gameMode==="survie") s.survieBest=Math.max(s.survieBest,correctCount);
+  if(gameMode==="chrono") s.chronoBest=Math.max(s.chronoBest,correctCount);
+  if(!(s.modes||[]).includes(gameMode)) (s.modes=s.modes||[]).push(gameMode);
+  saveStats(s); checkAchievements(s);
+  refreshXPchip();
 }
 
 /* ===================== EFFETS ===================== */
@@ -2361,8 +2440,103 @@ function tryEnter(i){
   cameFromWorld=true; lastCat=BUILD[idx].cat; sndWhoosh(); startGame(BUILD[idx].cat);
 }
 
+/* ===================== TOAST ===================== */
+function toast(msg){
+  const t=document.createElement("div"); t.className="toastMsg"; t.textContent=msg;
+  $("toast").appendChild(t);
+  requestAnimationFrame(()=>t.classList.add("show"));
+  setTimeout(()=>{ t.classList.remove("show"); setTimeout(()=>t.remove(),320); }, 2600);
+}
+
+/* ===================== QUÊTE DU JOUR ===================== */
+const QUESTS=[
+  {id:"correct20", txt:"Réponds correctement à 20 questions", goal:20, xp:150, track:"correct"},
+  {id:"combo6",    txt:"Atteins un combo de x6",             goal:6,  xp:120, track:"combo"},
+  {id:"play3",     txt:"Joue 3 parties aujourd'hui",         goal:3,  xp:130, track:"games"},
+  {id:"correct30", txt:"Réponds correctement à 30 questions", goal:30, xp:200, track:"correct"},
+  {id:"bonus5",    txt:"Réussis 5 bonus K-Pop 💜",           goal:5,  xp:160, track:"bonus"},
+];
+function todayKey(){ const d=new Date(); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
+function loadQuest(){ let q; try{ q=JSON.parse(localStorage.getItem("cm2kpop_quest")); }catch(e){}
+  if(!q || q.date!==todayKey()){ q={date:todayKey(), id:QUESTS[new Date().getDate()%QUESTS.length].id, prog:0, done:false}; saveQuest(q); }
+  return q; }
+function saveQuest(q){ try{ localStorage.setItem("cm2kpop_quest",JSON.stringify(q)); }catch(e){} }
+function questDef(id){ return QUESTS.find(x=>x.id===id)||QUESTS[0]; }
+function renderQuest(){ const q=loadQuest(), d=questDef(q.id), pct=Math.min(100,Math.round(q.prog/d.goal*100));
+  $("quest").innerHTML=`<div class="qHead">🎯 Quête du jour ${q.done?'<span class="qDone">✓ Réussie !</span>':''}</div>
+    <div class="qTxt">${d.txt}</div>
+    <div class="qBar"><div style="width:${pct}%"></div></div>
+    <div class="qFoot">${Math.min(q.prog,d.goal)}/${d.goal} · récompense ⭐ ${d.xp} XP</div>`; }
+function questProgress(track,amount){ const q=loadQuest(); if(q.done) return; const d=questDef(q.id); if(d.track!==track) return;
+  q.prog = track==="combo" ? Math.max(q.prog,amount) : q.prog+amount;
+  if(q.prog>=d.goal){ q.prog=d.goal; q.done=true; addXP(d.xp); toast("🎯 Quête du jour réussie ! +"+d.xp+" XP"); refreshXPchip(); }
+  saveQuest(q); renderQuest(); }
+
+/* ===================== TROPHÉES / SUCCÈS ===================== */
+const ACHV=[
+  {id:"first",  emo:"🌟", name:"1re scène",   chk:s=>s.games>=1},
+  {id:"games10",emo:"🎤", name:"Habitué·e",   chk:s=>s.games>=10},
+  {id:"c100",   emo:"🧠", name:"Cerveau",     chk:s=>s.correct>=100},
+  {id:"c500",   emo:"📚", name:"Érudit·e",    chk:s=>s.correct>=500},
+  {id:"combo10",emo:"🔥", name:"En feu",      chk:s=>s.bestCombo>=10},
+  {id:"perfect",emo:"💯", name:"Sans-faute",  chk:s=>s.perfect>=1},
+  {id:"survie", emo:"💀", name:"Survivant·e", chk:s=>s.survieBest>=15},
+  {id:"chrono", emo:"⏱️", name:"Rapide",      chk:s=>s.chronoBest>=15},
+  {id:"modes",  emo:"🎮", name:"Touche-à-tout",chk:s=>(s.modes||[]).length>=3},
+  {id:"star",   emo:"👑", name:"Star",        chk:s=>getXP()>=5000},
+];
+function loadStats(){ let s; try{ s=JSON.parse(localStorage.getItem("cm2kpop_stats")); }catch(e){}
+  return Object.assign({games:0,correct:0,bestCombo:0,perfect:0,survieBest:0,chronoBest:0,modes:[],unlocked:[]}, s||{}); }
+function saveStats(s){ try{ localStorage.setItem("cm2kpop_stats",JSON.stringify(s)); }catch(e){} }
+function renderTrophies(){ const s=loadStats(); $("trophyCount").textContent=s.unlocked.length+"/"+ACHV.length;
+  $("trophies").innerHTML=ACHV.map(a=>{ const got=s.unlocked.includes(a.id);
+    return `<div class="trophy ${got?'got':''}" title="${a.name}"><span class="tEmo">${got?a.emo:"🔒"}</span><span class="tName">${a.name}</span></div>`; }).join(""); }
+function checkAchievements(s){ ACHV.forEach(a=>{ if(!s.unlocked.includes(a.id) && a.chk(s)){ s.unlocked.push(a.id); addXP(100); toast(a.emo+" Trophée : "+a.name+" (+100 XP)"); } });
+  saveStats(s); renderTrophies(); refreshXPchip(); }
+
+/* ===================== JOKERS ===================== */
+function refreshJokers(){
+  const it=current()||{};
+  [["jk50","fifty",it.t==="qcm"],["jkSkip","skip",true],["jkHint","hint",true]].forEach(([id,key,avail])=>{
+    const b=$(id); if(!b) return; const n=jk[key];
+    const ic=b.querySelector("i"); if(ic) ic.textContent=n;
+    b.disabled = answered || n<=0 || !avail;
+  });
+}
+function wrongChoiceIdxs(){ const it=current(); return [...$("choices").children].map((el,i)=>i).filter(i=>i!==it.a && !$("choices").children[i].classList.contains("ko")); }
+function useJoker(key){
+  if(answered || jk[key]<=0) return;
+  const it=current();
+  if(key==="fifty"){ if(it.t!=="qcm") return; const w=shuffle(wrongChoiceIdxs()); w.slice(0,2).forEach(i=>{ const el=$("choices").children[i]; el.classList.add("ko"); el.disabled=true; }); jk.fifty--; sndClick(); }
+  else if(key==="hint"){ if(it.t==="qcm"){ const w=shuffle(wrongChoiceIdxs()); if(w[0]!=null){ const el=$("choices").children[w[0]]; el.classList.add("ko"); el.disabled=true; } } else { $("feedback").textContent="💡 Indice : ça commence par « "+it.a[0][0].toUpperCase()+" »"; $("feedback").className="feedback"; } jk.hint--; sndClick(); }
+  else if(key==="skip"){
+    jk.skip--; answered=true; stopTimer(); sndWhoosh();
+    if(it.t==="qcm"){ [...$("choices").children].forEach(b=>b.disabled=true); $("choices").children[it.a].classList.add("correct"); }
+    else { $("answer").disabled=true; }
+    $("feedback").innerHTML="⏭️ Passée. La réponse : <b class='corr'>"+(it.t==="qcm"?it.c[it.a]:it.a[0])+"</b>";
+    $("feedback").className="feedback";
+    showNext();
+  }
+  refreshJokers();
+}
+
+/* ===================== CHRONO (mode contre-la-montre) ===================== */
+function stopChrono(){ if(chronoId){ clearInterval(chronoId); chronoId=null; } }
+function startChrono(){
+  stopChrono();
+  chronoLeft=90; $("timerPill").style.display="block"; $("timer").textContent=chronoLeft+"s"; $("timer").classList.remove("warn");
+  chronoId=setInterval(()=>{
+    chronoLeft--; $("timer").textContent=Math.max(0,chronoLeft)+"s";
+    if(chronoLeft<=10) $("timer").classList.add("warn");
+    if(chronoLeft<=10 && chronoLeft>0) tone(880,.07,"square",0,.1);
+    if(chronoLeft<=0){ stopChrono(); finish(); }
+  },1000);
+}
+
 /* ===================== ÉVÉNEMENTS ===================== */
 let lastCat="all";
+document.querySelectorAll(".mode").forEach(b=>b.onclick=()=>{ document.querySelectorAll(".mode").forEach(x=>x.classList.remove("active")); b.classList.add("active"); gameMode=b.dataset.mode; sndClick(); });
+document.querySelectorAll(".jk").forEach(b=>b.onclick=()=>useJoker(b.dataset.jk));
 document.querySelectorAll(".diff").forEach(b=>b.onclick=()=>{
   document.querySelectorAll(".diff").forEach(x=>x.classList.remove("active"));
   b.classList.add("active"); sndClick();
@@ -2374,7 +2548,7 @@ $("answer").addEventListener("keydown",e=>{ if(e.key==="Enter") checkInput(); })
 $("nextBtn").onclick=next;
 $("againBtn").onclick=()=>startGame(lastCat);
 $("homeBtn").onclick=()=>{ stopTimer(); $("hud").style.display="none"; $("end").style.display="none"; $("quiz").style.display="none"; score=0;combo=0;lives=maxLives;updateHud();
-  if(cameFromWorld){ cameFromWorld=false; openWorld(); } else { document.body.classList.remove("playing"); $("home").style.display="block"; renderBoard("boardList"); } };
+  if(cameFromWorld){ cameFromWorld=false; openWorld(); } else { document.body.classList.remove("playing"); $("home").style.display="block"; renderBoard("boardList"); renderQuest(); renderTrophies(); } };
 $("muteBtn").onclick=()=>{ muted=!muted; updateMuteIcon(); };
 $("clearBoard").onclick=()=>{ if(confirm("Effacer tout le classement ?")){ saveBoard([]); renderBoard("boardList"); sndClick(); } };
 
@@ -2404,6 +2578,7 @@ try{ const sh=+localStorage.getItem('cm2kpop_hair'); if(sh>=0 && sh<PALS.length)
 applyEnrich();
 buildEq(); buildParticles(); renderStudio(); updateHero(); injectIcons();
 renderBoard("boardList");
+renderQuest(); renderTrophies();
 updateHud();
 
 // PWA : installable + hors-ligne
