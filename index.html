@@ -90,7 +90,12 @@
     background:rgba(253,224,71,.12); border:1px solid rgba(253,224,71,.3); border-radius:999px; padding:2px 9px; text-transform:none;}
   .studio{display:flex; gap:14px; align-items:center; background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.1);
     border-radius:18px; padding:12px; margin-bottom:16px;}
-  .studioPrev{flex:none; width:140px; height:140px; border-radius:22px; overflow:hidden; box-shadow:0 10px 26px rgba(0,0,0,.5),0 0 0 2px rgba(255,255,255,.14); position:sticky; top:8px; align-self:flex-start;}
+  .studioPrev{flex:none; width:122px; height:208px; border-radius:22px; overflow:hidden; box-shadow:0 12px 28px rgba(0,0,0,.55),0 0 0 2px rgba(255,255,255,.14); position:sticky; top:8px; align-self:flex-start;}
+  .studioPrev .idolfull{width:100%; height:100%; display:block;}
+  .ostyles{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;}
+  .ostyle{border:2px solid rgba(255,255,255,.16); background:rgba(255,255,255,.05); color:var(--txt); border-radius:11px; padding:6px 10px; cursor:pointer; font-weight:700; font-size:.74rem; transition:.12s;}
+  .ostyle:hover{transform:translateY(-2px);}
+  .ostyle.sel{border-color:var(--pink); background:rgba(255,77,148,.16);}
   .studioPrev .idolsvg{width:100%; height:100%;}
   .studioOpts{flex:1; min-width:0;}
   .optlabel{font-size:.64rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:2px 0 6px;}
@@ -702,7 +707,7 @@
     <div class="eq" id="eq"></div>
     <div class="hero-idols" id="heroIdols"></div>
     <h1 class="neon">CM2 <span class="neon2">K-POP</span></h1>
-    <p class="tag">Révise tout le programme CM2 façon idol — 8 matières · scène, combos &amp; bonus K-Pop 💖<br><span style="font-size:.72rem;opacity:.7">v2.2 · carte de progression · 13 coiffures · tenues</span></p>
+    <p class="tag">Révise tout le programme CM2 façon idol — 8 matières · scène, combos &amp; bonus K-Pop 💖<br><span style="font-size:.72rem;opacity:.7">v2.3 · idol corps entier · 5 styles de tenue · 13 coiffures</span></p>
   </header>
 
   <div class="hud" id="hud" style="display:none;">
@@ -725,7 +730,9 @@
           <div class="swatches" id="hairRow"></div>
           <div class="optlabel">Couleur de peau</div>
           <div class="swatches" id="skinRow"></div>
-          <div class="optlabel">👗 Tenue de scène</div>
+          <div class="optlabel">👗 Style de tenue</div>
+          <div class="ostyles" id="ostyleRow"></div>
+          <div class="optlabel">Couleur de tenue</div>
           <div class="swatches" id="outfitRow"></div>
           <div class="optlabel">Accessoire <span class="optmini" id="accHint"></span></div>
           <div class="accs" id="accRow"></div>
@@ -2333,7 +2340,7 @@ const SKINS=[
  {skin:"#8d5524",skin2:"#6f3f17"},
  {skin:"#5c3a1e",skin2:"#432a14"},
 ];
-let avHair=0, avAcc=1, avStyle=0, avSkin=0, avOutfit=0;
+let avHair=0, avAcc=1, avStyle=0, avSkin=0, avOutfit=0, avOStyle=0;
 // tenues (couleur de la tenue de scène)
 const OUTFITS=[
  {name:"Idol",c:null},{name:"Noir",c:"#1b1626"},{name:"Rose",c:"#ff2e88"},{name:"Cyan",c:"#0ea5b7"},
@@ -2384,7 +2391,13 @@ function idolSVG(p,acc=0,style=0,key="",skin=null,outfit=null){
  <path d="M44 120 q16 -16 32 0" fill="none" stroke="${p.accent}" stroke-width="3" opacity=".6"/>
  <path d="M36 120 q24 -20 48 0" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
  <rect x="53" y="78" width="14" height="16" rx="6" fill="${SK.skin2}"/>
- ${H.back(p)}
+ ${headParts(p,style,SK,acc)}
+</svg>`;}
+
+/* éléments de la TÊTE (réutilisés par le portrait et le corps entier) */
+function headParts(p,style,SK,acc){
+ const H=HAIRS[style]||HAIRS[0];
+ return `${H.back(p)}
  <circle cx="38" cy="58" r="4.6" fill="${SK.skin}"/><circle cx="82" cy="58" r="4.6" fill="${SK.skin}"/>
  <ellipse cx="60" cy="56" rx="22" ry="24" fill="${SK.skin}"/>
  ${H.front(p)}
@@ -2396,15 +2409,78 @@ function idolSVG(p,acc=0,style=0,key="",skin=null,outfit=null){
  <path d="M53 66 q7 6 14 0" stroke="#c43c6a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
  <path d="M82 56 q11 14 -5 31" stroke="#1b1320" stroke-width="2.6" fill="none" stroke-linecap="round"/>
  <circle cx="74" cy="86" r="4.2" fill="${p.accent}"/><circle cx="82" cy="56" r="3.2" fill="#1b1320"/>
- ${accSVG(acc)}
-</svg>`;}
+ ${accSVG(acc)}`;
+}
+
+/* couleur foncée/claire dérivée */
+function shade(hex,pct){
+ hex=(hex||"#888888").replace('#',''); if(hex.length===3) hex=hex.replace(/(.)/g,'$1$1');
+ let r=parseInt(hex.substr(0,2),16), g=parseInt(hex.substr(2,2),16), b=parseInt(hex.substr(4,2),16);
+ const t=pct<0?0:255, q=Math.abs(pct)/100;
+ r=Math.round((t-r)*q)+r; g=Math.round((t-g)*q)+g; b=Math.round((t-b)*q)+b;
+ return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+
+/* TENUES corps entier : chaque style dessine le bas (jambes/pantalon) + le haut */
+function legsSkin(SK){ return `<rect x="50" y="150" width="9" height="50" rx="4.5" fill="${SK.skin}"/><rect x="61" y="150" width="9" height="50" rx="4.5" fill="${SK.skin}"/>`; }
+function legsPants(c,c2){ return `<rect x="49" y="148" width="11" height="54" rx="5" fill="${c}"/><rect x="60" y="148" width="11" height="54" rx="5" fill="${c}"/><path d="M55 150 v50 M66 150 v50" stroke="${c2}" stroke-width="1" opacity=".5"/>`; }
+function shoes(c){ return `<path d="M46 198 h15 v6 a4 4 0 0 1 -4 4 h-11Z" fill="${c}"/><path d="M59 198 h15 v6 a4 4 0 0 1 -4 4 h-11Z" fill="${c}"/>`; }
+function armsSkin(SK){ return `<path d="M41 101 q-11 17 -7 35" stroke="${SK.skin}" stroke-width="8.5" fill="none" stroke-linecap="round"/><path d="M79 101 q11 17 7 35" stroke="${SK.skin}" stroke-width="8.5" fill="none" stroke-linecap="round"/>`; }
+function torsoSkin(SK){ return `<path d="M44 96 q16 -8 32 0 l3 46 q-19 9 -38 0Z" fill="${SK.skin}"/>`; }
+const OSTYLES=[
+ {n:"Robe", draw:(C,SK)=>{ const C2=shade(C,-22),C3=shade(C,22);
+   return legsSkin(SK)+shoes("#1b1320")+armsSkin(SK)+
+   `<path d="M42 98 q18 -11 36 0 l6 34 q4 26 10 36 q-34 12 -68 0 q6 -10 10 -36Z" fill="${C}"/>
+    <path d="M42 98 q18 -11 36 0 l1 7 q-19 -8 -38 0Z" fill="${C3}"/>
+    <path d="M51 102 v60 M69 102 v60" stroke="${C2}" stroke-width="1.2" opacity=".45"/>`; }},
+ {n:"Top + jupe", draw:(C,SK)=>{ const C2=shade(C,-22);
+   return legsSkin(SK)+shoes("#ff4d6d")+torsoSkin(SK)+armsSkin(SK)+
+   `<path d="M44 98 q16 -9 32 0 l2 22 q-18 8 -36 0Z" fill="${C}"/>
+    <path d="M39 134 q21 -8 42 0 l7 30 q-28 11 -56 0Z" fill="${C}"/>
+    <g stroke="${C2}" stroke-width="1.2" opacity=".5"><path d="M48 136 v26 M56 134 v30 M64 134 v30 M72 136 v26"/></g>`; }},
+ {n:"Veste oversize", draw:(C,SK)=>{ const C2=shade(C,-22),C3=shade(C,18);
+   return legsSkin(SK)+shoes("#1b1320")+torsoSkin(SK)+
+   `<path d="M48 116 q12 -6 24 0 l2 22 q-14 6 -28 0Z" fill="#0e1118"/>
+    <path d="M40 96 q9 -6 18 -4 l2 50 q-12 -2 -16 -10 q-7 -16 -4 -36Z" fill="${C}"/>
+    <path d="M80 96 q-9 -6 -18 -4 l-2 50 q12 -2 16 -10 q7 -16 4 -36Z" fill="${C}"/>
+    <path d="M40 96 q-10 16 -5 34" stroke="${C}" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <path d="M80 96 q10 16 5 34" stroke="${C}" stroke-width="9" fill="none" stroke-linecap="round"/>`; }},
+ {n:"Survêt", draw:(C,SK)=>{ const C2=shade(C,-22),C3=shade(C,30);
+   return legsPants(C,C2)+shoes("#ffffff")+
+   `<path d="M42 98 q18 -10 36 0 l4 44 q-22 9 -44 0Z" fill="${C}"/>
+    <path d="M40 98 q-10 17 -5 35" stroke="${C}" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <path d="M80 98 q10 17 5 35" stroke="${C}" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <path d="M60 100 v44" stroke="${C3}" stroke-width="2" opacity=".7"/>
+    <path d="M38 104 l3 30 M82 104 l-3 30" stroke="#fff" stroke-width="2" opacity=".6"/>`; }},
+ {n:"Combi", draw:(C,SK)=>{ const C2=shade(C,-22),C3=shade(C,22);
+   return legsPants(C,C2)+shoes("#1b1320")+armsSkin(SK)+
+   `<path d="M43 98 q17 -10 34 0 l4 46 q-21 9 -42 0Z" fill="${C}"/>
+    <path d="M43 98 q17 -10 34 0 l1 7 q-18 -7 -36 0Z" fill="${C3}"/>
+    <circle cx="60" cy="120" r="2" fill="${C2}"/><circle cx="60" cy="132" r="2" fill="${C2}"/>`; }},
+];
+function idolFull(p,acc=0,style=0,skin=null,outfit=null,ostyle=0){
+ const SK=skin||{skin:p.skin,skin2:p.skin2};
+ const C=outfit||p.outfit;
+ const OS=OSTYLES[ostyle]||OSTYLES[0];
+ return `<svg viewBox="0 0 120 218" class="idolfull" preserveAspectRatio="xMidYMax meet">
+  <defs><radialGradient id="fb${p.id}_${ostyle}" cx="50%" cy="24%" r="95%"><stop offset="0" stop-color="${p.bg1}"/><stop offset="1" stop-color="${p.bg2}"/></radialGradient></defs>
+  <rect width="120" height="218" rx="26" fill="url(#fb${p.id}_${ostyle})"/>
+  <circle cx="20" cy="22" r="2" fill="#fff" opacity=".5"/><circle cx="100" cy="44" r="1.6" fill="#fff" opacity=".4"/><circle cx="96" cy="150" r="1.6" fill="#fff" opacity=".3"/>
+  <ellipse cx="60" cy="210" rx="33" ry="6.5" fill="rgba(0,0,0,.3)"/>
+  ${OS.draw(C,SK)}
+  <rect x="53" y="84" width="14" height="14" rx="6" fill="${SK.skin2}"/>
+  ${headParts(p,style,SK,acc)}
+ </svg>`;
+}
 
 function refreshXPchip(){
   const xp=getXP();
   $("xpChip").textContent="⭐ Niv "+idolLevel(xp)+" · "+xp+" XP";
 }
 function renderStudio(){
-  $("studioPrev").innerHTML=idolSVG(PALS[avHair],avAcc,avStyle,"prev",SKINS[avSkin],OUTFITS[avOutfit].c);
+  $("studioPrev").innerHTML=idolFull(PALS[avHair],avAcc,avStyle,SKINS[avSkin],OUTFITS[avOutfit].c,avOStyle);
+  $("ostyleRow").innerHTML=OSTYLES.map((o,i)=>`<button class="ostyle ${i===avOStyle?'sel':''}" data-os="${i}">${o.n}</button>`).join("");
+  $("ostyleRow").querySelectorAll(".ostyle").forEach(b=>b.onclick=()=>{ avOStyle=+b.dataset.os; saveAv(); renderStudio(); sndClick(); });
   $("styleRow").innerHTML=HAIRS.map((H,i)=>`<button class="styopt ${i===avStyle?'sel':''}" data-st="${i}" title="${H.n}">${idolSVG(PALS[avHair],0,i,'st'+i,SKINS[avSkin],OUTFITS[avOutfit].c)}</button>`).join("");
   $("hairRow").innerHTML=PALS.map((p,i)=>`<button class="swatch ${i===avHair?'sel':''}" data-h="${i}" style="background:linear-gradient(135deg,${p.hair},${p.hair2})"></button>`).join("");
   $("skinRow").innerHTML=SKINS.map((s,i)=>`<button class="swatch ${i===avSkin?'sel':''}" data-sk="${i}" style="background:linear-gradient(135deg,${s.skin},${s.skin2})"></button>`).join("");
@@ -2430,7 +2506,7 @@ function renderStudio(){
   });
   refreshXPchip();
 }
-function saveAv(){ try{localStorage.setItem('cm2kpop_hair',avHair); localStorage.setItem('cm2kpop_acc',avAcc); localStorage.setItem('cm2kpop_style',avStyle); localStorage.setItem('cm2kpop_skin',avSkin); localStorage.setItem('cm2kpop_outfit',avOutfit); localStorage.setItem('cm2kpop_pet',avPet); localStorage.setItem('cm2kpop_petacc',avPetAcc);}catch(e){} }
+function saveAv(){ try{localStorage.setItem('cm2kpop_hair',avHair); localStorage.setItem('cm2kpop_acc',avAcc); localStorage.setItem('cm2kpop_style',avStyle); localStorage.setItem('cm2kpop_skin',avSkin); localStorage.setItem('cm2kpop_outfit',avOutfit); localStorage.setItem('cm2kpop_ostyle',avOStyle); localStorage.setItem('cm2kpop_pet',avPet); localStorage.setItem('cm2kpop_petacc',avPetAcc);}catch(e){} }
 function updateHero(){
   const n=PALS.length, trio=[(avHair+n-1)%n,avHair,(avHair+1)%n];
   $("heroIdols").innerHTML=trio.map((i,k)=>idolSVG(PALS[i], k===1?avAcc:0, avStyle, 'hero'+k, SKINS[avSkin], OUTFITS[avOutfit].c)).join("");
@@ -2810,6 +2886,7 @@ try{ const sh=+localStorage.getItem('cm2kpop_hair'); if(sh>=0 && sh<PALS.length)
      const st=+localStorage.getItem('cm2kpop_style'); if(st>=0 && st<HAIRS.length) avStyle=st;
      const sk=+localStorage.getItem('cm2kpop_skin'); if(sk>=0 && sk<SKINS.length) avSkin=sk;
      const of=+localStorage.getItem('cm2kpop_outfit'); if(of>=0 && of<OUTFITS.length) avOutfit=of;
+     const os=+localStorage.getItem('cm2kpop_ostyle'); if(os>=0 && os<OSTYLES.length) avOStyle=os;
      const pt=+localStorage.getItem('cm2kpop_pet'); if(pt>=0 && pt<MASCOTS.length) avPet=pt;
      const pa=+localStorage.getItem('cm2kpop_petacc'); if(pa>=0 && pa<PET_ACCS.length) avPetAcc=pa;
      if(getXP()<ACCS[avAcc].xp) avAcc=1; if(getXP()<MASCOTS[avPet].xp) avPet=0; if(getXP()<PET_ACCS[avPetAcc].xp) avPetAcc=0; }catch(e){}
