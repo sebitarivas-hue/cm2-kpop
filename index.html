@@ -2469,11 +2469,13 @@ const OSTYLES=[
    `<path d="M46 70 q14 -7 28 0 l3 27 q-17 8 -34 0Z" fill="${C}"/>
     <path d="M44 110 q16 -7 32 0 l9 52 q-25 12 -50 0Z" fill="${C}"/>
     <g stroke="${C2}" stroke-width="1.2" opacity=".5"><path d="M50 113 v49 M58 110 v53 M66 110 v53 M74 113 v49"/></g>`; }},
- {n:"Veste oversize", draw:(C,SK)=>{ const C2=shade(C,-24);
-   return legsSkin(SK)+shoes("#1b1320")+torsoSkin(SK)+armsSleeve(C,SK)+
-   `<path d="M50 92 q10 -5 20 0 l2 30 q-12 5 -24 0Z" fill="#0e1118"/>
+ {n:"Veste oversize", draw:(C,SK)=>{ const C2=shade(C,-24), sh="#2b2f48";
+   return legsSkin(SK)+shoes("#1b1320")+torsoSkin(SK)+
+   `<path d="M47 113 h26 l1 14 q-1 5 -6 5 h-4 l-3 8 -3 -8 h-4 q-5 0 -6 -5Z" fill="${sh}" stroke="rgba(0,0,0,.22)" stroke-width="1.5"/>
+    <path d="M50 90 q10 -5 20 0 l2 26 q-12 5 -24 0Z" fill="#0e1118"/>
     <path d="M42 70 q9 -5 18 -3 l3 56 q-13 -2 -18 -13 q-8 -18 -3 -40Z" fill="${C}"/>
-    <path d="M78 70 q-9 -5 -18 -3 l-3 56 q13 -2 18 -13 q8 -18 3 -40Z" fill="${C}"/>`; }},
+    <path d="M78 70 q-9 -5 -18 -3 l-3 56 q13 -2 18 -13 q8 -18 3 -40Z" fill="${C}"/>`+
+   armsSleeve(C,SK); }},
  {n:"Survêt", draw:(C,SK)=>{ const C2=shade(C,-24),C3=shade(C,32);
    return legsPants(C,C2)+shoes("#ffffff")+armsSleeve(C,SK)+
    `<path d="M44 70 q16 -8 32 0 l5 54 q-21 9 -42 0Z" fill="${C}"/>
