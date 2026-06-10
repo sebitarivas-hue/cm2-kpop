@@ -380,11 +380,31 @@
     background:radial-gradient(circle at 50% 40%,#fff6c8,#ffd24d 70%); box-shadow:0 0 20px 7px rgba(255,210,77,.55); animation:lampglow 3s ease-in-out infinite; }
   @keyframes lampglow{ 0%,100%{ opacity:.8;} 50%{ opacity:1;} }
   /* PNJ */
-  .npc{ position:absolute; width:44px; height:44px; transform:translate(-50%,-72%); z-index:4; cursor:pointer; }
-  .npc .nchar{ width:44px; height:44px; border-radius:50%; overflow:hidden; border:2px solid #fff; box-shadow:0 3px 8px rgba(0,0,0,.5); animation:idleSway 2.8s ease-in-out infinite; }
-  .npc .nchar .idolsvg{ width:100%; height:100%; }
-  .npc .nshadow{ position:absolute; left:50%; bottom:-5px; width:30px; height:8px; transform:translateX(-50%); border-radius:50%; background:radial-gradient(rgba(0,0,0,.5),transparent 70%); }
-  .npc .ntag{ position:absolute; left:50%; top:-6px; transform:translate(-50%,-100%); font-size:.56rem; font-weight:800; color:#fff; background:rgba(0,0,0,.55); padding:1px 7px; border-radius:8px; white-space:nowrap; }
+  .npc{ position:absolute; transform:translate(-50%,-100%); z-index:4; cursor:pointer; text-align:center; }
+  .npc .nfig{ animation:idleSway 2.9s ease-in-out infinite; transform-origin:bottom center; }
+  .npc .nfig .idolfig{ height:68px; width:auto; display:block; filter:drop-shadow(0 3px 3px rgba(0,0,0,.4)); }
+  .npc .nshadow{ position:absolute; left:50%; bottom:-3px; width:22px; height:6px; transform:translateX(-50%); border-radius:50%; background:radial-gradient(rgba(0,0,0,.5),transparent 70%); }
+  .npc .ntag{ position:absolute; left:50%; top:-6px; transform:translate(-50%,-100%); font-size:.56rem; font-weight:800; color:#fff; background:rgba(0,0,0,.6); padding:1px 7px; border-radius:8px; white-space:nowrap; }
+
+  /* ===== PANNEAU DE RELATION PNJ ===== */
+  .npcPanel{ position:fixed; inset:0; z-index:116; display:none; align-items:center; justify-content:center; background:rgba(4,3,10,.62); backdrop-filter:blur(4px); padding:16px; }
+  .npcPanel.show{ display:flex; }
+  .npcCard{ width:312px; max-width:90vw; border-radius:24px; padding:14px 16px 16px; position:relative; text-align:center;
+    background:linear-gradient(#1a1030,#1a1030) padding-box, linear-gradient(135deg,#ff5fa2,#ffd24d,#46e6ff) border-box; border:2px solid transparent;
+    box-shadow:0 24px 56px rgba(0,0,0,.6); animation:cardin .3s ease; }
+  .npClose{ position:absolute; top:10px; right:10px; width:32px; height:32px; border-radius:50%; border:none; background:rgba(0,0,0,.4); color:#fff; cursor:pointer; font-size:1rem; }
+  .npFig{ height:128px; } .npFig .idolfig{ height:128px; width:auto; margin:0 auto; display:block; }
+  .npName{ font-family:"Baloo 2",cursive; font-weight:800; font-size:1.35rem; color:#fff; margin-top:2px; }
+  .npStatus{ font-weight:800; font-size:.92rem; color:#ffd24d; margin-bottom:5px; }
+  .npHearts{ font-size:1.05rem; letter-spacing:3px; margin-bottom:9px; }
+  .npHearts span{ color:rgba(255,255,255,.22); } .npHearts span.on{ color:#ff5fa2; } .npHearts .rivalbar{ color:#fb7185; letter-spacing:1px; }
+  .npLine{ background:#fff; color:#1a0b2e; border-radius:14px; padding:9px 12px; font-size:.82rem; font-weight:600; margin-bottom:12px; min-height:18px; }
+  .npActions{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .npAct{ border:2px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); color:#fff; border-radius:12px; padding:10px 6px; cursor:pointer; font-weight:700; font-size:.82rem; transition:.12s; }
+  .npAct small{ font-weight:600; opacity:.7; font-size:.64rem; }
+  .npAct:hover{ transform:translateY(-2px); border-color:var(--pink); }
+  .npAct.rom{ grid-column:1/3; background:linear-gradient(135deg,#ff5fa2,#ec4899); border-color:transparent; }
+  .npAct.bad{ grid-column:1/3; border-color:rgba(251,113,133,.5); color:#ffd0d6; }
   .npcBubble{ position:absolute; transform:translate(-50%,-100%); max-width:190px; padding:9px 12px; border-radius:14px;
     background:#fff; color:#1a0b2e; font-size:.76rem; font-weight:700; line-height:1.35; box-shadow:0 8px 18px rgba(0,0,0,.55); display:none; z-index:9; pointer-events:none; }
   .npcBubble::after{ content:""; position:absolute; left:50%; bottom:-8px; transform:translateX(-50%); border:8px solid transparent; border-top-color:#fff; }
@@ -699,11 +719,24 @@
     <div class="pathmap" id="pathmap"></div>
   </div>
 
+  <!-- PANNEAU DE RELATION AVEC UN PNJ -->
+  <div class="npcPanel" id="npcPanel">
+    <div class="npcCard">
+      <button class="npClose" id="npClose">✕</button>
+      <div class="npFig" id="npFig"></div>
+      <div class="npName" id="npName"></div>
+      <div class="npStatus" id="npStatus"></div>
+      <div class="npHearts" id="npHearts"></div>
+      <div class="npLine" id="npLine"></div>
+      <div class="npActions" id="npActions"></div>
+    </div>
+  </div>
+
   <header class="hero">
     <div class="eq" id="eq"></div>
     <div class="hero-idols" id="heroIdols"></div>
     <h1 class="neon">CM2 <span class="neon2">K-POP</span></h1>
-    <p class="tag">Révise tout le programme CM2 façon idol — 8 matières · scène, combos &amp; bonus K-Pop 💖<br><span style="font-size:.72rem;opacity:.7">v2.5 · ville réaliste · bâtiments thématiques · idol corps entier</span></p>
+    <p class="tag">Révise tout le programme CM2 façon idol — 8 matières · scène, combos &amp; bonus K-Pop 💖<br><span style="font-size:.72rem;opacity:.7">v2.6 · PNJ en pied · relations (ami·e, copain·e, ennemi·e) · ville réaliste</span></p>
   </header>
 
   <div class="hud" id="hud" style="display:none;">
@@ -2579,12 +2612,13 @@ const BUILD=[
  {cat:"sixieme",   name:"Collège 6ᵉ",    x:600, y:330, c1:"#22d3ee",c2:"#0ea5b7"},
 ];
 const NPCS=[
- {x:360,y:330,h:0,st:1,acc:1,sk:0,name:"Yuna",   lines:["Bonjour ! Prête à briller comme une idol ? ✨","En Maths, lis bien l'énoncé avant de répondre 😉","Tu savais ? La Joconde est minuscule : 77×53 cm !"]},
- {x:780,y:330,h:1,st:7,acc:3,sk:2,name:"Max",    lines:["Yo ! La Scène K-Pop est tout en bas 🎤","Un combo = plein de bonnes réponses d'affilée !","BLACKPINK in your area 💖"]},
- {x:430,y:700,h:2,st:2,acc:6,sk:3,name:"Lina",   lines:["Au Musée, on voyage dans le temps 🏛️","Mode Extrême : une seule vie, gare au chrono ⏱️","Bon courage, future star ⭐"]},
- {x:860,y:720,h:4,st:4,acc:7,sk:1,name:"Téo",    lines:["Les capitales ? Direction l'Agence Voyages 🌍","Gagne de l'XP pour débloquer des accessoires !","Jolie couronne 👑"]},
- {x:610,y:770,h:9,st:5,acc:2,sk:4,name:"DJ Sora",lines:["♪ La musique adoucit les révisions ♪","Tape un lieu et j'y emmène ton idol 😎","À la Scène : le défi de TOUTES les matières !"]},
- {x:240,y:250,h:5,st:3,acc:5,sk:5,name:"Mme Pixel",lines:["Bienvenue dans la ville K-Pop ! 🏙️","Approche d'un bâtiment puis appuie sur ENTRER.","Chaque maison = une matière à réviser."]},
+ {x:360,y:330,h:0,st:1,acc:1,sk:0,of:"#ff4d94",os:1,g:"f",name:"Yuna",   lines:["Bonjour ! Prête à briller comme une idol ? ✨","En Maths, lis bien l'énoncé avant de répondre 😉","Tu savais ? La Joconde est minuscule : 77×53 cm !","Trop contente de te voir 😄"]},
+ {x:780,y:330,h:1,st:7,acc:3,sk:2,of:"#22d3ee",os:3,g:"m",name:"Max",    lines:["Yo ! La Scène K-Pop est tout en bas 🎤","Un combo = plein de bonnes réponses d'affilée !","BLACKPINK in your area 💖","On fait une partie ensemble ?"]},
+ {x:430,y:700,h:2,st:2,acc:6,sk:3,of:"#a855f7",os:0,g:"f",name:"Lina",   lines:["Au Musée, on voyage dans le temps 🏛️","Mode Extrême : une seule vie, gare au chrono ⏱️","Bon courage, future star ⭐","Toi et moi on forme une bonne équipe !"]},
+ {x:860,y:720,h:4,st:4,acc:7,sk:1,of:"#34d399",os:4,g:"m",name:"Téo",    lines:["Les capitales ? Direction l'Agence Voyages 🌍","Gagne de l'XP pour débloquer des accessoires !","Jolie couronne 👑","Hé, tu progresses vite dis donc !"]},
+ {x:610,y:770,h:9,st:5,acc:2,sk:4,of:"#ec4899",os:2,g:"f",name:"DJ Sora",lines:["♪ La musique adoucit les révisions ♪","Tape un lieu et j'y emmène ton idol 😎","À la Scène : le défi de TOUTES les matières !","Le beat est avec toi 🎧"]},
+ {x:240,y:250,h:5,st:3,acc:5,sk:5,of:"#818cf8",os:0,g:"f",name:"Mme Pixel",lines:["Bienvenue dans la ville K-Pop ! 🏙️","Approche d'un bâtiment puis appuie sur ENTRER.","Chaque maison = une matière à réviser.","Travaille bien, je veille sur toi 😊"]},
+ {x:1000,y:300,h:5,st:11,acc:4,sk:2,of:"#1b1626",os:2,g:"f",name:"Vexa",  lines:["Pfff, tu crois pouvoir me battre ?","Moi je ne rate JAMAIS une question 😏","La 1re place du classement est à moi.","On verra qui est la meilleure idol…"], rival:true},
 ];
 const DECOR=[
  {t:"🌳",x:80,y:120},{t:"🌳",x:430,y:140},{t:"🌳",x:760,y:120},{t:"🌳",x:1100,y:340},
@@ -2708,8 +2742,8 @@ function buildWorld(){
   NPCS.forEach((nc,i)=>{
     const el=document.createElement("div");
     el.className="npc"; el.style.left=nc.x+"px"; el.style.top=nc.y+"px";
-    el.innerHTML=`<div class="ntag">${nc.name}</div><div class="nchar">${idolSVG(PALS[nc.h],nc.acc,nc.st,'npc'+i,SKINS[nc.sk])}</div><div class="nshadow"></div>`;
-    el.onclick=(e)=>{ e.stopPropagation(); talkNPC(i,true); };
+    el.innerHTML=`<div class="ntag" id="ntag${i}">${npcLabel(i)}</div><div class="nfig">${idolFigure(PALS[nc.h],nc.acc,nc.st,SKINS[nc.sk],nc.of,nc.os)}</div><div class="nshadow"></div>`;
+    el.onclick=(e)=>{ e.stopPropagation(); openNpcPanel(i); };
     inner.insertBefore(el, pl);
   });
 }
@@ -2779,9 +2813,83 @@ function talkNPC(i,advance){
   if(advance) npcLine[i]=(npcLine[i]+1)%nc.lines.length;
   const b=$("npcBubble");
   b.textContent=nc.lines[npcLine[i]];
-  b.style.left=nc.x+"px"; b.style.top=(nc.y-46)+"px";
+  b.style.left=nc.x+"px"; b.style.top=(nc.y-80)+"px";
   b.classList.remove("on"); void b.offsetWidth; b.classList.add("on");
   blip(680,.05,0,.07);
+}
+
+/* ===================== RELATIONS AVEC LES PNJ ===================== */
+function loadRels(){ try{ return JSON.parse(localStorage.getItem("cm2kpop_rels"))||{}; }catch(e){ return {}; } }
+function saveRels(r){ try{ localStorage.setItem("cm2kpop_rels",JSON.stringify(r)); }catch(e){} }
+function npcRel(i){ const r=loadRels(), nm=NPCS[i].name; if(r[nm]) return r[nm]; return {aff: NPCS[i].rival?-25:0, crush:false}; }
+function setNpcRel(i,rel){ const r=loadRels(); r[NPCS[i].name]=rel; saveRels(r); }
+function npcStatus(i){ const nc=NPCS[i], rel=npcRel(i), f=nc.g==="m", e=f?"":"e";
+  if(rel.crush) return {emo:"💘", txt:(f?"Petit copain":"Petite copine")};
+  if(rel.aff<=-40) return {emo:"😈", txt:"Pire ennemi"+e};
+  if(rel.aff<0)   return {emo:"😼", txt:"Rival"+(f?"":"e")};
+  if(rel.aff>=70) return {emo:"💖", txt:"Meilleur"+(f?"":"e")+" ami"+e};
+  if(rel.aff>=35) return {emo:"🙂", txt:"Ami"+e};
+  if(rel.aff>=10) return {emo:"😊", txt:"Connaissance"};
+  return {emo:"", txt:"Camarade"};
+}
+function npcLabel(i){ const s=npcStatus(i); return (s.emo?s.emo+" ":"")+NPCS[i].name; }
+function refreshNpcTag(i){ const el=$("ntag"+i); if(el) el.textContent=npcLabel(i); }
+function npHeartsHTML(aff){
+  if(aff<0){ const n=Math.min(5,Math.ceil(-aff/20)); return '<span class="rivalbar">'+'💢'.repeat(n)+'</span>'; }
+  const filled=Math.round(aff/20); let h=""; for(let k=0;k<5;k++) h+='<span class="'+(k<filled?'on':'')+'">❤</span>'; return h;
+}
+let curNpc=-1;
+function openNpcPanel(i){
+  curNpc=i; const nc=NPCS[i];
+  $("npFig").innerHTML=idolFigure(PALS[nc.h],nc.acc,nc.st,SKINS[nc.sk],nc.of,nc.os);
+  $("npLine").textContent=nc.lines[npcRel(i).aff<0?2:0] || nc.lines[0];
+  renderNpcPanel();
+  $("npcPanel").classList.add("show"); sndClick();
+}
+function closeNpcPanel(){ $("npcPanel").classList.remove("show"); }
+function renderNpcPanel(){
+  const i=curNpc, nc=NPCS[i], rel=npcRel(i), s=npcStatus(i);
+  $("npName").textContent=nc.name;
+  $("npStatus").innerHTML=(s.emo?s.emo+" ":"")+s.txt;
+  $("npHearts").innerHTML=npHeartsHTML(rel.aff);
+  const acts=[`<button class="npAct" data-a="chat">💬 Papoter</button>`,
+              `<button class="npAct" data-a="gift">🎁 Cadeau <small>(120 XP)</small></button>`];
+  if(rel.crush) acts.push(`<button class="npAct rom" data-a="break">💔 Rompre</button>`);
+  else if(rel.aff>=60) acts.push(`<button class="npAct rom" data-a="love">💘 Sortir ensemble</button>`);
+  acts.push(`<button class="npAct bad" data-a="provoke">😈 Provoquer en duel</button>`);
+  $("npActions").innerHTML=acts.join("");
+  $("npActions").querySelectorAll(".npAct").forEach(b=>b.onclick=()=>npcAction(b.dataset.a));
+}
+function floatHeart(emo){
+  const e=document.createElement("div"); e.textContent=emo||"❤";
+  e.style.cssText="position:fixed;left:"+(42+Math.random()*16)+"%;top:46%;font-size:"+(16+Math.random()*16)+"px;z-index:130;pointer-events:none;";
+  document.body.appendChild(e);
+  e.animate([{transform:"translateY(0) scale(.6)",opacity:1},{transform:"translateY(-130px) scale(1.1)",opacity:0}],{duration:1200,easing:"ease-out"});
+  setTimeout(()=>e.remove(),1200);
+}
+function npcAction(a){
+  const i=curNpc, nc=NPCS[i], f=nc.g==="m"; let rel=Object.assign({},npcRel(i));
+  if(a==="chat"){ rel.aff=Math.min(100,rel.aff+5); $("npLine").textContent=nc.lines[Math.floor(Math.random()*nc.lines.length)]; sndClick(); if(rel.aff>=10) floatHeart("💬"); }
+  else if(a==="gift"){
+    if(getXP()<120){ toast("Pas assez d'XP pour un cadeau (120 XP) 🎁"); return; }
+    addXP(-120); refreshXPchip(); rel.aff=Math.min(100,rel.aff+16);
+    $("npLine").textContent="Oh… un cadeau ?! Merci, c'est trop gentil 🥰";
+    for(let k=0;k<7;k++) setTimeout(()=>floatHeart("💝"),k*70); blip(760,.12,0,.12);
+  }
+  else if(a==="love"){
+    rel.crush=true; rel.aff=Math.min(100,rel.aff+8);
+    $("npLine").textContent="Ouiii 💘 ! Je veux bien sortir avec toi !";
+    sndRecord(); confetti(); for(let k=0;k<10;k++) setTimeout(()=>floatHeart("💖"),k*80);
+    toast("💘 "+nc.name+" est ton/ta "+(f?"petit copain":"petite copine")+" !");
+  }
+  else if(a==="break"){ rel.crush=false; rel.aff=Math.max(-10,rel.aff-15); $("npLine").textContent="Oh… d'accord. On reste amis alors 💔"; sndBad(); }
+  else if(a==="provoke"){
+    rel.aff=Math.max(-100,rel.aff-16); rel.crush=false;
+    $("npLine").textContent = rel.aff<=-40 ? "Grrr ! Tu es ma/mon pire ennemi"+(f?"":"e")+" maintenant 😈" : "Hé ! C'est pas sympa ça 😠";
+    sndBad(); for(let k=0;k<4;k++) setTimeout(()=>floatHeart("💢"),k*90);
+    if(rel.aff<=-40) toast("😈 "+nc.name+" est devenu"+(f?"":"e")+" ta pire ennemie !");
+  }
+  setNpcRel(i,rel); renderNpcPanel(); refreshNpcTag(i);
 }
 function tryEnter(i){
   const idx=(i!=null?i:nearIdx); if(idx<0) return;
@@ -2955,6 +3063,8 @@ $("homeBtn").onclick=()=>{ stopTimer(); $("hud").style.display="none"; $("end").
 $("muteBtn").onclick=()=>{ muted=!muted; updateMuteIcon(); };
 $("mapBtn").onclick=openMapView;
 $("mapVClose").onclick=closeMapView;
+$("npClose").onclick=closeNpcPanel;
+$("npcPanel").addEventListener("click",e=>{ if(e.target===$("npcPanel")) closeNpcPanel(); });
 $("clearBoard").onclick=()=>{ if(confirm("Effacer tout le classement ?")){ saveBoard([]); renderBoard("boardList"); sndClick(); } };
 
 /* ---- contrôles du MONDE ---- */
