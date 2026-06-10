@@ -385,6 +385,18 @@
   .npc .nfig .idolfig{ height:68px; width:auto; display:block; filter:drop-shadow(0 3px 3px rgba(0,0,0,.4)); }
   .npc .nshadow{ position:absolute; left:50%; bottom:-3px; width:22px; height:6px; transform:translateX(-50%); border-radius:50%; background:radial-gradient(rgba(0,0,0,.5),transparent 70%); }
   .npc .ntag{ position:absolute; left:50%; top:-6px; transform:translate(-50%,-100%); font-size:.56rem; font-weight:800; color:#fff; background:rgba(0,0,0,.6); padding:1px 7px; border-radius:8px; white-space:nowrap; }
+  .npc.walk .nfig{ animation:walkbob .36s ease-in-out infinite; }
+  .npc.faceL .nfig{ transform:scaleX(-1); }
+  .npc.faceL.walk .nfig{ animation:walkbobL .36s ease-in-out infinite; }
+  /* bulle d'événement d'un PNJ (cadeau / défi / conversation) */
+  .npcEvt{ position:absolute; transform:translate(-50%,-100%); max-width:210px; padding:9px 12px; border-radius:14px;
+    background:#fff; color:#1a0b2e; font-size:.78rem; font-weight:700; line-height:1.35; box-shadow:0 8px 20px rgba(0,0,0,.55); display:none; z-index:10; text-align:center; }
+  .npcEvt::after{ content:""; position:absolute; left:50%; bottom:-8px; transform:translateX(-50%); border:8px solid transparent; border-top-color:#fff; }
+  .npcEvt.on{ display:block; animation:promptpop .22s ease; }
+  .npcEvt .evtBtns{ display:flex; gap:6px; margin-top:8px; justify-content:center; }
+  .npcEvt .evtBtns button{ border:none; border-radius:9px; padding:6px 12px; font-weight:800; font-size:.74rem; cursor:pointer; }
+  .npcEvt #evtYes{ background:linear-gradient(135deg,#ff5fa2,#a45cff); color:#fff; }
+  .npcEvt #evtNo{ background:#e7e0f0; color:#3a2a55; }
 
   /* ===== PANNEAU DE RELATION PNJ ===== */
   .npcPanel{ position:fixed; inset:0; z-index:116; display:none; align-items:center; justify-content:center; background:rgba(4,3,10,.62); backdrop-filter:blur(4px); padding:16px; }
@@ -736,7 +748,7 @@
     <div class="eq" id="eq"></div>
     <div class="hero-idols" id="heroIdols"></div>
     <h1 class="neon">CM2 <span class="neon2">K-POP</span></h1>
-    <p class="tag">Révise tout le programme CM2 façon idol — 8 matières · scène, combos &amp; bonus K-Pop 💖<br><span style="font-size:.72rem;opacity:.7">v2.6 · PNJ en pied · relations (ami·e, copain·e, ennemi·e) · ville réaliste</span></p>
+    <p class="tag">Révise tout le programme CM2 façon idol — 8 matières · scène, combos &amp; bonus K-Pop 💖<br><span style="font-size:.72rem;opacity:.7">v2.7 · PNJ vivants : se baladent & viennent te voir (duel, cadeau, conversation)</span></p>
   </header>
 
   <div class="hud" id="hud" style="display:none;">
@@ -879,6 +891,7 @@
           <div class="player" id="player"><div class="pchar" id="pchar"></div><div class="pshadow"></div></div>
           <div class="enterPrompt" id="enterPrompt"></div>
           <div class="npcBubble" id="npcBubble"></div>
+          <div class="npcEvt" id="npcEvt"></div>
         </div>
       </div>
       <div class="controls">
@@ -2237,6 +2250,16 @@ function finish(){
   saveStats(s); checkAchievements(s);
   // progression sur la carte
   recordProgress(lastCat, gameMode==="classic" ? correctCount/Math.max(1,queue.length) : Math.min(1, correctCount/18));
+
+  // résultat d'un duel contre un PNJ
+  if(duelWith){
+    const di=NPCS.findIndex(n=>n.name===duelWith);
+    const won = (gameMode==="classic") ? correctCount>=Math.ceil(queue.length*0.6) : correctCount>=10;
+    if(di>=0){ const rel=Object.assign({},npcRel(di)); rel.aff=Math.max(-100,Math.min(100, rel.aff + (won?12:-8))); setNpcRel(di,rel); }
+    $("endStats").innerHTML += `<br>⚔️ Duel contre ${esc(duelWith)} : <b>${won?"GAGNÉ ! 🏆":"perdu… 😅"}</b>`;
+    toast(won?("🏆 Duel gagné contre "+duelWith+" !"):("😈 "+duelWith+" t'a battu·e… revanche ?"));
+    duelWith=null;
+  }
   refreshXPchip();
 }
 
@@ -2746,6 +2769,7 @@ function buildWorld(){
     el.className="npc"; el.style.left=nc.x+"px"; el.style.top=nc.y+"px";
     el.innerHTML=`<div class="ntag" id="ntag${i}">${npcLabel(i)}</div><div class="nfig">${idolFigure(PALS[nc.h],nc.acc,nc.st,SKINS[nc.sk],nc.of,nc.os)}</div><div class="nshadow"></div>`;
     el.onclick=(e)=>{ e.stopPropagation(); openNpcPanel(i); };
+    nc._el=el; nc._x=nc.x; nc._y=nc.y; nc._tx=nc.x; nc._ty=nc.y; nc._mode="wander"; nc._cd=2+Math.random()*4; nc._evcd=6+Math.random()*8; nc._face=false;
     inner.insertBefore(el, pl);
   });
 }
@@ -2767,7 +2791,8 @@ function openWorld(){
   $("home").style.display="none"; $("quiz").style.display="none"; $("end").style.display="none"; $("hud").style.display="none";
   $("world").style.display="block";
   buildWorld(); renderPlayer(); renderPet(); petX=wx-22; petY=wy+10; placePet();
-  nearIdx=-1; npcIdx=-1; placePlayer(); camera(); updateNear(); updateNPC();
+  nearIdx=-1; npcIdx=-1; socialTimer=6; approaching=-1; $("npcEvt").classList.remove("on");
+  placePlayer(); camera(); updateNear();
   wOn=true; wLast=performance.now(); cancelAnimationFrame(wRaf); wRaf=requestAnimationFrame(wloop); sndStart();
 }
 function exitWorld(){ wOn=false; cancelAnimationFrame(wRaf); wKeys={up:0,down:0,left:0,right:0};
@@ -2789,7 +2814,7 @@ function wloop(t){
   // la mascotte suit le joueur (avec un peu de retard)
   const tx=wx-(faceL?-20:20), ty=wy+12, ease=Math.min(1,dt*7);
   petX+=(tx-petX)*ease; petY+=(ty-petY)*ease;
-  placePlayer(); placePet(); camera(); updateNear(); updateNPC();
+  placePlayer(); placePet(); camera(); updateNear(); updateNPCs(dt);
   wRaf=requestAnimationFrame(wloop);
 }
 function updateNear(){
@@ -2804,11 +2829,64 @@ function updateNear(){
     else { pr.classList.remove("on"); ab.classList.remove("ready"); }
   }
 }
-function updateNPC(){
-  let best=-1,bd=1e9;
-  NPCS.forEach((nc,i)=>{ const d=Math.hypot(nc.x-wx,nc.y-wy); if(d<bd){bd=d;best=i;} });
-  const near=bd<92?best:-1;
-  if(near!==npcIdx){ npcIdx=near; if(near>=0) talkNPC(near,false); else $("npcBubble").classList.remove("on"); }
+/* ----- PNJ qui se baladent et viennent te voir ----- */
+let socialTimer=6, approaching=-1, duelWith=null;
+function overlayOpen(){ return $("npcPanel").classList.contains("show") || $("mapView").style.display==="flex"; }
+function updateNPC(){ /* remplacé par updateNPCs(dt) */ }
+function updateNPCs(dt){
+  if(overlayOpen()) return;
+  socialTimer-=dt;
+  if(socialTimer<=0 && approaching<0){
+    const cands=NPCS.map((nc,i)=>({i,d:Math.hypot(nc._x-wx,nc._y-wy)})).filter(o=>o.d<480 && NPCS[o.i]._mode==="wander" && (NPCS[o.i]._evcd||0)<=0);
+    if(cands.length){ cands.sort((a,b)=>a.d-b.d); approaching=cands[Math.floor(Math.random()*Math.min(3,cands.length))].i; NPCS[approaching]._mode="approach"; }
+    socialTimer=7+Math.random()*7;
+  }
+  NPCS.forEach((nc,i)=>{
+    nc._evcd=Math.max(0,(nc._evcd||0)-dt);
+    if(nc._mode==="talk"){ if(nc._el){nc._el.classList.remove("walk");} return; }
+    let tx,ty,sp;
+    if(nc._mode==="approach"){ tx=wx; ty=wy; sp=72; } else { tx=nc._tx; ty=nc._ty; sp=32; }
+    const ax=tx-nc._x, ay=ty-nc._y, d=Math.hypot(ax,ay);
+    let moving=false;
+    if(nc._mode==="approach" && d<66){ triggerNpcEvent(i); }
+    else if(d<6){
+      if(nc._mode==="wander"){ nc._cd-=dt; if(nc._cd<=0){ nc._tx=Math.max(120,Math.min(WORLD.w-120, nc.x+(Math.random()*2-1)*240)); nc._ty=Math.max(150,Math.min(WORLD.h-120, nc.y+(Math.random()*2-1)*240)); nc._cd=2.5+Math.random()*4; } }
+    } else { const f=Math.min(1, sp*dt/d); nc._x+=ax*f; nc._y+=ay*f; moving=true; if(ax<-1)nc._face=true; else if(ax>1)nc._face=false; }
+    const el=nc._el; if(el){ el.style.left=nc._x+"px"; el.style.top=nc._y+"px"; el.classList.toggle("walk",moving); el.classList.toggle("faceL",nc._face); }
+  });
+}
+function triggerNpcEvent(i){
+  const nc=NPCS[i]; nc._mode="talk"; approaching=-1; nc._evcd=22+Math.random()*16;
+  if(nc._el) nc._el.classList.remove("walk");
+  const rel=npcRel(i); let type;
+  if(nc.rival || rel.aff<0) type = Math.random()<0.7?"duel":"info";
+  else if(rel.crush || rel.aff>=50) type = Math.random()<0.6?"gift":"chat";
+  else { const r=Math.random(); type = r<0.34?"gift" : r<0.55?"duel" : "chat"; }
+  showNpcEvent(i,type);
+}
+function showNpcEvent(i,type){
+  const nc=NPCS[i], ev=$("npcEvt");
+  ev.style.left=nc._x+"px"; ev.style.top=(nc._y-78)+"px";
+  let html="";
+  if(type==="gift"){
+    const n=30+Math.floor(Math.random()*5)*10; addXP(n); refreshXPchip();
+    const rel=Object.assign({},npcRel(i)); rel.aff=Math.min(100,rel.aff+6); setNpcRel(i,rel); refreshNpcTag(i);
+    html=`🎁 ${esc(nc.name)} t'offre <b>+${n} XP</b> !`; for(let k=0;k<5;k++) setTimeout(()=>floatHeart("💝"),k*80); blip(760,.1,0,.1);
+  } else if(type==="chat"||type==="info"){
+    html=esc(nc.lines[Math.floor(Math.random()*nc.lines.length)]); blip(680,.05,0,.07);
+  } else { // duel
+    html=`⚔️ ${esc(nc.name)} te défie en duel !<div class="evtBtns"><button id="evtYes">Accepter</button><button id="evtNo">Refuser</button></div>`; sndBad();
+  }
+  ev.innerHTML=html; ev.classList.remove("on"); void ev.offsetWidth; ev.classList.add("on");
+  if(type==="duel"){
+    $("evtYes").onclick=()=>{ ev.classList.remove("on"); nc._mode="wander";
+      const cat=SUBJECTS[Math.floor(Math.random()*SUBJECTS.length)];
+      duelWith=nc.name; cameFromWorld=true; lastCat=cat; wOn=false; cancelAnimationFrame(wRaf); wKeys={up:0,down:0,left:0,right:0};
+      $("world").style.display="none"; sndWhoosh(); startGame(cat); };
+    $("evtNo").onclick=()=>{ ev.classList.remove("on"); const rel=Object.assign({},npcRel(i)); rel.aff=Math.max(-100,rel.aff-6); setNpcRel(i,rel); refreshNpcTag(i); nc._mode="wander"; toast("« Dégonflé·e ! 😏 » — "+nc.name); };
+  } else {
+    setTimeout(()=>{ ev.classList.remove("on"); nc._mode="wander"; }, 2700);
+  }
 }
 function talkNPC(i,advance){
   const nc=NPCS[i];
