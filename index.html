@@ -2464,18 +2464,32 @@ function idolSVG(p,acc=0,style=0,key="",skin=null,outfit=null){
 /* éléments de la TÊTE (réutilisés par le portrait et le corps entier) */
 function headParts(p,style,SK,acc){
  const H=HAIRS[style]||HAIRS[0];
+ const eye=p.eye||shade(p.hair,-8);
+ const brow=shade(p.hair,-14);
  return `${H.back(p)}
  <circle cx="38" cy="58" r="4.6" fill="${SK.skin}"/><circle cx="82" cy="58" r="4.6" fill="${SK.skin}"/>
+ <circle cx="38" cy="59" r="1.9" fill="${SK.skin2}" opacity=".6"/><circle cx="82" cy="59" r="1.9" fill="${SK.skin2}" opacity=".6"/>
  <ellipse cx="60" cy="56" rx="22" ry="24" fill="${SK.skin}"/>
+ <path d="M74 40 q11 15 0 33 q5 -16 0 -33Z" fill="${SK.skin2}" opacity=".32"/>
+ <ellipse cx="50" cy="50" rx="8.5" ry="11" fill="#fff" opacity=".10"/>
  ${H.front(p)}
- <path d="M46 48 q5 -3 10 -1" stroke="${p.hair}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
- <path d="M64 47 q5 -2 10 1" stroke="${p.hair}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
- <ellipse cx="51" cy="56" rx="3.4" ry="4.6" fill="#241225"/><ellipse cx="69" cy="56" rx="3.4" ry="4.6" fill="#241225"/>
- <circle cx="52.2" cy="54.4" r="1.2" fill="#fff"/><circle cx="70.2" cy="54.4" r="1.2" fill="#fff"/>
- <ellipse cx="48" cy="64" rx="4.5" ry="2.6" fill="#ff6aa6" opacity=".5"/><ellipse cx="72" cy="64" rx="4.5" ry="2.6" fill="#ff6aa6" opacity=".5"/>
+ <path d="M44 41 q14 -10 30 -3" stroke="#fff" stroke-width="3.2" opacity=".16" fill="none" stroke-linecap="round"/>
+ <path d="M46 47.5 q5 -3.5 10 -1.5" stroke="${brow}" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+ <path d="M64 46 q5 -2.5 10 1.5" stroke="${brow}" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+ <path d="M46.5 54 q4.5 -4.2 9 0" stroke="#1b1320" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+ <path d="M64.5 54 q4.5 -4.2 9 0" stroke="#1b1320" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+ <ellipse cx="51" cy="56.6" rx="3.5" ry="4.5" fill="${eye}"/><ellipse cx="69" cy="56.6" rx="3.5" ry="4.5" fill="${eye}"/>
+ <circle cx="51" cy="57.2" r="1.8" fill="#1b1320"/><circle cx="69" cy="57.2" r="1.8" fill="#1b1320"/>
+ <circle cx="52.4" cy="54.6" r="1.35" fill="#fff"/><circle cx="70.4" cy="54.6" r="1.35" fill="#fff"/>
+ <circle cx="49.7" cy="58.6" r=".85" fill="#fff" opacity=".85"/><circle cx="67.7" cy="58.6" r=".85" fill="#fff" opacity=".85"/>
+ <path d="M46.2 53 l-2.6 -1.4 M73.8 53 l2.6 -1.4" stroke="#1b1320" stroke-width="1.6" stroke-linecap="round"/>
+ <path d="M59 60 q1.6 2 .2 3.6" stroke="${SK.skin2}" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".65"/>
+ <ellipse cx="47" cy="64" rx="4.6" ry="2.7" fill="#ff6aa6" opacity=".5"/><ellipse cx="73" cy="64" rx="4.6" ry="2.7" fill="#ff6aa6" opacity=".5"/>
+ <path d="M44.4 61 l.5 1.4 1.4 .5 -1.4 .5 -.5 1.4 -.5 -1.4 -1.4 -.5 1.4 -.5Z" fill="#fff" opacity=".75"/>
  <path d="M53 66 q7 6 14 0" stroke="#c43c6a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+ <path d="M55 67.5 q5 3 10 0" stroke="#ff9cba" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".8"/>
  <path d="M82 56 q11 14 -5 31" stroke="#1b1320" stroke-width="2.6" fill="none" stroke-linecap="round"/>
- <circle cx="74" cy="86" r="4.2" fill="${p.accent}"/><circle cx="82" cy="56" r="3.2" fill="#1b1320"/>
+ <circle cx="74" cy="86" r="4.2" fill="${p.accent}"/><circle cx="74" cy="84.6" r="1.4" fill="#fff" opacity=".7"/><circle cx="82" cy="56" r="3.2" fill="#1b1320"/>
  ${accSVG(acc)}`;
 }
 
@@ -2667,6 +2681,12 @@ const DECOR=[
  {t:"🪴",x:150,y:390},{t:"🪴",x:1010,y:410},{t:"⛲",x:600,y:680},{t:"🌷",x:330,y:850},{t:"🌷",x:880,y:300},
  {t:"lamp",x:430,y:430},{t:"lamp",x:760,y:430},{t:"lamp",x:430,y:850},{t:"lamp",x:760,y:850},
  {t:"lamp",x:600,y:260},{t:"lamp",x:300,y:660},{t:"lamp",x:900,y:660},
+ // détails supplémentaires : fleurs, buissons, bancs, petits animaux
+ {t:"🌷",x:110,y:300},{t:"🌻",x:1075,y:330},{t:"🌼",x:470,y:250},{t:"🌹",x:720,y:250},
+ {t:"🌿",x:130,y:720},{t:"🌿",x:1080,y:720},{t:"🍄",x:350,y:820},{t:"🌼",x:840,y:820},
+ {t:"💐",x:300,y:1010},{t:"🌸",x:900,y:1010},{t:"🦋",x:470,y:440},{t:"🦋",x:710,y:640},
+ {t:"🪑",x:520,y:662},{t:"🪑",x:660,y:662},{t:"🐦",x:430,y:640},{t:"🌷",x:110,y:470},
+ {t:"🌲",x:1075,y:470},{t:"🌳",x:1070,y:120},{t:"🌲",x:120,y:1000},{t:"🐦",x:760,y:560},
 ];
 let wKeys={up:0,down:0,left:0,right:0}, wTarget=null, wRaf=0, wLast=0, wOn=false;
 let wx=600, wy=1040, camX=0, camY=0, nearIdx=-1, npcIdx=-1, faceL=false, cameFromWorld=false;
@@ -2675,12 +2695,23 @@ const npcLine=NPCS.map(()=>0);
 /* réseau de chemins + plaza centrale */
 function worldPathsSVG(){
   const hx=590, hy=560;
-  const lines=BUILD.map(b=>`<line x1="${hx}" y1="${hy}" x2="${b.x}" y2="${b.y+8}" stroke="#e9dcb0" stroke-width="26" stroke-linecap="round"/>`).join("");
-  const lite=BUILD.map(b=>`<line x1="${hx}" y1="${hy}" x2="${b.x}" y2="${b.y+8}" stroke="#f4ebcb" stroke-width="14" stroke-linecap="round"/>`).join("");
+  const seg=(b,stroke,w,extra="")=>`<line x1="${hx}" y1="${hy}" x2="${b.x}" y2="${b.y+8}" stroke="${stroke}" stroke-width="${w}" stroke-linecap="round" ${extra}/>`;
+  const edge=BUILD.map(b=>seg(b,"#bda674",32)).join("");      // bordure terre
+  const lines=BUILD.map(b=>seg(b,"#e9dcb0",26)).join("");     // pavé
+  const lite=BUILD.map(b=>seg(b,"#f4ebcb",13)).join("");      // reflet central
+  const dash=BUILD.map(b=>seg(b,"#fff",2.4,'stroke-dasharray="3 13" opacity=".5"')).join(""); // ligne médiane
+  // rose des vents au centre de la plaza
+  const star=`<g transform="translate(${hx} ${hy})" opacity=".8">
+    <path d="M0 -34 L7 -7 34 0 7 7 0 34 -7 7 -34 0 -7 -7Z" fill="#e7d49a" stroke="#cdb985" stroke-width="2"/>
+    <path d="M0 -22 L4 -4 22 0 4 4 0 22 -4 4 -22 0 -4 -4Z" fill="#fff7df"/>
+    <circle r="4.5" fill="#cdb985"/></g>`;
   return `<svg class="worldpaths" width="${WORLD.w}" height="${WORLD.h}" viewBox="0 0 ${WORLD.w} ${WORLD.h}">
-    ${lines}${lite}
+    ${edge}${lines}${lite}${dash}
+    <circle cx="${hx}" cy="${hy}" r="86" fill="#d8c690"/>
     <circle cx="${hx}" cy="${hy}" r="78" fill="#efe4bd" stroke="#e2d49c" stroke-width="5"/>
-    <circle cx="${hx}" cy="${hy}" r="58" fill="none" stroke="#e2d49c" stroke-width="3" opacity=".6"/></svg>`;
+    <circle cx="${hx}" cy="${hy}" r="58" fill="none" stroke="#e2d49c" stroke-width="3" opacity=".6"/>
+    <circle cx="${hx}" cy="${hy}" r="46" fill="none" stroke="#fff" stroke-width="1.6" stroke-dasharray="3 9" opacity=".4"/>
+    ${star}</svg>`;
 }
 /* bâtiments thématiques par matière */
 function bldWin(x,y){ return `<rect x="${x}" y="${y}" width="11" height="13" rx="2" fill="#cdeaff" stroke="rgba(0,0,0,.22)" stroke-width="1.6"/><path d="M${x+5.5} ${y}v13 M${x} ${y+6.5}h11" stroke="rgba(0,0,0,.15)" stroke-width="1"/>`; }
