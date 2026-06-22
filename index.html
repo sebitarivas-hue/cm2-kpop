@@ -214,7 +214,41 @@
     background:conic-gradient(from 0deg, #ff004c,#ff8a00,#ffe600,#00ff85,#00e5ff,#7a5cff,#ff00c8,#ff004c);
     animation:holospin 24s linear infinite; }
   /* scène/projecteurs : on garde mais discret */
-  .beam{ opacity:.28 !important; }
+  .beam{ opacity:.22 !important; }
+
+  /* ============ DÉCOR VAPORWAVE ============ */
+  .vw{ position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden; }
+  /* ciel coucher de soleil */
+  .vw .vwsky{ position:absolute; inset:0;
+    background:linear-gradient(180deg,#180033 0%,#3a0a5c 26%,#7a1f6b 46%,#c33d7a 58%,#ff6f91 66%,#ff9a76 71%,#1a0640 74%);
+    opacity:.6; }
+  /* soleil rétro à rayures */
+  .vw .vwsun{ position:absolute; left:50%; top:6%; width:min(340px,82vw); aspect-ratio:1; transform:translateX(-50%);
+    border-radius:50%; overflow:hidden;
+    background:linear-gradient(180deg,#fff39c 0%,#ffe24d 26%,#ff9a4d 50%,#ff5fa2 74%,#c23d9c 100%);
+    box-shadow:0 0 90px 24px rgba(255,110,160,.45); opacity:.92; }
+  .vw .vwsun::after{ content:""; position:absolute; left:-2%; right:-2%; bottom:0; height:54%;
+    background:repeating-linear-gradient(180deg,
+      transparent 0 6px, #2a0640 6px 8px,
+      transparent 8px 17px, #2a0640 17px 20px,
+      transparent 20px 33px, #2a0640 33px 37px,
+      transparent 37px 54px, #2a0640 54px 60px); }
+  /* grille en perspective (sol qui défile) */
+  .vw .vwgridwrap{ position:absolute; left:0; right:0; bottom:0; height:46%;
+    perspective:300px; perspective-origin:50% 0%;
+    -webkit-mask-image:linear-gradient(to top,#000 35%,transparent); mask-image:linear-gradient(to top,#000 35%,transparent); }
+  .vw .vwgrid{ position:absolute; left:-60%; right:-60%; top:0; bottom:-40%;
+    transform:rotateX(74deg); transform-origin:50% 0%;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(70,230,255,.55) 0 2px, transparent 2px 58px),
+      repeating-linear-gradient(0deg,  rgba(255,95,200,.55) 0 2px, transparent 2px 58px);
+    background-position:0 0, 0 0; opacity:.55;
+    animation:vwgrid 1.8s linear infinite; }
+  @keyframes vwgrid{ from{ background-position:0 0,0 0; } to{ background-position:0 0,0 58px; } }
+  /* scanlines VHS */
+  .vw .vwscan{ position:absolute; inset:0; opacity:.4; mix-blend-mode:overlay;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px); }
+  @media (prefers-reduced-motion:reduce){ .vw .vwgrid{ animation:none; } }
 
   /* TITRE chromé + halo irisé */
   h1.neon{ font-family:"Bagel Fat One",system-ui,cursive !important; letter-spacing:0 !important;
@@ -364,6 +398,7 @@
   /* sol : vraie pelouse — grain de brins d'herbe + bandes de tonte + variations soleil/ombre */
   .mapInner{ position:absolute; top:0; left:0; will-change:transform;
     background:
+      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="174" height="174"><g opacity="0.92"><circle cx="28" cy="34" r="2.4" fill="white"/><circle cx="33" cy="37" r="2.4" fill="white"/><circle cx="33" cy="43" r="2.4" fill="white"/><circle cx="28" cy="46" r="2.4" fill="white"/><circle cx="23" cy="43" r="2.4" fill="white"/><circle cx="23" cy="37" r="2.4" fill="white"/><circle cx="28" cy="40" r="2.2" fill="%23ffd24d"/><circle cx="120" cy="49" r="2.3" fill="%23ff9ecf"/><circle cx="124" cy="53" r="2.3" fill="%23ff9ecf"/><circle cx="122" cy="58" r="2.3" fill="%23ff9ecf"/><circle cx="116" cy="56" r="2.3" fill="%23ff9ecf"/><circle cx="116" cy="51" r="2.3" fill="%23ff9ecf"/><circle cx="120" cy="54" r="2" fill="white"/><circle cx="78" cy="112" r="2.3" fill="white"/><circle cx="83" cy="115" r="2.3" fill="white"/><circle cx="81" cy="120" r="2.3" fill="white"/><circle cx="75" cy="118" r="2.3" fill="white"/><circle cx="75" cy="113" r="2.3" fill="white"/><circle cx="79" cy="116" r="2" fill="%23ffd24d"/><circle cx="142" cy="126" r="2.1" fill="%23c4a5ff"/><circle cx="146" cy="129" r="2.1" fill="%23c4a5ff"/><circle cx="143" cy="132" r="2.1" fill="%23c4a5ff"/><circle cx="139" cy="129" r="2.1" fill="%23c4a5ff"/><circle cx="142" cy="129" r="1.7" fill="%23fff6c8"/><circle cx="52" cy="138" r="2" fill="%236fbf57"/><circle cx="56" cy="135" r="2" fill="%236fbf57"/><circle cx="56" cy="141" r="2" fill="%236fbf57"/></g></svg>'),
       url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="lg"><feTurbulence type="fractalNoise" baseFrequency="0.9 0.5" numOctaves="3" seed="4" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.57  0 0 0 0 0.80 0 0 0 0 0.43  0 0 0 0.5 0"/></filter><rect width="100%25" height="100%25" filter="url(%23lg)"/></svg>'),
       url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220"><filter id="dg"><feTurbulence type="fractalNoise" baseFrequency="0.75 0.4" numOctaves="4" seed="9" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.10  0 0 0 0 0.27 0 0 0 0 0.08  0 0 0 0.55 0"/></filter><rect width="100%25" height="100%25" filter="url(%23dg)"/></svg>'),
       repeating-linear-gradient(122deg, rgba(255,255,255,.05) 0 46px, rgba(0,0,0,.05) 46px 92px),
@@ -712,6 +747,14 @@
   <!-- TRANSITIONS de scène -->
   <div class="flash" id="flash" aria-hidden="true"></div>
   <div class="wipe" id="wipe" aria-hidden="true"><div class="wipeCard"><span class="wipeEmo" id="wipeEmo">🎵</span><span class="wipeName" id="wipeName"></span></div></div>
+
+  <!-- DÉCOR VAPORWAVE : ciel coucher de soleil + soleil rétro + grille en perspective -->
+  <div class="vw" aria-hidden="true">
+    <div class="vwsky"></div>
+    <div class="vwsun"></div>
+    <div class="vwgridwrap"><div class="vwgrid"></div></div>
+    <div class="vwscan"></div>
+  </div>
 
   <!-- SCÈNE DE CONCERT animée -->
   <div class="stage" aria-hidden="true">
@@ -1834,20 +1877,43 @@ function kick(when=0,vol=.5){            // grosse caisse
 function clap(when=0,vol=.22){ noise(.09,when,vol); }   // clap / snare
 
 const SC={CM:523.25,D:587.33,E:659.25,F:698.46,G:783.99,A:880,B:987.77,C2:1046.5,D2:1174.66,E2:1318.51,G2:1568,A2:1760};
-function riff(notes,vol=.17){ notes.forEach(([n,when,dur])=>blip(SC[n]||n,dur||.16,when,vol)); }
+const semi=n=>Math.pow(2,n/12);                       // transposition (demi-tons)
+function pick(a){ return a[(Math.random()*a.length)|0]; }
+const _sndLast={};
+function pickNR(a,key){ if(a.length<2) return a[0]; let i; do{i=(Math.random()*a.length)|0;}while(i===_sndLast[key]); _sndLast[key]=i; return a[i]; }
+function riff(notes,vol=.17,tr=1){ notes.forEach(([n,when,dur])=>blip((SC[n]||n)*tr,dur||.16,when,vol)); }
 
-function sndGood(){ riff([["G",0,.12],["B",.08,.12],["D2",.16,.2]]); clap(.16,.12); }
-function sndBad(){ tone(220,.18,"sawtooth",0,.16); tone(160,.28,"sawtooth",.06,.16); noise(.12,0,.06); }
+const GOOD_RIFFS=[
+ [["G",0,.12],["B",.08,.12],["D2",.16,.2]],
+ [["E",0,.12],["G",.08,.12],["C2",.16,.2]],
+ [["CM",0,.12],["E",.08,.12],["G",.16,.2]],
+ [["D",0,.11],["G",.08,.11],["B",.16,.11],["D2",.24,.2]],
+ [["G",0,.1],["A",.08,.1],["B",.16,.1],["D2",.24,.2]],
+ [["E",0,.11],["A",.08,.11],["C2",.16,.11],["E2",.24,.2]],
+];
+function sndGood(rise=0){
+  const tr=semi(Math.min(rise,7))*pick([1,1,semi(2),semi(-1)]);   // monte avec le combo + variation
+  riff(pickNR(GOOD_RIFFS,"good"),.17,tr); clap(.16,.12);
+}
+function sndBad(){
+  const f=pick([220,233,207,196]);
+  tone(f,.18,"sawtooth",0,.16); tone(f*0.72,.28,"sawtooth",.06,.16); noise(.12,0,.06);
+}
 // HOOK K-POP (réponse bonus) : petite mélodie entraînante + beat
 function sndBonus(){
+  const tr=pick([1,semi(2),semi(-3),semi(5)]);
   kick(0); kick(.3); clap(.15,.18); clap(.45,.18);
-  riff([["E",0,.13],["G",.15,.13],["A",.3,.13],["C2",.45,.13],["B",.6,.13],["E2",.72,.28]],.18);
-  blip(SC.A2,.4,.72,.1);
+  riff(pickNR([
+    [["E",0,.13],["G",.15,.13],["A",.3,.13],["C2",.45,.13],["B",.6,.13],["E2",.72,.28]],
+    [["CM",0,.13],["E",.15,.13],["G",.3,.13],["A",.45,.13],["G",.6,.13],["C2",.72,.28]],
+    [["G",0,.13],["A",.15,.13],["B",.3,.13],["D2",.45,.13],["C2",.6,.13],["E2",.72,.28]],
+  ],"bonus"),.18,tr);
+  blip(SC.A2*tr,.4,.72,.1);
 }
-function sndClick(){ blip(660,.06,0,.1); }
+function sndClick(){ blip(pick([620,660,700,740]),.06,0,.1); }
 function sndType(){ tone(1000+Math.random()*300,.025,"square",0,.045); }
-function sndWhoosh(){ tone(360,.16,"sine",0,.1); tone(820,.1,"sine",.05,.06); noise(.12,0,.05); }
-function sndCombo(){ kick(0); riff([["C2",0,.1],["E2",.08,.1],["G2",.16,.1],["A2",.24,.22]],.18); clap(.16,.14); }
+function sndWhoosh(){ const f=pick([330,360,390,300]); tone(f,.16,"sine",0,.1); tone(f*2.25,.1,"sine",.05,.06); noise(.12,0,.05); }
+function sndCombo(){ const tr=pick([1,semi(2),semi(4),semi(-2)]); kick(0); riff([["C2",0,.1],["E2",.08,.1],["G2",.16,.1],["A2",.24,.22]],.18,tr); clap(.16,.14); }
 function sndLife(){ tone(330,.12,"sine",0,.18); tone(247,.2,"sine",.12,.18); }
 function sndGameOver(){ riff([["A",0,.3],["G",.18,.3],["E",.36,.3]],.16); tone(196,.5,"sawtooth",.5,.16); kick(.5,.4); }
 // JINGLE de victoire K-pop : montée pop + beat
@@ -1856,7 +1922,7 @@ function sndLevelUp(){
   kick(0); kick(.24); kick(.48); clap(.24,.2); clap(.48,.2);
   riff([["CM",0,.12],["E",.12,.12],["G",.24,.12],["C2",.36,.12],["E2",.48,.12],["G2",.6,.3]],.18);
 }
-function sndStart(){ kick(0); riff([["G",0,.1],["C2",.1,.1],["E2",.2,.18]],.16); clap(.2,.14); }
+function sndStart(){ const tr=pick([1,semi(2),semi(-2),semi(3)]); kick(0); riff(pickNR([[["G",0,.1],["C2",.1,.1],["E2",.2,.18]],[["CM",0,.1],["G",.1,.1],["C2",.2,.18]],[["E",0,.1],["A",.1,.1],["C2",.2,.18]]],"start"),.16,tr); clap(.2,.14); }
 function sndRecord(){ // fanfare nouveau record
   haptic([0,40,50,40,50,40,50,60,120]);   // fanfare haptique
   kick(0); kick(.2); kick(.4);
@@ -2172,7 +2238,7 @@ function win(anchor){
   score+=pts; combo++;
   correctCount++; if(bonus) bonusCount++; if(combo>bestCombo) bestCombo=combo;
   questProgress("correct",1); questProgress("combo",combo); if(bonus) questProgress("bonus",1);
-  if(bonus) sndBonus(); else sndGood();
+  if(bonus) sndBonus(); else sndGood(combo-1);
   haptic(bonus ? [0,20,40,30,40,45] : (combo>=3 ? [0,15,35,25] : 18));   // tap léger, plus appuyé en combo/bonus
   if(combo>=3 && combo%2===1) setTimeout(sndCombo,180);   // jingle de palier de combo
   $("combo").classList.add("hot"); setTimeout(()=>$("combo").classList.remove("hot"),400);
@@ -2545,6 +2611,8 @@ function idolBody(p,acc,style,SK,C,ostyle,shadow){
  const OS=OSTYLES[ostyle]||OSTYLES[0];
  return `${shadow?'<ellipse cx="60" cy="252" rx="27" ry="6" fill="rgba(0,0,0,.32)"/>':''}
   ${OS.draw(C,SK)}
+  <path d="M50 73 q5 -3 9 0 l-1 46 q-4 1.5 -7 0Z" fill="#fff" opacity=".09"/>
+  <path d="M70 74 q-4 -2 -7 0 l1 44 q3 1 5 0Z" fill="#000" opacity=".08"/>
   <rect x="55" y="52" width="10" height="20" rx="5" fill="${SK.skin2}"/>
   <g transform="translate(20.4,1) scale(0.66)">${headParts(p,style,SK,acc)}</g>`;
 }
@@ -2714,7 +2782,11 @@ function worldPathsSVG(){
     ${star}</svg>`;
 }
 /* bâtiments thématiques par matière */
-function bldWin(x,y){ return `<rect x="${x}" y="${y}" width="11" height="13" rx="2" fill="#cdeaff" stroke="rgba(0,0,0,.22)" stroke-width="1.6"/><path d="M${x+5.5} ${y}v13 M${x} ${y+6.5}h11" stroke="rgba(0,0,0,.15)" stroke-width="1"/>`; }
+function bldWin(x,y){
+  const lit=Math.random()<0.45;
+  const glow=lit?`<rect x="${x-2}" y="${y-2}" width="15" height="17" rx="3" fill="#ffd24d" opacity=".28"/>`:"";
+  return `${glow}<rect x="${x}" y="${y}" width="11" height="13" rx="2" fill="${lit?'#ffe49a':'#cdeaff'}" stroke="rgba(0,0,0,.22)" stroke-width="1.6"/><path d="M${x+5.5} ${y}v13 M${x} ${y+6.5}h11" stroke="rgba(0,0,0,.15)" stroke-width="1"/><rect x="${x+1.4}" y="${y+1.4}" width="3.6" height="3.6" rx="1" fill="#fff" opacity=".5"/>`;
+}
 function bldDoor(){ return `<path d="M52 96 h16 v24 h-16Z" fill="#7a4a26" stroke="rgba(0,0,0,.28)" stroke-width="2"/><circle cx="64.5" cy="109" r="1.5" fill="#ffd24d"/>`; }
 function buildSVG(cat,c1,c2){
  const OL='stroke="rgba(0,0,0,.26)" stroke-width="2.5" stroke-linejoin="round"';

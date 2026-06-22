@@ -1,5 +1,5 @@
 /* Service worker CM2 K-Pop — réseau d'abord pour le HTML (toujours la dernière version), cache pour l'offline */
-const CACHE = "cm2kpop-v3";
+const CACHE = "cm2kpop-v4";
 const APP = "index.html";
 const CORE = [APP, "manifest.json", "icon-180.png", "icon-192.png", "icon-512.png"];
 
