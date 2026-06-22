@@ -869,7 +869,7 @@
     <div class="eq" id="eq"></div>
     <div class="hero-idols" id="heroIdols"></div>
     <h1 class="neon">CM2 <span class="neon2">K-POP</span></h1>
-    <p class="tag">Révise tout le programme CM2 façon idol — 8 matières · scène, combos &amp; bonus K-Pop 💖<br><span style="font-size:.72rem;opacity:.7">v2.7 · PNJ vivants : se baladent & viennent te voir (duel, cadeau, conversation)</span></p>
+    <p class="tag">Révise tout le programme CM2 façon idol — 8 matières · scène, combos &amp; bonus K-Pop 💖<br><span style="font-size:.72rem;opacity:.7">v3.1 · avatars plus réalistes · sauvegardes & profils · design vaporwave</span></p>
   </header>
 
   <div class="hud" id="hud" style="display:none;">
@@ -2600,35 +2600,41 @@ function idolSVG(p,acc=0,style=0,key="",skin=null,outfit=null){
  ${headParts(p,style,SK,acc)}
 </svg>`;}
 
-/* éléments de la TÊTE (réutilisés par le portrait et le corps entier) */
+/* éléments de la TÊTE (réutilisés par le portrait et le corps entier) — visage humain réaliste */
 function headParts(p,style,SK,acc){
  const H=HAIRS[style]||HAIRS[0];
- const eye=p.eye||shade(p.hair,-8);
- const brow=shade(p.hair,-14);
+ const eye=p.eye||"#5b4636";
+ const brow=shade(p.hair,-16);
+ const lip="#cf6f86", lip2="#a64c62";
  return `${H.back(p)}
- <circle cx="38" cy="58" r="4.6" fill="${SK.skin}"/><circle cx="82" cy="58" r="4.6" fill="${SK.skin}"/>
- <circle cx="38" cy="59" r="1.9" fill="${SK.skin2}" opacity=".6"/><circle cx="82" cy="59" r="1.9" fill="${SK.skin2}" opacity=".6"/>
- <ellipse cx="60" cy="56" rx="22" ry="24" fill="${SK.skin}"/>
- <path d="M74 40 q11 15 0 33 q5 -16 0 -33Z" fill="${SK.skin2}" opacity=".32"/>
- <ellipse cx="50" cy="50" rx="8.5" ry="11" fill="#fff" opacity=".10"/>
+ <path d="M37 55 q-5 -1 -5.5 5 q0 6 6 6.5 q-2.5 -6 -.5 -11.5Z" fill="${SK.skin}" stroke="${SK.skin2}" stroke-width=".8"/>
+ <path d="M83 55 q5 -1 5.5 5 q0 6 -6 6.5 q2.5 -6 .5 -11.5Z" fill="${SK.skin}" stroke="${SK.skin2}" stroke-width=".8"/>
+ <circle cx="84.4" cy="62" r="1.7" fill="${p.accent}"/><circle cx="35.6" cy="62" r="1.4" fill="${SK.skin2}" opacity=".5"/>
+ <path d="M60 32 C71 32 80.5 40 81 52 C81.5 63 75 75.5 60 82 C45 75.5 38.5 63 39 52 C39.5 40 49 32 60 32 Z" fill="${SK.skin}"/>
+ <path d="M78 46 C82 56 78 70.5 64 79 C75 69 76 56 73 46 Z" fill="${SK.skin2}" opacity=".22"/>
+ <ellipse cx="50.5" cy="49" rx="8" ry="11" fill="#fff" opacity=".08"/>
  ${H.front(p)}
- <path d="M44 41 q14 -10 30 -3" stroke="#fff" stroke-width="3.2" opacity=".16" fill="none" stroke-linecap="round"/>
- <path d="M46 47.5 q5 -3.5 10 -1.5" stroke="${brow}" stroke-width="2.6" fill="none" stroke-linecap="round"/>
- <path d="M64 46 q5 -2.5 10 1.5" stroke="${brow}" stroke-width="2.6" fill="none" stroke-linecap="round"/>
- <path d="M46.5 54 q4.5 -4.2 9 0" stroke="#1b1320" stroke-width="2.2" fill="none" stroke-linecap="round"/>
- <path d="M64.5 54 q4.5 -4.2 9 0" stroke="#1b1320" stroke-width="2.2" fill="none" stroke-linecap="round"/>
- <ellipse cx="51" cy="56.6" rx="3.5" ry="4.5" fill="${eye}"/><ellipse cx="69" cy="56.6" rx="3.5" ry="4.5" fill="${eye}"/>
- <circle cx="51" cy="57.2" r="1.8" fill="#1b1320"/><circle cx="69" cy="57.2" r="1.8" fill="#1b1320"/>
- <circle cx="52.4" cy="54.6" r="1.35" fill="#fff"/><circle cx="70.4" cy="54.6" r="1.35" fill="#fff"/>
- <circle cx="49.7" cy="58.6" r=".85" fill="#fff" opacity=".85"/><circle cx="67.7" cy="58.6" r=".85" fill="#fff" opacity=".85"/>
- <path d="M46.2 53 l-2.6 -1.4 M73.8 53 l2.6 -1.4" stroke="#1b1320" stroke-width="1.6" stroke-linecap="round"/>
- <path d="M59 60 q1.6 2 .2 3.6" stroke="${SK.skin2}" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".65"/>
- <ellipse cx="47" cy="64" rx="4.6" ry="2.7" fill="#ff6aa6" opacity=".5"/><ellipse cx="73" cy="64" rx="4.6" ry="2.7" fill="#ff6aa6" opacity=".5"/>
- <path d="M44.4 61 l.5 1.4 1.4 .5 -1.4 .5 -.5 1.4 -.5 -1.4 -1.4 -.5 1.4 -.5Z" fill="#fff" opacity=".75"/>
- <path d="M53 66 q7 6 14 0" stroke="#c43c6a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
- <path d="M55 67.5 q5 3 10 0" stroke="#ff9cba" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".8"/>
- <path d="M82 56 q11 14 -5 31" stroke="#1b1320" stroke-width="2.6" fill="none" stroke-linecap="round"/>
- <circle cx="74" cy="86" r="4.2" fill="${p.accent}"/><circle cx="74" cy="84.6" r="1.4" fill="#fff" opacity=".7"/><circle cx="82" cy="56" r="3.2" fill="#1b1320"/>
+ <path d="M44.5 50 Q51 46.4 57 49" stroke="${brow}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+ <path d="M63 49 Q69 46.4 75.5 50" stroke="${brow}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+ <path d="M45.5 57 Q51 52.6 57 57 Q51 60.4 45.5 57 Z" fill="#fff"/>
+ <path d="M63 57 Q69 52.6 74.5 57 Q69 60.4 63 57 Z" fill="#fff"/>
+ <circle cx="51.4" cy="57" r="2.9" fill="${eye}"/><circle cx="68.6" cy="57" r="2.9" fill="${eye}"/>
+ <circle cx="51.4" cy="57.1" r="1.5" fill="#160d18"/><circle cx="68.6" cy="57.1" r="1.5" fill="#160d18"/>
+ <circle cx="52.4" cy="55.9" r=".95" fill="#fff"/><circle cx="69.6" cy="55.9" r=".95" fill="#fff"/>
+ <path d="M45.4 56.6 Q51 51.9 57.1 56.6" stroke="#241019" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+ <path d="M62.9 56.6 Q69 51.9 74.6 56.6" stroke="#241019" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+ <path d="M46 57.6 Q51 60 56.6 57.6" stroke="${SK.skin2}" stroke-width="1" fill="none" opacity=".6"/>
+ <path d="M63.4 57.6 Q69 60 74 57.6" stroke="${SK.skin2}" stroke-width="1" fill="none" opacity=".6"/>
+ <path d="M45.1 55.8 l-2.5 -1.3 M74.9 55.8 l2.5 -1.3" stroke="#241019" stroke-width="1.3" stroke-linecap="round"/>
+ <path d="M60 50.5 L57.3 63 Q60 65.2 62.7 63" stroke="${SK.skin2}" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".55"/>
+ <ellipse cx="57.5" cy="63.4" rx="1.1" ry=".75" fill="${SK.skin2}" opacity=".45"/>
+ <ellipse cx="62.5" cy="63.4" rx="1.1" ry=".75" fill="${SK.skin2}" opacity=".45"/>
+ <path d="M53 70 Q56.5 67.7 60 68.6 Q63.5 67.7 67 70 Q60 74.7 53 70 Z" fill="${lip}"/>
+ <path d="M53.6 70 Q60 71.5 66.4 70" stroke="${lip2}" stroke-width="1" fill="none" stroke-linecap="round"/>
+ <path d="M56.4 70.5 Q60 69.9 63.6 70.5 Q60 71.5 56.4 70.5 Z" fill="#ff9cb0" opacity=".55"/>
+ <path d="M59.5 65.5 Q60 66.6 60.5 65.5" stroke="${SK.skin2}" stroke-width=".9" fill="none" opacity=".4"/>
+ <ellipse cx="47.6" cy="64" rx="4.2" ry="2.4" fill="#ff6aa6" opacity=".3"/>
+ <ellipse cx="72.4" cy="64" rx="4.2" ry="2.4" fill="#ff6aa6" opacity=".3"/>
  ${accSVG(acc)}`;
 }
 
@@ -2686,8 +2692,10 @@ function idolBody(p,acc,style,SK,C,ostyle,shadow){
   ${OS.draw(C,SK)}
   <path d="M50 73 q5 -3 9 0 l-1 46 q-4 1.5 -7 0Z" fill="#fff" opacity=".09"/>
   <path d="M70 74 q-4 -2 -7 0 l1 44 q3 1 5 0Z" fill="#000" opacity=".08"/>
-  <rect x="55" y="52" width="10" height="20" rx="5" fill="${SK.skin2}"/>
-  <g transform="translate(20.4,1) scale(0.66)">${headParts(p,style,SK,acc)}</g>`;
+  <rect x="54" y="54" width="12" height="20" rx="5" fill="${SK.skin}"/>
+  <path d="M66 56 q3 9 0 17" stroke="${SK.skin2}" stroke-width="2" fill="none" opacity=".4"/>
+  <ellipse cx="60" cy="65" rx="9" ry="3.2" fill="${SK.skin2}" opacity=".35"/>
+  <g transform="translate(25.2,15.4) scale(0.58)">${headParts(p,style,SK,acc)}</g>`;
 }
 function idolFull(p,acc=0,style=0,skin=null,outfit=null,ostyle=0){
  const SK=skin||{skin:p.skin,skin2:p.skin2}; const C=outfit||p.outfit;
