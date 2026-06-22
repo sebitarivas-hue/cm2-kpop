@@ -250,6 +250,50 @@
     background:repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px); }
   @media (prefers-reduced-motion:reduce){ .vw .vwgrid{ animation:none; } }
 
+  /* ============ SAUVEGARDE : bouton, indicateur, bannière, panneau ============ */
+  .savebtn{ position:fixed; top:calc(12px + env(safe-area-inset-top)); right:calc(66px + env(safe-area-inset-right));
+    min-width:44px; min-height:44px; background:rgba(10,8,20,.8); border:1.5px solid rgba(255,255,255,.4); color:#fff;
+    border-radius:12px; padding:6px 9px; cursor:pointer; font-size:1rem; z-index:70; backdrop-filter:blur(6px); }
+  .savebtn:hover{ border-color:#5ef2b0; }
+  .savedTip{ position:fixed; top:calc(62px + env(safe-area-inset-top)); left:50%; transform:translateX(-50%) translateY(-6px);
+    z-index:121; background:linear-gradient(135deg,#34d399,#22d3ee); color:#04231a; font-weight:800; font-size:.8rem;
+    padding:6px 14px; border-radius:999px; box-shadow:0 8px 20px rgba(0,0,0,.4); opacity:0; pointer-events:none; transition:.25s; }
+  .savedTip.on{ opacity:1; transform:translateX(-50%) translateY(0); }
+  .resumeBtn{ width:100%; display:flex; flex-direction:column; align-items:flex-start; gap:1px; cursor:pointer; margin:0 0 14px;
+    border:2px solid #46e6ff; border-radius:16px; padding:12px 16px; color:#04121a; text-align:left;
+    background:linear-gradient(120deg,#5ef2b0,#46e6ff,#a45cff); background-size:200% auto; animation:holoshift 5s linear infinite;
+    box-shadow:0 6px 0 rgba(0,0,0,.4),0 12px 24px rgba(0,0,0,.45); }
+  .resumeBtn b{ font-family:"Bagel Fat One",cursive; font-size:1.05rem; }
+  .resumeBtn small{ font-weight:700; opacity:.85; font-size:.72rem; }
+  .resumeBtn:active{ transform:translateY(2px); box-shadow:0 3px 0 rgba(0,0,0,.4); }
+  .savePanel{ position:fixed; inset:0; z-index:118; display:none; align-items:center; justify-content:center;
+    background:rgba(4,3,10,.66); backdrop-filter:blur(4px); padding:16px; }
+  .savePanel.show{ display:flex; }
+  .saveCard{ width:340px; max-width:92vw; max-height:88vh; overflow:auto; border-radius:22px; padding:16px; position:relative;
+    background:linear-gradient(#1a1030,#1a1030) padding-box, linear-gradient(135deg,#ff5fa2,#ffd24d,#46e6ff) border-box;
+    border:2px solid transparent; box-shadow:0 24px 56px rgba(0,0,0,.6); animation:cardin .3s ease; }
+  .saveCard h3{ margin:.1em 0 .2em; font-family:"Baloo 2",cursive; color:#fff; }
+  .saveCard .sub{ color:var(--muted); font-size:.78rem; margin-bottom:12px; line-height:1.4; }
+  .profRow{ display:flex; gap:6px; margin-bottom:6px; }
+  .profPick{ flex:1; text-align:left; background:rgba(255,255,255,.06); border:2px solid rgba(255,255,255,.14); color:#fff;
+    border-radius:12px; padding:10px 12px; cursor:pointer; font-weight:700; font-size:.9rem; }
+  .profRow.on .profPick{ border-color:#34d399; background:rgba(52,211,153,.16); }
+  .profPick small{ font-weight:600; opacity:.7; }
+  .profDel{ width:42px; border:2px solid rgba(251,113,133,.4); background:rgba(251,113,133,.1); color:#ffd0d6; border-radius:12px; cursor:pointer; font-size:1rem; }
+  .saveBtns{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+  .saveBtns button{ border:2px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); color:#fff; border-radius:12px;
+    padding:10px 8px; cursor:pointer; font-weight:700; font-size:.82rem; transition:.12s; }
+  .saveBtns button:hover{ transform:translateY(-2px); border-color:var(--pink); }
+  .saveBtns .danger{ grid-column:1/3; border-color:rgba(251,113,133,.5); color:#ffd0d6; }
+  .copyBtn{ width:100%; margin-top:6px; border:2px solid #46e6ff; background:rgba(70,230,255,.12); color:#cdeaff;
+    border-radius:10px; padding:9px; font-weight:800; cursor:pointer; }
+  .saveClose{ position:absolute; top:10px; right:10px; width:32px; height:32px; border-radius:50%; border:none;
+    background:rgba(0,0,0,.4); color:#fff; cursor:pointer; font-size:1rem; }
+  #saveCodeWrap{ display:none; margin-top:10px; }
+  #saveCode{ width:100%; height:72px; border-radius:10px; border:1px solid #432a6e; background:#160a2c; color:#cdeaff;
+    font-size:.68rem; padding:8px; resize:none; font-family:monospace; }
+  .saveHint{ font-size:.72rem; color:var(--muted); margin-top:10px; line-height:1.45; }
+
   /* TITRE chromé + halo irisé */
   h1.neon{ font-family:"Bagel Fat One",system-ui,cursive !important; letter-spacing:0 !important;
     background:linear-gradient(180deg,#ffffff 4%,#d7e0ff 30%,#7f8fc0 50%,#ffffff 64%,#aab6dc 100%) !important;
@@ -770,6 +814,32 @@
 
   <button class="mutebtn" id="muteBtn" title="Son"></button>
   <button class="mapbtn" id="mapBtn" title="Carte & progression">🗺️</button>
+  <button class="savebtn" id="saveBtn" title="Sauvegardes & profils">💾</button>
+  <div class="savedTip" id="savedTip">Sauvegardé ✓</div>
+
+  <!-- PANNEAU SAUVEGARDES & PROFILS -->
+  <div class="savePanel" id="savePanel" aria-hidden="true">
+    <div class="saveCard">
+      <button class="saveClose" id="saveClose">✕</button>
+      <h3>💾 Sauvegardes</h3>
+      <div class="sub">Tout est enregistré automatiquement sur cet appareil. Ici tu gères tes profils et tu peux transférer ta sauvegarde.</div>
+      <div class="optlabel">Profils</div>
+      <div id="profList"></div>
+      <div class="saveBtns">
+        <button id="btnNewProf">➕ Nouveau profil</button>
+        <button id="btnRenameProf">✏️ Renommer</button>
+        <button id="btnExport">📤 Exporter</button>
+        <button id="btnImport">📥 Importer</button>
+        <button class="danger" id="btnReset">🗑️ Réinitialiser ce profil</button>
+      </div>
+      <div id="saveCodeWrap">
+        <div class="optlabel">Ton code (copie-le et garde-le précieusement)</div>
+        <textarea id="saveCode" readonly></textarea>
+        <button id="btnCopyCode" class="copyBtn">📋 Copier le code</button>
+      </div>
+      <div class="saveHint">Astuce : « Exporter » te donne un code à coller sur un autre appareil via « Importer » pour retrouver ton perso et ta progression. 💜</div>
+    </div>
+  </div>
 
   <!-- CARTE DE PROGRESSION (accessible à tout moment) -->
   <div class="mapView" id="mapView" style="display:none;">
@@ -812,6 +882,7 @@
   <div class="card" id="card">
     <!-- HOME -->
     <div id="home">
+      <button class="resumeBtn" id="resumeBtn" style="display:none"></button>
       <div class="seclabel">Ton idol <span class="xpchip" id="xpChip">⭐ Niv 1 · 0 XP</span></div>
       <div class="studio">
         <div class="studioPrev" id="studioPrev"></div>
@@ -2160,6 +2231,7 @@ function render(){
   }
   startTimer();
   refreshJokers();
+  saveResume();
 }
 
 function pickQcm(btn,i){
@@ -2287,6 +2359,7 @@ function next(){
 let finished=false;
 function finish(){
   if(finished) return; finished=true;
+  clearResume();
   stopTimer(); stopChrono();
   $("hud").style.display="none";
   $("bar").style.width="100%";
@@ -2664,7 +2737,7 @@ function renderStudio(){
   });
   refreshXPchip();
 }
-function saveAv(){ try{localStorage.setItem('cm2kpop_hair',avHair); localStorage.setItem('cm2kpop_acc',avAcc); localStorage.setItem('cm2kpop_style',avStyle); localStorage.setItem('cm2kpop_skin',avSkin); localStorage.setItem('cm2kpop_outfit',avOutfit); localStorage.setItem('cm2kpop_ostyle',avOStyle); localStorage.setItem('cm2kpop_pet',avPet); localStorage.setItem('cm2kpop_petacc',avPetAcc);}catch(e){} }
+function saveAv(){ try{localStorage.setItem('cm2kpop_hair',avHair); localStorage.setItem('cm2kpop_acc',avAcc); localStorage.setItem('cm2kpop_style',avStyle); localStorage.setItem('cm2kpop_skin',avSkin); localStorage.setItem('cm2kpop_outfit',avOutfit); localStorage.setItem('cm2kpop_ostyle',avOStyle); localStorage.setItem('cm2kpop_pet',avPet); localStorage.setItem('cm2kpop_petacc',avPetAcc);}catch(e){} flashSaved(); }
 function updateHero(){
   const n=PALS.length, trio=[(avHair+n-1)%n,avHair,(avHair+1)%n];
   $("heroIdols").innerHTML=trio.map((i,k)=>idolSVG(PALS[i], k===1?avAcc:0, avStyle, 'hero'+k, SKINS[avSkin], OUTFITS[avOutfit].c)).join("");
@@ -2914,7 +2987,7 @@ function openWorld(){
   wOn=true; wLast=performance.now(); cancelAnimationFrame(wRaf); wRaf=requestAnimationFrame(wloop); sndStart();
 }
 function exitWorld(){ wOn=false; cancelAnimationFrame(wRaf); wKeys={up:0,down:0,left:0,right:0};
-  document.body.classList.remove("playing"); $("world").style.display="none"; $("home").style.display="block"; renderBoard("boardList"); }
+  document.body.classList.remove("playing"); $("world").style.display="none"; $("home").style.display="block"; renderBoard("boardList"); showResumeBanner(); }
 
 function wloop(t){
   if(!wOn) return;
@@ -3243,6 +3316,124 @@ function closeMapView(){
 }
 
 /* ===================== ÉVÉNEMENTS ===================== */
+/* ===================== SAUVEGARDE : profils, reprise, export/import ===================== */
+const SAVE_KEYS=['cm2kpop_name','cm2kpop_xp','cm2kpop_hair','cm2kpop_acc','cm2kpop_style','cm2kpop_skin','cm2kpop_outfit','cm2kpop_ostyle','cm2kpop_pet','cm2kpop_petacc','cm2kpop_scores_v1','cm2kpop_rels','cm2kpop_quest','cm2kpop_stats','cm2kpop_progress','cm2kpop_resume'];
+const PROF_KEY='cm2kpop_profiles';
+function lsGet(k){ try{return localStorage.getItem(k);}catch(e){return null;} }
+function lsSet(k,v){ try{localStorage.setItem(k,v);}catch(e){} }
+function lsDel(k){ try{localStorage.removeItem(k);}catch(e){} }
+
+function profMeta(){ let m; try{ m=JSON.parse(lsGet(PROF_KEY)); }catch(e){} if(!m||!m.list||!m.list.length) return null; return m; }
+function setProfMeta(m){ lsSet(PROF_KEY, JSON.stringify(m)); }
+function snapActive(){ const m=profMeta(); if(!m) return; const blob={}; SAVE_KEYS.forEach(k=>{ const v=lsGet(k); if(v!=null) blob[k]=v; }); lsSet('cm2kpop_prof_'+m.active, JSON.stringify(blob)); }
+function loadBlobToKeys(blob){ SAVE_KEYS.forEach(k=>{ if(blob && blob[k]!=null) lsSet(k,blob[k]); else lsDel(k); }); }
+function ensureProfiles(){
+  let m=profMeta();
+  if(!m){ const name=((lsGet('cm2kpop_name')||'').trim())||'Joueur 1';
+    m={active:'p1', list:[{id:'p1', name}]}; setProfMeta(m); snapActive(); }
+  return m;
+}
+function activeProfile(){ const m=ensureProfiles(); return m.list.find(p=>p.id===m.active)||m.list[0]; }
+function switchProfile(id){
+  const m=ensureProfiles(); if(id===m.active){ closeSavePanel(); return; }
+  snapActive();
+  let blob={}; try{ blob=JSON.parse(lsGet('cm2kpop_prof_'+id))||{}; }catch(e){}
+  loadBlobToKeys(blob); m.active=id; setProfMeta(m); location.reload();
+}
+function newProfile(){
+  const name=(prompt('Nom du nouveau profil :','Joueur '+(((profMeta()||{list:[]}).list.length)+1))||'').trim();
+  if(!name) return;
+  snapActive(); const m=ensureProfiles(); const id='p'+Date.now().toString(36);
+  m.list.push({id,name:name.slice(0,20)}); m.active=id; setProfMeta(m);
+  loadBlobToKeys({}); lsSet('cm2kpop_name', name.slice(0,20)); location.reload();
+}
+function renameProfile(){
+  const m=ensureProfiles(); const p=activeProfile();
+  const name=(prompt('Nouveau nom du profil :', p.name)||'').trim(); if(!name) return;
+  p.name=name.slice(0,20); setProfMeta(m); lsSet('cm2kpop_name', p.name);
+  try{ $("playerName").value=p.name; }catch(e){} renderSavePanel(); flashSaved();
+}
+function deleteProfile(id){
+  const m=ensureProfiles(); if(m.list.length<=1){ alert("Impossible : c'est ton seul profil."); return; }
+  if(!confirm("Supprimer ce profil et toute sa sauvegarde ?")) return;
+  lsDel('cm2kpop_prof_'+id); m.list=m.list.filter(p=>p.id!==id);
+  if(m.active===id){ m.active=m.list[0].id; setProfMeta(m);
+    let blob={}; try{ blob=JSON.parse(lsGet('cm2kpop_prof_'+m.active))||{}; }catch(e){}
+    loadBlobToKeys(blob); location.reload(); return; }
+  setProfMeta(m); renderSavePanel();
+}
+function exportSave(){
+  snapActive(); const p=activeProfile(); const blob={};
+  SAVE_KEYS.forEach(k=>{ const v=lsGet(k); if(v!=null) blob[k]=v; });
+  const payload={v:1, name:p.name, data:blob};
+  let code=""; try{ code=btoa(unescape(encodeURIComponent(JSON.stringify(payload)))); }catch(e){ alert("Export impossible 😕"); return; }
+  $("saveCode").value=code; $("saveCodeWrap").style.display="block"; $("saveCode").select();
+  flashSaved("Code prêt ✓");
+}
+function importSave(){
+  const code=(prompt("Colle ici ton code de sauvegarde :")||"").trim(); if(!code) return;
+  let payload; try{ payload=JSON.parse(decodeURIComponent(escape(atob(code)))); }catch(e){ alert("Code invalide 😕"); return; }
+  if(!payload||!payload.data){ alert("Code invalide 😕"); return; }
+  if(!confirm("Importer la sauvegarde « "+(payload.name||"?")+" » comme nouveau profil ?")) return;
+  snapActive(); const m=ensureProfiles(); const id='p'+Date.now().toString(36);
+  m.list.push({id, name:((payload.name||'Importé')+"").slice(0,20)}); m.active=id; setProfMeta(m);
+  loadBlobToKeys(payload.data); location.reload();
+}
+function resetProfile(){
+  if(!confirm("Tout effacer pour CE profil (perso, XP, scores, progression) ? C'est irréversible.")) return;
+  SAVE_KEYS.forEach(k=>lsDel(k)); location.reload();
+}
+let _savedTipT=null;
+function flashSaved(msg){
+  const el=$("savedTip"); if(!el) return; el.textContent=msg||"Sauvegardé ✓";
+  el.classList.add("on"); clearTimeout(_savedTipT); _savedTipT=setTimeout(()=>el.classList.remove("on"),1400);
+}
+function openSavePanel(){ ensureProfiles(); renderSavePanel(); $("saveCodeWrap").style.display="none"; $("savePanel").classList.add("show"); sndClick(); }
+function closeSavePanel(){ $("savePanel").classList.remove("show"); }
+function renderSavePanel(){
+  const m=ensureProfiles();
+  $("profList").innerHTML=m.list.map(p=>{ const on=p.id===m.active;
+    return `<div class="profRow ${on?'on':''}">
+      <button class="profPick" data-id="${p.id}">${on?'✅ ':'👤 '}${esc(p.name)}${on?' <small>(actuel)</small>':''}</button>
+      ${m.list.length>1?`<button class="profDel" data-id="${p.id}" title="Supprimer">🗑️</button>`:''}
+    </div>`; }).join("");
+  $("profList").querySelectorAll(".profPick").forEach(b=>b.onclick=()=>switchProfile(b.dataset.id));
+  $("profList").querySelectorAll(".profDel").forEach(b=>b.onclick=()=>deleteProfile(b.dataset.id));
+}
+/* ----- reprise d'une partie en cours ----- */
+function saveResume(){
+  if(finished) return;
+  try{ lsSet('cm2kpop_resume', JSON.stringify({ v:1, cat:lastCat, mode:gameMode, diff:difficulty, roundN, maxLives,
+    idx, score, combo, lives, correctCount, bonusCount, bestCombo, wrongCount, jk, cameFromWorld,
+    chrono: gameMode==='chrono'?chronoLeft:0, queue })); }catch(e){}
+}
+function getResume(){ try{ return JSON.parse(lsGet('cm2kpop_resume')); }catch(e){ return null; } }
+function clearResume(){ lsDel('cm2kpop_resume'); }
+function showResumeBanner(){
+  const b=$("resumeBtn"); if(!b) return; const s=getResume();
+  if(s && s.queue && s.queue.length && $("home").style.display!=="none"){
+    const catName=(META[s.cat]&&META[s.cat].name)||(s.cat||"").toUpperCase();
+    const modeL=s.mode==="survie"?"Survie":s.mode==="chrono"?"Chrono":"Classique";
+    b.innerHTML="<b>▶ Reprendre ta partie</b><small>"+catName+" · "+modeL+" · question "+((s.idx|0)+1)+" · "+(s.score|0)+" pts</small>";
+    b.style.display="flex";
+  } else b.style.display="none";
+}
+function resumeGame(){
+  const s=getResume(); if(!s||!s.queue) return;
+  if(!actx){ try{actx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){} }
+  gameMode=s.mode; difficulty=s.diff; roundN=s.roundN; maxLives=s.maxLives; lastCat=s.cat;
+  queue=s.queue; idx=s.idx|0; score=s.score|0; combo=s.combo|0; lives=s.lives;
+  correctCount=s.correctCount|0; bonusCount=s.bonusCount|0; bestCombo=s.bestCombo|0; wrongCount=s.wrongCount|0;
+  jk=s.jk||{fifty:1,skip:1,hint:2}; cameFromWorld=!!s.cameFromWorld; answered=false; finished=false;
+  document.querySelectorAll(".diff").forEach(x=>x.classList.toggle("active", +x.dataset.d===difficulty));
+  document.querySelectorAll(".mode").forEach(x=>x.classList.toggle("active", x.dataset.mode===gameMode));
+  updateHud(); document.body.classList.add("playing");
+  $("resumeBtn").style.display="none"; $("home").style.display="none"; $("end").style.display="none";
+  $("world").style.display="none"; $("hud").style.display="flex"; $("quiz").style.display="block";
+  if(gameMode==="chrono") startChrono(s.chrono||90); else stopChrono();
+  render(); sndStart();
+}
+
 let lastCat="all";
 document.querySelectorAll(".mode").forEach(b=>b.onclick=()=>{ document.querySelectorAll(".mode").forEach(x=>x.classList.remove("active")); b.classList.add("active"); gameMode=b.dataset.mode; sndClick(); });
 document.querySelectorAll(".jk").forEach(b=>b.onclick=()=>useJoker(b.dataset.jk));
@@ -3257,13 +3448,24 @@ $("answer").addEventListener("keydown",e=>{ if(e.key==="Enter") checkInput(); })
 $("nextBtn").onclick=next;
 $("againBtn").onclick=()=>startGame(lastCat);
 $("homeBtn").onclick=()=>{ stopTimer(); $("hud").style.display="none"; $("end").style.display="none"; $("quiz").style.display="none"; score=0;combo=0;lives=maxLives;updateHud();
-  if(cameFromWorld){ cameFromWorld=false; openWorld(); } else { document.body.classList.remove("playing"); $("home").style.display="block"; renderBoard("boardList"); renderQuest(); renderTrophies(); } };
+  if(cameFromWorld){ cameFromWorld=false; openWorld(); } else { document.body.classList.remove("playing"); $("home").style.display="block"; renderBoard("boardList"); renderQuest(); renderTrophies(); showResumeBanner(); } };
 $("muteBtn").onclick=()=>{ muted=!muted; updateMuteIcon(); };
 $("mapBtn").onclick=openMapView;
 $("mapVClose").onclick=closeMapView;
 $("npClose").onclick=closeNpcPanel;
 $("npcPanel").addEventListener("click",e=>{ if(e.target===$("npcPanel")) closeNpcPanel(); });
 $("clearBoard").onclick=()=>{ if(confirm("Effacer tout le classement ?")){ saveBoard([]); renderBoard("boardList"); sndClick(); } };
+/* ---- sauvegarde : panneau profils + reprise ---- */
+$("saveBtn").onclick=openSavePanel;
+$("saveClose").onclick=closeSavePanel;
+$("savePanel").addEventListener("click",e=>{ if(e.target===$("savePanel")) closeSavePanel(); });
+$("btnNewProf").onclick=newProfile;
+$("btnRenameProf").onclick=renameProfile;
+$("btnExport").onclick=exportSave;
+$("btnImport").onclick=importSave;
+$("btnReset").onclick=resetProfile;
+$("btnCopyCode").onclick=()=>{ const ta=$("saveCode"); ta.select(); try{ navigator.clipboard.writeText(ta.value); }catch(e){ try{document.execCommand("copy");}catch(_){} } flashSaved("Code copié ✓"); };
+$("resumeBtn").onclick=resumeGame;
 
 /* ---- contrôles du MONDE ---- */
 $("exploreBtn").onclick=openWorld;
@@ -3291,10 +3493,12 @@ try{ const sh=+localStorage.getItem('cm2kpop_hair'); if(sh>=0 && sh<PALS.length)
      const pa=+localStorage.getItem('cm2kpop_petacc'); if(pa>=0 && pa<PET_ACCS.length) avPetAcc=pa;
      if(getXP()<ACCS[avAcc].xp) avAcc=1; if(getXP()<MASCOTS[avPet].xp) avPet=0; if(getXP()<PET_ACCS[avPetAcc].xp) avPetAcc=0; }catch(e){}
 applyEnrich();
+ensureProfiles();
 buildEq(); buildParticles(); renderStudio(); updateHero(); injectIcons();
 renderBoard("boardList");
 renderQuest(); renderTrophies();
 updateHud();
+showResumeBanner();
 
 // PWA : installable + hors-ligne
 if("serviceWorker" in navigator){
