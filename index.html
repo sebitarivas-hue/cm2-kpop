@@ -29,7 +29,8 @@
     background:linear-gradient(125deg,#1a0b2e,#3b1457,#241a5c,#0e1a4a,#3b0f4d);
     background-size:300% 300%; animation:bgshift 18s ease infinite;
     color:var(--txt); min-height:100vh; overflow-x:hidden; position:relative;
-    display:flex; flex-direction:column; align-items:center; padding:18px 14px 90px;
+    display:flex; flex-direction:column; align-items:center;
+    padding:calc(18px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(90px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));
   }
   /* halos lumineux animés en fond */
   body::before,body::after{content:""; position:fixed; border-radius:50%; filter:blur(70px); opacity:.5; z-index:-1; pointer-events:none;}
@@ -340,7 +341,7 @@
   .trophy.got .tEmo{ filter:none; } .trophy.got .tName{ color:var(--txt); }
 
   /* ============ TOAST ============ */
-  .toast{ position:fixed; left:0; right:0; top:14px; z-index:120; display:flex; flex-direction:column; align-items:center; gap:8px; pointer-events:none; }
+  .toast{ position:fixed; left:0; right:0; top:calc(14px + env(safe-area-inset-top)); z-index:120; display:flex; flex-direction:column; align-items:center; gap:8px; pointer-events:none; }
   .toastMsg{ background:linear-gradient(120deg,#ff5fa2,#a45cff); color:#fff; font-weight:800; font-size:.85rem; padding:10px 18px; border-radius:999px; box-shadow:0 8px 22px rgba(0,0,0,.5); opacity:0; transform:translateY(-14px); transition:.3s; max-width:90vw; text-align:center; }
   .toastMsg.show{ opacity:1; transform:translateY(0); }
 
@@ -614,6 +615,12 @@
   .choice.wrong .ch-key{background:var(--bad); color:#3f0a1a;}
   .choice:disabled{cursor:default;}
   .choice:disabled:hover{transform:none;}
+  /* feedback de réponse : secousse si faux, pulsation si juste */
+  @keyframes choiceShake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-7px)}40%,60%{transform:translateX(7px)}}
+  @keyframes choicePulse{0%{transform:scale(1)}40%{transform:scale(1.04)}100%{transform:scale(1)}}
+  .choice.wrong{animation:choiceShake .42s cubic-bezier(.36,.07,.19,.97) both;}
+  .choice.correct{animation:choicePulse .45s ease both;}
+  @media (prefers-reduced-motion:reduce){ .choice.wrong,.choice.correct{animation:none;} }
   /* Vrai / Faux */
   .choice.vf{ justify-content:center; font-family:"Baloo 2",cursive; font-size:1.25rem; padding:18px 14px; }
   .choice.vfT .ch-key{ background:#34d399; color:#04231a; }
@@ -664,8 +671,8 @@
 
   /* confetti */
   .conf{position:fixed; top:-10px; width:9px; height:9px; z-index:60; pointer-events:none; border-radius:2px;}
-  .mutebtn{position:fixed; top:12px; right:14px; background:var(--card); border:1px solid #4b2f7a; color:var(--txt); border-radius:10px; padding:6px 10px; cursor:pointer; font-size:1rem; z-index:70;}
-  .mapbtn{position:fixed; top:12px; left:14px; background:rgba(10,8,20,.8); border:1.5px solid rgba(255,255,255,.4); color:#fff; border-radius:10px; padding:6px 9px; cursor:pointer; font-size:1rem; z-index:70; backdrop-filter:blur(6px);}
+  .mutebtn{position:fixed; top:calc(12px + env(safe-area-inset-top)); right:calc(14px + env(safe-area-inset-right)); min-width:44px; min-height:44px; background:var(--card); border:1px solid #4b2f7a; color:var(--txt); border-radius:12px; padding:6px 10px; cursor:pointer; font-size:1rem; z-index:70;}
+  .mapbtn{position:fixed; top:calc(12px + env(safe-area-inset-top)); left:calc(14px + env(safe-area-inset-left)); min-width:44px; min-height:44px; background:rgba(10,8,20,.8); border:1.5px solid rgba(255,255,255,.4); color:#fff; border-radius:12px; padding:6px 9px; cursor:pointer; font-size:1rem; z-index:70; backdrop-filter:blur(6px);}
   .mapbtn:hover{ border-color:var(--cyan); }
 
   /* ===== CARTE DE PROGRESSION (path-map) ===== */
@@ -1778,6 +1785,9 @@ function renderBoard(listId, highlight){
 
 /* ===================== SON (Web Audio) ===================== */
 let actx=null;
+/* Retour haptique (vibration mobile) — indépendant du son coupé */
+function haptic(pattern){ try{ if(window.navigator && navigator.vibrate) navigator.vibrate(pattern); }catch(e){} }
+
 function tone(freq,dur,type="sine",when=0,vol=.2){
   if(muted) return;
   if(!actx) actx=new (window.AudioContext||window.webkitAudioContext)();
@@ -1841,11 +1851,13 @@ function sndLife(){ tone(330,.12,"sine",0,.18); tone(247,.2,"sine",.12,.18); }
 function sndGameOver(){ riff([["A",0,.3],["G",.18,.3],["E",.36,.3]],.16); tone(196,.5,"sawtooth",.5,.16); kick(.5,.4); }
 // JINGLE de victoire K-pop : montée pop + beat
 function sndLevelUp(){
+  haptic([0,30,60,30,60,40,80]);   // célébration
   kick(0); kick(.24); kick(.48); clap(.24,.2); clap(.48,.2);
   riff([["CM",0,.12],["E",.12,.12],["G",.24,.12],["C2",.36,.12],["E2",.48,.12],["G2",.6,.3]],.18);
 }
 function sndStart(){ kick(0); riff([["G",0,.1],["C2",.1,.1],["E2",.2,.18]],.16); clap(.2,.14); }
 function sndRecord(){ // fanfare nouveau record
+  haptic([0,40,50,40,50,40,50,60,120]);   // fanfare haptique
   kick(0); kick(.2); kick(.4);
   riff([["G",0,.1],["C2",.1,.1],["E2",.2,.1],["G2",.3,.1],["E2",.4,.1],["G2",.5,.1],["A2",.62,.35]],.2);
   clap(.3,.2); clap(.5,.2);
@@ -2160,6 +2172,7 @@ function win(anchor){
   correctCount++; if(bonus) bonusCount++; if(combo>bestCombo) bestCombo=combo;
   questProgress("correct",1); questProgress("combo",combo); if(bonus) questProgress("bonus",1);
   if(bonus) sndBonus(); else sndGood();
+  haptic(bonus ? [0,20,40,30,40,45] : (combo>=3 ? [0,15,35,25] : 18));   // tap léger, plus appuyé en combo/bonus
   if(combo>=3 && combo%2===1) setTimeout(sndCombo,180);   // jingle de palier de combo
   $("combo").classList.add("hot"); setTimeout(()=>$("combo").classList.remove("hot"),400);
   $("feedback").textContent = (bonus?"🌟 STAN ATTITUDE ! ":"✅ Bravo ! ")+"+"+pts+" pts"+(combo>1?`  (combo x${combo+1}!)`:"");
@@ -2173,6 +2186,7 @@ function lose(correct){
   combo=0; wrongCount++;
   if(gameMode!=="chrono") lives--;
   sndBad(); setTimeout(sndLife,260);
+  haptic([0,55,40,70]);   // buzz d'erreur
   $("feedback").innerHTML="❌ Raté… La bonne réponse : <b class='corr'>"+correct+"</b>";
   $("feedback").className="feedback bad";
   updateHud();
