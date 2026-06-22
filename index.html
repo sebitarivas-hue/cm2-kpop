@@ -360,17 +360,18 @@
   .worldTitle{ font-family:"Bagel Fat One",cursive; font-size:1.05rem; color:#fff; filter:drop-shadow(0 0 6px #46e6ff); }
 
   .map{ position:relative; width:100%; height:62vh; min-height:420px; border-radius:20px; overflow:hidden;
-    border:3px solid rgba(255,255,255,.3); touch-action:none; user-select:none; background:#7ec8ef; }
-  /* sol type "baseplate" : herbe + chemins + plaza + studs */
+    border:3px solid rgba(255,255,255,.3); touch-action:none; user-select:none; background:#3c8a40; }
+  /* sol : vraie pelouse — grain de brins d'herbe + bandes de tonte + variations soleil/ombre */
   .mapInner{ position:absolute; top:0; left:0; will-change:transform;
     background:
-      radial-gradient(rgba(255,255,255,.10) 1.6px, transparent 2.4px) 0 0 / 54px 54px,
-      radial-gradient(rgba(0,0,0,.04) 1.6px, transparent 2.4px) 27px 27px / 54px 54px,
-      radial-gradient(140px 120px at 22% 18%, #7ed374, transparent 70%),
-      radial-gradient(160px 140px at 82% 30%, #6fcd6a, transparent 70%),
-      radial-gradient(180px 150px at 70% 78%, #4fa957, transparent 72%),
-      radial-gradient(160px 140px at 18% 72%, #58b35d, transparent 70%),
-      linear-gradient(180deg,#6fc96a,#57b25c 55%,#47a151); }
+      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="lg"><feTurbulence type="fractalNoise" baseFrequency="0.9 0.5" numOctaves="3" seed="4" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.57  0 0 0 0 0.80 0 0 0 0 0.43  0 0 0 0.5 0"/></filter><rect width="100%25" height="100%25" filter="url(%23lg)"/></svg>'),
+      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220"><filter id="dg"><feTurbulence type="fractalNoise" baseFrequency="0.75 0.4" numOctaves="4" seed="9" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.10  0 0 0 0 0.27 0 0 0 0 0.08  0 0 0 0.55 0"/></filter><rect width="100%25" height="100%25" filter="url(%23dg)"/></svg>'),
+      repeating-linear-gradient(122deg, rgba(255,255,255,.05) 0 46px, rgba(0,0,0,.05) 46px 92px),
+      radial-gradient(280px 220px at 24% 16%, #6cc05a, transparent 72%),
+      radial-gradient(300px 240px at 80% 28%, #58ad4e, transparent 72%),
+      radial-gradient(320px 250px at 68% 80%, #3f8c43, transparent 74%),
+      radial-gradient(280px 230px at 16% 74%, #4aa04c, transparent 72%),
+      linear-gradient(180deg,#5bb056,#49a04b 55%,#3b893f); }
   /* décor : arbres, plantes, lampadaires */
   .dec{ position:absolute; transform:translate(-50%,-100%); font-size:38px; pointer-events:none; z-index:2;
     filter:drop-shadow(0 6px 5px rgba(0,0,0,.5)); animation:decSway 4s ease-in-out infinite; }
