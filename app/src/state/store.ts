@@ -22,8 +22,11 @@ const XP_PAR_NIVEAU = 100;
 interface GameState extends SaveData {
   pretCharge: boolean;
   onboardingFait: boolean;
+  royaumeActif: Royaume | null; // null = on est sur la carte-monde
   // actions
   init: () => Promise<void>;
+  entrerRoyaume: (r: Royaume) => void;
+  retourCarte: () => void;
   gagnerXP: (xp: number) => void;
   enregistrerReussite: (itemId: string, competence: Competence) => void;
   allumerPhare: (r: Royaume) => void;
@@ -62,6 +65,10 @@ export const useGame = create<GameState>((set, get) => ({
   ...ETAT_INITIAL,
   pretCharge: false,
   onboardingFait: false,
+  royaumeActif: null,
+
+  entrerRoyaume: (r) => set({ royaumeActif: r }),
+  retourCarte: () => set({ royaumeActif: null }),
 
   init: async () => {
     const data = await saveAdapter.load();

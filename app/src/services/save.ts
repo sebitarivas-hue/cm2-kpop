@@ -6,6 +6,7 @@
  * tableaux de bord parent/enseignant) — sans toucher au reste du code.
  */
 import type { SaveData } from '../state/store';
+import { SupabaseSaveAdapter } from './supabaseSave';
 
 export interface SaveAdapter {
   load(): Promise<SaveData | null>;
@@ -33,5 +34,16 @@ export class LocalSaveAdapter implements SaveAdapter {
   }
 }
 
-// Point de bascule unique vers le cloud le moment venu.
-export const saveAdapter: SaveAdapter = new LocalSaveAdapter();
+/**
+ * Sélection de l'adaptateur — POINT DE BASCULE UNIQUE vers le cloud.
+ * Si les variables d'env Supabase sont présentes : sauvegarde cloud + comptes.
+ * Sinon : sauvegarde locale (le MVP tourne sans backend).
+ */
+function choisirAdapter(): SaveAdapter {
+  const url = import.meta.env.VITE_SUPABASE_URL;
+  const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  if (url && key) return new SupabaseSaveAdapter(url, key);
+  return new LocalSaveAdapter();
+}
+
+export const saveAdapter: SaveAdapter = choisirAdapter();

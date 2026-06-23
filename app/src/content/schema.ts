@@ -36,7 +36,17 @@ export type Competence =
   | 'MES.DUREE'
   | 'MES.LONGUEUR'
   | 'MES.MASSE'
-  | 'PROBLEME';
+  | 'PROBLEME'
+  // Français — Verba
+  | 'FR.CLASSE_MOT'
+  | 'FR.ACCORD_GN'
+  | 'FR.SUJET_VERBE'
+  | 'FR.CONJUG_PRESENT'
+  | 'FR.CONJUG_IMPARFAIT'
+  | 'FR.CONJUG_FUTUR'
+  | 'FR.HOMOPHONE'
+  | 'FR.VOCABULAIRE'
+  | 'FR.ORTHOGRAPHE';
 
 /** Type d'interaction (réskinné en "sort" à l'écran). */
 export type ItemKind = 'qcm' | 'saisie';

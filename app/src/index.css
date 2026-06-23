@@ -379,3 +379,89 @@ input:focus {
   font-size: 0.75rem;
   color: var(--muted);
 }
+
+/* --- Carte-monde -----------------------------------------------------------*/
+.map {
+  background: radial-gradient(130% 110% at 50% -10%, rgba(124, 92, 255, 0.4), rgba(8, 6, 20, 0.95));
+  overflow-y: auto;
+}
+.map-inner {
+  width: min(720px, 96vw);
+  text-align: center;
+  padding: 24px 8px;
+}
+.map-inner h1 {
+  font-size: 1.4rem;
+  margin: 8px 0;
+}
+.realm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.realm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 18px 12px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(124, 92, 255, 0.5);
+  background: linear-gradient(160deg, rgba(40, 28, 90, 0.7), rgba(14, 10, 38, 0.7));
+  color: var(--ink);
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.15s;
+}
+.realm:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(124, 92, 255, 0.35);
+}
+.realm:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.realm-locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+.realm-lit {
+  border-color: var(--gold);
+  box-shadow: 0 0 24px rgba(255, 211, 107, 0.35);
+}
+.realm-emoji {
+  font-size: 2rem;
+}
+.realm-nom {
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+.realm-mat {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.realm-tag {
+  margin-top: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+/* --- Bouton retour carte ---------------------------------------------------*/
+.back-map {
+  position: fixed;
+  left: 14px;
+  bottom: calc(env(safe-area-inset-bottom) + 14px);
+  z-index: 12;
+  border: 1px solid rgba(124, 92, 255, 0.5);
+  background: rgba(12, 9, 32, 0.7);
+  color: var(--ink);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 10px 16px;
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+}
