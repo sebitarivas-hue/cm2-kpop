@@ -448,6 +448,78 @@ input:focus {
   color: var(--gold);
 }
 
+/* --- Créateur d'avatar -----------------------------------------------------*/
+.creator {
+  width: min(440px, 94vw);
+  max-height: 92vh;
+  overflow-y: auto;
+}
+.creator-preview {
+  display: flex;
+  justify-content: center;
+  margin: 6px 0 10px;
+}
+.creator-field {
+  margin: 12px 0;
+}
+.creator-field > span {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+.swatches,
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.swatch {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.swatch.on {
+  border-color: #fff;
+  transform: scale(1.12);
+  box-shadow: 0 0 0 2px var(--cyan);
+}
+.pill {
+  padding: 8px 13px;
+  border-radius: 12px;
+  border: 1px solid rgba(124, 92, 255, 0.5);
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--ink);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.pill.on {
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  border-color: transparent;
+}
+.cta.full {
+  width: 100%;
+  margin-top: 18px;
+}
+.hud-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.2));
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.hud-avatar svg {
+  margin-top: 2px;
+}
+
 /* --- Bouton retour carte ---------------------------------------------------*/
 .back-map {
   position: fixed;

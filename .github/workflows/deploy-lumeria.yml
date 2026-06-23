@@ -7,6 +7,10 @@ name: Deploy Luméria
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+      - claude/magical-feynman-9uve7e
 
 permissions:
   contents: read

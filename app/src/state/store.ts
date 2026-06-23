@@ -5,6 +5,25 @@ import { saveAdapter } from '../services/save';
 /** Maîtrise d'une compétence (0..1) — alimentera les dashboards. */
 export type Mastery = Partial<Record<Competence, number>>;
 
+/** Apparence de l'Éveilleur (créateur d'avatar). Couleurs en hex. */
+export interface AvatarConfig {
+  peau: string;
+  cheveux: string;
+  coiffure: 'court' | 'long' | 'couettes' | 'chignon' | 'boucle';
+  tenue: string;
+  accessoire: 'aucun' | 'lunettes' | 'couronne' | 'fleur' | 'casque';
+  personnalise: boolean;
+}
+
+export const AVATAR_DEFAUT: AvatarConfig = {
+  peau: '#f1c9a5',
+  cheveux: '#3a2a1a',
+  coiffure: 'court',
+  tenue: '#18d3ff',
+  accessoire: 'aucun',
+  personnalise: false,
+};
+
 export interface SaveData {
   pseudo: string;
   niveau: number;
@@ -15,6 +34,7 @@ export interface SaveData {
   itemsReussis: string[];
   derniereVisite: string; // ISO date — pour la boucle quotidienne
   streak: number;
+  avatar: AvatarConfig;
 }
 
 const XP_PAR_NIVEAU = 100;
@@ -27,6 +47,7 @@ interface GameState extends SaveData {
   init: () => Promise<void>;
   entrerRoyaume: (r: Royaume) => void;
   retourCarte: () => void;
+  setAvatar: (patch: Partial<AvatarConfig>) => void;
   gagnerXP: (xp: number) => void;
   enregistrerReussite: (itemId: string, competence: Competence) => void;
   allumerPhare: (r: Royaume) => void;
@@ -45,6 +66,7 @@ const ETAT_INITIAL: SaveData = {
   itemsReussis: [],
   derniereVisite: new Date().toISOString(),
   streak: 1,
+  avatar: AVATAR_DEFAUT,
 };
 
 function snapshot(s: GameState): SaveData {
@@ -58,6 +80,7 @@ function snapshot(s: GameState): SaveData {
     itemsReussis: s.itemsReussis,
     derniereVisite: s.derniereVisite,
     streak: s.streak,
+    avatar: s.avatar,
   };
 }
 
@@ -70,6 +93,11 @@ export const useGame = create<GameState>((set, get) => ({
   entrerRoyaume: (r) => set({ royaumeActif: r }),
   retourCarte: () => set({ royaumeActif: null }),
 
+  setAvatar: (patch) => {
+    set({ avatar: { ...get().avatar, ...patch } });
+    saveAdapter.save(snapshot(get()));
+  },
+
   init: async () => {
     const data = await saveAdapter.load();
     if (data) {
@@ -79,6 +107,7 @@ export const useGame = create<GameState>((set, get) => ({
       const streak = hier === ajd ? data.streak : data.streak + 1;
       set({
         ...data,
+        avatar: data.avatar ?? AVATAR_DEFAUT, // compat anciennes sauvegardes
         streak,
         derniereVisite: new Date().toISOString(),
         pretCharge: true,

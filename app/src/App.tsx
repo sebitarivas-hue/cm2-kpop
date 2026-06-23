@@ -3,6 +3,7 @@ import { useGame } from './state/store';
 import { PhaserGame } from './game/PhaserGame';
 import { gameController } from './game/gameController';
 import { Onboarding } from './ui/Onboarding';
+import { AvatarCreator } from './ui/AvatarCreator';
 import { WorldMap } from './ui/WorldMap';
 import { HUD } from './ui/HUD';
 import { SpellChallenge } from './ui/SpellChallenge';
@@ -14,6 +15,7 @@ export default function App() {
   const onboardingFait = useGame((s) => s.onboardingFait);
   const royaumeActif = useGame((s) => s.royaumeActif);
   const retourCarte = useGame((s) => s.retourCarte);
+  const avatarFait = useGame((s) => s.avatar.personnalise);
   const init = useGame((s) => s.init);
 
   useEffect(() => {
@@ -35,6 +37,7 @@ export default function App() {
   }
 
   if (!onboardingFait) return <Onboarding />;
+  if (!avatarFait) return <AvatarCreator />;
 
   return (
     <>

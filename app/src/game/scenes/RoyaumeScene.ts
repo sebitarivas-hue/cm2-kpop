@@ -5,6 +5,12 @@ import type { ContentItem } from '../../content/schema';
 import { useGame } from '../../state/store';
 import type { RoyaumeConfig } from '../royaumes';
 
+/** Convertit "#rrggbb" en nombre Phaser ; repli si invalide. */
+function hexToNum(hex: string, fallback: number): number {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex);
+  return m ? parseInt(m[1], 16) : fallback;
+}
+
 /**
  * RoyaumeScene — moteur GÉNÉRIQUE d'un royaume, piloté par RoyaumeConfig.
  *
@@ -190,14 +196,20 @@ export class RoyaumeScene extends Phaser.Scene {
 
   private creerPlayer() {
     const h = this.scale.height;
+    const av = useGame.getState().avatar;
+    const tenue = hexToNum(av.tenue, this.cfg.joueur);
+    const peau = hexToNum(av.peau, 0xfff4d6);
+    const cheveux = hexToNum(av.cheveux, 0x3a2a1a);
     this.player = this.add.container(120, h - 150);
     const corps = this.add.graphics();
-    corps.fillStyle(this.cfg.joueur, 1);
+    corps.fillStyle(tenue, 1);
     corps.fillRoundedRect(-12, -18, 24, 40, 8);
-    corps.fillStyle(0xfff4d6, 1);
+    corps.fillStyle(peau, 1);
     corps.fillCircle(0, -28, 11);
+    corps.fillStyle(cheveux, 1); // mèche de cheveux
+    corps.fillEllipse(0, -36, 24, 12);
     this.player.add(corps);
-    const aura = this.add.circle(0, -4, 30, this.cfg.joueur, 0.18);
+    const aura = this.add.circle(0, -4, 30, tenue, 0.18);
     this.player.add(aura);
     this.tweens.add({ targets: aura, scale: 1.25, alpha: 0.06, duration: 1200, yoyo: true, repeat: -1 });
 
