@@ -5,22 +5,28 @@ import { saveAdapter } from '../services/save';
 /** Maîtrise d'une compétence (0..1) — alimentera les dashboards. */
 export type Mastery = Partial<Record<Competence, number>>;
 
-/** Apparence de l'Éveilleur (créateur d'avatar). Couleurs en hex. */
+/** Apparence de l'Éveilleur — style idole K-pop. Couleurs en hex. */
 export interface AvatarConfig {
   peau: string;
-  cheveux: string;
-  coiffure: 'court' | 'long' | 'couettes' | 'chignon' | 'boucle';
-  tenue: string;
-  accessoire: 'aucun' | 'lunettes' | 'couronne' | 'fleur' | 'casque';
+  cheveux: string; // couleur principale
+  meches: string; // mèches / dégradé secondaire
+  yeux: string; // couleur des yeux
+  coiffure: 'idol_long' | 'wolfcut' | 'twin' | 'bob' | 'updo' | 'mullet';
+  tenue: string; // couleur dominante de la tenue
+  style: 'scene' | 'bomber' | 'hoodie' | 'crop';
+  accessoire: 'aucun' | 'boucles' | 'choker' | 'casque' | 'lunettes' | 'cap' | 'couronne';
   personnalise: boolean;
 }
 
 export const AVATAR_DEFAUT: AvatarConfig = {
   peau: '#f1c9a5',
-  cheveux: '#3a2a1a',
-  coiffure: 'court',
-  tenue: '#18d3ff',
-  accessoire: 'aucun',
+  cheveux: '#2a1a3a',
+  meches: '#ff5fa2',
+  yeux: '#5b3a2a',
+  coiffure: 'idol_long',
+  tenue: '#ff4d8d',
+  style: 'scene',
+  accessoire: 'boucles',
   personnalise: false,
 };
 
@@ -43,10 +49,14 @@ interface GameState extends SaveData {
   pretCharge: boolean;
   onboardingFait: boolean;
   royaumeActif: Royaume | null; // null = on est sur la carte-monde
+  menuOuvert: boolean;
   // actions
   init: () => Promise<void>;
   entrerRoyaume: (r: Royaume) => void;
   retourCarte: () => void;
+  ouvrirMenu: () => void;
+  fermerMenu: () => void;
+  changerApparence: () => void;
   setAvatar: (patch: Partial<AvatarConfig>) => void;
   gagnerXP: (xp: number) => void;
   enregistrerReussite: (itemId: string, competence: Competence) => void;
@@ -89,9 +99,18 @@ export const useGame = create<GameState>((set, get) => ({
   pretCharge: false,
   onboardingFait: false,
   royaumeActif: null,
+  menuOuvert: false,
 
-  entrerRoyaume: (r) => set({ royaumeActif: r }),
-  retourCarte: () => set({ royaumeActif: null }),
+  entrerRoyaume: (r) => set({ royaumeActif: r, menuOuvert: false }),
+  retourCarte: () => set({ royaumeActif: null, menuOuvert: false }),
+  ouvrirMenu: () => set({ menuOuvert: true }),
+  fermerMenu: () => set({ menuOuvert: false }),
+
+  // Revenir au créateur d'avatar (puis retour à la carte).
+  changerApparence: () => {
+    set({ avatar: { ...get().avatar, personnalise: false }, royaumeActif: null, menuOuvert: false });
+    saveAdapter.save(snapshot(get()));
+  },
 
   setAvatar: (patch) => {
     set({ avatar: { ...get().avatar, ...patch } });
@@ -159,7 +178,7 @@ export const useGame = create<GameState>((set, get) => ({
   },
 
   reset: () => {
-    set({ ...ETAT_INITIAL, pretCharge: true, onboardingFait: false });
+    set({ ...ETAT_INITIAL, pretCharge: true, onboardingFait: false, royaumeActif: null, menuOuvert: false });
     saveAdapter.save(ETAT_INITIAL);
   },
 }));

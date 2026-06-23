@@ -380,72 +380,53 @@ input:focus {
   color: var(--muted);
 }
 
-/* --- Carte-monde -----------------------------------------------------------*/
-.map {
-  background: radial-gradient(130% 110% at 50% -10%, rgba(124, 92, 255, 0.4), rgba(8, 6, 20, 0.95));
-  overflow-y: auto;
-}
-.map-inner {
-  width: min(720px, 96vw);
-  text-align: center;
-  padding: 24px 8px;
-}
-.map-inner h1 {
-  font-size: 1.4rem;
-  margin: 8px 0;
-}
-.realm-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 12px;
-  margin-top: 20px;
-}
-.realm {
-  display: flex;
+/* --- Carte cosmique --------------------------------------------------------*/
+.cosmos {
   flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 18px 12px;
-  border-radius: 20px;
-  border: 1.5px solid rgba(124, 92, 255, 0.5);
-  background: linear-gradient(160deg, rgba(40, 28, 90, 0.7), rgba(14, 10, 38, 0.7));
-  color: var(--ink);
-  font-family: inherit;
+  background:
+    radial-gradient(80% 50% at 30% 20%, rgba(124, 92, 255, 0.22), transparent 60%),
+    radial-gradient(70% 50% at 75% 80%, rgba(58, 209, 196, 0.16), transparent 60%),
+    radial-gradient(120% 120% at 50% 0%, #1a1140 0%, #0a0718 70%);
+  overflow: hidden;
+  padding: 0;
+}
+.cosmos-head {
+  text-align: center;
+  padding: 18px 12px 4px;
+  z-index: 2;
+}
+.cosmos-head h1 {
+  font-size: 1.5rem;
+  margin: 2px 0;
+  background: linear-gradient(90deg, #fff3d6, #9d7bff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.cosmos-svg {
+  flex: 1;
+  width: 100%;
+  height: auto;
+  max-height: 78vh;
+  overflow: visible;
+}
+.planete {
   cursor: pointer;
-  transition: transform 0.12s, box-shadow 0.15s;
 }
-.realm:hover:not(:disabled) {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(124, 92, 255, 0.35);
-}
-.realm:active:not(:disabled) {
-  transform: scale(0.97);
-}
-.realm-locked {
-  opacity: 0.5;
+.planete.verrou {
   cursor: not-allowed;
-  border-style: dashed;
 }
-.realm-lit {
-  border-color: var(--gold);
-  box-shadow: 0 0 24px rgba(255, 211, 107, 0.35);
+.planete circle {
+  transition: transform 0.15s;
+  transform-box: fill-box;
+  transform-origin: center;
 }
-.realm-emoji {
-  font-size: 2rem;
+.planete.jouable:hover circle:nth-of-type(2) {
+  transform: scale(1.18);
 }
-.realm-nom {
-  font-weight: 800;
-  font-size: 1.05rem;
-}
-.realm-mat {
-  font-size: 0.8rem;
-  color: var(--muted);
-}
-.realm-tag {
-  margin-top: 4px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--gold);
+.planete text {
+  pointer-events: none;
+  font-family: inherit;
 }
 
 /* --- Créateur d'avatar -----------------------------------------------------*/
@@ -454,10 +435,54 @@ input:focus {
   max-height: 92vh;
   overflow-y: auto;
 }
-.creator-preview {
+.creator-stage {
   display: flex;
   justify-content: center;
-  margin: 6px 0 10px;
+  margin: 4px 0 10px;
+  filter: drop-shadow(0 10px 22px rgba(124, 92, 255, 0.45));
+  background: radial-gradient(60% 55% at 50% 38%, rgba(124, 92, 255, 0.28), transparent 70%);
+}
+.creator-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.creator-tabs button {
+  flex: 1;
+  padding: 9px 0;
+  border-radius: 12px;
+  border: 1px solid rgba(124, 92, 255, 0.4);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--muted);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.creator-tabs button.on {
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  color: #fff;
+  border-color: transparent;
+}
+.creator-body {
+  min-height: 150px;
+}
+.creator-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+.creator-actions .ghost {
+  flex: 1;
+  padding: 9px 0;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ink);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
 }
 .creator-field {
   margin: 12px 0;
@@ -536,4 +561,74 @@ input:focus {
   border-radius: 14px;
   backdrop-filter: blur(6px);
   cursor: pointer;
+}
+
+/* --- Menu de navigation ----------------------------------------------------*/
+.menu-btn {
+  position: fixed;
+  top: calc(env(safe-area-inset-top) + 12px);
+  right: 12px;
+  z-index: 30;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(124, 92, 255, 0.5);
+  background: rgba(12, 9, 32, 0.72);
+  color: var(--ink);
+  font-size: 1.2rem;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+.menu-overlay {
+  justify-content: flex-end;
+  align-items: stretch;
+  background: rgba(6, 4, 16, 0.55);
+  z-index: 40;
+}
+.menu-panel {
+  width: min(320px, 84vw);
+  height: 100%;
+  background: linear-gradient(180deg, #161033, #0c0820);
+  border-left: 1px solid rgba(124, 92, 255, 0.4);
+  padding: 28px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.5);
+}
+.menu-item {
+  text-align: left;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ink);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.96rem;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.menu-item:hover {
+  background: rgba(124, 92, 255, 0.18);
+}
+.menu-item.danger {
+  color: #ff9db0;
+  border-color: rgba(255, 120, 140, 0.3);
+}
+.menu-confirm {
+  background: rgba(255, 120, 140, 0.08);
+  border: 1px solid rgba(255, 120, 140, 0.25);
+  border-radius: 14px;
+  padding: 14px;
+}
+.menu-confirm p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.menu-confirm-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }

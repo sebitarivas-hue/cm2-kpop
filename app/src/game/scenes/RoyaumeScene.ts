@@ -3,6 +3,7 @@ import { bus, EVENTS } from '../../services/eventBus';
 import { tirerItem } from '../../content/pool';
 import type { ContentItem } from '../../content/schema';
 import { useGame } from '../../state/store';
+import { avatarSvgDoc } from '../../ui/avatarArt';
 import type { RoyaumeConfig } from '../royaumes';
 
 /** Convertit "#rrggbb" en nombre Phaser ; repli si invalide. */
@@ -92,42 +93,109 @@ export class RoyaumeScene extends Phaser.Scene {
     bus.off(EVENTS.CHALLENGE_RESOLVED, this.onResolved);
   }
 
-  // --- Décor -----------------------------------------------------------------
+  // --- Décor atmosphérique (esprit "Journey") --------------------------------
   private dessinerDecor() {
     const w = this.largeurMonde;
     const h = this.scale.height;
     const [c1, c2, c3, c4] = this.cfg.ciel;
-    const bg = this.add.graphics();
+
+    // Ciel en dégradé, fixé à la caméra (couvre toujours l'écran).
+    const bg = this.add.graphics().setScrollFactor(0).setDepth(-50);
     bg.fillGradientStyle(c1, c2, c3, c4, 1);
     bg.fillRect(0, 0, w, h);
-    bg.setScrollFactor(0.2);
 
-    const sol = this.add.graphics();
-    sol.fillStyle(0x0f0c24, 1);
+    // Astre lumineux + halos additifs.
+    const orb = this.add.container(w * 0.3, h * 0.3).setScrollFactor(0.12).setDepth(-48);
+    [
+      { r: 130, a: 0.05 },
+      { r: 84, a: 0.08 },
+      { r: 48, a: 0.13 },
+    ].forEach((o) => orb.add(this.add.circle(0, 0, o.r, 0xffe9c4, o.a).setBlendMode(Phaser.BlendModes.ADD)));
+    const core = this.add.circle(0, 0, 30, 0xfff3d6, 0.95).setBlendMode(Phaser.BlendModes.ADD);
+    orb.add(core);
+    this.tweens.add({ targets: core, scale: 1.1, alpha: 0.78, duration: 3200, yoyo: true, repeat: -1 });
+
+    // Poussières d'étoiles lointaines qui scintillent.
+    for (let i = 0; i < 70; i++) {
+      const s = this.add
+        .circle(Phaser.Math.Between(0, w), Phaser.Math.Between(0, h * 0.6), Phaser.Math.FloatBetween(0.6, 1.8), 0xffffff, Phaser.Math.FloatBetween(0.2, 0.7))
+        .setScrollFactor(Phaser.Math.FloatBetween(0.1, 0.25))
+        .setDepth(-47);
+      this.tweens.add({ targets: s, alpha: 0.05, duration: Phaser.Math.Between(1400, 3200), yoyo: true, repeat: -1, delay: Phaser.Math.Between(0, 2000) });
+    }
+
+    // Dunes en parallaxe : de la brume lointaine au relief proche.
+    this.duneLayer(h * 0.52, 26, c4, 0.45, 0.25, 0.0016, 1.3).setDepth(-46);
+    this.duneLayer(h * 0.64, 34, this.cfg.accent, 0.4, 0.38, 0.0022, 3.1).setDepth(-45);
+    this.duneLayer(h * 0.74, 30, 0x1a1430, 0.65, 0.52, 0.003, 5.7).setDepth(-44);
+
+    // Brume basse au-dessus du sol.
+    const haze = this.add.graphics().setScrollFactor(0.5).setDepth(-41);
+    haze.fillStyle(c4, 0.1);
+    haze.fillRect(0, h - 150, w, 70);
+
+    // Sol jouable + horizon qui luit (sable de Journey).
+    const sol = this.add.graphics().setDepth(-40);
+    sol.fillGradientStyle(0x171033, 0x171033, 0x0c0820, 0x0c0820, 1);
     sol.fillRect(0, h - 90, w, 90);
-    sol.lineStyle(3, this.cfg.accent, 0.6);
-    sol.lineBetween(0, h - 90, w, h - 90);
+    const glowLine = this.add.rectangle(w / 2, h - 90, w, 18, this.cfg.accent, 0.14).setBlendMode(Phaser.BlendModes.ADD).setDepth(-39);
+    this.tweens.add({ targets: glowLine, alpha: 0.05, duration: 2600, yoyo: true, repeat: -1 });
 
-    for (let i = 0; i < 26; i++) {
-      const x = Phaser.Math.Between(0, w);
-      const taille = Phaser.Math.Between(20, 70);
-      const c = this.add.graphics();
-      c.fillStyle(this.cfg.accent, Phaser.Math.FloatBetween(0.12, 0.35));
-      c.fillTriangle(x, h - 90, x - taille * 0.4, h - 90 - taille, x + taille * 0.4, h - 90 - taille * 0.7);
-      c.setScrollFactor(Phaser.Math.FloatBetween(0.4, 0.8));
-    }
+    // Poussières de lumière flottantes (signature "Journey").
+    this.creerMoteTexture();
+    this.add
+      .particles(0, 0, 'mote', {
+        x: { min: 0, max: w },
+        y: { min: h * 0.2, max: h - 30 },
+        lifespan: { min: 4000, max: 9000 },
+        speedY: { min: -16, max: -3 },
+        speedX: { min: -8, max: 8 },
+        scale: { start: 0.7, end: 0 },
+        alpha: { start: 0.5, end: 0 },
+        frequency: 150,
+        blendMode: 'ADD',
+        tint: this.cfg.joueur,
+      })
+      .setScrollFactor(0.7)
+      .setDepth(-30);
 
-    for (let i = 0; i < 60; i++) {
-      const s = this.add.circle(
-        Phaser.Math.Between(0, w),
-        Phaser.Math.Between(0, h - 120),
-        Phaser.Math.Between(1, 2),
-        0xffffff,
-        Phaser.Math.FloatBetween(0.2, 0.7),
-      );
-      s.setScrollFactor(Phaser.Math.FloatBetween(0.3, 0.9));
-      this.tweens.add({ targets: s, alpha: 0.1, duration: Phaser.Math.Between(900, 2200), yoyo: true, repeat: -1 });
+    // Bloom + vignette (WebGL uniquement ; ignoré sinon).
+    try {
+      // postFX n'est disponible qu'en WebGL ; type non exposé selon les versions.
+      const fx = (this.cameras.main as unknown as { postFX?: { addBloom: (...a: number[]) => void; addVignette: (...a: number[]) => void } }).postFX;
+      fx?.addBloom(0xffffff, 1, 1, 1, 1.15);
+      fx?.addVignette(0.5, 0.5, 0.78, 0.45);
+    } catch {
+      /* rendu Canvas : pas de post-FX, l'ambiance reste correcte */
     }
+  }
+
+  /** Une couche de collines lisses (sinus) avec parallaxe. */
+  private duneLayer(yBase: number, amp: number, color: number, alpha: number, scroll: number, freq: number, seed: number) {
+    const w = this.largeurMonde;
+    const h = this.scale.height;
+    const g = this.add.graphics();
+    g.fillStyle(color, alpha);
+    g.beginPath();
+    g.moveTo(0, h);
+    for (let x = 0; x <= w; x += 110) g.lineTo(x, yBase + Math.sin(x * freq + seed) * amp);
+    g.lineTo(w, h);
+    g.closePath();
+    g.fillPath();
+    g.setScrollFactor(scroll);
+    return g;
+  }
+
+  /** Texture douce (dégradé radial simulé) pour les poussières de lumière. */
+  private creerMoteTexture() {
+    if (this.textures.exists('mote')) return;
+    const g = this.make.graphics({ x: 0, y: 0 });
+    for (let r = 8; r >= 1; r--) {
+      g.fillStyle(0xffffff, 0.05);
+      g.fillCircle(8, 8, r);
+    }
+    g.generateTexture('mote', 16, 16);
+    g.destroy();
   }
 
   private creerCibles() {
@@ -198,25 +266,49 @@ export class RoyaumeScene extends Phaser.Scene {
     const h = this.scale.height;
     const av = useGame.getState().avatar;
     const tenue = hexToNum(av.tenue, this.cfg.joueur);
-    const peau = hexToNum(av.peau, 0xfff4d6);
-    const cheveux = hexToNum(av.cheveux, 0x3a2a1a);
     this.player = this.add.container(120, h - 150);
-    const corps = this.add.graphics();
-    corps.fillStyle(tenue, 1);
-    corps.fillRoundedRect(-12, -18, 24, 40, 8);
-    corps.fillStyle(peau, 1);
-    corps.fillCircle(0, -28, 11);
-    corps.fillStyle(cheveux, 1); // mèche de cheveux
-    corps.fillEllipse(0, -36, 24, 12);
-    this.player.add(corps);
-    const aura = this.add.circle(0, -4, 30, tenue, 0.18);
-    this.player.add(aura);
-    this.tweens.add({ targets: aura, scale: 1.25, alpha: 0.06, duration: 1200, yoyo: true, repeat: -1 });
+
+    const aura = this.add.ellipse(0, 6, 60, 18, 0x000000, 0.22); // ombre au sol
+    const halo = this.add.circle(0, -10, 34, tenue, 0.16);
+    this.player.add([aura, halo]);
+    this.tweens.add({ targets: halo, scale: 1.25, alpha: 0.05, duration: 1200, yoyo: true, repeat: -1 });
+
+    // Repère provisoire le temps que la texture de l'avatar se rasterise.
+    const attente = this.add.circle(0, -16, 16, tenue, 0.9);
+    this.player.add(attente);
+
+    // Rasterise l'illustration SVG de l'avatar en texture Phaser.
+    const key = `avatar_${Date.now()}`;
+    const uri = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(avatarSvgDoc(av, 220));
+    this.load.svg(key, uri, { width: 132, height: 165 });
+    this.load.once(Phaser.Loader.Events.COMPLETE, () => {
+      if (!this.textures.exists(key) || !this.player.active) return;
+      attente.destroy();
+      const sprite = this.add.image(0, -20, key).setOrigin(0.5, 0.78).setScale(0.62);
+      this.player.addAt(sprite, 2);
+    });
+    this.load.start();
+
+    // Traînée de poussière lumineuse derrière l'Éveilleur.
+    this.add
+      .particles(0, 0, 'mote', {
+        follow: this.player,
+        followOffset: { x: 0, y: -8 },
+        lifespan: 700,
+        speedX: { min: -12, max: 12 },
+        speedY: { min: -6, max: 14 },
+        scale: { start: 0.5, end: 0 },
+        alpha: { start: 0.4, end: 0 },
+        frequency: 130,
+        blendMode: 'ADD',
+        tint: tenue,
+      })
+      .setDepth(-5);
 
     this.physics.add.existing(this.player);
     const body = this.player.body as Phaser.Physics.Arcade.Body;
-    body.setSize(28, 48);
-    body.setOffset(-14, -30);
+    body.setSize(30, 70);
+    body.setOffset(-15, -50);
     body.setCollideWorldBounds(true);
     this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
   }

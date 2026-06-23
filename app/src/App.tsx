@@ -5,6 +5,7 @@ import { gameController } from './game/gameController';
 import { Onboarding } from './ui/Onboarding';
 import { AvatarCreator } from './ui/AvatarCreator';
 import { WorldMap } from './ui/WorldMap';
+import { Menu } from './ui/Menu';
 import { HUD } from './ui/HUD';
 import { SpellChallenge } from './ui/SpellChallenge';
 import { Narration } from './ui/Narration';
@@ -43,6 +44,8 @@ export default function App() {
     <>
       {/* Le canvas Phaser est toujours monté ; la scène ne tourne que dans un royaume. */}
       <PhaserGame />
+
+      <Menu />
 
       {royaumeActif ? (
         <>
