@@ -56,9 +56,10 @@ export class RoyaumeScene extends Phaser.Scene {
   }
 
   create() {
-    const h = this.scale.height;
+    const h = this.hauteur();
     this.physics.world.setBounds(0, 0, this.largeurMonde, h);
     this.cameras.main.setBounds(0, 0, this.largeurMonde, h);
+    this.cameras.main.setBackgroundColor(this.cfg.ciel[0]);
 
     this.dessinerDecor();
     this.creerCibles();
@@ -76,6 +77,11 @@ export class RoyaumeScene extends Phaser.Scene {
     bus.on(EVENTS.CHALLENGE_RESOLVED, this.onResolved);
 
     bus.emit(EVENTS.NARRATE, { qui: this.cfg.sage, texte: this.cfg.intro });
+  }
+
+  /** Hauteur robuste (évite un canvas à 0 px au démarrage). */
+  private hauteur(): number {
+    return this.scale.height || this.cameras.main?.height || window.innerHeight || 720;
   }
 
   private onResolved = (payload: unknown) => {
@@ -96,14 +102,28 @@ export class RoyaumeScene extends Phaser.Scene {
   // --- Décor atmosphérique (esprit "Journey") --------------------------------
   private dessinerDecor() {
     const w = this.largeurMonde;
-    const h = this.scale.height;
+    const h = this.hauteur();
     const [c1, c2, c3, c4] = this.cfg.ciel;
 
-    // Ciel en dégradé, fixé à la caméra (couvre toujours l'écran).
+    // Base TOUJOURS dessinée (simple, ne peut pas échouer) : ciel + sol.
     const bg = this.add.graphics().setScrollFactor(0).setDepth(-50);
     bg.fillGradientStyle(c1, c2, c3, c4, 1);
     bg.fillRect(0, 0, w, h);
+    const solBase = this.add.graphics().setDepth(-40);
+    solBase.fillStyle(0x0f0c24, 1);
+    solBase.fillRect(0, h - 90, w, 90);
+    solBase.lineStyle(3, this.cfg.accent, 0.55);
+    solBase.lineBetween(0, h - 90, w, h - 90);
 
+    // Effets avancés ISOLÉS : si une API échoue, le royaume reste jouable.
+    try {
+      this.decorAtmospherique(w, h, c4);
+    } catch (e) {
+      console.warn('[Luméria] effets de décor désactivés:', e);
+    }
+  }
+
+  private decorAtmospherique(w: number, h: number, c4: number) {
     // Astre lumineux + halos additifs.
     const orb = this.add.container(w * 0.3, h * 0.3).setScrollFactor(0.12).setDepth(-48);
     [
@@ -263,33 +283,53 @@ export class RoyaumeScene extends Phaser.Scene {
   }
 
   private creerPlayer() {
-    const h = this.scale.height;
+    const h = this.hauteur();
     const av = useGame.getState().avatar;
     const tenue = hexToNum(av.tenue, this.cfg.joueur);
     this.player = this.add.container(120, h - 150);
 
-    const aura = this.add.ellipse(0, 6, 60, 18, 0x000000, 0.22); // ombre au sol
-    const halo = this.add.circle(0, -10, 34, tenue, 0.16);
-    this.player.add([aura, halo]);
+    // Personnage de base TOUJOURS visible (fallback si la texture avatar échoue).
+    const halo = this.add.circle(0, -8, 32, tenue, 0.16);
+    const corps = this.add.graphics();
+    corps.fillStyle(tenue, 1);
+    corps.fillRoundedRect(-13, -20, 26, 42, 9);
+    corps.fillStyle(hexToNum(av.peau, 0xffe0c4), 1);
+    corps.fillCircle(0, -30, 12);
+    corps.fillStyle(hexToNum(av.cheveux, 0x2a1a3a), 1);
+    corps.fillEllipse(0, -38, 26, 12);
+    this.player.add([halo, corps]);
     this.tweens.add({ targets: halo, scale: 1.25, alpha: 0.05, duration: 1200, yoyo: true, repeat: -1 });
 
-    // Repère provisoire le temps que la texture de l'avatar se rasterise.
-    const attente = this.add.circle(0, -16, 16, tenue, 0.9);
-    this.player.add(attente);
+    // Physique + caméra (cœur — doit toujours s'exécuter).
+    this.physics.add.existing(this.player);
+    const body = this.player.body as Phaser.Physics.Arcade.Body;
+    body.setSize(30, 70);
+    body.setOffset(-15, -50);
+    body.setCollideWorldBounds(true);
+    this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
 
-    // Rasterise l'illustration SVG de l'avatar en texture Phaser.
+    // Avatar illustré (texture SVG) + traînée lumineuse — décoratif, isolé.
+    try {
+      this.parerAvatar(av, tenue, corps);
+    } catch (e) {
+      console.warn('[Luméria] avatar illustré indisponible, rendu simplifié:', e);
+    }
+  }
+
+  /** Rasterise l'illustration SVG de l'avatar en texture et l'applique au héros. */
+  private parerAvatar(av: ReturnType<typeof useGame.getState>['avatar'], tenue: number, corps: Phaser.GameObjects.Graphics) {
+    this.creerMoteTexture();
     const key = `avatar_${Date.now()}`;
     const uri = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(avatarSvgDoc(av, 220));
     this.load.svg(key, uri, { width: 132, height: 165 });
     this.load.once(Phaser.Loader.Events.COMPLETE, () => {
-      if (!this.textures.exists(key) || !this.player.active) return;
-      attente.destroy();
+      if (!this.textures.exists(key) || !this.player?.active) return;
       const sprite = this.add.image(0, -20, key).setOrigin(0.5, 0.78).setScale(0.62);
-      this.player.addAt(sprite, 2);
+      this.player.add(sprite);
+      corps.setVisible(false); // on masque le fallback une fois l'illustration prête
     });
     this.load.start();
 
-    // Traînée de poussière lumineuse derrière l'Éveilleur.
     this.add
       .particles(0, 0, 'mote', {
         follow: this.player,
@@ -304,17 +344,11 @@ export class RoyaumeScene extends Phaser.Scene {
         tint: tenue,
       })
       .setDepth(-5);
-
-    this.physics.add.existing(this.player);
-    const body = this.player.body as Phaser.Physics.Arcade.Body;
-    body.setSize(30, 70);
-    body.setOffset(-15, -50);
-    body.setCollideWorldBounds(true);
-    this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
   }
 
   // --- Boucle ----------------------------------------------------------------
   update() {
+    if (!this.player?.body || !this.cursors) return; // sécurité tant que create() n'a pas fini
     const body = this.player.body as Phaser.Physics.Arcade.Body;
     let vx = 0;
     let vy = 0;
