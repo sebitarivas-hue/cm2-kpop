@@ -46,7 +46,34 @@ export type Competence =
   | 'FR.CONJUG_FUTUR'
   | 'FR.HOMOPHONE'
   | 'FR.VOCABULAIRE'
-  | 'FR.ORTHOGRAPHE';
+  | 'FR.ORTHOGRAPHE'
+  // Sciences — Vivaria
+  | 'SC.MATIERE'
+  | 'SC.VIVANT'
+  | 'SC.CORPS'
+  | 'SC.ASTRO'
+  | 'SC.ENERGIE'
+  // Histoire — Chronos
+  | 'HIST.PREHISTOIRE'
+  | 'HIST.ANTIQUITE'
+  | 'HIST.MOYENAGE'
+  | 'HIST.MODERNE'
+  | 'HIST.FRISE'
+  // Géographie — Terra
+  | 'GEO.CONTINENTS'
+  | 'GEO.OCEANS'
+  | 'GEO.FRANCE'
+  | 'GEO.FLEUVES'
+  | 'GEO.CARTE'
+  // Langues — Babel
+  | 'LV.SALUT'
+  | 'LV.VOCAB'
+  | 'LV.NOMBRES'
+  | 'LV.COULEURS'
+  // Arts — Chroma
+  | 'ART.COULEURS'
+  | 'ART.OEUVRES'
+  | 'ART.MUSIQUE';
 
 /** Type d'interaction (réskinné en "sort" à l'écran). */
 export type ItemKind = 'qcm' | 'saisie';

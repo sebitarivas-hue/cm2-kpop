@@ -9,9 +9,22 @@
  */
 import { NUMERIA } from '../src/content/numeria.ts';
 import { VERBA } from '../src/content/verba.ts';
+import { VIVARIA } from '../src/content/vivaria.ts';
+import { CHRONOS } from '../src/content/chronos.ts';
+import { TERRA } from '../src/content/terra.ts';
+import { BABEL } from '../src/content/babel.ts';
+import { CHROMA } from '../src/content/chroma.ts';
 import type { ContentItem } from '../src/content/schema.ts';
 
-const POOLS: Record<string, ContentItem[]> = { numeria: NUMERIA, verba: VERBA };
+const POOLS: Record<string, ContentItem[]> = {
+  numeria: NUMERIA,
+  verba: VERBA,
+  vivaria: VIVARIA,
+  chronos: CHRONOS,
+  terra: TERRA,
+  babel: BABEL,
+  chroma: CHROMA,
+};
 
 let erreurs = 0;
 const ids = new Set<string>();

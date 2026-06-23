@@ -10,18 +10,17 @@ interface Noeud {
   x: number;
   y: number;
   couleur: string;
-  jouable: boolean;
 }
 
 // Constellation : un chemin sinueux qui s'élève (le "voyage").
 const NOEUDS: Noeud[] = [
-  { id: 'numeria', nom: 'Numéria', matiere: 'Mathématiques', x: 50, y: 122, couleur: '#9d7bff', jouable: true },
-  { id: 'verba', nom: 'Verba', matiere: 'Français', x: 27, y: 102, couleur: '#36c47e', jouable: true },
-  { id: 'vivaria', nom: 'Vivaria', matiere: 'Sciences', x: 62, y: 84, couleur: '#3ad1c4', jouable: false },
-  { id: 'chronos', nom: 'Chronos', matiere: 'Histoire', x: 33, y: 64, couleur: '#ffd36b', jouable: false },
-  { id: 'terra', nom: 'Terra', matiere: 'Géographie', x: 66, y: 46, couleur: '#ff7a45', jouable: false },
-  { id: 'babel', nom: 'Babel', matiere: 'Langues', x: 40, y: 30, couleur: '#ff5fa2', jouable: false },
-  { id: 'chroma', nom: 'Chroma', matiere: 'Arts', x: 56, y: 14, couleur: '#7c5cff', jouable: false },
+  { id: 'numeria', nom: 'Numéria', matiere: 'Mathématiques', x: 50, y: 122, couleur: '#9d7bff' },
+  { id: 'verba', nom: 'Verba', matiere: 'Français', x: 27, y: 102, couleur: '#36c47e' },
+  { id: 'vivaria', nom: 'Vivaria', matiere: 'Sciences', x: 62, y: 84, couleur: '#3ad1c4' },
+  { id: 'chronos', nom: 'Chronos', matiere: 'Histoire', x: 33, y: 64, couleur: '#ffd36b' },
+  { id: 'terra', nom: 'Terra', matiere: 'Géographie', x: 66, y: 46, couleur: '#ff7a45' },
+  { id: 'babel', nom: 'Babel', matiere: 'Langues', x: 40, y: 30, couleur: '#ff5fa2' },
+  { id: 'chroma', nom: 'Chroma', matiere: 'Arts', x: 56, y: 14, couleur: '#7c5cff' },
 ];
 
 /** Carte-monde : voyage cosmique entre les royaumes du Savoir. */
@@ -41,7 +40,7 @@ export function WorldMap() {
   );
 
   // Position courante : premier royaume jouable pas encore éclairé.
-  const ici = NOEUDS.find((n) => n.jouable && ROYAUMES_JOUABLES.includes(n.id) && !pharesAllumes.includes(n.id));
+  const ici = NOEUDS.find((n) => ROYAUMES_JOUABLES.includes(n.id) && !pharesAllumes.includes(n.id));
 
   const chemin = NOEUDS.map((n, i) => `${i === 0 ? 'M' : 'L'}${n.x},${n.y}`).join(' ');
 
@@ -92,7 +91,7 @@ export function WorldMap() {
         {/* royaumes (planètes) */}
         {NOEUDS.map((n) => {
           const allume = pharesAllumes.includes(n.id);
-          const jouable = n.jouable && ROYAUMES_JOUABLES.includes(n.id);
+          const jouable = ROYAUMES_JOUABLES.includes(n.id);
           const estIci = ici?.id === n.id;
           return (
             <g
