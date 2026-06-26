@@ -25,6 +25,8 @@ class AudioEngine {
   private ctx: AudioContext | null = null;
   private master: GainNode | null = null;
   private amb: { stop: () => void } | null = null;
+  private faust: { gain: GainNode; dispose: () => void } | null = null;
+  private ambToken = 0;
   private muet = typeof localStorage !== 'undefined' && localStorage.getItem(MUET_KEY) === '1';
 
   private ensure(): AudioContext {
@@ -127,11 +129,54 @@ class AudioEngine {
     }
   }
 
-  /** Nappe d'ambiance continue, accordée à la couleur du royaume. */
+  /**
+   * Ambiance du royaume : nappe d'oscillateurs immédiate (repli instantané),
+   * puis montée vers la nappe FAUST (plus riche) dès qu'elle est compilée.
+   */
   ambiance(royaume: string) {
     this.stopAmbiance();
     const ctx = this.ensure();
     const root = ROOTS[royaume] ?? 196;
+    const token = ++this.ambToken;
+    this.nappeOscillateurs(root); // son immédiat
+    this.monterVersFaust(ctx, root, token); // upgrade asynchrone
+  }
+
+  private async monterVersFaust(ctx: AudioContext, root: number, token: number) {
+    try {
+      const { createFaustPad } = await import('./faustPad');
+      const pad = await createFaustPad(ctx);
+      if (!pad || token !== this.ambToken) {
+        pad?.dispose();
+        return;
+      }
+      pad.setRoot(root);
+      const g = ctx.createGain();
+      const t = ctx.currentTime;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.5, t + 3); // swell d'entrée
+      pad.node.connect(g);
+      g.connect(this.master!);
+      this.stopOscPad(); // on relâche le repli, la nappe Faust prend le relais
+      this.faust = {
+        gain: g,
+        dispose: () => {
+          try {
+            g.disconnect();
+            pad.dispose();
+          } catch {
+            /* déjà détaché */
+          }
+        },
+      };
+    } catch {
+      /* Faust indisponible : on garde la nappe d'oscillateurs. */
+    }
+  }
+
+  /** Nappe d'oscillateurs (repli), accordée à la couleur du royaume. */
+  private nappeOscillateurs(root: number) {
+    const ctx = this.ensure();
     const t = ctx.currentTime;
 
     const g = ctx.createGain();
@@ -174,10 +219,28 @@ class AudioEngine {
     };
   }
 
-  stopAmbiance() {
+  private stopOscPad() {
     if (this.amb) {
       this.amb.stop();
       this.amb = null;
+    }
+  }
+
+  stopAmbiance() {
+    this.ambToken++; // invalide une compilation Faust en cours
+    this.stopOscPad();
+    if (this.faust && this.ctx) {
+      const g = this.faust.gain;
+      const tt = this.ctx.currentTime;
+      try {
+        g.gain.cancelScheduledValues(tt);
+        g.gain.setTargetAtTime(0.0001, tt, 0.4);
+      } catch {
+        /* ignore */
+      }
+      const f = this.faust;
+      setTimeout(() => f.dispose(), 1300);
+      this.faust = null;
     }
   }
 }
