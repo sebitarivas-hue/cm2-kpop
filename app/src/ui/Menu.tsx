@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useGame } from '../state/store';
+import { audio } from '../services/audio';
 
 /** Bouton de navigation global + panneau (carte, apparence, recommencer). */
 export function Menu() {
@@ -14,7 +15,15 @@ export function Menu() {
 
   return (
     <>
-      <button className="menu-btn" onClick={ouvrirMenu} aria-label="Menu">
+      <button
+        className="menu-btn"
+        onClick={() => {
+          audio.resume();
+          audio.sfx('click');
+          ouvrirMenu();
+        }}
+        aria-label="Menu"
+      >
         ☰
       </button>
 

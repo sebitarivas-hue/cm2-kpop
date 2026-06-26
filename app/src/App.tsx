@@ -2,10 +2,13 @@ import { useEffect } from 'react';
 import { useGame } from './state/store';
 import { PhaserGame } from './game/PhaserGame';
 import { gameController } from './game/gameController';
+import { brancherAudio, audio } from './services/audio';
 import { Onboarding } from './ui/Onboarding';
 import { AvatarCreator } from './ui/AvatarCreator';
 import { WorldMap } from './ui/WorldMap';
 import { Menu } from './ui/Menu';
+import { MuteButton } from './ui/MuteButton';
+import { Transition } from './ui/Transition';
 import { HUD } from './ui/HUD';
 import { SpellChallenge } from './ui/SpellChallenge';
 import { Narration } from './ui/Narration';
@@ -21,12 +24,18 @@ export default function App() {
 
   useEffect(() => {
     init();
+    brancherAudio();
   }, [init]);
 
-  // Démarre / arrête la scène Phaser selon le royaume choisi sur la carte.
+  // Démarre / arrête la scène Phaser + l'ambiance sonore selon le royaume.
   useEffect(() => {
-    if (royaumeActif) gameController.demarrerRoyaume(royaumeActif);
-    else gameController.quitterRoyaume();
+    if (royaumeActif) {
+      gameController.demarrerRoyaume(royaumeActif);
+      audio.ambiance(royaumeActif);
+    } else {
+      gameController.quitterRoyaume();
+      audio.stopAmbiance();
+    }
   }, [royaumeActif]);
 
   if (!pretCharge) {
@@ -46,6 +55,7 @@ export default function App() {
       <PhaserGame />
 
       <Menu />
+      <MuteButton />
 
       {royaumeActif ? (
         <>
@@ -60,6 +70,8 @@ export default function App() {
       ) : (
         <WorldMap />
       )}
+
+      <Transition />
     </>
   );
 }
