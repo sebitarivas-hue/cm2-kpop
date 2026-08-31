@@ -22,5 +22,19 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "Planning Capybara",
+      "short_name": "Planning",
+      "description": "Regler les heures du soir et imprimer la feuille",
+      "url": "planning.html",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
   ]
 }

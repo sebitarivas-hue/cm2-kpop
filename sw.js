@@ -1,7 +1,7 @@
 /* Service worker CM2 K-Pop — réseau d'abord pour le HTML (toujours la dernière version), cache pour l'offline */
-const CACHE = "cm2kpop-v6";
+const CACHE = "cm2kpop-v7";
 const APP = "index.html";
-const CORE = [APP, "manifest.json", "icon-180.png", "icon-192.png", "icon-512.png"];
+const CORE = [APP, "planning.html", "manifest.json", "icon-180.png", "icon-192.png", "icon-512.png"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
