@@ -50,6 +50,83 @@
   .wrap{max-width:620px; margin:0 auto;}
   h1,h2,h3,.heure,.rg-val,.titre,.ong-j{font-family:"Baloo 2",Nunito,cursive;}
 
+
+  /* ═══ HUD DE JEU ═══ */
+  .hud{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    background:var(--card); border:3px solid var(--line); border-radius:20px;
+    padding:10px 14px; margin-bottom:12px;
+  }
+  .hud-niv{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    width:52px; height:52px; border-radius:50%; background:var(--accent); color:var(--sur-accent);
+    flex:none; font-family:"Baloo 2",sans-serif; line-height:1; box-shadow:var(--ombre);
+  }
+  .hud-niv b{font-size:20px; font-weight:800;}
+  .hud-niv small{font-size:8px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; opacity:.85;}
+  .hud-mid{flex:1 1 140px; min-width:120px; display:flex; flex-direction:column; gap:4px;}
+  .hud-titre{font-family:"Baloo 2",sans-serif; font-size:14px; font-weight:800; display:flex; justify-content:space-between; gap:8px;}
+  .hud-titre span:last-child{color:var(--soft); font-weight:700; font-size:12.5px;}
+  .xp-piste{height:14px; border-radius:999px; background:var(--bg); border:2.5px solid var(--line); overflow:hidden; position:relative;}
+  .xp-remplissage{
+    height:100%; border-radius:999px; background:linear-gradient(90deg,var(--accent),var(--pop));
+    width:0%; transition:width .5s cubic-bezier(.34,1.56,.64,1);
+  }
+  .hud-serie{
+    display:flex; flex-direction:column; align-items:center; gap:0; flex:none;
+    font-family:"Baloo 2",sans-serif;
+  }
+  .hud-serie b{font-size:19px; font-weight:800; line-height:1;}
+  .hud-serie small{font-size:9px; font-weight:800; letter-spacing:.03em; text-transform:uppercase; color:var(--soft);}
+  .hud-son{
+    flex:none; width:42px; height:42px; padding:0; font-size:19px; border-radius:12px;
+    display:grid; place-items:center;
+  }
+
+  /* ═══ BOUTON "FAIT !" SUR CHAQUE CARTE ═══ */
+  .fait-zone{margin-top:9px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .btn-fait{
+    position:relative; overflow:visible;
+    font-family:"Baloo 2",sans-serif; font-size:15px; font-weight:800; flex:none;
+    background:var(--accent2); color:var(--ink); border:3px solid var(--line);
+    border-radius:14px; padding:9px 16px; cursor:pointer;
+  }
+  .btn-fait:hover{border-color:var(--accent);}
+  .pc.coche .btn-fait{background:var(--accent); color:var(--sur-accent); border-color:var(--accent);}
+  .pc.coche .btn-fait::before{content:"✓ ";}
+  .xp-tag{
+    font-family:"Baloo 2",sans-serif; font-size:13px; font-weight:800; color:var(--accent);
+    background:var(--card); border:2px solid var(--accent); border-radius:999px; padding:3px 10px;
+  }
+  .pc.coche{border-color:var(--accent);}
+  .pc.coche::after{
+    content:"✓"; position:absolute; top:-10px; left:-10px; width:30px; height:30px; border-radius:50%;
+    background:var(--accent); color:var(--sur-accent); font-weight:800; font-size:17px;
+    display:grid; place-items:center; box-shadow:var(--ombre); z-index:2;
+  }
+  @keyframes voler-xp{
+    0%{opacity:1; transform:translate(0,0) scale(1);}
+    100%{opacity:0; transform:translate(var(--dx,0px),-56px) scale(1.25);}
+  }
+  .xp-vol{
+    position:absolute; left:50%; top:0; transform:translateX(-50%);
+    font-family:"Baloo 2",sans-serif; font-weight:800; font-size:16px; color:var(--accent);
+    pointer-events:none; animation:voler-xp .8s ease-out forwards; z-index:5; white-space:nowrap;
+  }
+  @keyframes rebond-capy{
+    0%,100%{transform:translateY(0) rotate(0);} 30%{transform:translateY(-9px) rotate(-4deg);} 55%{transform:translateY(0) rotate(3deg);}
+  }
+  .mascotte.content{animation:rebond-capy .55s ease;}
+
+  /* confettis */
+  #confettis{position:fixed; inset:0; pointer-events:none; z-index:50;}
+
+  @media (prefers-reduced-motion: reduce){
+    .xp-remplissage{transition:none;}
+    .mascotte.content{animation:none;}
+    .xp-vol{animation:none; opacity:0;}
+  }
+
   /* ═══ SÉLECTEUR DE STYLE ═══ */
   .themes{
     display:flex; gap:8px; justify-content:center; flex-wrap:wrap;
@@ -287,7 +364,7 @@
     body{padding:0; font-size:9.6pt; line-height:1.3; background:#fff;
          -webkit-print-color-adjust:exact; print-color-adjust:exact;}
     .wrap{max-width:none;}
-    .no-print, .actions, .reglage, .reglages, .onglets, .retour, .toast, .pied, .themes,
+    .no-print, .actions, .reglage, .reglages, .onglets, .retour, .toast, .pied, .themes, .hud,
     #jour, .zone-bouge .zone-tete, .duo{display:none !important;}
     .top{margin-bottom:3px;}
     .mascotte{width:38px; height:38px;}
@@ -298,14 +375,14 @@
     .zone-tete{padding:3px 10px; gap:7px; border-radius:10px 10px 0 0;}
     .zone-kr{font-size:10.5pt;} .zone-tete h2{font-size:11pt;} .zone-tete p{font-size:7pt;}
     .liste{gap:3px; margin-top:3px;}
-    .pc{padding:3px 9px 4px; grid-template-columns:82px 1fr; gap:0 9px;
-        border-width:2px; border-radius:10px; box-shadow:none; page-break-inside:avoid;}
+    .pc{padding:2px 9px 3px; grid-template-columns:78px 1fr; gap:0 9px;
+        border-width:1.5px; border-radius:9px; box-shadow:none; page-break-inside:avoid;}
     .num{position:absolute; top:4px; right:11px; font-size:8.4pt; margin:0; line-height:1;}
     .gauche{gap:4px;}
-    .heure{font-size:16.5pt;}
+    .heure{font-size:15pt;}
     .duree{font-size:7pt; padding:0 6px;}
     .titre{font-size:10.5pt;}
-    .desc{font-size:7.8pt; line-height:1.22;}
+    .desc{font-size:7.4pt; line-height:1.18;}
     .qui{font-size:6.4pt; padding:0 6px; border-width:1.5px;}
     .etoile{display:none;}
     .mini{right:8px; bottom:5px;} .mini svg{width:24px; height:24px;}
@@ -342,61 +419,79 @@
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
-    <g id="capy-base">
-      <circle cx="22" cy="29" r="12" fill="#D9A066"/>
-      <circle cx="78" cy="29" r="12" fill="#D9A066"/>
-      <circle cx="22" cy="29" r="5.5" fill="#B77C46"/>
-      <circle cx="78" cy="29" r="5.5" fill="#B77C46"/>
-      <rect x="8" y="23" width="84" height="62" rx="29" fill="#D9A066"/>
-      <ellipse cx="50" cy="66" rx="27" ry="16" fill="#F6E3C8"/>
-      <ellipse cx="16" cy="61" rx="8" ry="5" fill="#FF8FB5" opacity=".75"/>
-      <ellipse cx="84" cy="61" rx="8" ry="5" fill="#FF8FB5" opacity=".75"/>
-      <rect x="43" y="57" width="14" height="8" rx="4" fill="#5A3A1E"/>
-      <path d="M50 65 q-6 6 -11 1 M50 65 q6 6 11 1" fill="none" stroke="#5A3A1E" stroke-width="2.6" stroke-linecap="round"/>
+    <g id="capy-corps">
+      <ellipse cx="52" cy="20" rx="7" ry="6.5" fill="#B9834A"/>
+      <ellipse cx="86" cy="18" rx="6" ry="5.5" fill="#B9834A"/>
+      <ellipse cx="100" cy="72" rx="10" ry="7" fill="#C99257"/>
+      <ellipse cx="20" cy="72" rx="10" ry="7" fill="#C99257"/>
+      <ellipse cx="65" cy="60" rx="58" ry="32" fill="#D9A066"/>
+      <ellipse cx="107" cy="46" rx="30" ry="24" fill="#D9A066"/>
+      <ellipse cx="128" cy="52" rx="16" ry="12" fill="#E3AF77"/>
+      <ellipse cx="65" cy="76" rx="46" ry="17" fill="#F1DAB6"/>
+      <ellipse cx="14" cy="66" rx="9" ry="6" fill="#FF8FB5" opacity=".7"/>
+      <ellipse cx="60" cy="90" rx="9" ry="6" fill="#FF8FB5" opacity=".55"/>
     </g>
     <g id="capy-yeux">
-      <circle cx="32" cy="47" r="7" fill="#3A2412"/>
-      <circle cx="68" cy="47" r="7" fill="#3A2412"/>
-      <circle cx="34.4" cy="44.6" r="2.4" fill="#fff"/>
-      <circle cx="70.4" cy="44.6" r="2.4" fill="#fff"/>
+      <circle cx="98" cy="42" r="6.5" fill="#3A2412"/>
+      <circle cx="120" cy="45" r="5.5" fill="#3A2412"/>
+      <circle cx="100.3" cy="39.6" r="2.2" fill="#fff"/>
+      <circle cx="121.8" cy="43" r="1.8" fill="#fff"/>
+      <ellipse cx="131" cy="55" rx="3.4" ry="2.4" fill="#7A5A38"/>
     </g>
   </defs>
 
-  <symbol id="capy-idol" viewBox="0 0 100 100">
-    <use href="#capy-base"/><use href="#capy-yeux"/>
-    <path d="M9 30 a41 39 0 0 1 82 0" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round"/>
-    <rect x="1" y="26" width="16" height="27" rx="8" fill="var(--accent)"/>
-    <rect x="83" y="26" width="16" height="27" rx="8" fill="var(--accent)"/>
+  <symbol id="capy-idol" viewBox="0 0 145 100">
+    <use href="#capy-corps"/><use href="#capy-yeux"/>
+    <path d="M118 26 q13 -13 26 2" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="118" cy="30" r="9" fill="var(--accent)"/>
+    <circle cx="143" cy="29" r="9" fill="var(--accent)"/>
   </symbol>
 
-  <symbol id="capy-stylo" viewBox="0 0 100 100">
-    <use href="#capy-base"/><use href="#capy-yeux"/>
-    <g transform="rotate(30 86 58)">
-      <rect x="80" y="26" width="12" height="36" rx="6" fill="var(--accent)"/>
-      <path d="M80 62 h12 l-6 12 z" fill="#FFD861"/>
+  <symbol id="capy-stylo" viewBox="0 0 145 100">
+    <use href="#capy-corps"/><use href="#capy-yeux"/>
+    <g transform="rotate(28 128 40)">
+      <rect x="122" y="8" width="11" height="34" rx="5.5" fill="var(--accent)"/>
+      <path d="M122 42 h11 l-5.5 11 z" fill="#FFD861"/>
     </g>
   </symbol>
 
-  <symbol id="capy-bain" viewBox="0 0 100 100">
-    <use href="#capy-base"/><use href="#capy-yeux"/>
-    <circle cx="11" cy="15" r="8" fill="none" stroke="var(--accent)" stroke-width="4"/>
-    <circle cx="29" cy="5" r="5" fill="none" stroke="var(--accent)" stroke-width="3.5"/>
-    <circle cx="90" cy="11" r="6.5" fill="none" stroke="var(--accent)" stroke-width="4"/>
+  <symbol id="capy-dents" viewBox="0 0 145 100">
+    <use href="#capy-corps"/><use href="#capy-yeux"/>
+    <rect x="88" y="58" width="26" height="8" rx="4" fill="var(--card)" stroke="var(--line)" stroke-width="1.5"/>
+    <g stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round">
+      <path d="M92 56 l3 -5"/><path d="M99 55 l2 -6"/><path d="M106 55 l-1 -6"/><path d="M112 56 l-3 -5"/>
+    </g>
   </symbol>
 
-  <symbol id="capy-dodo" viewBox="0 0 100 100">
-    <use href="#capy-base"/>
-    <path d="M25 47 q7 7 14 0 M61 47 q7 7 14 0" fill="none" stroke="#3A2412" stroke-width="3.4" stroke-linecap="round"/>
-    <text x="80" y="19" font-family="Baloo 2, cursive" font-size="21" font-weight="800" fill="var(--accent)">z</text>
-    <text x="70" y="6" font-family="Baloo 2, cursive" font-size="13" font-weight="800" fill="var(--accent)">z</text>
+  <symbol id="capy-bain" viewBox="0 0 145 100">
+    <use href="#capy-corps"/><use href="#capy-yeux"/>
+    <circle cx="12" cy="14" r="7" fill="none" stroke="var(--accent)" stroke-width="3.6"/>
+    <circle cx="30" cy="4" r="4.5" fill="none" stroke="var(--accent)" stroke-width="3"/>
+    <circle cx="138" cy="10" r="6" fill="none" stroke="var(--accent)" stroke-width="3.6"/>
   </symbol>
 
-  <symbol id="capy-coeur" viewBox="0 0 100 100">
-    <use href="#capy-base"/><use href="#capy-yeux"/>
-    <path d="M84 8 c3-4 9-4 9 2 0 5-9 11-9 11 s-9-6-9-11c0-6 6-6 9-2z" fill="var(--accent)"/>
+  <symbol id="capy-sac" viewBox="0 0 145 100">
+    <use href="#capy-corps"/><use href="#capy-yeux"/>
+    <rect x="8" y="30" width="22" height="26" rx="6" fill="var(--accent)"/>
+    <rect x="14" y="24" width="10" height="10" rx="5" fill="none" stroke="var(--accent)" stroke-width="3"/>
+  </symbol>
+
+  <symbol id="capy-dodo" viewBox="0 0 145 100">
+    <use href="#capy-corps"/>
+    <path d="M91 42 q7 6 14 0 M113 45 q6 5.5 12 0" fill="none" stroke="#3A2412" stroke-width="3.2" stroke-linecap="round"/>
+    <text x="128" y="16" font-family="Baloo 2, cursive" font-size="20" font-weight="800" fill="var(--accent)">z</text>
+    <text x="116" y="4" font-family="Baloo 2, cursive" font-size="12" font-weight="800" fill="var(--accent)">z</text>
+  </symbol>
+
+  <symbol id="capy-yay" viewBox="0 0 145 100">
+    <use href="#capy-corps"/>
+    <path d="M91 40 l6 6 l7 -8 M112 42 l5.5 5.5 l6 -7" fill="none" stroke="#3A2412" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M86 8 c3-4 9-4 9 2 0 5-9 11-9 11 s-9-6-9-11c0-6 6-6 9-2z" fill="var(--pop)"/>
+    <path d="M132 4 c2.4-3 7-3 7 1.6 0 4-7 8.8-7 8.8 s-7-4.8-7-8.8c0-4.6 4.6-4.6 7-1.6z" fill="var(--pop)"/>
   </symbol>
 </svg>
 
+<div class="wrap">
 <div class="wrap">
 
   <div class="themes no-print" id="themes" role="group" aria-label="Choisir le style">
@@ -405,6 +500,16 @@
     <button type="button" class="th" data-t="ile">스티치<small>Bleu lagon</small></button>
     <button type="button" class="th" data-t="capy">카피바라<small>Capybara</small></button>
     <button type="button" class="th" data-t="rose">핑크<small>Tout rose</small></button>
+  </div>
+
+  <div class="hud">
+    <div class="hud-niv"><b id="hud-niveau">1</b><small>NIV.</small></div>
+    <div class="hud-mid">
+      <div class="hud-titre"><span id="hud-titre-niveau">Bébé capybara</span><span id="hud-xp-txt">0 / 100 XP</span></div>
+      <div class="xp-piste"><div class="xp-remplissage" id="xp-barre"></div></div>
+    </div>
+    <div class="hud-serie"><b id="hud-serie">🔥0</b><small>série</small></div>
+    <button type="button" class="hud-son no-print" id="b-son" aria-label="Couper ou activer le son">🔊</button>
   </div>
 
   <header class="top">
@@ -483,7 +588,7 @@
       <li><b>Demander à décaler.</b> Sans avoir de bonne raison à donner. « Pas ce soir » suffit, et ça se décide à deux.</li>
       <li><b>Rater un soir.</b> Un soir qui ne suit pas le planning n'est pas un soir raté. Demain reprend à la même heure, tout seul.</li>
     </ul>
-    <p class="filet-fin">Ce planning ne se note pas. Il est là pour que tu n'aies pas à y penser — <b>pas pour que tu le réussisses.</b></p>
+    <p class="filet-fin">Ce planning ne se note pas. Il est là pour que tu n'aies pas à y penser — <b>pas pour que tu le réussisses.</b> Les XP ne redescendent jamais, une case pas cochée n'enlève rien, et une série cassée repart à zéro sans qu'on en fasse une histoire.</p>
   </section>
 
   <div class="duo">
@@ -522,6 +627,7 @@
   <p class="pied no-print">CM2 K-Pop — 화이팅</p>
 </div>
 
+<canvas id="confettis" class="no-print" aria-hidden="true"></canvas>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
 (function(){
@@ -538,17 +644,21 @@
   var ANCRE = [
     {id:"bain", h:"19:00", num:"목욕", titre:"Bain, puis pyjama",
      desc:"La soirée continue après, mais en pyjama. Ça évite la course à 21h.",
-     qui:"duo", capy:"capy-bain"},
+     qui:"duo", capy:"capy-bain", xp:10},
     {id:"diner", h:"19:45", num:"저녁", titre:"Dîner",
-     desc:"À table, ensemble. Pas d'écran sur la table.", qui:"duo"},
+     desc:"À table, ensemble. Pas d'écran sur la table.", qui:"duo", xp:5},
+    {id:"dents", h:"20:15", num:"양치", titre:"Brossage de dents",
+     desc:"Deux minutes, en haut et en bas. Après le dîner, avant le sac.",
+     qui:"moi", capy:"capy-dents", xp:10},
     {id:"sac", h:"20:30", num:"가방", titre:"Le sac de demain",
-     desc:"Cahier de textes, affaires de sport, les papiers à signer. Le soir, jamais le matin.", qui:"duo"},
+     desc:"Cahier de textes, affaires de sport, les papiers à signer. Le soir, jamais le matin.",
+     qui:"duo", capy:"capy-sac", xp:10},
     {id:"ecrans", h:"21:00", num:"★ RARE ★", titre:"Écrans éteints. Au lit.",
      desc:"Téléphone et tablette posés hors de la chambre. Cette heure-là ne bouge aucun jour de la semaine — c'est la seule de toute la carte.",
-     qui:"papa", fixe:true, holo:true},
+     qui:"papa", fixe:true, holo:true, xp:10},
     {id:"lumiere", h:"21:30", num:"굿나잇", titre:"Lumière éteinte",
      desc:"Entre les deux, tu lis. Et si tu es trop fatiguée pour lire, tu éteins tout de suite : c'est toi qui sais, et ce n'est pas grave.",
-     qui:"moi", capy:"capy-dodo"}
+     qui:"moi", capy:"capy-dodo", xp:15}
   ];
 
   var QUI = {
@@ -618,6 +728,157 @@
     return {retour:r, debutDev:debut, finDev:fin, dev:j.d, libre:libre};
   }
 
+
+  /* ═══════════ LE JEU : XP, niveaux, série, son ═══════════
+     Règle absolue : l'XP ne redescend jamais. Rien n'est retiré pour une
+     tâche non faite ; une série cassée redémarre sans message de reproche. */
+  var CLE_JEU = "planning-capybara-jeu-v1";
+  var PALIERS = ["Bébé capybara","Capybara curieux","Capybara appliqué","Super capybara","Méga capybara","Capybara légende"];
+
+  function aujourdhui(){ return new Date().toDateString(); }
+
+  var jeu = {xp:0, streak:0, dernierComplet:"", jourCoche:{date:"", taches:{}}, muet:false};
+  (function chargerJeu(){
+    try{
+      var b = JSON.parse(localStorage.getItem(CLE_JEU));
+      if (b){
+        if (typeof b.xp === "number") jeu.xp = b.xp;
+        if (typeof b.streak === "number") jeu.streak = b.streak;
+        if (typeof b.dernierComplet === "string") jeu.dernierComplet = b.dernierComplet;
+        if (typeof b.muet === "boolean") jeu.muet = b.muet;
+        if (b.jourCoche && b.jourCoche.date === aujourdhui()) jeu.jourCoche = b.jourCoche;
+      }
+    }catch(e){}
+    if (jeu.jourCoche.date !== aujourdhui()) jeu.jourCoche = {date:aujourdhui(), taches:{}};
+  })();
+  function garderJeu(){ try{ localStorage.setItem(CLE_JEU, JSON.stringify(jeu)); }catch(e){} }
+
+  function niveauDe(xp){ return Math.floor(xp / 100) + 1; }
+  function titreDe(niveau){ return PALIERS[Math.min(niveau - 1, PALIERS.length - 1)]; }
+
+  /* ───── son : synthétisé, pas de fichier — se coupe avec le bouton 🔊 ───── */
+  var ctxSon = null;
+  function ctx(){
+    if (jeu.muet) return null;
+    if (!ctxSon){ try{ ctxSon = new (window.AudioContext || window.webkitAudioContext)(); }catch(e){ return null; } }
+    if (ctxSon.state === "suspended") ctxSon.resume();
+    return ctxSon;
+  }
+  function note(freq, debut, duree, type, volume){
+    var a = ctx(); if (!a) return;
+    var o = a.createOscillator(), g = a.createGain();
+    o.type = type || "sine"; o.frequency.value = freq;
+    g.gain.setValueAtTime(0, a.currentTime + debut);
+    g.gain.linearRampToValueAtTime(volume || 0.16, a.currentTime + debut + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, a.currentTime + debut + duree);
+    o.connect(g); g.connect(a.destination);
+    o.start(a.currentTime + debut); o.stop(a.currentTime + debut + duree + 0.02);
+  }
+  function sonTap(){ note(520, 0, 0.07, "sine", 0.1); }
+  function sonFait(){ note(740, 0, 0.09, "triangle", 0.14); note(988, 0.07, 0.12, "triangle", 0.14); }
+  function sonFete(){
+    [523,659,784,1047].forEach(function(f, i){ note(f, i * 0.09, 0.22, "triangle", 0.16); });
+  }
+
+  /* ───── confettis (canvas, léger, ignoré si mouvement réduit) ───── */
+  var reduitMouvement = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function confettis(intensite){
+    if (reduitMouvement) return;
+    var cv = document.getElementById("confettis");
+    if (!cv) return;
+    cv.width = innerWidth; cv.height = innerHeight;
+    var g = cv.getContext("2d");
+    var couleurs = getComputedStyle(document.documentElement);
+    var palette = [couleurs.getPropertyValue("--accent"), couleurs.getPropertyValue("--pop"), couleurs.getPropertyValue("--accent2")];
+    var n = intensite === "fete" ? 90 : 22;
+    var parts = [];
+    for (var i = 0; i < n; i++){
+      parts.push({
+        x: innerWidth / 2 + (Math.random() - 0.5) * (intensite === "fete" ? innerWidth * 0.7 : 140),
+        y: intensite === "fete" ? innerHeight * 0.25 : 90,
+        vx: (Math.random() - 0.5) * (intensite === "fete" ? 7 : 3),
+        vy: -Math.random() * (intensite === "fete" ? 9 : 5) - 2,
+        taille: 4 + Math.random() * 5,
+        couleur: palette[i % palette.length].trim() || "#FF2D78",
+        rot: Math.random() * 360, vrot: (Math.random() - 0.5) * 14
+      });
+    }
+    var t0 = performance.now(), duree = intensite === "fete" ? 1500 : 900;
+    (function anim(t){
+      var dt = Math.min((t - t0) / 16, 3);
+      g.clearRect(0, 0, cv.width, cv.height);
+      parts.forEach(function(p){
+        p.vy += 0.22 * dt; p.x += p.vx * dt; p.y += p.vy * dt; p.rot += p.vrot * dt;
+        g.save(); g.translate(p.x, p.y); g.rotate(p.rot * Math.PI / 180);
+        g.fillStyle = p.couleur; g.fillRect(-p.taille/2, -p.taille/2, p.taille, p.taille * 0.6);
+        g.restore();
+      });
+      if (t - t0 < duree) requestAnimationFrame(anim); else g.clearRect(0, 0, cv.width, cv.height);
+    })(t0);
+  }
+
+  /* ───── réaction de la mascotte d'en-tête ───── */
+  function mascotteReagit(symbole, duree){
+    var use = document.querySelector(".mascotte use");
+    var svg = document.querySelector(".mascotte");
+    if (!use || !svg) return;
+    var avant = use.getAttribute("href");
+    if (symbole) use.setAttribute("href", "#" + symbole);
+    svg.classList.remove("content"); void svg.offsetWidth; svg.classList.add("content");
+    if (symbole) setTimeout(function(){ use.setAttribute("href", avant); }, duree || 1400);
+  }
+
+  /* ───── gagner de l'XP pour une tâche ───── */
+  function gagnerXP(id, montant, boutonEl){
+    if (jeu.jourCoche.taches[id]) return;
+    jeu.jourCoche.taches[id] = true;
+    jeu.xp += montant;
+
+    var niveauAvant = niveauDe(jeu.xp - montant), niveauApres = niveauDe(jeu.xp);
+
+    if (boutonEl){
+      var vol = document.createElement("span");
+      vol.className = "xp-vol"; vol.textContent = "+" + montant + " XP";
+      vol.style.setProperty("--dx", ((Math.random() - 0.5) * 30) + "px");
+      boutonEl.appendChild(vol);
+      setTimeout(function(){ vol.remove(); }, 850);
+    }
+
+    var complet = ANCRE.every(function(a){ return jeu.jourCoche.taches[a.id]; });
+    if (complet && jeu.dernierComplet !== aujourdhui()){
+      var hier = new Date(); hier.setDate(hier.getDate() - 1);
+      jeu.streak = (jeu.dernierComplet === hier.toDateString()) ? jeu.streak + 1 : 1;
+      jeu.dernierComplet = aujourdhui();
+      sonFete(); confettis("fete"); mascotteReagit("capy-yay", 1800);
+      setTimeout(function(){ toast("🎉 Journée capybara complète ! Série : " + jeu.streak + " jour" + (jeu.streak > 1 ? "s" : "")); }, 250);
+    } else if (niveauApres > niveauAvant){
+      sonFete(); confettis("fete");
+      setTimeout(function(){ toast("⭐ Niveau " + niveauApres + " — " + titreDe(niveauApres) + " !"); }, 250);
+    } else {
+      sonFait(); confettis("mini"); mascotteReagit(null);
+    }
+
+    garderJeu(); rendreHUD(); rendre();
+  }
+
+  function rendreHUD(){
+    var niv = niveauDe(jeu.xp);
+    var dansPalier = jeu.xp % 100;
+    document.getElementById("hud-niveau").textContent = niv;
+    document.getElementById("hud-titre-niveau").textContent = titreDe(niv);
+    document.getElementById("hud-xp-txt").textContent = dansPalier + " / 100 XP";
+    document.getElementById("xp-barre").style.width = dansPalier + "%";
+    document.getElementById("hud-serie").textContent = "🔥" + jeu.streak;
+    var bs = document.getElementById("b-son");
+    bs.textContent = jeu.muet ? "🔇" : "🔊";
+    bs.setAttribute("aria-pressed", jeu.muet ? "true" : "false");
+  }
+
+  document.getElementById("b-son").addEventListener("click", function(){
+    jeu.muet = !jeu.muet; garderJeu(); rendreHUD();
+    if (!jeu.muet) sonTap();
+  });
+
   /* ───── choix du style ───── */
   function poserTheme(){
     document.documentElement.setAttribute("data-theme", etat.theme);
@@ -629,7 +890,7 @@
   }
   Array.prototype.forEach.call(document.querySelectorAll(".th"), function(b){
     b.addEventListener("click", function(){
-      etat.theme = b.dataset.t; garder(); poserTheme();
+      sonTap(); etat.theme = b.dataset.t; garder(); poserTheme();
     });
   });
 
@@ -642,7 +903,7 @@
     b.id = "ong-" + j.id;
     b.setAttribute("role","tab");
     b.innerHTML = '<span class="ong-j">' + j.court + '</span><span class="ong-h" id="ongh-' + j.id + '">—</span>';
-    b.addEventListener("click", function(){ etat.actif = j.id; garder(); rendre(); });
+    b.addEventListener("click", function(){ sonTap(); etat.actif = j.id; garder(); rendre(); });
     onglets.appendChild(b);
   });
 
@@ -710,6 +971,22 @@
       mi.innerHTML = '<svg width="46" height="46" aria-hidden="true"><use href="#' + o.capy + '"/></svg>';
       c.appendChild(mi);
     }
+
+    if (o.xp){
+      var fait = !!jeu.jourCoche.taches[o.id];
+      if (fait) c.classList.add("coche");
+      var fz = document.createElement("div");
+      fz.className = "fait-zone no-print";
+      var bf = document.createElement("button");
+      bf.type = "button"; bf.className = "btn-fait";
+      bf.textContent = fait ? "Fait !" : "C'est fait !";
+      bf.disabled = fait;
+      bf.addEventListener("click", function(){ gagnerXP(o.id, o.xp, bf); });
+      var xt = document.createElement("span");
+      xt.className = "xp-tag"; xt.textContent = "+" + o.xp + " XP";
+      fz.appendChild(bf); fz.appendChild(xt);
+      dr.appendChild(fz);
+    }
     return c;
   }
 
@@ -762,6 +1039,7 @@
     hoteAncre.innerHTML = "";
     ANCRE.forEach(function(a, i){
       hoteAncre.appendChild(carte({
+        id:a.id, xp:a.xp,
         num:a.num, heure:joli(enMin(etat.ancre[a.id])),
         sous: i < ANCRE.length - 1
           ? duree(enMin(etat.ancre[ANCRE[i+1].id]) - enMin(etat.ancre[a.id]))
@@ -819,6 +1097,7 @@
 
   charger();
   poserTheme();
+  rendreHUD();
   rendre();
 
   document.getElementById("regle").addEventListener("input", function(e){
