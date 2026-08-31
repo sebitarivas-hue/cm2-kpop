@@ -4,315 +4,331 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Planning Capybara ⭐ CM2 K-Pop</title>
-<meta name="theme-color" content="#04030a">
+<meta name="theme-color" content="#F2F0EB">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Planning">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Bagel+Fat+One&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&family=Black+Han+Sans&display=swap" rel="stylesheet">
 <style>
   :root{
-    --pink:#ff4d94; --pink2:#ff7eb3; --purple:#a855f7; --cyan:#22d3ee;
-    --lilac:#c4b5fd; --gold:#ffd166;
-    --txt:#f5e9ff; --muted:#bda6db;
-    --card:rgba(40,22,72,.72); --card2:rgba(49,26,92,.72);
-    --fur:#e0a96d; --fur2:#f6d9b4; --blush:#ff7eb3;
+    --paper:#F2F0EB;
+    --ink:#111111;
+    --red:#E8112D;
+    --blue:#1B36C4;
+    --grey:#5E5A54;
+    --line:#111111;
+    --soft:#E2DFD8;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
 
-  @keyframes bgshift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-  @keyframes float1{50%{transform:translate(60px,40px) scale(1.15)}}
-  @keyframes float2{50%{transform:translate(-50px,-40px) scale(1.2)}}
-  @keyframes popin{from{opacity:0; transform:translateY(12px) scale(.97);} to{opacity:1; transform:none;}}
-  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-  @keyframes twinkle{0%,100%{opacity:.25; transform:scale(.8)}50%{opacity:1; transform:scale(1.15)}}
-  @keyframes pulse{0%{transform:scale(1)}45%{transform:scale(1.13)}100%{transform:scale(1)}}
-
   body{
-    margin:0; color:var(--txt); min-height:100vh; overflow-x:hidden; position:relative;
-    font-family:"Poppins","Segoe UI",system-ui,sans-serif; font-size:15px; line-height:1.5;
-    background:linear-gradient(125deg,#1a0b2e,#3b1457,#241a5c,#0e1a4a,#3b0f4d);
-    background-size:300% 300%; animation:bgshift 18s ease infinite;
-    padding:calc(20px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right))
-            calc(46px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:Archivo,"Helvetica Neue",Arial,system-ui,sans-serif;
+    font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
+    padding:calc(18px + env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom));
   }
-  body::before,body::after{content:""; position:fixed; border-radius:50%; filter:blur(70px); opacity:.5; z-index:-1; pointer-events:none;}
-  body::before{width:340px; height:340px; background:#ff4d9466; top:-80px; left:-60px; animation:float1 12s ease-in-out infinite;}
-  body::after{width:320px; height:320px; background:#22d3ee55; bottom:-60px; right:-50px; animation:float2 14s ease-in-out infinite;}
+  .wrap{max-width:660px; margin:0 auto;}
 
-  .wrap{max-width:560px; margin:0 auto; display:flex; flex-direction:column; gap:18px;}
-
-  /* ───────── en-tête ───────── */
-  .top{text-align:center; display:flex; flex-direction:column; align-items:center; gap:4px;}
+  /* ═════ EN-TÊTE ═════ */
+  .top{border-bottom:5px solid var(--ink); padding-bottom:14px; margin-bottom:0;}
   .retour{
-    align-self:flex-start; font-size:.78rem; font-weight:700; color:var(--muted);
-    text-decoration:none; letter-spacing:.06em; padding:5px 12px; border-radius:999px;
-    background:rgba(10,8,20,.55); border:1px solid rgba(196,181,253,.28);
+    display:inline-block; font-size:13px; font-weight:700; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink); text-decoration:none;
+    border:2px solid var(--ink); padding:5px 11px; margin-bottom:14px;
   }
-  .retour:hover{color:#fff; border-color:var(--pink2);}
+  .retour:hover{background:var(--ink); color:var(--paper);}
+  .mascotte{float:right; margin:0 0 6px 12px; color:var(--ink);}
   .kr{
-    font-family:"Baloo 2",cursive; font-size:.82rem; font-weight:700; letter-spacing:.22em;
-    color:var(--cyan); text-transform:none;
+    font-family:"Black Han Sans",Archivo,sans-serif; font-size:30px; line-height:1;
+    color:var(--red); margin:0 0 2px; letter-spacing:.02em;
   }
   h1{
-    font-family:"Bagel Fat One",system-ui,cursive; font-size:2.15rem; line-height:1.1; margin:2px 0 0;
-    background:linear-gradient(90deg,#ff4d94,#a855f7,#22d3ee,#ff4d94);
-    background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent;
-    animation:bgshift 6s linear infinite; filter:drop-shadow(0 2px 14px rgba(255,77,148,.45));
+    font-family:"Archivo Black",Archivo,sans-serif; font-size:clamp(34px,9vw,52px);
+    line-height:.95; letter-spacing:-.035em; margin:0 0 10px; text-transform:uppercase;
   }
-  .tag{color:#d9c8f0; font-size:.9rem; margin:2px auto 0; max-width:400px;}
-  .tag b{color:var(--pink2);}
-  .mascotte{margin:6px 0 2px; animation:bounce 3.4s ease-in-out infinite;}
-
-  /* ───────── pastilles de résumé ───────── */
-  .hud{display:grid; grid-template-columns:repeat(3,1fr); gap:9px;}
-  .pill{
-    background:rgba(10,8,20,.72); border:1.5px solid rgba(196,181,253,.3);
-    border-radius:16px; padding:9px 6px; text-align:center;
-    box-shadow:0 10px 28px rgba(8,3,20,.45), inset 0 1px 0 rgba(255,255,255,.07);
+  .tag{
+    margin:0; font-size:16px; line-height:1.45; max-width:52ch; clear:both;
+    border-left:5px solid var(--red); padding-left:12px;
   }
-  .pill .lbl{display:block; font-size:.58rem; color:var(--muted); font-weight:700; letter-spacing:.1em; text-transform:uppercase;}
-  .pill .val{font-family:"Baloo 2",cursive; font-weight:800; font-size:1.18rem; color:#fff; line-height:1.25;}
-  .pill.hi .val{color:var(--cyan);}
+  .tag b{font-weight:700; background:#FFE81F; padding:0 3px; box-decoration-break:clone;}
+  .tag sup{font-size:.7em;}
 
-  /* ───────── boutons ───────── */
-  .actions{display:flex; flex-wrap:wrap; gap:9px;}
+  /* ═════ BOUTONS ═════ */
+  .actions{display:flex; flex-wrap:wrap; gap:8px; margin:18px 0;}
   button{
-    font-family:"Baloo 2",cursive; font-weight:800; font-size:.95rem; color:#fff;
-    border:none; border-radius:14px; padding:11px 15px; cursor:pointer; flex:1 1 auto;
-    background:rgba(255,255,255,.09); border:1.5px solid rgba(196,181,253,.3);
-    transition:transform .12s ease, filter .18s ease;
+    font-family:Archivo,sans-serif; font-size:14px; font-weight:700; letter-spacing:.09em;
+    background:var(--paper); color:var(--ink); border:2.5px solid var(--ink); border-radius:0;
+    padding:11px 16px; cursor:pointer; flex:1 1 auto;
   }
-  button:hover{filter:brightness(1.18);}
-  button:active{transform:scale(.96);}
-  button:focus-visible{outline:3px solid var(--cyan); outline-offset:2px;}
-  button.go{
-    background:linear-gradient(90deg,var(--pink),var(--purple));
-    border-color:transparent; box-shadow:0 8px 22px rgba(255,77,148,.4);
-  }
+  button:hover{background:var(--ink); color:var(--paper);}
+  button:active{transform:translate(1px,1px);}
+  button:focus-visible{outline:3px solid var(--blue); outline-offset:2px;}
+  button.go{background:var(--red); color:#fff; border-color:var(--red);}
+  button.go:hover{background:var(--ink); border-color:var(--ink);}
 
-  /* ───────── les photocards ───────── */
-  .liste{display:flex; flex-direction:column; gap:13px;}
+  /* ═════ BANDEAUX DE SECTION ═════ */
+  .zone{margin-top:26px;}
+  .zone-tete{
+    background:var(--ink); color:var(--paper); padding:9px 14px;
+    display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+  }
+  .zone-kr{font-family:"Black Han Sans",sans-serif; font-size:20px; line-height:1; color:#FFE81F;}
+  .zone-tete h2{
+    font-family:"Archivo Black",sans-serif; font-size:20px; letter-spacing:-.02em;
+    margin:0; text-transform:uppercase; line-height:1.1;
+  }
+  .zone-tete p{margin:0; font-size:13px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#B9B5AC;}
+  .zone-ancre .zone-tete{background:var(--red);}
+  .zone-ancre .zone-kr{color:#fff;}
+  .zone-ancre .zone-tete p{color:#FFD9DE;}
+
+  /* ═════ ONGLETS DES JOURS ═════ */
+  .onglets{display:grid; grid-template-columns:repeat(5,1fr); gap:0; border:2.5px solid var(--ink); border-top:none;}
+  .ong{
+    border:none; border-right:2.5px solid var(--ink); border-radius:0;
+    padding:9px 2px 8px; background:var(--paper); display:flex; flex-direction:column;
+    align-items:center; gap:1px; flex:1;
+  }
+  .ong:last-child{border-right:none;}
+  .ong-j{font-family:"Archivo Black",sans-serif; font-size:14px; letter-spacing:.02em;}
+  .ong-h{font-size:14px; font-weight:700; color:var(--grey); font-variant-numeric:tabular-nums;}
+  .ong.on{background:var(--ink); color:var(--paper);}
+  .ong.on .ong-h{color:#FFE81F;}
+  .ong:hover:not(.on){background:var(--soft);}
+
+  /* ═════ RÉGLAGES ═════ */
+  .reglages{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:0;
+    border:2.5px solid var(--ink); border-top:none;
+  }
+  .rg{padding:12px 14px 13px; border-right:2.5px solid var(--ink); display:flex; flex-direction:column; gap:6px;}
+  .rg:last-child{border-right:none;}
+  .rg-lbl{font-size:12px; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--grey);}
+  .rg-ligne{display:flex; align-items:center; gap:10px;}
+  .rg-val{
+    font-family:"Archivo Black",sans-serif; font-size:27px; line-height:1;
+    font-variant-numeric:tabular-nums; min-width:3.2em;
+  }
+  .rg-ligne button{
+    flex:none; width:42px; height:40px; padding:0; font-size:22px; font-weight:700;
+    line-height:1; display:grid; place-items:center;
+  }
+  .rg-aide{font-size:13px; color:var(--grey); line-height:1.35;}
+
+  /* ═════ LES LIGNES ═════ */
+  .liste{border:2.5px solid var(--ink); border-top:none;}
   .pc{
-    position:relative; border-radius:22px; padding:14px 15px;
-    background:linear-gradient(180deg,rgba(40,22,72,.85),rgba(10,7,24,.9));
-    box-shadow:0 12px 30px rgba(8,3,20,.5), inset 0 1px 0 rgba(255,255,255,.08);
-    animation:popin .45s ease both;
-    display:grid; grid-template-columns:86px 1fr; gap:0 13px; align-items:start;
+    position:relative; display:grid; grid-template-columns:132px 1fr; gap:0 16px;
+    padding:13px 14px 14px; border-bottom:2px solid var(--ink); background:var(--paper);
   }
-  .pc::after{
-    content:""; position:absolute; inset:0; border-radius:22px; padding:1.6px; pointer-events:none;
-    background:linear-gradient(135deg,var(--pink),var(--purple),var(--cyan));
-    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite:xor; mask-composite:exclude;
+  .pc:last-child{border-bottom:none;}
+  .num{
+    grid-column:1 / -1; font-family:"Black Han Sans",Archivo,sans-serif; font-size:15px;
+    line-height:1; color:var(--red); margin-bottom:7px; letter-spacing:.03em;
   }
-  .pc .num{
-    position:absolute; top:-7px; left:14px; font-family:"Bagel Fat One",cursive; font-size:.62rem;
-    letter-spacing:.14em; color:#fff; background:linear-gradient(90deg,var(--purple),var(--pink));
-    padding:2px 9px; border-radius:999px; box-shadow:0 4px 12px rgba(168,85,247,.5);
-  }
-
-  .gauche{display:flex; flex-direction:column; align-items:flex-start; gap:6px; padding-top:3px;}
+  .gauche{display:flex; flex-direction:column; align-items:flex-start; gap:7px;}
   .heure{
-    font-family:"Baloo 2",cursive; font-weight:800; font-size:1.85rem; line-height:1; color:#fff;
-    font-variant-numeric:tabular-nums; text-shadow:0 0 16px rgba(255,126,179,.55);
+    font-family:"Archivo Black",sans-serif; font-size:40px; line-height:.88;
+    letter-spacing:-.045em; font-variant-numeric:tabular-nums;
   }
-  .heure.boum{animation:pulse .3s ease;}
-  .duree{font-size:.62rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--muted);}
-  .duree.oups{color:#fb7185;}
+  .duree{
+    font-size:13px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--paper); background:var(--ink); padding:2px 7px;
+  }
+  .duree.oups{background:var(--red);}
   .reglage{display:flex; gap:6px;}
-  .reglage button{
-    flex:none; width:34px; height:32px; padding:0; font-size:1.15rem; line-height:1;
-    display:grid; place-items:center; border-radius:11px; color:var(--pink2);
-    background:rgba(255,77,148,.13); border:1.5px solid rgba(255,126,179,.35);
-  }
+  .reglage button{flex:none; width:40px; height:38px; padding:0; font-size:21px; font-weight:700; display:grid; place-items:center;}
   .pc.fixe .reglage{display:none;}
 
-  .droite{display:flex; flex-direction:column; gap:5px; min-width:0;}
-  .titre{font-family:"Baloo 2",cursive; font-weight:800; font-size:1.1rem; line-height:1.2; color:#fff;}
-  .desc{margin:0; font-size:.83rem; line-height:1.45; color:#cdb9e8;}
-  .qui{
-    align-self:flex-start; font-size:.58rem; font-weight:800; letter-spacing:.09em; text-transform:uppercase;
-    padding:3px 9px; border-radius:999px; margin-top:1px;
+  .droite{display:flex; flex-direction:column; gap:7px; min-width:0;}
+  .titre{
+    font-family:"Archivo Black",sans-serif; font-size:20px; line-height:1.1;
+    letter-spacing:-.02em; text-transform:uppercase;
   }
-  .q-duo{background:rgba(34,211,238,.16); color:var(--cyan); border:1px solid rgba(34,211,238,.4);}
-  .q-papa{background:rgba(255,209,102,.15); color:var(--gold); border:1px solid rgba(255,209,102,.4);}
-  .q-moi{background:rgba(255,77,148,.16); color:var(--pink2); border:1px solid rgba(255,126,179,.45);}
+  .desc{margin:0; font-size:15px; line-height:1.45; color:var(--ink);}
+  .qui{
+    align-self:flex-start; font-size:12px; font-weight:700; letter-spacing:.09em;
+    text-transform:uppercase; padding:3px 8px; border:2px solid var(--ink);
+  }
+  .q-duo{background:var(--paper); color:var(--ink);}
+  .q-papa{background:var(--ink); color:#FFE81F; border-color:var(--ink);}
+  .q-moi{background:#FFE81F; color:var(--ink);}
 
-  .mini{position:absolute; right:10px; bottom:9px; opacity:.95; pointer-events:none;}
+  .mini{position:absolute; right:12px; bottom:11px; color:var(--ink); opacity:.9; pointer-events:none;}
   .pc.a-mini .droite{padding-right:56px;}
 
-  /* la carte rare : holo */
-  .pc.holo{
-    background:
-      radial-gradient(120% 90% at 15% 0%, rgba(255,77,148,.4), transparent 60%),
-      radial-gradient(120% 90% at 85% 100%, rgba(34,211,238,.35), transparent 60%),
-      linear-gradient(180deg,rgba(30,16,58,.94),rgba(6,4,18,.96));
-  }
-  .pc.holo::before{
-    content:""; position:absolute; inset:0; border-radius:22px; pointer-events:none; opacity:.4;
-    background:conic-gradient(from 210deg, #ff4d9455,#a855f755,#22d3ee55,#ffd16655,#ff4d9455);
-    mix-blend-mode:screen;
-  }
-  .pc.holo::after{padding:2.4px; background:linear-gradient(135deg,#ffd166,#ff4d94,#22d3ee,#a855f7);}
-  .pc.holo .num{background:linear-gradient(90deg,var(--gold),var(--pink)); color:#2a0f22;}
-  .etoile{position:absolute; color:#fff; font-size:.7rem; animation:twinkle 2.6s ease-in-out infinite;}
+  /* le bloc noir : la seule heure verrouillée */
+  .pc.holo{background:var(--ink); color:var(--paper);}
+  .pc.holo .titre, .pc.holo .heure, .pc.holo .desc{color:var(--paper);}
+  .pc.holo .num{color:#FFE81F;}
+  .pc.holo .duree{background:var(--red); color:#fff;}
+  .pc.holo .q-papa{background:var(--red); color:#fff; border-color:var(--red);}
+  .pc.holo .mini{color:var(--paper);}
+  .etoile{position:absolute; color:var(--red); font-size:15px; line-height:1;}
 
-  /* ───────── cartes secondaires ───────── */
-  .duo{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:12px;}
-  .bloc{
-    background:rgba(10,8,20,.6); border:1.5px solid rgba(196,181,253,.26);
-    border-radius:18px; padding:14px 15px;
-    box-shadow:0 10px 28px rgba(8,3,20,.4), inset 0 1px 0 rgba(255,255,255,.06);
-  }
-  .bloc h3{font-family:"Baloo 2",cursive; font-size:1rem; margin:0 0 5px; color:var(--pink2);}
-  .bloc p{margin:0; font-size:.83rem; color:#cdb9e8; line-height:1.45;}
-  .bloc ul{margin:5px 0 0; padding-left:17px; font-size:.83rem; color:#cdb9e8; line-height:1.6;}
-  .bloc li::marker{color:var(--cyan);}
-  .bloc b{color:#fff;}
 
-  .maregle{
-    border:2px dashed var(--pink2); border-radius:18px; padding:14px 15px;
-    background:rgba(255,77,148,.09); display:flex; flex-direction:column; gap:7px;
+  /* ═════ FILET DE SÉCURITÉ ═════ */
+  .filet{border:2.5px solid var(--ink); margin-top:22px;}
+  .filet-tete{background:#FFE81F; padding:8px 14px; display:flex; align-items:baseline; gap:11px; flex-wrap:wrap;
+              border-bottom:2.5px solid var(--ink);}
+  .filet-kr{font-family:"Black Han Sans",sans-serif; font-size:20px; line-height:1;}
+  .filet-tete h2{font-family:"Archivo Black",sans-serif; font-size:19px; margin:0; text-transform:uppercase;
+                 letter-spacing:-.02em; line-height:1.1;}
+  .filet-liste{list-style:none; margin:0; padding:12px 14px 4px; display:flex; flex-direction:column; gap:9px;}
+  .filet-liste li{font-size:15px; line-height:1.45; padding-left:20px; position:relative;}
+  .filet-liste li::before{content:"→"; position:absolute; left:0; color:var(--red); font-weight:700;}
+  .filet-liste b{font-family:"Archivo Black",sans-serif; font-size:14.5px; text-transform:uppercase; letter-spacing:-.01em;}
+  .filet-fin{margin:0; padding:8px 14px 13px; font-size:15px; line-height:1.45;}
+  .filet-fin b{font-weight:700; background:#FFE81F; padding:0 3px;}
+
+  /* ═════ TABLEAU DE LA SEMAINE ═════ */
+  .semaine{width:100%; border-collapse:collapse; margin-top:22px; font-variant-numeric:tabular-nums;}
+  .semaine caption{
+    font-family:"Archivo Black",sans-serif; font-size:15px; letter-spacing:.02em;
+    text-transform:uppercase; text-align:left; background:var(--ink); color:var(--paper);
+    padding:7px 12px;
   }
-  .maregle label{font-family:"Baloo 2",cursive; font-weight:800; font-size:.82rem; color:var(--pink2); letter-spacing:.04em;}
+  .semaine th, .semaine td{border:2px solid var(--ink); padding:8px 10px; font-size:15px; text-align:left;}
+  .semaine thead th{
+    background:var(--soft); font-size:12px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+  }
+  .semaine tbody th{font-family:"Archivo Black",sans-serif; font-size:15px; text-transform:uppercase; width:26%;}
+  .semaine tbody td{font-weight:600;}
+
+.semaine-note{margin:9px 0 0; font-size:15px; line-height:1.45; border-left:5px solid var(--red); padding-left:12px;}
+  .semaine-note b{font-weight:700; background:#FFE81F; padding:0 3px;}
+
+  /* ═════ BLOCS SECONDAIRES ═════ */
+  .duo{display:grid; grid-template-columns:repeat(auto-fit,minmax(255px,1fr)); gap:14px; margin-top:22px;}
+  .bloc{border:2.5px solid var(--ink); padding:13px 14px 15px;}
+  .bloc h3{
+    font-family:"Archivo Black",sans-serif; font-size:16px; margin:0 0 6px;
+    text-transform:uppercase; letter-spacing:-.01em;
+  }
+  .bloc p{margin:0; font-size:15px; line-height:1.45;}
+  .bloc ul{margin:6px 0 0; padding-left:19px; font-size:15px; line-height:1.55;}
+  .bloc li::marker{color:var(--red);}
+  .bloc b{font-weight:700; background:#FFE81F; padding:0 2px;}
+
+  .maregle{border:2.5px solid var(--red); padding:13px 14px 15px; margin-top:14px;}
+  .maregle label{
+    display:block; font-family:"Archivo Black",sans-serif; font-size:14px;
+    text-transform:uppercase; color:var(--red); margin-bottom:8px; letter-spacing:.01em;
+  }
   .maregle input{
-    font-family:"Baloo 2",cursive; font-weight:700; font-size:1.05rem; color:#fff;
-    background:transparent; border:none; border-bottom:2px solid rgba(255,126,179,.55);
-    padding:5px 2px; width:100%;
+    font-family:Archivo,sans-serif; font-weight:600; font-size:18px; color:var(--ink);
+    background:transparent; border:none; border-bottom:2.5px solid var(--ink);
+    padding:5px 2px; width:100%; border-radius:0;
   }
-  .maregle input:focus{outline:none; border-bottom-color:var(--cyan);}
-  .maregle input::placeholder{color:#a58fc4; font-weight:500;}
-  .maregle .aide{margin:0; font-size:.75rem; color:var(--muted);}
+  .maregle input:focus{outline:none; border-bottom-color:var(--red);}
+  .maregle input::placeholder{color:#9A958C; font-weight:400;}
+  .maregle .aide{margin:8px 0 0; font-size:13px; color:var(--grey); line-height:1.4;}
 
-  .decor{
-    border:2px solid rgba(196,181,253,.3); border-radius:18px; padding:12px 15px; min-height:120px;
-    display:flex; flex-direction:column; justify-content:space-between; background:rgba(10,8,20,.35);
-  }
-  .decor .lbl{font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:800;}
-  .decor .zone{display:flex; align-items:flex-end; justify-content:space-between; gap:10px; opacity:.7;}
+  .decor{border:2.5px solid var(--ink); margin-top:14px; padding:11px 14px 12px; min-height:130px;
+         display:flex; flex-direction:column; justify-content:space-between;}
+  .decor .lbl{font-size:12px; font-weight:700; letter-spacing:.11em; text-transform:uppercase;}
+  .zone-decor{display:flex; align-items:flex-end; justify-content:space-between; gap:10px; color:var(--ink); opacity:.28;}
 
-  .signatures{display:flex; flex-wrap:wrap; gap:14px 24px; align-items:flex-end; font-size:.78rem; color:var(--muted);}
-  .sig{flex:1 1 150px; display:flex; flex-direction:column; gap:24px;}
-  .sig span{font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--lilac);}
-  .sig .trait{border-bottom:1.5px solid rgba(196,181,253,.55); height:0;}
-  .exo{flex:1 1 170px;}
-  .exo b{color:#fff;}
-  .box{display:inline-block; width:12px; height:12px; border:1.5px solid var(--lilac); border-radius:3px; vertical-align:-1px; margin-right:5px;}
+  .signatures{display:flex; flex-wrap:wrap; gap:16px 26px; align-items:flex-end;
+              margin-top:20px; padding-top:16px; border-top:5px solid var(--ink); font-size:14px;}
+  .sig{flex:1 1 165px; display:flex; flex-direction:column; gap:26px;}
+  .sig span{font-size:12px; letter-spacing:.11em; text-transform:uppercase; font-weight:700;}
+  .trait{border-bottom:2.5px solid var(--ink); height:0;}
+  .exo{flex:1 1 195px; line-height:1.45;}
+  .exo b{font-family:"Archivo Black",sans-serif; font-size:13px; text-transform:uppercase;}
+  .box{display:inline-block; width:14px; height:14px; border:2.5px solid var(--ink); vertical-align:-2px; margin-right:5px;}
 
-  .pied{text-align:center; font-size:.72rem; color:var(--muted); padding-top:2px;}
+  .pied{margin:22px 0 0; text-align:center; font-size:13px; font-weight:700;
+        letter-spacing:.14em; text-transform:uppercase; color:var(--grey);}
 
   .toast{
-    position:fixed; left:50%; bottom:22px; transform:translateX(-50%) translateY(10px);
-    background:linear-gradient(90deg,var(--pink),var(--purple)); color:#fff;
-    font-family:"Baloo 2",cursive; font-weight:800; font-size:.9rem;
-    padding:11px 20px; border-radius:999px; box-shadow:0 10px 30px rgba(255,77,148,.45);
-    opacity:0; transition:opacity .2s ease, transform .2s ease; pointer-events:none; z-index:30;
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%) translateY(8px);
+    background:var(--ink); color:var(--paper); font-family:"Archivo Black",sans-serif;
+    font-size:14px; letter-spacing:.02em; padding:12px 20px; border:2.5px solid var(--ink);
+    opacity:0; transition:opacity .15s, transform .15s; pointer-events:none; z-index:30;
   }
   .toast.on{opacity:1; transform:translateX(-50%) translateY(0);}
 
-  @media (max-width:420px){
-    h1{font-size:1.8rem;}
-    .pc{grid-template-columns:74px 1fr; padding:13px 12px;}
-    .heure{font-size:1.6rem;}
+  @media (max-width:480px){
+    body{padding-left:12px; padding-right:12px;}
+    .pc{grid-template-columns:1fr; gap:9px 0; padding:12px;}
+    .gauche{flex-direction:row; align-items:center; gap:11px; flex-wrap:wrap;}
+    .heure{font-size:34px;}
     .mini{display:none;}
     .pc.a-mini .droite{padding-right:0;}
+    .reglages{grid-template-columns:1fr;}
+    .rg{border-right:none; border-bottom:2.5px solid var(--ink);}
+    .rg:last-child{border-bottom:none;}
+    .ong-j{font-size:13px;}
+    .ong-h{font-size:12px;}
+    .semaine th, .semaine td{padding:7px 6px; font-size:14px;}
   }
+  @media (prefers-reduced-motion: reduce){*{transition-duration:.01ms !important;}}
 
-  @media (prefers-reduced-motion: reduce){
-    *{animation:none !important; transition-duration:.01ms !important;}
-    body{background:#241a5c;}
-  }
-
-  /* ═══════════ IMPRESSION — version claire, pastel, pour le mur ═══════════ */
+  /* ═════ IMPRESSION — même affiche, à l'échelle de l'A4 ═════ */
   @media print{
-    @page{size:A4 portrait; margin:9mm 11mm;}
-    :root{--txt:#3b2352; --muted:#7c5f9c;}
-    body{
-      background:#fff !important; animation:none; color:#3b2352;
-      font-size:9.6pt; line-height:1.32; padding:0;
-      -webkit-print-color-adjust:exact; print-color-adjust:exact;
-    }
-    body::before, body::after{display:none;}
-    .wrap{max-width:none; gap:6px;}
-    .no-print, .actions, .reglage, .retour, .toast, .hud{display:none !important;}
-    .top{gap:1px;}
-    .mascotte{margin:0;}
+    @page{size:A4 portrait; margin:9mm 12mm;}
+    body{padding:0; font-size:9.6pt; line-height:1.32; background:#fff;
+         -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    .wrap{max-width:none;}
+    .no-print, .actions, .reglage, .reglages, .onglets, .retour, .toast, .pied,
+    #jour, .zone-bouge .zone-tete, .duo{display:none !important;}
+    .top{border-bottom-width:4px; padding-bottom:3px;}
     .mascotte svg{width:46px; height:46px;}
-    h1{
-      font-size:21pt; color:#ff4d94 !important; -webkit-text-fill-color:#ff4d94;
-      background:none; animation:none; filter:none; margin:0;
-    }
-    .kr{font-size:7.6pt; color:#a855f7; letter-spacing:.2em;}
-    .tag{font-size:8pt; color:#5c4478; line-height:1.3;}
-    .tag b{color:#ff4d94;}
-
-    .liste{gap:4px;}
-    .pc{
-      background:#fff !important; box-shadow:none; animation:none;
-      border:1.6px solid #ffc2da; border-radius:14px; padding:5px 9px;
-      grid-template-columns:64px 1fr; gap:0 10px; page-break-inside:avoid;
-    }
-    .pc::after, .pc::before{display:none;}
-    .pc .num{
-      position:static; grid-column:1; grid-row:1; background:none !important; color:#c084fc !important;
-      box-shadow:none; padding:0; font-size:6.2pt; letter-spacing:.08em; display:block; line-height:1.15;
-    }
-    .gauche{grid-column:1; grid-row:2;}
-    .droite{grid-column:2; grid-row:1 / span 2;}
-    .gauche{padding-top:0; gap:1px; align-items:flex-start;}
-    .heure{font-size:15.5pt; color:#3b2352; text-shadow:none;}
-    .duree{font-size:6.4pt; color:#8b6fb0;}
-    .titre{font-size:10.5pt; color:#3b2352;}
-    .desc{font-size:7.9pt; color:#5c4478; line-height:1.25;}
-    .qui{font-size:6.2pt; padding:1px 6px;}
-    .q-duo{background:#dff8fc !important; color:#0e7490 !important; border-color:#7dd3e8 !important;}
-    .q-papa{background:#fff4d6 !important; color:#a16207 !important; border-color:#f5cf7a !important;}
-    .q-moi{background:#ffe4ef !important; color:#be185d !important; border-color:#ffaecd !important;}
-    .pc.holo{
-      background:#fff8fc !important; border:2.2px solid #ff8fbb;
-    }
+    .kr{font-size:12.5pt;}
+    h1{font-size:21pt; margin-bottom:3px;}
+    .tag{font-size:8.4pt; line-height:1.3; border-left-width:4px; padding-left:8px; max-width:none;}
+    .zone{margin-top:5px;}
+    .zone-tete{padding:5px 10px; gap:9px;}
+    .zone-kr{font-size:12pt;}
+    .zone-tete h2{font-size:12pt;}
+    .zone-tete p{font-size:7.6pt;}
+    .liste{border-width:2px;}
+    .pc{padding:3px 9px 4px; grid-template-columns:96px 1fr; gap:0 11px; border-bottom-width:1.5px; page-break-inside:avoid;}
+    .num{position:absolute; top:3px; right:10px; font-size:8pt; margin:0; line-height:1;}
+    .gauche{gap:4px;}
+    .heure{font-size:19pt;}
+    .duree{font-size:7.4pt; padding:1px 5px;}
+    .titre{font-size:11.5pt;}
+    .desc{font-size:8.1pt; line-height:1.26;}
+    .qui{font-size:6.6pt; padding:0 5px; border-width:1.5px;}
     .etoile{display:none;}
-    .mini{display:block; right:8px; bottom:5px;}
-    .mini svg{width:34px; height:34px;}
+    .mini{right:9px; bottom:6px;}
+    .mini svg{width:32px; height:32px;}
     .pc.a-mini .droite{padding-right:40px;}
-
-    .duo{gap:8px;}
-    .bloc{
-      background:#fff !important; border:1.4px solid #e2d4f5; border-radius:12px;
-      padding:6px 10px; box-shadow:none; page-break-inside:avoid;
-    }
-    .bloc h3{font-size:9.6pt; color:#be185d; margin-bottom:2px;}
-    .bloc p, .bloc ul{font-size:8pt; color:#5c4478; line-height:1.28;}
-    .bloc b{color:#3b2352;}
-
-    .maregle{
-      background:#fff5f9 !important; border:1.8px dashed #ff8fbb; border-radius:12px;
-      padding:7px 10px; gap:3px; page-break-inside:avoid;
-    }
-    .maregle label{font-size:7.6pt; color:#be185d;}
-    .maregle input{font-size:11pt; color:#3b2352; border-bottom-color:#ff8fbb; padding:2px;}
-    .maregle .aide{font-size:7.2pt; color:#7c5f9c;}
-
-    .decor{
-      background:#fff !important; border:1.6px solid #e2d4f5; border-radius:12px;
-      min-height:60px; padding:6px 10px; page-break-inside:avoid;
-    }
-    .decor .lbl{font-size:7.2pt; color:#a855f7;}
-    .decor .zone{opacity:.42;}
-    .decor .zone svg{width:37px; height:37px;}
-
-    .signatures{gap:6px 18px; font-size:7.6pt; color:#5c4478; page-break-inside:avoid;}
-    .sig{gap:12px;}
-    .sig span{font-size:7pt; color:#a855f7;}
-    .sig .trait{border-bottom:1.2px solid #3b2352;}
-    .exo b{color:#3b2352;}
-    .box{border-color:#3b2352;}
-    .pied{display:none;}
+    .semaine-note{margin-top:5px; font-size:8.4pt; line-height:1.3; border-left-width:4px; padding-left:8px;}
+    .semaine{margin-top:6px; page-break-inside:avoid;}
+    .semaine caption{font-size:9.4pt; padding:3px 9px;}
+    .semaine th, .semaine td{padding:3px 8px; font-size:9pt; border-width:1.5px;}
+    .semaine thead th{font-size:7.4pt;}
+    .semaine tbody th{font-size:9pt;}
+    .filet{margin-top:5px; border-width:2px; page-break-inside:avoid;}
+    .filet-tete{padding:4px 10px; gap:8px; border-bottom-width:2px;}
+    .filet-kr{font-size:12pt;}
+    .filet-tete h2{font-size:11pt;}
+    .filet-liste{padding:5px 10px 1px; gap:3px;}
+    .filet-liste li{font-size:8pt; line-height:1.3; padding-left:15px;}
+    .filet-liste b{font-size:8.4pt;}
+    .filet-fin{padding:3px 10px 5px; font-size:8.2pt; line-height:1.3;}
+    .duo{margin-top:6px; gap:9px; grid-template-columns:1fr;}
+    .bloc{padding:5px 10px 6px; border-width:2px; page-break-inside:avoid;}
+    .bloc h3{font-size:9.6pt; margin-bottom:3px;}
+    .bloc p, .bloc ul{font-size:8.6pt; line-height:1.3;}
+    .maregle{margin-top:6px; padding:5px 10px 7px; border-width:2px; page-break-inside:avoid;}
+    .maregle label{font-size:8.6pt; margin-bottom:4px;}
+    .maregle input{font-size:11pt; padding:1px;}
+    .maregle .aide{margin-top:4px; font-size:7.6pt;}
+    .decor{margin-top:5px; min-height:20px; padding:7px 10px; border-width:2px; page-break-inside:avoid;}
+    .decor .lbl{font-size:7.6pt;}
+    .zone-decor svg{width:23px; height:23px;}
+    .signatures{margin-top:7px; padding-top:6px; border-top-width:4px; gap:8px 20px; font-size:8.4pt; page-break-inside:avoid;}
+    .sig{gap:7px;}
+    .sig span{font-size:7.4pt;}
+    .exo b{font-size:8.6pt;}
   }
 </style>
 </head>
@@ -321,65 +337,48 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
     <g id="capy-base">
-      <ellipse cx="50" cy="74" rx="30" ry="17" fill="var(--fur)"/>
-      <rect x="17" y="20" width="66" height="54" rx="26" fill="var(--fur)"/>
-      <ellipse cx="26" cy="24" rx="9" ry="8" fill="var(--fur)"/>
-      <ellipse cx="74" cy="24" rx="9" ry="8" fill="var(--fur)"/>
-      <ellipse cx="50" cy="60" rx="21" ry="14" fill="var(--fur2)"/>
-      <ellipse cx="21" cy="57" rx="7" ry="4.6" fill="var(--blush)" opacity=".55"/>
-      <ellipse cx="79" cy="57" rx="7" ry="4.6" fill="var(--blush)" opacity=".55"/>
-      <ellipse cx="50" cy="55" rx="5" ry="3.4" fill="#7a4a2c"/>
+      <circle cx="22" cy="33" r="12.5" fill="currentColor"/>
+      <circle cx="78" cy="33" r="12.5" fill="currentColor"/>
+      <rect x="7" y="27" width="86" height="60" rx="24" fill="currentColor"/>
+      <rect x="25" y="57" width="50" height="26" rx="13" fill="var(--paper)"/>
+      <rect x="43" y="62" width="14" height="8" rx="4" fill="currentColor"/>
     </g>
   </defs>
 
   <symbol id="capy-idol" viewBox="0 0 100 100">
     <use href="#capy-base"/>
-    <circle cx="34" cy="44" r="4.4" fill="#3b2a1c"/>
-    <circle cx="66" cy="44" r="4.4" fill="#3b2a1c"/>
-    <circle cx="35.6" cy="42.4" r="1.5" fill="#fff"/>
-    <circle cx="67.6" cy="42.4" r="1.5" fill="#fff"/>
-    <path d="M44 64 q6 5 12 0" fill="none" stroke="#7a4a2c" stroke-width="2.4" stroke-linecap="round"/>
-    <path d="M14 40 a36 34 0 0 1 72 0" fill="none" stroke="#ff4d94" stroke-width="6" stroke-linecap="round"/>
-    <rect x="6" y="34" width="15" height="22" rx="7" fill="#a855f7"/>
-    <rect x="79" y="34" width="15" height="22" rx="7" fill="#a855f7"/>
+    <circle cx="33" cy="45" r="6" fill="var(--paper)"/>
+    <circle cx="67" cy="45" r="6" fill="var(--paper)"/>
+    <path d="M8 33 a42 38 0 0 1 84 0" fill="none" stroke="var(--red)" stroke-width="7" stroke-linecap="round"/>
+    <rect x="0" y="30" width="15" height="26" rx="4" fill="var(--red)"/>
+    <rect x="85" y="30" width="15" height="26" rx="4" fill="var(--red)"/>
   </symbol>
 
   <symbol id="capy-stylo" viewBox="0 0 100 100">
     <use href="#capy-base"/>
-    <circle cx="34" cy="44" r="4.4" fill="#3b2a1c"/>
-    <circle cx="66" cy="44" r="4.4" fill="#3b2a1c"/>
-    <circle cx="35.6" cy="42.4" r="1.5" fill="#fff"/>
-    <circle cx="67.6" cy="42.4" r="1.5" fill="#fff"/>
-    <path d="M44 64 q6 5 12 0" fill="none" stroke="#7a4a2c" stroke-width="2.4" stroke-linecap="round"/>
-    <g transform="rotate(28 82 62)">
-      <rect x="77" y="38" width="10" height="34" rx="4" fill="#22d3ee"/>
-      <path d="M77 72 h10 l-5 9 z" fill="#ffd166"/>
+    <circle cx="33" cy="45" r="6" fill="var(--paper)"/>
+    <circle cx="67" cy="45" r="6" fill="var(--paper)"/>
+    <g transform="rotate(30 84 60)">
+      <rect x="79" y="30" width="11" height="36" fill="var(--red)"/>
+      <path d="M79 66 h11 l-5.5 11 z" fill="currentColor"/>
     </g>
   </symbol>
 
   <symbol id="capy-bain" viewBox="0 0 100 100">
     <use href="#capy-base"/>
-    <circle cx="34" cy="44" r="4.4" fill="#3b2a1c"/>
-    <circle cx="66" cy="44" r="4.4" fill="#3b2a1c"/>
-    <circle cx="35.6" cy="42.4" r="1.5" fill="#fff"/>
-    <circle cx="67.6" cy="42.4" r="1.5" fill="#fff"/>
-    <path d="M44 64 q6 5 12 0" fill="none" stroke="#7a4a2c" stroke-width="2.4" stroke-linecap="round"/>
-    <circle cx="15" cy="26" r="6" fill="#22d3ee" opacity=".55"/>
-    <circle cx="86" cy="18" r="4.5" fill="#22d3ee" opacity=".55"/>
-    <circle cx="24" cy="12" r="3.5" fill="#22d3ee" opacity=".45"/>
-    <ellipse cx="72" cy="20" rx="9" ry="7.5" fill="#ffd166"/>
-    <ellipse cx="72" cy="15" rx="6" ry="5.5" fill="#ffd166"/>
-    <circle cx="70" cy="14" r="1.4" fill="#3b2a1c"/>
-    <path d="M65 15 l-5 2 5 2 z" fill="#ff8c42"/>
+    <circle cx="33" cy="45" r="6" fill="var(--paper)"/>
+    <circle cx="67" cy="45" r="6" fill="var(--paper)"/>
+    <circle cx="10" cy="20" r="7" fill="none" stroke="var(--red)" stroke-width="4"/>
+    <circle cx="27" cy="7" r="5" fill="none" stroke="var(--red)" stroke-width="3.5"/>
+    <circle cx="90" cy="12" r="6" fill="none" stroke="var(--red)" stroke-width="4"/>
   </symbol>
 
   <symbol id="capy-dodo" viewBox="0 0 100 100">
     <use href="#capy-base"/>
-    <path d="M29 44 q5 5 10 0" fill="none" stroke="#3b2a1c" stroke-width="3" stroke-linecap="round"/>
-    <path d="M61 44 q5 5 10 0" fill="none" stroke="#3b2a1c" stroke-width="3" stroke-linecap="round"/>
-    <ellipse cx="50" cy="65" rx="4" ry="5" fill="#7a4a2c"/>
-    <text x="84" y="24" font-family="Baloo 2, cursive" font-size="17" font-weight="800" fill="#22d3ee">z</text>
-    <text x="76" y="12" font-family="Baloo 2, cursive" font-size="12" font-weight="800" fill="#a855f7">z</text>
+    <rect x="26" y="43" width="15" height="5" rx="2.5" fill="var(--paper)"/>
+    <rect x="59" y="43" width="15" height="5" rx="2.5" fill="var(--paper)"/>
+    <text x="82" y="24" font-family="Archivo Black, sans-serif" font-size="21" font-weight="900" fill="var(--red)">Z</text>
+    <text x="70" y="9" font-family="Archivo Black, sans-serif" font-size="13" font-weight="900" fill="var(--red)">Z</text>
   </symbol>
 </svg>
 
@@ -390,48 +389,96 @@
     <div class="mascotte"><svg width="74" height="74" aria-hidden="true"><use href="#capy-idol"/></svg></div>
     <p class="kr">오늘의 계획 · MON PLANNING</p>
     <h1>Planning Capybara</h1>
-    <p class="tag">Le capybara est l'animal le plus <b>chill</b> du monde&nbsp;: il fait tout à la même heure et il ne stresse jamais. On règle les heures ensemble une fois — après, <b>c'est l'heure qui te le dit, plus papa.</b></p>
+    <p class="tag">La 6<sup>e</sup>, c'est nouveau, c'est bien, et <b>ça fatigue</b>. Tes journées ne se ressemblent pas : tu rentres à des heures différentes, il ne te reste pas toujours les mêmes devoirs. Alors on règle le début de soirée jour par jour — et <b>tout ce qui vient après le bain ne bouge jamais</b>, chez papa comme chez maman. Tu n'as rien à retenir : c'est écrit.</p>
   </header>
 
-  <div class="hud" id="hud">
-    <div class="pill"><span class="lbl">Temps à toi</span><span class="val" id="v-libre">—</span></div>
-    <div class="pill hi"><span class="lbl">Écrans off</span><span class="val" id="v-ecrans">—</span></div>
-    <div class="pill"><span class="lbl">Dodo</span><span class="val" id="v-dodo">—</span></div>
-  </div>
-
   <div class="actions no-print">
-    <button class="go" id="b-print">🖨️ Imprimer</button>
-    <button id="b-lien">🔗 Copier le lien</button>
-    <button id="b-reset">↺ Heures de départ</button>
+    <button class="go" id="b-print">IMPRIMER</button>
+    <button id="b-lien">COPIER LE LIEN</button>
+    <button id="b-reset">RÉINITIALISER</button>
   </div>
 
-  <div class="liste" id="liste"></div>
+  <!-- ═══ CE QUI CHANGE ═══ -->
+  <section class="zone zone-bouge">
+    <div class="zone-tete">
+      <span class="zone-kr">바뀌는 것</span>
+      <h2>Ce qui change</h2>
+      <p>selon le jour</p>
+    </div>
+
+    <div class="onglets no-print" id="onglets" role="tablist" aria-label="Jour de la semaine"></div>
+
+    <div class="reglages no-print">
+      <div class="rg">
+        <span class="rg-lbl">Je rentre à</span>
+        <div class="rg-ligne">
+          <button type="button" id="r-moins" aria-label="Rentrer plus tôt">−</button>
+          <span class="rg-val" id="r-val">—</span>
+          <button type="button" id="r-plus" aria-label="Rentrer plus tard">+</button>
+        </div>
+      </div>
+      <div class="rg">
+        <span class="rg-lbl">Devoirs qui restent</span>
+        <div class="rg-ligne">
+          <button type="button" id="d-moins" aria-label="Moins de devoirs">−</button>
+          <span class="rg-val" id="d-val">—</span>
+          <button type="button" id="d-plus" aria-label="Plus de devoirs">+</button>
+        </div>
+        <span class="rg-aide">Ce que tu n'as pas fini en perm’ ou pendant un trou</span>
+      </div>
+    </div>
+
+    <div class="liste" id="jour"></div>
+
+    <table class="semaine">
+      <caption>Ma semaine — 나의 일주일</caption>
+      <thead>
+        <tr><th>Jour</th><th>Je rentre</th><th>Devoirs</th><th>Temps à moi</th></tr>
+      </thead>
+      <tbody id="tbody-semaine"></tbody>
+    </table>
+    <p class="semaine-note"><b>Vendredi &amp; samedi soir :</b> écrans éteints à <b>22h00</b>, lumière quand tu veux, grasse matinée autorisée.</p>
+  </section>
+
+  <!-- ═══ CE QUI NE CHANGE JAMAIS ═══ -->
+  <section class="zone zone-ancre">
+    <div class="zone-tete">
+      <span class="zone-kr">절대 안 바뀌는 것</span>
+      <h2>Ce qui ne change jamais</h2>
+      <p>tous les soirs, dans les deux maisons</p>
+    </div>
+    <div class="liste" id="ancre"></div>
+  </section>
+
+  <section class="filet">
+    <div class="filet-tete">
+      <span class="filet-kr">괜찮아</span>
+      <h2>Ce qui est permis</h2>
+    </div>
+    <ul class="filet-liste">
+      <li><b>Ne pas tout finir.</b> Des devoirs pas terminés, ça se dit — ça ne se rattrape pas en cachette après 21h.</li>
+      <li><b>Demander à décaler.</b> Sans avoir de bonne raison à donner. « Pas ce soir » suffit, et ça se décide à deux.</li>
+      <li><b>Rater un soir.</b> Un soir qui ne suit pas le planning n'est pas un soir raté. Demain reprend à la même heure, tout seul.</li>
+    </ul>
+    <p class="filet-fin">Ce planning ne se note pas. Il est là pour que tu n'aies pas à y penser — <b>pas pour que tu le réussisses.</b></p>
+  </section>
 
   <div class="duo">
     <div class="bloc">
-      <h3>💜 Le mercredi</h3>
-      <p>Pas de cours l'après-midi. Une seule chose ne bouge pas&nbsp;: <b>les devoirs avant le temps libre</b>, jamais l'inverse. Le soir reste exactement le même.</p>
-    </div>
-    <div class="bloc">
-      <h3>🌈 Vendredi &amp; samedi soir</h3>
-      <p>Le rythme se desserre, il ne disparaît pas&nbsp;:</p>
-      <ul>
-        <li>Écrans éteints à <b>22h00</b></li>
-        <li>Lumière quand tu veux</li>
-        <li>Grasse matinée autorisée 😴</li>
-      </ul>
+      <h3>Les trous entre les cours</h3>
+      <p>Une heure de perm’, c'est <b>autant de devoirs en moins ce soir</b>. Chaque jour, tu baisses le compteur « devoirs qui restent » — et ton temps à toi grandit tout seul.</p>
     </div>
   </div>
 
   <div class="maregle">
-    <label for="regle">✏️ Ma règle à moi — c'est Céleste qui l'écrit</label>
+    <label for="regle">Ma règle à moi — c'est Céleste qui l'écrit</label>
     <input id="regle" type="text" maxlength="90" placeholder="Écris ici la règle que tu ajoutes toi-même…">
     <p class="aide">Une seule. Celle qui compte pour toi. Elle s'applique dans les deux maisons, comme les autres.</p>
   </div>
 
   <div class="decor">
-    <span class="lbl">★ Zone à décorer — stickers, dessins, ce que tu veux ★</span>
-    <div class="zone" aria-hidden="true">
+    <span class="lbl">Zone à décorer — stickers, dessins, ce que tu veux</span>
+    <div class="zone-decor" aria-hidden="true">
       <svg width="48" height="48"><use href="#capy-dodo"/></svg>
       <svg width="40" height="40"><use href="#capy-stylo"/></svg>
       <svg width="54" height="54"><use href="#capy-idol"/></svg>
@@ -444,39 +491,38 @@
     <div class="exo">
       <b>Cet exemplaire est :</b><br>
       <span class="box"></span>chez papa &nbsp; <span class="box"></span>chez maman<br>
-      Les deux feuilles disent la même chose. C'est le but&nbsp;! 화이팅&nbsp;!
+      Les deux feuilles disent la même chose. C'est le but. 화이팅&nbsp;!
     </div>
   </div>
 
-  <p class="pied no-print">CM2 K-Pop · 화이팅 ⭐</p>
+  <p class="pied no-print">CM2 K-Pop — 화이팅</p>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
 <script>
 (function(){
   "use strict";
 
-  var MOMENTS = [
-    {id:"retour", h:"17:00", num:"01 · 집에 왔다", titre:"Retour à la maison",
-     desc:"Goûter ! On souffle vingt minutes, on ne parle pas encore du collège.", qui:"duo"},
-    {id:"devoirs", h:"17:30", num:"02 · 숙제", titre:"Devoirs",
-     desc:"Le téléphone reste dans le salon, pas dans la chambre. Si c'est fini avant, c'est fini.",
-     qui:"duo", capy:"capy-stylo"},
-    {id:"libre", h:"18:15", num:"03 · 자유 시간", titre:"Temps à toi",
-     desc:"K-pop, dessin, écrans, ou rien du tout. Personne ne décide à ta place.",
-     qui:"moi", capy:"capy-idol"},
-    {id:"bain", h:"19:00", num:"04 · 목욕", titre:"Bain, puis pyjama",
+  var JOURS = [
+    {id:"lun", court:"LUN", nom:"lundi",    r:"17:00", d:45},
+    {id:"mar", court:"MAR", nom:"mardi",    r:"17:00", d:45},
+    {id:"mer", court:"MER", nom:"mercredi", r:"12:30", d:45},
+    {id:"jeu", court:"JEU", nom:"jeudi",    r:"17:00", d:45},
+    {id:"ven", court:"VEN", nom:"vendredi", r:"16:00", d:30}
+  ];
+
+  var ANCRE = [
+    {id:"bain", h:"19:00", num:"목욕", titre:"Bain, puis pyjama",
      desc:"La soirée continue après, mais en pyjama. Ça évite la course à 21h.",
      qui:"duo", capy:"capy-bain"},
-    {id:"diner", h:"19:45", num:"05 · 저녁", titre:"Dîner",
+    {id:"diner", h:"19:45", num:"저녁", titre:"Dîner",
      desc:"À table, ensemble. Pas d'écran sur la table.", qui:"duo"},
-    {id:"sac", h:"20:30", num:"06 · 가방", titre:"Le sac de demain",
+    {id:"sac", h:"20:30", num:"가방", titre:"Le sac de demain",
      desc:"Cahier de textes, affaires de sport, les papiers à signer. Le soir, jamais le matin.", qui:"duo"},
-    {id:"ecrans", h:"21:00", num:"★ RARE ★ 잘 자", titre:"Écrans éteints. Au lit.",
-     desc:"Téléphone et tablette posés hors de la chambre. Cette heure-là ne se négocie pas — c'est la seule de toute la carte.",
+    {id:"ecrans", h:"21:00", num:"★ RARE ★", titre:"Écrans éteints. Au lit.",
+     desc:"Téléphone et tablette posés hors de la chambre. Cette heure-là ne bouge aucun jour de la semaine — c'est la seule de toute la carte.",
      qui:"papa", fixe:true, holo:true},
-    {id:"lumiere", h:"21:30", num:"08 · 굿나잇", titre:"Lumière éteinte",
+    {id:"lumiere", h:"21:30", num:"굿나잇", titre:"Lumière éteinte",
      desc:"Entre les deux, tu lis. Et si tu es trop fatiguée pour lire, tu éteins tout de suite : c'est toi qui sais, et ce n'est pas grave.",
      qui:"moi", capy:"capy-dodo"}
   ];
@@ -487,7 +533,8 @@
     moi:{txt:"C'est toi qui décides", cls:"q-moi"}
   };
 
-  var CLE = "planning-capybara-v1", PAS = 15, MIN = 15*60, MAX = 23*60 + 30;
+  var CLE = "planning-capybara-v2", PAS = 15, SOUFFLE = 30;
+  var MIN_R = 11*60, MAX_R = 19*60, MAX_D = 180;
 
   function enMin(s){ var p = s.split(":"); return (+p[0])*60 + (+p[1]); }
   function enTxt(m){
@@ -496,15 +543,16 @@
   }
   function joli(m){ return enTxt(m).replace(":", "h"); }
   function duree(d){
-    if (d <= 0) return "à revoir !";
+    if (d <= 0) return "0 min";
     var h = Math.floor(d/60), m = d%60;
     if (h && m) return h + " h " + m;
-    if (h) return h + (h > 1 ? " heures" : " heure");
+    if (h) return h + " h";
     return m + " min";
   }
 
-  var etat = {times:{}, regle:""};
-  MOMENTS.forEach(function(m){ etat.times[m.id] = m.h; });
+  var etat = {jours:{}, ancre:{}, regle:"", actif:"lun"};
+  JOURS.forEach(function(j){ etat.jours[j.id] = {r:j.r, d:j.d}; });
+  ANCRE.forEach(function(a){ etat.ancre[a.id] = a.h; });
 
   function charger(){
     var brut = null, i = location.hash.indexOf("r=");
@@ -513,34 +561,62 @@
       catch(e){ brut = null; }
     }
     if (!brut){ try{ brut = JSON.parse(localStorage.getItem(CLE)); }catch(e){ brut = null; } }
-    if (brut && brut.times){
-      MOMENTS.forEach(function(m){
-        var v = brut.times[m.id];
-        if (typeof v === "string" && /^\d\d:\d\d$/.test(v)) etat.times[m.id] = v;
-      });
-      if (typeof brut.regle === "string") etat.regle = brut.regle.slice(0,90);
-    }
+    if (!brut) return;
+    if (brut.jours) JOURS.forEach(function(j){
+      var v = brut.jours[j.id];
+      if (!v) return;
+      if (typeof v.r === "string" && /^\d\d:\d\d$/.test(v.r)) etat.jours[j.id].r = v.r;
+      if (typeof v.d === "number" && v.d >= 0 && v.d <= MAX_D) etat.jours[j.id].d = v.d;
+    });
+    if (brut.ancre) ANCRE.forEach(function(a){
+      var v = brut.ancre[a.id];
+      if (typeof v === "string" && /^\d\d:\d\d$/.test(v)) etat.ancre[a.id] = v;
+    });
+    if (typeof brut.regle === "string") etat.regle = brut.regle.slice(0,90);
   }
   function garder(){ try{ localStorage.setItem(CLE, JSON.stringify(etat)); }catch(e){} }
-  function jeton(){ return btoa(unescape(encodeURIComponent(JSON.stringify(etat)))); }
+  function jeton(){
+    return btoa(unescape(encodeURIComponent(JSON.stringify(
+      {jours:etat.jours, ancre:etat.ancre, regle:etat.regle}
+    ))));
+  }
 
-  var liste = document.getElementById("liste");
+  /* calcul d'une journée : retour → goûter → devoirs → temps à moi */
+  function calcul(id){
+    var j = etat.jours[id];
+    var r = enMin(j.r);
+    var debut = r + SOUFFLE;
+    var fin = debut + j.d;
+    var libre = enMin(etat.ancre.bain) - fin;
+    return {retour:r, debutDev:debut, finDev:fin, dev:j.d, libre:libre};
+  }
 
-  MOMENTS.forEach(function(m, i){
+  /* ───── onglets des jours ───── */
+  var onglets = document.getElementById("onglets");
+  JOURS.forEach(function(j){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "ong";
+    b.id = "ong-" + j.id;
+    b.setAttribute("role","tab");
+    b.innerHTML = '<span class="ong-j">' + j.court + '</span><span class="ong-h" id="ongh-' + j.id + '">—</span>';
+    b.addEventListener("click", function(){ etat.actif = j.id; garder(); rendre(); });
+    onglets.appendChild(b);
+  });
+
+  /* ───── carte générique ───── */
+  function carte(o){
     var c = document.createElement("div");
-    c.className = "pc" + (m.holo ? " holo" : "") + (m.fixe ? " fixe" : "") + (m.capy ? " a-mini" : "");
-    c.style.animationDelay = (i * 45) + "ms";
+    c.className = "pc" + (o.holo ? " holo" : "") + (o.fixe ? " fixe" : "") + (o.capy ? " a-mini" : "");
 
     var num = document.createElement("span");
-    num.className = "num";
-    num.textContent = m.num;
+    num.className = "num"; num.textContent = o.num;
     c.appendChild(num);
 
-    if (m.holo){
+    if (o.holo){
       [["87%","14%","1.05rem"],["94%","58%",".72rem"],["77%","84%",".85rem"]].forEach(function(s){
         var e = document.createElement("span");
-        e.className = "etoile";
-        e.textContent = "✦";
+        e.className = "etoile"; e.textContent = "✦";
         e.style.left = s[0]; e.style.top = s[1]; e.style.fontSize = s[2];
         e.style.animationDelay = (Math.random()*2).toFixed(2) + "s";
         e.setAttribute("aria-hidden","true");
@@ -550,24 +626,21 @@
 
     var g = document.createElement("div");
     g.className = "gauche";
-
     var t = document.createElement("div");
-    t.className = "heure"; t.id = "t-" + m.id;
+    t.className = "heure"; t.textContent = o.heure;
     g.appendChild(t);
-
     var d = document.createElement("div");
-    d.className = "duree"; d.id = "d-" + m.id;
+    d.className = "duree" + (o.alerte ? " oups" : ""); d.textContent = o.sous;
     g.appendChild(d);
 
-    if (!m.fixe){
+    if (o.regle){
       var r = document.createElement("div");
       r.className = "reglage no-print";
       [["−",-PAS],["+",PAS]].forEach(function(p){
         var b = document.createElement("button");
-        b.type = "button";
-        b.textContent = p[0];
-        b.setAttribute("aria-label", (p[1] < 0 ? "Avancer " : "Retarder ") + m.titre + " de 15 minutes");
-        b.addEventListener("click", function(){ bouger(m.id, p[1]); });
+        b.type = "button"; b.textContent = p[0];
+        b.setAttribute("aria-label", (p[1] < 0 ? "Avancer " : "Retarder ") + o.titre + " de 15 minutes");
+        b.addEventListener("click", function(){ o.regle(p[1]); });
         r.appendChild(b);
       });
       g.appendChild(r);
@@ -575,64 +648,123 @@
 
     var dr = document.createElement("div");
     dr.className = "droite";
-
     var ti = document.createElement("div");
-    ti.className = "titre"; ti.textContent = m.titre;
+    ti.className = "titre"; ti.textContent = o.titre;
     dr.appendChild(ti);
-
     var de = document.createElement("p");
-    de.className = "desc"; de.textContent = m.desc;
+    de.className = "desc"; de.textContent = o.desc;
     dr.appendChild(de);
-
-    var q = document.createElement("span");
-    q.className = "qui " + QUI[m.qui].cls; q.textContent = QUI[m.qui].txt;
-    dr.appendChild(q);
-
-    c.appendChild(g);
-    c.appendChild(dr);
-
-    if (m.capy){
-      var mi = document.createElement("div");
-      mi.className = "mini";
-      mi.innerHTML = '<svg width="46" height="46" aria-hidden="true"><use href="#' + m.capy + '"/></svg>';
-      c.appendChild(mi);
+    if (o.qui){
+      var q = document.createElement("span");
+      q.className = "qui " + QUI[o.qui].cls; q.textContent = QUI[o.qui].txt;
+      dr.appendChild(q);
     }
 
-    liste.appendChild(c);
-  });
+    c.appendChild(g); c.appendChild(dr);
 
-  function bouger(id, delta){
-    var v = enMin(etat.times[id]) + delta;
-    if (v < MIN) v = MIN;
-    if (v > MAX) v = MAX;
-    etat.times[id] = enTxt(v);
-    garder();
-    rendre();
-    var el = document.getElementById("t-" + id);
-    el.classList.remove("boum");
-    void el.offsetWidth;
-    el.classList.add("boum");
+    if (o.capy){
+      var mi = document.createElement("div");
+      mi.className = "mini";
+      mi.innerHTML = '<svg width="46" height="46" aria-hidden="true"><use href="#' + o.capy + '"/></svg>';
+      c.appendChild(mi);
+    }
+    return c;
   }
+
+  /* ───── rendu ───── */
+  var hoteJour = document.getElementById("jour");
+  var hoteAncre = document.getElementById("ancre");
+  var tbody = document.getElementById("tbody-semaine");
 
   function rendre(){
-    MOMENTS.forEach(function(m, i){
-      document.getElementById("t-" + m.id).textContent = joli(enMin(etat.times[m.id]));
-      var cible = document.getElementById("d-" + m.id);
-      if (i < MOMENTS.length - 1){
-        var e = enMin(etat.times[MOMENTS[i+1].id]) - enMin(etat.times[m.id]);
-        cible.textContent = duree(e);
-        cible.classList.toggle("oups", e <= 0);
-      }else{
-        cible.textContent = "잘 자 !";
-        cible.classList.remove("oups");
-      }
+    var id = etat.actif, c = calcul(id);
+    var nom = JOURS.filter(function(j){ return j.id === id; })[0].nom;
+
+    JOURS.forEach(function(j){
+      document.getElementById("ongh-" + j.id).textContent = joli(enMin(etat.jours[j.id].r));
+      document.getElementById("ong-" + j.id).classList.toggle("on", j.id === etat.actif);
+      document.getElementById("ong-" + j.id).setAttribute("aria-selected", j.id === etat.actif ? "true" : "false");
     });
-    var libre = enMin(etat.times.bain) - enMin(etat.times.libre);
-    document.getElementById("v-libre").textContent = libre > 0 ? duree(libre) : "—";
-    document.getElementById("v-ecrans").textContent = joli(enMin(etat.times.ecrans));
-    document.getElementById("v-dodo").textContent = joli(enMin(etat.times.lumiere));
+    document.getElementById("r-val").textContent = joli(c.retour);
+    document.getElementById("d-val").textContent = c.dev === 0 ? "aucun 🎉" : duree(c.dev);
+
+    hoteJour.innerHTML = "";
+    hoteJour.appendChild(carte({
+      num:"집 · " + nom, heure:joli(c.retour), sous:"puis " + duree(SOUFFLE) + " de pause",
+      titre:"Tu rentres, tu souffles",
+      desc:"Goûter. On ne parle pas encore du collège. Le cartable se vide sur la table.",
+      qui:"duo",
+      regle:function(dt){ bougerRetour(dt); }
+    }));
+    hoteJour.appendChild(carte({
+      num:"숙제 · devoirs", heure:joli(c.debutDev),
+      sous: c.dev === 0 ? "rien à faire !" : duree(c.dev) + " → " + joli(c.finDev),
+      titre:"Devoirs",
+      desc: c.dev === 0
+        ? "Tout a été fait en perm’ ou pendant les trous. Le soir est à toi."
+        : "Le téléphone reste dans le salon, pas dans la chambre. Si c'est fini avant, c'est fini.",
+      qui:"duo", capy:"capy-stylo",
+      regle:function(dt){ bougerDevoirs(dt); }
+    }));
+    hoteJour.appendChild(carte({
+      num:"자유 시간", heure:joli(c.finDev),
+      sous: c.libre > 0 ? duree(c.libre) + " pour toi" : "plus de temps libre !",
+      alerte: c.libre <= 0,
+      titre:"Temps à toi",
+      desc: c.libre > 0
+        ? "K-pop, dessin, écrans, ou rien du tout. Personne ne décide à ta place, jusqu'au bain."
+        : "Là, les devoirs mordent sur le bain. Il faut rentrer plus tôt s'y mettre, ou en faire plus en perm’.",
+      qui:"moi", capy:"capy-idol"
+    }));
+
+    hoteAncre.innerHTML = "";
+    ANCRE.forEach(function(a, i){
+      hoteAncre.appendChild(carte({
+        num:a.num, heure:joli(enMin(etat.ancre[a.id])),
+        sous: i < ANCRE.length - 1
+          ? duree(enMin(etat.ancre[ANCRE[i+1].id]) - enMin(etat.ancre[a.id]))
+          : "잘 자 !",
+        titre:a.titre, desc:a.desc, qui:a.qui, capy:a.capy, holo:a.holo, fixe:a.fixe,
+        regle: a.fixe ? null : function(dt){ bougerAncre(a.id, dt); }
+      }));
+    });
+
+    tbody.innerHTML = "";
+    JOURS.forEach(function(j){
+      var k = calcul(j.id);
+      var tr = document.createElement("tr");
+      [j.nom, joli(k.retour), k.dev === 0 ? "—" : duree(k.dev),
+       k.libre > 0 ? duree(k.libre) : "0 min"].forEach(function(v, n){
+        var td = document.createElement(n === 0 ? "th" : "td");
+        td.textContent = v;
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+
     document.getElementById("regle").value = etat.regle;
   }
+
+  function bougerRetour(dt){
+    var v = enMin(etat.jours[etat.actif].r) + dt;
+    etat.jours[etat.actif].r = enTxt(Math.max(MIN_R, Math.min(MAX_R, v)));
+    garder(); rendre();
+  }
+  function bougerDevoirs(dt){
+    var v = etat.jours[etat.actif].d + dt;
+    etat.jours[etat.actif].d = Math.max(0, Math.min(MAX_D, v));
+    garder(); rendre();
+  }
+  function bougerAncre(id, dt){
+    var v = enMin(etat.ancre[id]) + dt;
+    etat.ancre[id] = enTxt(Math.max(15*60, Math.min(23*60 + 30, v)));
+    garder(); rendre();
+  }
+
+  document.getElementById("r-moins").addEventListener("click", function(){ bougerRetour(-PAS); });
+  document.getElementById("r-plus").addEventListener("click", function(){ bougerRetour(PAS); });
+  document.getElementById("d-moins").addEventListener("click", function(){ bougerDevoirs(-PAS); });
+  document.getElementById("d-plus").addEventListener("click", function(){ bougerDevoirs(PAS); });
 
   var minuteur;
   function toast(msg){
@@ -652,7 +784,8 @@
   });
   document.getElementById("b-print").addEventListener("click", function(){ window.print(); });
   document.getElementById("b-reset").addEventListener("click", function(){
-    MOMENTS.forEach(function(m){ etat.times[m.id] = m.h; });
+    JOURS.forEach(function(j){ etat.jours[j.id] = {r:j.r, d:j.d}; });
+    ANCRE.forEach(function(a){ etat.ancre[a.id] = a.h; });
     garder(); rendre();
     toast("Heures de départ remises ✨");
   });
