@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="noirrose">
+<html lang="fr" data-theme="capy">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Planning Capybara ⭐ CM2 K-Pop</title>
-<meta name="theme-color" content="#100F14">
+<meta name="theme-color" content="#FCF2E4">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -494,13 +494,6 @@
 <div class="wrap">
 <div class="wrap">
 
-  <div class="themes no-print" id="themes" role="group" aria-label="Choisir le style">
-    <span class="t-lbl">★ Choisis ton style ★</span>
-    <button type="button" class="th" data-t="noirrose">블랙핑크<small>Noir &amp; rose</small></button>
-    <button type="button" class="th" data-t="ile">스티치<small>Bleu lagon</small></button>
-    <button type="button" class="th" data-t="capy">카피바라<small>Capybara</small></button>
-    <button type="button" class="th" data-t="rose">핑크<small>Tout rose</small></button>
-  </div>
 
   <div class="hud">
     <div class="hud-niv"><b id="hud-niveau">1</b><small>NIV.</small></div>
@@ -509,7 +502,7 @@
       <div class="xp-piste"><div class="xp-remplissage" id="xp-barre"></div></div>
     </div>
     <div class="hud-serie"><b id="hud-serie">🔥0</b><small>série</small></div>
-    <button type="button" class="hud-son no-print" id="b-son" aria-label="Couper ou activer le son">🔊</button>
+
   </div>
 
   <header class="top">
@@ -634,13 +627,12 @@
   "use strict";
 
   var JOURS = [
-    {id:"lun", court:"LUN", nom:"lundi",    r:"17:00", d:45, xpDevoirs:8},
-    {id:"mar", court:"MAR", nom:"mardi",    r:"17:00", d:45, xpDevoirs:8},
-    {id:"mer", court:"MER", nom:"mercredi", r:"12:30", d:45, xpDevoirs:8},
-    {id:"jeu", court:"JEU", nom:"jeudi",    r:"17:00", d:45, xpDevoirs:8},
-    {id:"ven", court:"VEN", nom:"vendredi", r:"16:00", d:30, xpDevoirs:8}
+    {id:"lun", court:"LUN", nom:"lundi",    r:"12:00", d:45, xpDevoirs:8},
+    {id:"mar", court:"MAR", nom:"mardi",    r:"12:00", d:45, xpDevoirs:8},
+    {id:"mer", court:"MER", nom:"mercredi", r:"16:40", d:30, xpDevoirs:8},
+    {id:"jeu", court:"JEU", nom:"jeudi",    r:"16:35", d:30, xpDevoirs:8},
+    {id:"ven", court:"VEN", nom:"vendredi", r:"14:30", d:25, xpDevoirs:8}
   ];
-
   var ANCRE = [
     {id:"bain", h:"19:00", num:"목욕", titre:"Bain, puis pyjama",
      desc:"La soirée continue après, mais en pyjama. Ça évite la course à 21h.",
@@ -869,15 +861,10 @@
     document.getElementById("hud-xp-txt").textContent = dansPalier + " / 100 XP";
     document.getElementById("xp-barre").style.width = dansPalier + "%";
     document.getElementById("hud-serie").textContent = "🔥" + jeu.streak;
-    var bs = document.getElementById("b-son");
-    bs.textContent = jeu.muet ? "🔇" : "🔊";
-    bs.setAttribute("aria-pressed", jeu.muet ? "true" : "false");
+
   }
 
-  document.getElementById("b-son").addEventListener("click", function(){
-    jeu.muet = !jeu.muet; garderJeu(); rendreHUD();
-    if (!jeu.muet) sonTap();
-  });
+
 
   /* ───── choix du style ───── */
   function poserTheme(){
