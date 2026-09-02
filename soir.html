@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ma soirée — 6e3</title>
+<meta name="theme-color" content="#FBF6EC">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   Couleurs = les 7 piliers du carnet Jeanne d'Arc, page 29
+   Fond = le papier du carnet. Pas de noir. Pas de rose fluo.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --papier:#FBF6EC;
+  --carte:#FFFFFF;
+  --encre:#2E2A24;
+  --gris:#6E675C;
+  --trait:#E4DACA;
+  --capy:#A8825C;
+  --capy-clair:#EDD9C0;
+
+  /* les 7 piliers, couleurs du carnet */
+  --eau:#8FC4DE;
+  --activite:#EFD87A;
+  --oxygene:#7FAE99;
+  --humeur:#B3A2C7;
+  --detente:#E5A57E;
+  --repas:#D4798E;
+  --sommeil:#95928A;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+  margin:0;background:var(--papier);color:var(--encre);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:17px;line-height:1.5;
+  padding:calc(14px + env(safe-area-inset-top)) 14px calc(60px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:600px;margin:0 auto}
+
+/* ─── en-tête ─── */
+.tete{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.tete svg{flex:none}
+.tete h1{margin:0;font-size:23px;line-height:1.1;font-weight:800;letter-spacing:-.02em}
+.tete .date{margin:2px 0 0;font-size:14px;color:var(--gris);font-weight:600}
+
+/* ─── onglets jours ─── */
+.jours{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:16px}
+.jour{
+  border:2px solid var(--trait);background:var(--carte);border-radius:12px;
+  padding:9px 2px 8px;text-align:center;cursor:pointer;font:inherit;color:var(--encre);
+  line-height:1.2;
+}
+.jour b{display:block;font-size:14px;font-weight:800;letter-spacing:.02em}
+.jour small{display:block;font-size:11px;color:var(--gris);margin-top:2px;font-weight:600}
+.jour[aria-selected="true"]{background:var(--capy);border-color:var(--capy);color:#fff}
+.jour[aria-selected="true"] small{color:rgba(255,255,255,.85)}
+.jour.auj::after{content:"";display:block;width:5px;height:5px;border-radius:50%;
+  background:var(--capy);margin:4px auto 0}
+.jour[aria-selected="true"].auj::after{background:#fff}
+
+/* ─── bandeau retour ─── */
+.retour{
+  background:var(--capy-clair);border:2px solid var(--capy);border-radius:16px;
+  padding:13px 15px;margin-bottom:16px;display:flex;align-items:center;gap:13px;
+}
+.retour .h{font-size:27px;font-weight:800;line-height:1;letter-spacing:-.02em;flex:none}
+.retour .t{font-size:14.5px;line-height:1.35}
+.retour .t b{font-weight:800}
+
+/* ─── blocs ─── */
+.bloc{background:var(--carte);border:2px solid var(--trait);border-radius:16px;
+  padding:15px;margin-bottom:14px}
+.bloc > h2{
+  margin:0 0 11px;font-size:12px;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--gris);display:flex;align-items:center;gap:8px;
+}
+.bloc > h2 .pastille{width:11px;height:11px;border-radius:50%;flex:none}
+
+/* ─── liste à cocher ─── */
+.item{display:flex;align-items:flex-start;gap:11px;padding:9px 0;
+  border-top:1px solid var(--trait);cursor:pointer}
+.item:first-of-type{border-top:none}
+.case{
+  flex:none;width:26px;height:26px;border-radius:8px;border:2.5px solid var(--trait);
+  background:var(--papier);display:grid;place-items:center;margin-top:1px;
+  font-size:15px;font-weight:800;color:#fff;transition:background .12s,border-color .12s;
+}
+.item.ok .case{background:var(--c,var(--capy));border-color:var(--c,var(--capy))}
+.item.ok .case::after{content:"✓"}
+.item.ok .lib{text-decoration:line-through;color:var(--gris)}
+.lib{flex:1;font-size:16px;line-height:1.35;font-weight:600}
+.lib small{display:block;font-size:13px;font-weight:500;color:var(--gris);margin-top:1px}
+.heure{flex:none;font-size:13px;font-weight:800;color:var(--gris);
+  font-variant-numeric:tabular-nums;margin-top:3px}
+
+/* ─── alertes sac ─── */
+.alerte{
+  display:flex;gap:10px;align-items:flex-start;
+  border-radius:12px;padding:11px 13px;margin:0 0 9px;font-size:14.5px;line-height:1.35;
+  border:2px solid;
+}
+.alerte b{font-weight:800}
+.alerte .ic{font-size:19px;line-height:1;flex:none}
+.a-tenue{background:#F4F6FA;border-color:#C3CEDE}
+.a-eps{background:#FDF6DF;border-color:#E8D488}
+.a-labo{background:#EFF6F2;border-color:#A8CBBB}
+
+.matieres{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.mat{
+  font-size:13px;font-weight:700;background:var(--papier);border:1.5px solid var(--trait);
+  border-radius:999px;padding:4px 11px;color:var(--encre);
+}
+
+/* ─── devoirs / minuteur ─── */
+.chrono{text-align:center;padding:4px 0 2px}
+.chrono .aff{
+  font-size:52px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;
+  letter-spacing:-.03em;margin:6px 0 3px;
+}
+.chrono .phase{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--gris);min-height:16px}
+.chrono.pause .aff{color:var(--oxygene)}
+.chrono.pause .phase{color:var(--oxygene)}
+.cmds{display:flex;gap:8px;margin-top:12px}
+.cmds button{flex:1}
+button{
+  font:inherit;font-weight:800;font-size:15px;background:var(--papier);color:var(--encre);
+  border:2px solid var(--trait);border-radius:12px;padding:11px 14px;cursor:pointer;
+}
+button:active{transform:translateY(1px)}
+button.plein{background:var(--capy);border-color:var(--capy);color:#fff}
+.regle{
+  font-size:13px;line-height:1.4;color:var(--gris);background:var(--papier);
+  border-radius:10px;padding:9px 11px;margin-top:11px;
+}
+.regle b{color:var(--encre)}
+
+/* ─── pensée ─── */
+.pensee{
+  background:var(--carte);border:2px solid var(--trait);border-radius:16px;
+  padding:17px 16px;text-align:center;margin-bottom:14px;
+}
+.pensee .q{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gris);margin-bottom:7px}
+.pensee .p{font-size:20px;font-weight:800;line-height:1.25;letter-spacing:-.01em}
+.pensee button{margin-top:12px;font-size:13px;padding:7px 14px}
+
+/* ─── pied ─── */
+.pied{font-size:12.5px;color:var(--gris);line-height:1.5;text-align:center;
+  padding:6px 4px 0}
+.pied a{color:var(--capy);font-weight:700}
+.raz{background:none;border:none;color:var(--gris);text-decoration:underline;
+  font-size:12.5px;padding:6px;cursor:pointer;font-weight:600}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="tete">
+    <svg width="52" height="46" viewBox="0 0 52 46" aria-hidden="true">
+      <ellipse cx="26" cy="30" rx="20" ry="14" fill="#C89B6E"/>
+      <ellipse cx="26" cy="18" rx="15" ry="13" fill="#B98B5E"/>
+      <ellipse cx="14" cy="9" rx="4" ry="4.5" fill="#9E7449"/>
+      <ellipse cx="38" cy="9" rx="4" ry="4.5" fill="#9E7449"/>
+      <ellipse cx="20" cy="16" rx="2.4" ry="2.8" fill="#2E2A24"/>
+      <ellipse cx="32" cy="16" rx="2.4" ry="2.8" fill="#2E2A24"/>
+      <ellipse cx="26" cy="24" rx="6" ry="4.5" fill="#D9B08C"/>
+      <ellipse cx="26" cy="22.5" rx="2" ry="1.4" fill="#4A3A2A"/>
+      <path d="M23 26.5q3 2.2 6 0" stroke="#4A3A2A" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <h1>Ma soirée</h1>
+      <p class="date" id="date"></p>
+    </div>
+  </div>
+
+  <div class="jours" id="jours" role="tablist"></div>
+
+  <div class="retour" id="retour"></div>
+
+  <div class="pensee">
+    <div class="q">Ma pensée d'aujourd'hui</div>
+    <div class="p" id="pensee"></div>
+    <button type="button" id="autre">une autre</button>
+  </div>
+
+  <div class="bloc">
+    <h2><span class="pastille" style="background:var(--activite)"></span>Les devoirs</h2>
+    <div class="chrono" id="chrono">
+      <div class="aff" id="aff">20:00</div>
+      <div class="phase" id="phase">prête ?</div>
+    </div>
+    <div class="cmds">
+      <button type="button" class="plein" id="go">Commencer</button>
+      <button type="button" id="stop">Remettre à zéro</button>
+    </div>
+    <div class="regle">
+      <b>Règle 10 du carnet :</b> 2 fois 5 minutes de pause par heure de travail.
+      Au bout d'1 h 30, une vraie pause de 20 minutes — tu l'auras bien méritée.<br>
+      <b>Règle 4 :</b> commence par l'exercice le plus facile. Le cerveau ne démarre pas à froid.
+    </div>
+  </div>
+
+  <div class="bloc">
+    <h2><span class="pastille" style="background:var(--oxygene)"></span><span id="titre-sac">Le sac</span></h2>
+    <div id="alertes"></div>
+    <div id="cours-demain"></div>
+    <div id="liste-sac"></div>
+  </div>
+
+  <div class="bloc">
+    <h2><span class="pastille" style="background:var(--sommeil)"></span>La soirée</h2>
+    <div id="liste-soir"></div>
+  </div>
+
+  <p class="pied">
+    Institution Jeanne d'Arc — 6<sup>e</sup> 3 · Montrouge<br>
+    Absence ou retard : <a href="tel:+33615896317">éducateur 6<sup>e</sup> 06 15 89 63 17</a><br>
+    <button type="button" class="raz" id="raz">tout décocher</button>
+  </p>
+
+</div>
+
+<script>
+"use strict";
+
+/* ══════════════════════════════════════════════════════════════
+   L'EMPLOI DU TEMPS RÉEL — 603 Sixième 03, relevé du 28/08/2026
+   ══════════════════════════════════════════════════════════════ */
+var JOURS = [
+  { id:0, court:"LUN", nom:"lundi", fin:"17:30", maison:"18:00",
+    note:"Sport jusqu'à 17 h 30. Tu rentres fatiguée : devoirs courts, au lit tôt.",
+    cours:["Arts plastiques","Maths","SVT","Anglais","Histoire-Géo","Français","EPS"],
+    eps:true, labo:true, devoirs:20 },
+
+  { id:1, court:"MAR", nom:"mardi", fin:"16:35", maison:"17:05",
+    note:"Vie de classe à 13 h. Deux heures de chinois l'après-midi.",
+    cours:["Anglais","Français","Vie de classe","Histoire-Géo","Chinois"],
+    devoirs:40 },
+
+  { id:2, court:"MER", nom:"mercredi", fin:"12:00", maison:"12:30",
+    note:"Tu finis à midi. Tout l'après-midi est à toi — les devoirs d'abord, le reste après.",
+    cours:["Technologie","Français","Culture chrétienne"],
+    devoirs:40 },
+
+  { id:3, court:"JEU", nom:"jeudi", fin:"16:35", maison:"17:05",
+    note:"Jour de la tenue Jeanne d'Arc. SVT l'après-midi.",
+    cours:["Maths","Maths","Français","Chinois","SVT","Anglais","Anglais"],
+    tenue:true, labo:true, devoirs:40 },
+
+  { id:4, court:"VEN", nom:"vendredi", fin:"15:20", maison:"15:50",
+    note:"Sport le matin. Tu finis tôt : les devoirs faits vendredi, c'est le week-end libre.",
+    cours:["Éducation musicale","EPS","Maths","Histoire-Géo"],
+    eps:true, devoirs:30 }
+];
+
+/* La soirée, dans l'ordre. Chaque étape porte un pilier du carnet (page 29). */
+var SOIR = [
+  { id:"gouter", t:"Le goûter et un verre d'eau", s:"Alimentation équilibrée · Eau", c:"var(--repas)" },
+  { id:"air",    t:"Ouvrir la fenêtre, respirer",  s:"Oxygène",                     c:"var(--oxygene)" },
+  { id:"devoirs",t:"Les devoirs, avec les pauses", s:"Activité",                    c:"var(--activite)" },
+  { id:"plaisir",t:"Un moment rien que pour moi",  s:"Bonne humeur · Détente",      c:"var(--humeur)" },
+  { id:"diner",  t:"Le dîner",                     s:"Alimentation équilibrée",     c:"var(--repas)" },
+  { id:"bain",   t:"La douche",                    s:"Eau",                         c:"var(--eau)" },
+  { id:"dents",  t:"Les dents",                    s:"Eau",                         c:"var(--eau)" },
+  { id:"ecrans", t:"Les écrans s'arrêtent",        s:"Détente · 21 h 00",           c:"var(--detente)" },
+  { id:"lit",    t:"Au lit, lumière éteinte",      s:"Pauses et sommeil · 21 h 30", c:"var(--sommeil)" }
+];
+
+/* Florilège de pensées positives — carnet, page 30 */
+var PENSEES = [
+  "Je suis fort.e","Mes ami.es m'écoutent","Je n'abandonne pas",
+  "Je donne le meilleur de moi-même","J'aime les défis","J'ai confiance en moi",
+  "Je suis courageux.se","J'ai fait le bon choix","Mes ami.es me respectent",
+  "Je suis poli.e","J'aime apprendre","Je suis sportif.ve","Je suis serein.e",
+  "J'ai de l'humour","Je suis sympa","Je travaille dur","Je sais écouter",
+  "Je suis unique","J'aime aider les autres","Je n'ai pas peur d'essayer",
+  "J'ai de bons ami.es","Je suis sensible","J'aime découvrir de nouvelles choses",
+  "Je suis capable de faire des compromis","Mes ami.es m'apprécient",
+  "Je tire des leçons de mes erreurs","Je suis créatif.ve","Je suis joyeux.se",
+  "Je suis résistant.e","J'aime rêver","Je réussirai","Je suis heureux.se",
+  "J'ai de l'imagination","J'ai le choix","Je suis important.e"
+];
+
+/* ═══════════ état ═══════════ */
+var CLE = "soir-6e3";
+var maint = new Date();
+var idxAuj = (maint.getDay() + 6) % 7;          // 0 = lundi
+if (idxAuj > 4) idxAuj = 0;                      // week-end → on prépare lundi
+var actif = idxAuj;
+
+function cleJour(){ return CLE + "-" + maint.toISOString().slice(0,10); }
+function lire(){
+  try { return JSON.parse(localStorage.getItem(cleJour()) || "{}"); }
+  catch(e){ return {}; }
+}
+function ecrire(o){
+  try { localStorage.setItem(cleJour(), JSON.stringify(o)); } catch(e){}
+}
+var coches = lire();
+
+function bascule(id){
+  coches[id] = !coches[id];
+  ecrire(coches);
+  rendre();
+}
+
+/* ═══════════ rendu ═══════════ */
+var MOIS = ["janvier","février","mars","avril","mai","juin","juillet","août",
+            "septembre","octobre","novembre","décembre"];
+var NOMS = ["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"];
+
+function rendreDate(){
+  var d = maint.getDay(); d = (d + 6) % 7;
+  document.getElementById("date").textContent =
+    NOMS[d] + " " + maint.getDate() + " " + MOIS[maint.getMonth()];
+}
+
+function rendreJours(){
+  var h = "";
+  JOURS.forEach(function(j){
+    h += '<button type="button" role="tab" class="jour' + (j.id === idxAuj ? " auj" : "") +
+         '" aria-selected="' + (j.id === actif) + '" data-j="' + j.id + '">' +
+         '<b>' + j.court + '</b><small>' + j.fin + '</small></button>';
+  });
+  document.getElementById("jours").innerHTML = h;
+}
+
+function rendreRetour(){
+  var j = JOURS[actif];
+  document.getElementById("retour").innerHTML =
+    '<div class="h">' + j.maison + '</div>' +
+    '<div class="t">Tu finis à <b>' + j.fin + '</b>, tu es à la maison vers <b>' +
+    j.maison + '</b>.<br>' + j.note + '</div>';
+}
+
+function rendreSac(){
+  var j = JOURS[actif];
+  var demain = JOURS[(actif + 1) % 5];
+  document.getElementById("titre-sac").textContent =
+    "Le sac pour " + demain.nom;
+
+  var a = "";
+  if (demain.tenue) a +=
+    '<div class="alerte a-tenue"><span class="ic">👕</span><div>' +
+    '<b>Demain, tenue Jeanne d\'Arc.</b> Haut blanc à col, pull sombre ou sweat JDA, ' +
+    'bas sombre (noir, bleu ou gris). Pas de capuche, sauf celle de JDA.</div></div>';
+  if (demain.eps) a +=
+    '<div class="alerte a-eps"><span class="ic">👟</span><div>' +
+    '<b>Demain, sport.</b> Affaires d\'EPS dans le sac. On ne les met pas pour venir : ' +
+    'les tenues de sport ne se portent pas en dehors du cours.</div></div>';
+  if (demain.labo) a +=
+    '<div class="alerte a-labo"><span class="ic">🥼</span><div>' +
+    '<b>Demain, SVT.</b> Blouse blanche pour le labo, et cheveux attachés.</div></div>';
+  document.getElementById("alertes").innerHTML = a;
+
+  var m = "";
+  demain.cours.forEach(function(c){ m += '<span class="mat">' + c + '</span>'; });
+  document.getElementById("cours-demain").innerHTML =
+    '<div class="matieres">' + m + '</div>';
+
+  var sac = [
+    { id:"sac-cahiers", t:"Les cahiers et les livres de demain" },
+    { id:"sac-trousse", t:"La trousse (et le carnet de liaison)" },
+    { id:"sac-eau",     t:"La gourde remplie", s:"Eau" }
+  ];
+  var h = "";
+  sac.forEach(function(x){
+    h += '<div class="item' + (coches[x.id] ? " ok" : "") +
+         '" data-id="' + x.id + '" style="--c:var(--oxygene)">' +
+         '<span class="case"></span><span class="lib">' + x.t +
+         (x.s ? '<small>' + x.s + '</small>' : '') + '</span></div>';
+  });
+  document.getElementById("liste-sac").innerHTML = h;
+}
+
+function rendreSoir(){
+  var h = "";
+  SOIR.forEach(function(x){
+    h += '<div class="item' + (coches[x.id] ? " ok" : "") +
+         '" data-id="' + x.id + '" style="--c:' + x.c + '">' +
+         '<span class="case"></span>' +
+         '<span class="lib">' + x.t + '<small>' + x.s + '</small></span></div>';
+  });
+  document.getElementById("liste-soir").innerHTML = h;
+}
+
+function rendre(){
+  rendreJours(); rendreRetour(); rendreSac(); rendreSoir();
+}
+
+/* ═══════════ pensée du jour ═══════════ */
+function poserPensee(i){
+  document.getElementById("pensee").textContent = PENSEES[i % PENSEES.length];
+}
+var graine = maint.getDate() + maint.getMonth() * 31;
+poserPensee(graine);
+document.getElementById("autre").addEventListener("click", function(){
+  graine++; poserPensee(graine);
+});
+
+/* ═══════════ minuteur — règle 10 du carnet ═══════════ */
+var tic = null, reste = 0, enPause = false, faites = 0;
+
+function afficher(){
+  var m = Math.floor(reste / 60), s = reste % 60;
+  document.getElementById("aff").textContent =
+    m + ":" + (s < 10 ? "0" : "") + s;
+}
+function phase(txt){ document.getElementById("phase").textContent = txt; }
+
+function demarrer(duree, pause){
+  clearInterval(tic);
+  reste = duree * 60;
+  enPause = pause;
+  document.getElementById("chrono").className = "chrono" + (pause ? " pause" : "");
+  phase(pause ? "pause — lève-toi, bois, respire" : "au travail");
+  document.getElementById("go").textContent = "Mettre en pause";
+  afficher();
+  tic = setInterval(function(){
+    reste--;
+    if (reste <= 0){
+      clearInterval(tic); tic = null;
+      if (enPause){
+        demarrer(JOURS[actif].devoirs > 30 ? 25 : 20, false);
+      } else {
+        faites++;
+        if (faites >= 3){
+          faites = 0;
+          demarrer(20, true);
+          phase("grande pause — 20 minutes, tu l'as méritée");
+        } else {
+          demarrer(5, true);
+        }
+      }
+      return;
+    }
+    afficher();
+  }, 1000);
+}
+
+document.getElementById("go").addEventListener("click", function(){
+  if (tic){
+    clearInterval(tic); tic = null;
+    phase("en pause"); this.textContent = "Reprendre";
+  } else if (reste > 0){
+    demarrer(reste / 60, enPause);
+  } else {
+    demarrer(JOURS[actif].devoirs > 30 ? 25 : 20, false);
+  }
+});
+document.getElementById("stop").addEventListener("click", function(){
+  clearInterval(tic); tic = null; reste = 0; faites = 0; enPause = false;
+  document.getElementById("chrono").className = "chrono";
+  document.getElementById("aff").textContent =
+    (JOURS[actif].devoirs > 30 ? "25" : "20") + ":00";
+  phase("prête ?");
+  document.getElementById("go").textContent = "Commencer";
+});
+
+/* ═══════════ interactions ═══════════ */
+document.addEventListener("click", function(e){
+  var j = e.target.closest(".jour");
+  if (j){ actif = +j.dataset.j; rendre(); return; }
+  var it = e.target.closest(".item");
+  if (it){ bascule(it.dataset.id); }
+});
+document.getElementById("raz").addEventListener("click", function(){
+  coches = {}; ecrire(coches); rendre();
+});
+
+rendreDate();
+rendre();
+</script>
+</body>
+</html>
