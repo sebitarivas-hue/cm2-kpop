@@ -12,7 +12,7 @@
 <section class="editorial-hero" id="accueil" aria-label="Ouverture de l'atlas des matières vivantes">
   <div class="hero-inner">
     <div class="hero-copy">
-      <div class="hero-kicker"><span class="little-square"></span> LE COURS DE CLÉMENT SANCHEZ · COLLÈGE DE FRANCE <span class="hero-edition">N° 001 / 2026</span></div>
+      <div class="hero-kicker"><span class="little-square"></span> LE COURS DE CLÉMENT SANCHEZ · COLLÈGE DE FRANCE</div>
       <h1>Vers des matériaux<br><em>hybrides vivants.</em><span class="hero-star" aria-hidden="true">✳</span></h1>
       <div class="hero-course-credit"><span>UN COURS DE</span><strong>CLÉMENT SANCHEZ</strong><span>COLLÈGE DE FRANCE · 18 FÉVRIER 2020</span><a href="https://www.youtube.com/watch?v=LkvdhO6XWZ4" target="_blank" rel="noopener noreferrer">↗ VOIR LA CONFÉRENCE ORIGINALE</a></div>
       <p class="hero-lead">Un atlas interactif construit à partir de la conférence de Clément Sanchez au Collège de France : architectures moléculaires, matériaux hybrides, interfaces cellulaires et matière vivante.</p>
@@ -47,6 +47,7 @@
       <input type="file" id="structureFile" accept=".xyz,.cif" hidden>
       <button type="button" id="buttonAtlas">OUVRIR LES 70 PLANCHES <span id="figureCount">70</span> ↗</button>
       <button type="button" id="buttonHelp" aria-label="Aide">?</button>
+      <button class="mobile-nav" id="mobileMenu" aria-label="Ouvrir le catalogue">☰ <span>SCÈNES</span></button>
     </div>
     <section class="stage" aria-label="Visualisation tridimensionnelle">
       <div class="stage-head"><span class="eyebrow" id="stageChapter">01 / STRUCTURES & PROCÉDÉS</span><div class="stage-meta"><span id="scaleText">ÉCHELLE CONCEPTUELLE</span><span class="stage-divider">/</span><span id="fps">● WEBGL</span></div></div>
@@ -73,7 +74,7 @@
 <footer class="bottombar"><span><b>CHIMIE DOUCE</b> / ATLAS 3D</span><span>Sources : conférence de Clément Sanchez, Collège de France, 18.02.2020 · <b>Projet indépendant, sans affiliation institutionnelle</b></span><span><a href="./bibliographie/#droits" style="color:#e1be87">CRÉDITS · SOURCES · DROITS ↗</a></span></footer>
 </div>
 <dialog id="overlayDialog" class="overlay-dialog"><div class="dialog-head"><div><span class="eyebrow gold" id="dialogKicker">ARCHIVES & TRAÇABILITÉ</span><h2 id="dialogTitle">Atlas documentaire</h2></div><button id="closeDialog" class="x-btn" aria-label="Fermer">×</button></div><div id="dialogBody" class="dialog-body"></div></dialog>
-<button class="mobile-nav" id="mobileMenu" aria-label="Ouvrir le catalogue">☰ <span>SCÈNES</span></button>
+
 <script>window.__atlasBooted=false;setTimeout(()=>{if(!window.__atlasBooted){const l=document.getElementById('loading');if(l)l.innerHTML='<strong style="color:#e5bf80">Moteur WebGL non chargé</strong><span>Vérifiez la connexion Internet et les autorisations du navigateur.</span><a href="./research/" style="color:#91d2d8">Lire la monographie scientifique ↗</a>'}},9000);</script>
 <script type="module" src="./src/app.js"></script>
 <script type="module" src="./organic-home.js"></script>
