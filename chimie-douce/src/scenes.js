@@ -1,13 +1,13 @@
 import * as THREE from 'three';
 import {createStructureModel} from './structure.js';
-const C={teal:0x64c4c9,cyan:0x8edfe0,gold:0xd2a266,amber:0xe9c083,blue:0x447caa,violet:0x9779bb,purple:0x8c65b3,coral:0xc77373,white:0xddebed,green:0x79bba2,dark:0x183447};
+const C={teal:0x749d85,cyan:0xa1bca0,gold:0xc3a67c,amber:0xd8bc91,blue:0x668f85,violet:0x9a9982,purple:0x8a8d72,coral:0xb78f7a,white:0xe8e0cc,green:0x88a36c,dark:0x253e33};
 const V=(x,y,z)=>new THREE.Vector3(x,y,z);
-const mat=(color,opts={})=>new THREE.MeshStandardMaterial({color,metalness:.12,roughness:.46,...opts});
-const glass=(color,opacity=.2)=>new THREE.MeshPhysicalMaterial({color,roughness:.23,metalness:.05,transparent:true,opacity,depthWrite:false,side:THREE.DoubleSide,transmission:0});
+const mat=(color,opts={})=>new THREE.MeshStandardMaterial({color,metalness:0,roughness:.78,...opts});
+const glass=(color,opacity=.2)=>new THREE.MeshPhysicalMaterial({color,roughness:.58,metalness:0,transparent:true,opacity,depthWrite:false,side:THREE.DoubleSide,transmission:0});
 const glow=(color)=>new THREE.MeshBasicMaterial({color,transparent:true,opacity:.82});
 const sph=new THREE.SphereGeometry(1,12,8);
 const hex=new THREE.IcosahedronGeometry(1,0);
-const M={gold:mat(C.gold,{metalness:.55,roughness:.28}),cyan:mat(C.cyan,{metalness:.25,roughness:.3}),blue:mat(C.blue),teal:mat(C.teal),purple:mat(C.purple),coral:mat(C.coral),green:mat(C.green),white:mat(C.white),dark:mat(C.dark)};
+const M={gold:mat(C.gold,{metalness:.04,roughness:.69}),cyan:mat(C.cyan,{metalness:0,roughness:.73}),blue:mat(C.blue),teal:mat(C.teal),purple:mat(C.purple),coral:mat(C.coral),green:mat(C.green),white:mat(C.white),dark:mat(C.dark)};
 function rand(seed=42){let a=seed>>>0;return()=>{a+=0x6D2B79F5;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296}}
 function sphere(parent,pos,r,material=M.cyan,geom=sph){const m=new THREE.Mesh(geom,material);m.position.copy(pos);m.scale.setScalar(r);parent.add(m);return m}
 function rod(parent,p1,p2,r=.024,material=M.cyan){const diff=p2.clone().sub(p1);const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,diff.length(),7),material);m.position.copy(p1).addScaledVector(diff,.5);m.quaternion.setFromUnitVectors(V(0,1,0),diff.normalize());parent.add(m);return m}
