@@ -3,7 +3,7 @@ import {existsSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {SCENES} from '../src/content.js';
 import {FIGURES} from '../src/figures.js';
-import {SCENE_RESOURCE_MAP,CONCEPTS,CONCEPT_BY_ID,LECTURE_ONLY_PLATES,plateAsset,sceneResources} from '../src/knowledge-graph.js';
+import {SCENE_RESOURCE_MAP,CONCEPTS,CONCEPT_BY_ID,CONCEPT_PLATE_MAP,LECTURE_ONLY_PLATES,plateAsset,sceneResources} from '../src/knowledge-graph.js';
 
 assert.equal(SCENES.length,18,'18 scenes documented');
 assert.equal(FIGURES.length,70,'70 original slide records');
@@ -25,10 +25,14 @@ for(const scene of SCENES){
  for(const source of r.sources)assert.ok(source.name&&source.url);
 }
 for(const c of CONCEPTS){
+ assert.ok(CONCEPT_PLATE_MAP[c.id]?.length>0,'every concept has its own canonical source plate');
+ assert.equal(new Set(CONCEPT_PLATE_MAP[c.id]).size,CONCEPT_PLATE_MAP[c.id].length,'no repeated concept plate');
+ for(const n of CONCEPT_PLATE_MAP[c.id])assert.ok(FIGURES.some(f=>f.id===n),'known source plate '+n);
  assert.ok(c.simple.length>45 && c.detail.length>70,'substantive definition '+c.id);
  assert.ok(SCENE_RESOURCE_MAP[c.scene]?.terms.includes(c.id),'backlink for '+c.id);
 }
 for(const f of FIGURES)assert.ok(ids.has(f.id)||LECTURE_ONLY_PLATES.includes(f.id),'unclassified plate '+f.id);
 assert.deepEqual(LECTURE_ONLY_PLATES,[1,4,69,70],'honest introductory/concluding plates');
+assert.deepEqual(CONCEPT_PLATE_MAP.thermoelectric,[64],'no random cellulose plates for thermoelectricity');
 assert.deepEqual(SCENE_RESOURCE_MAP.cellulose.plates,[58,59,60,64],'cellulose image and chapter mapping');
 console.log('PASS: 70 unique originals, 18 dossiers, 38 canonical concepts, 66 linked figures + 4 lecture-only.');
