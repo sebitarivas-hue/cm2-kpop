@@ -173,6 +173,14 @@ function displayLabels(){
  const select=document.getElementById('atlasLanguageSelect');
  if(select)select.value=current;
  document.documentElement.lang=LANGUAGES[current].code;
+ const external=document.getElementById('atlasFullPageTranslate');
+ if(external){
+   external.hidden=current==='fr';
+   const page=new URL(location.href);
+   page.searchParams.delete('lang');
+   external.href='https://translate.google.com/translate?sl=fr&tl='+encodeURIComponent(LANGUAGES[current].code)+'&u='+encodeURIComponent(page.href);
+   external.title=current==='en'?'Translate the complete page externally (interactive models may be limited)':current==='es'?'Traducir toda la página con un servicio externo (las escenas 3D pueden verse limitadas)':current==='it'?'Traduci l’intera pagina tramite un servizio esterno (i modelli 3D potrebbero non funzionare)':current==='zh'?'通过外部服务翻译完整网页（交互模型可能受限）':'';
+ }
  const badge=document.getElementById('atlasLanguageStatus');
  if(badge){badge.textContent=current==='fr'?'Texte original':current==='zh'?'机器翻译 · 需科学审校':current==='en'?'Machine translation · scientific review needed':current==='es'?'Traducción automática · requiere revisión científica':'Traduzione automatica · revisione scientifica necessaria';badge.dataset.state='ready'}
  document.querySelectorAll('#atlasGlobalNav [data-translation-key],#atlasGlobalNav .route-menu a').forEach(e=>{
@@ -203,7 +211,7 @@ function visibleScan(){
 export function initI18n(nav){
  current=getSaved();
  const slot=document.createElement('div');slot.className='atlas-language-control';
- slot.innerHTML='<label for="atlasLanguageSelect" class="atlas-language-label">LANG / 语言</label><select id="atlasLanguageSelect" aria-label="Langue du site / Website language">'+Object.entries(LANGUAGES).map(([key,val])=>'<option value="'+key+'">'+val.label+'</option>').join('')+'</select><span id="atlasLanguageStatus" class="atlas-language-status"></span>';
+ slot.innerHTML='<label for="atlasLanguageSelect" class="atlas-language-label">LANG / 语言</label><select id="atlasLanguageSelect" aria-label="Langue du site / Website language">'+Object.entries(LANGUAGES).map(([key,val])=>'<option value="'+key+'">'+val.label+'</option>').join('')+'</select><a id="atlasFullPageTranslate" class="atlas-full-translate" href="#" target="_blank" rel="noopener noreferrer" title="Traduire toute cette page avec un service externe ; les visualisations interactives peuvent être limitées">↗</a><span id="atlasLanguageStatus" class="atlas-language-status" aria-live="polite"></span>';
  const toggler=nav.querySelector('.atlas-mobile-toggle');
  nav.insertBefore(slot,toggler||null);
  slot.querySelector('select').addEventListener('change',e=>setLanguage(e.target.value));
