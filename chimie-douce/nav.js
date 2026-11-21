@@ -1,5 +1,11 @@
 import {SCENES} from './src/content.js';
 import {initI18n,currentLanguage} from './i18n.js';
+// Shared organic art direction is injected after page styles on every route.
+const organicTheme=document.createElement('link');
+organicTheme.rel='stylesheet';
+organicTheme.href=new URL('./organic-system.css',import.meta.url).href;
+organicTheme.dataset.siteTheme='organic';
+document.head.append(organicTheme);
 const root=new URL('./',import.meta.url),links=[['Accueil','', '⌂'],['Atlas 3D','#laboratoire','◉'],['Ingénierie','ingenierie/','✥'],['Planches','planches/','▧'],['Notions','notions/','⌕'],['Cours','research/','◫'],['Bibliographie','bibliographie/','⌕'],['Essai','chimie_douce_interactive.html','✦'],['Labo','lab/','◇']];
 const url=path=>new URL(path,root).href;
 const h=(s)=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
