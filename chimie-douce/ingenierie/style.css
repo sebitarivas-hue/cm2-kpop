@@ -59,3 +59,11 @@
 .course-credit strong{font:500 clamp(30px,3.7vw,59px)/1 'Instrument Serif',Georgia,serif!important;letter-spacing:-.024em!important;color:#f1dcb7!important;white-space:normal!important}
 .course-credit span{font-size:clamp(10px,1vw,12px)!important}
 @media(max-width:650px){.course-credit{align-items:start;flex-direction:column}.course-credit strong{font-size:46px!important}}
+
+/* Temporal engineering processes: explicit automatic loop state. */
+.timeline-controls .auto-run-toggle{padding:8px 13px;min-width:100px;background:#1b3b36;color:#a8dbc9;border-color:#6a9c8b;letter-spacing:.07em;font:600 10px 'DM Mono',monospace;white-space:nowrap}
+.timeline-controls .auto-run-toggle[aria-pressed="true"]{background:#d8c094;color:#132724;border-color:#e9d3a2}
+.timeline-controls .auto-run-toggle:focus-visible{outline:2px solid #f0d7ab;outline-offset:3px}
+.timeline-controls .run-status{font:10px/1.35 'DM Mono',monospace;letter-spacing:.06em;color:#b3d3c7;white-space:normal}
+.timeline-controls #play{min-width:45px;font-size:17px}
+@media(max-width:650px){.timeline-controls{gap:7px}.timeline-controls .run-status{width:100%;order:10;font-size:9px}.timeline-controls label{margin-left:5px}.timeline-controls .auto-run-toggle{min-width:92px;font-size:9px}}
