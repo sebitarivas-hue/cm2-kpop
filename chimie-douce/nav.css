@@ -100,3 +100,8 @@ body:has(.reader-context) .layout>aside{top:61px!important;height:calc(100vh - 6
 }
 html[lang^="zh"]{font-family:'PingFang SC','Microsoft YaHei','Noto Sans CJK SC',sans-serif}
 html[lang^="zh"] .route-menu a,html[lang^="zh"] .breadcrumbs{letter-spacing:0}
+
+#atlasGlobalNav .atlas-full-translate{display:inline-flex;align-items:center;justify-content:center;flex:0 0 25px;width:25px;height:30px;text-decoration:none;color:#dfc189;border:1px solid #b5a07580;font:14px 'DM Mono',monospace}
+#atlasGlobalNav .atlas-full-translate:hover,#atlasGlobalNav .atlas-full-translate:focus-visible{color:#fff;background:#355b50;border-color:#e0c08e}
+#atlasGlobalNav .atlas-full-translate[hidden]{display:none!important}
+@media(max-width:540px){#atlasGlobalNav .atlas-full-translate{width:21px;flex-basis:21px;height:28px}}
