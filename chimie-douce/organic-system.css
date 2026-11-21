@@ -151,3 +151,136 @@ body:has(.layout>aside) .layout{gap:clamp(22px,5vw,85px)}
 @media(prefers-reduced-motion:reduce){
  :is(.discovery-card,.notion-card,.fig-card,.discovery-chapter){transition:none!important;transform:none!important}
 }
+
+/* === ATLAS 2026 — MUSEUM-GRADE ORGANIC SCIENCE INTERFACE === */
+body:has(.workspace){background:#f1ebdf!important}
+.workspace{grid-template-columns:clamp(235px,18vw,295px) minmax(0,1fr) clamp(245px,19vw,312px)!important;min-width:0;max-width:100%;background:#efe9dd!important}
+.workspace .sidebar,.workspace .inspector{background:#e9e8d9!important;color:#273c2d!important;border-color:#a2ae9788!important}
+.workspace .sidebar{box-shadow:inset -1px 0 #b3b49d66}
+.workspace .sidebar-header{background:linear-gradient(145deg,#eceada,#dfe6d5);border-bottom:1px solid #adbaa577}
+.workspace .sidebar-header :is(h1,p){color:#314938!important}
+.workspace .sidebar-header h1{font-family:var(--organic-serif)!important;letter-spacing:-.045em!important}
+.workspace .sidebar-header h1 em{color:#82956b!important}
+.workspace :is(.scene-list,.search-box,.inspector){font-family:var(--organic-sans)!important}
+.workspace .search-box{background:#faf8ed!important;border:1px solid #a6b59e!important;border-radius:4px 18px 4px 18px}
+.workspace .search-box input{color:#304c38!important;background:transparent!important}
+.workspace .scene-list button{border-color:#b2bfae66!important;color:#314a37!important;background:transparent}
+.workspace .scene-list button:hover,.workspace .scene-list button.active,.workspace .scene-list button[aria-current="true"]{background:#d2e0cc!important;color:#1f3b29!important}
+.workspace .catalog-caption,.workspace .sidebar-footer{color:#64745f!important;border-color:#a7b39b66!important}
+.workspace .main{min-width:0;overflow:hidden;background:#f7f3e9!important}
+.workspace .atlas-tools{background:#172b20!important;color:#e4d8bd!important;border-bottom:1px solid #9caa8b66!important;min-height:61px;gap:10px;flex-wrap:wrap}
+.workspace .atlas-tools button{border:1px solid #bcba9d66!important;background:#253e2e!important;color:#e6dfce!important;border-radius:4px 15px 4px 15px!important}
+.workspace .atlas-tools button:hover{background:#426048!important}
+.workspace .stage{
+ height:clamp(550px,70vh,850px)!important;
+ min-height:550px!important;
+ background:radial-gradient(ellipse at 66% 47%,#42665070 0%,#233b2e 39%,#102219 78%)!important;
+ border:0!important;
+}
+.workspace .stage::before{
+ content:"";pointer-events:none;position:absolute;inset:0;z-index:1;
+ background:linear-gradient(90deg,#102219bd 0%,#1022198c 28%,#10221900 67%),
+ radial-gradient(ellipse at 70% 30%,#d9d3ac10,transparent 58%);
+}
+.workspace #viewport{position:absolute;inset:0!important;z-index:0;overflow:hidden;background:transparent!important}
+.workspace #viewport canvas{width:100%;height:100%;display:block;filter:saturate(.91)}
+.workspace .stage-head{z-index:4!important;top:23px!important;left:clamp(20px,3vw,48px)!important;right:clamp(20px,3vw,48px)!important;color:#d8d6c5}
+.workspace .stage-head .eyebrow{color:#d0b788!important;letter-spacing:.17em}
+.workspace .stage-meta{color:#d2dac9!important}
+.workspace .stage-overlay{
+ left:clamp(22px,3.6vw,59px)!important;top:30%!important;bottom:auto!important;
+ align-items:flex-start!important;gap:12px!important;
+ flex-direction:column!important;max-width:min(48%,490px);text-align:left;
+ z-index:3!important;
+}
+.workspace .stage-overlay .scene-num{font:italic 400 clamp(50px,7.5vw,95px)/.8 var(--organic-serif)!important;color:#d8bd91!important;opacity:.92!important}
+.workspace .stage-overlay h2{
+ font:400 clamp(35px,4vw,73px)/1.04 var(--organic-serif)!important;
+ letter-spacing:-.048em!important;color:#f4efe4!important;overflow-wrap:break-word!important;
+ text-shadow:0 4px 20px #14281dcc!important;margin:11px 0!important;
+}
+.workspace .stage-overlay p{font:italic 400 clamp(15px,1.35vw,21px)/1.45 var(--organic-serif)!important;color:#dfdccd!important;text-shadow:0 2px 14px #17271bcc}
+.workspace .stage-overlay .eyebrow{color:#c9b07d!important}
+.workspace .controls-bottom{z-index:5!important;left:clamp(20px,3vw,45px)!important;right:clamp(20px,3vw,45px)!important;bottom:24px!important;gap:12px}
+.workspace .view-tools{gap:7px;flex-wrap:wrap}
+.workspace .view-tools button{
+ background:#17281fdd!important;border:1px solid #e5dcc07a!important;
+ border-radius:4px 13px 4px 13px!important;min-height:42px;color:#f2ecdb!important;
+ padding:10px 14px!important;font:500 12px var(--organic-sans)!important;
+ backdrop-filter:blur(14px)
+}
+.workspace .view-tools button:hover{background:#d2b98a!important;border-color:#e3cc98!important;color:#233725!important}
+.workspace .drag-hint{color:#d1dbc8!important;text-shadow:0 2px 8px #10221a;font:10px var(--organic-sans)!important}
+.workspace .stage-grain{opacity:.07!important}
+.workspace .lower{background:#f2ecdf!important;color:#273d2d!important;min-height:350px;border-top:1px solid #b1ae9388}
+.workspace .lower-left{background:#eee7d7!important;border-color:#a6af9977!important}
+.workspace .lower-right{background:#f6f1e6!important}
+.workspace .lower .lower-header{border-color:#a5ae9a!important}
+.workspace .lower :is(.eyebrow,.f-label,.param-row label){color:#7b674a!important}
+.workspace .lower :is(h2,h3,.big-title){font-family:var(--organic-serif)!important;color:#2b4230!important}
+.workspace .lower :is(p,.f-text,.param-row){color:#475f4d!important}
+.workspace .lower input[type=range],.engineering input[type=range],.lab-layout input[type=range]{accent-color:#bca47b!important}
+.workspace .inspector{border-left:1px solid #a8b49e88!important}
+.workspace .inspector :is(h2,h3,.big-title){color:#2c4734!important}
+.workspace .inspector :is(p,.inspect-point){color:#536b55!important}
+.workspace .inspector .source-action{background:#31513b!important;color:#fff8e8!important;border-radius:4px 16px 4px 16px}
+.workspace .label3d{
+ background:#172a20e8!important;color:#f3eadd!important;border:1px solid #d4be9177!important;
+ box-shadow:0 4px 18px #0b1e17a8!important;border-radius:4px 12px 4px 12px!important;
+ backdrop-filter:blur(9px)
+}
+/* Engineering and laboratory: shared research-workbench styling, not a separate neon application. */
+.engineering .intro,.lab-intro{background:#192d22!important;color:#f4eddf!important}
+.engineering .laboratory-layout{background:#182a20!important;border-color:#82947766!important}
+.engineering :is(.process-list,.control-panel){background:#203528!important}
+.engineering .mode-btn:hover,.engineering .mode-btn.active{background:#375640!important;color:#f4ead8!important}
+.engineering :is(.mode-btn,.param-row,.pane-heading){border-color:#91a5874d!important}
+.engineering :is(.viewport,.view-frame,.canvas-shell){background:radial-gradient(ellipse at 50% 48%,#395946,#152a21 77%)!important}
+.engineering :is(.readout,.scope){background:#efe9db!important;color:#273d2f!important}
+.engineering :is(.readout,.scope) :is(h2,h3,em){color:#2c4434!important}
+.engineering .scope-grid p{color:#536354!important}
+.engineering :is(.readout-actions a,.readout-actions button){border-radius:4px 14px 4px 14px!important}
+.lab-layout .stage,.lab-layout .settings{background:#1e3428!important;border-color:#839a7a66!important}
+.lab-layout .stage{border-radius:3px 20px 4px 20px;overflow:hidden}
+.lab-layout .stage-head{color:#efe9d7!important}
+.lab-layout .settings{border-radius:3px 20px 4px 20px}
+.lab-intro{max-width:none!important;padding-inline:max(22px,6vw)!important}
+.lab-intro h1{color:#f3ead8!important}
+.lab-intro p{color:#cbd6c8!important}
+.tabbar button{background:#2d4534!important;color:#e8e1d3!important}
+.tabbar button.active{background:#d5bd8f!important;color:#233e2b!important}
+.bib-hero,.board-hero{border-color:#8ea07a66!important}
+.bib-hero h1,.board-hero h1{color:#f4ecdc!important}
+.bibliography .knowledge-map,.bibliography .research-filters{background:#f0eadb!important;color:#233f2e!important}
+.bibliography :is(.section-head h2,.research-filters label){color:#2a4733!important}
+.bibliography .research-filters :is(input,select){background:#fffaf1!important;color:#2e4533!important;border:1px solid #a3b39c!important}
+.bibliography .topic-node{box-shadow:0 12px 32px #152c1d22!important}
+.fig-dialog,.concept-dialog{background:#f4f0e4!important;color:#283f30!important}
+:is(.fig-dialog,.concept-dialog) h2{font-family:var(--organic-serif)!important}
+@media(min-width:1500px){.workspace .stage-overlay{max-width:450px}}
+@media(max-width:1220px){
+ .workspace{grid-template-columns:235px minmax(0,1fr)!important}
+ .workspace .inspector{display:none}
+ .workspace .stage-overlay{max-width:43%}
+}
+@media(max-width:760px){
+ .workspace{display:block!important}
+ .workspace .sidebar{position:fixed!important;background:#ebe8d9!important;z-index:40!important}
+ .workspace .stage{min-height:0!important;height:auto!important;display:flex!important;flex-direction:column!important;overflow:hidden!important}
+ .workspace .stage #viewport{position:relative!important;height:clamp(300px,48dvh,475px)!important;min-height:300px!important;inset:auto!important;order:1}
+ .workspace .stage .stage-head{top:12px!important;left:14px!important;right:14px!important}
+ .workspace .stage-overlay{position:relative!important;top:auto!important;left:auto!important;bottom:auto!important;order:2!important;max-width:none!important;padding:12px 20px 16px!important;background:#1a3024!important;gap:6px!important}
+ .workspace .stage-overlay .scene-num{font-size:53px!important}
+ .workspace .stage-overlay h2{font-size:clamp(32px,8vw,45px)!important;margin:4px 0!important}
+ .workspace .stage-overlay p{font-size:17px!important}
+ .workspace .controls-bottom{position:relative!important;order:3!important;left:auto!important;right:auto!important;bottom:auto!important;background:#1a3024!important;padding:4px 16px 16px!important;align-items:flex-start!important;flex-direction:column!important}
+ .workspace .controls-bottom .view-tools button{padding:9px 11px!important;min-height:40px;font-size:12px!important}
+ .workspace .controls-bottom .view-tools button span{display:inline}
+ .workspace .drag-hint{display:none}
+ .workspace .stage-grain{display:none}
+ .workspace .atlas-tools{padding:12px!important}
+ .workspace .lower-left,.workspace .lower-right{padding:24px 20px!important}
+ .engineering .laboratory-layout{display:block!important}
+ .engineering .process-list,.engineering .control-panel{width:100%!important}
+ .bib-hero .orb-wrap{margin-inline:auto}
+}
