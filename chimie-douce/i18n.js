@@ -90,8 +90,9 @@ async function translateChunk(s,lang){
  if(globalThis.Translator?.availability&&globalThis.Translator?.create){
   try{
    if(!translater||translater.lang!==lang){
-    const state=await globalThis.Translator.availability({sourceLanguage:'fr',targetLanguage:LANGUAGES[lang].code});
-    if(state==='available'){const instance=await globalThis.Translator.create({sourceLanguage:'fr',targetLanguage:LANGUAGES[lang].code});translater={lang,instance}}
+    const targetLanguage=lang==='zh'?'zh':LANGUAGES[lang].code;
+    const state=await globalThis.Translator.availability({sourceLanguage:'fr',targetLanguage});
+    if(state==='available'){const instance=await globalThis.Translator.create({sourceLanguage:'fr',targetLanguage});translater={lang,instance}}
    }
    if(translater?.lang===lang)translation=await translater.instance.translate(s);
   }catch{}
