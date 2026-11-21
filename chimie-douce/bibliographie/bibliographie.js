@@ -18,13 +18,33 @@ const all=[...indexed,...expanded].sort((a,b)=>(b.year||0)-(a.year||0)||a.id.loc
 const parms=new URLSearchParams(location.search),state={q:'',topic:parms.get('topic')||'',period:'',kind:'',scene:parms.get('scene')||'',figure:parms.get('figure')||'',ref:parms.get('ref')||''};
 const thematicFigure=r=>{const ss=SCENES.filter(s=>r.scenes.includes(s.id));const list=FIGURES.map(f=>({f,d:Math.min(...(ss.length?ss:[{time:0}]).map(s=>Math.abs(s.time-f.time)))}));return list.sort((a,b)=>a.d-b.d).map(x=>x.f).slice(0,3)};
 function createMap(){const counts=Object.fromEntries(groups.map(x=>[x[0],all.filter(r=>r.topic===x[0]).length]));$('topicMap').innerHTML=groups.map(([id,mark,name])=>'<button class="topic-node '+(state.topic===id?'active':'')+'" data-topic="'+esc(id)+'" aria-pressed="'+(state.topic===id)+'"><span class="symbol">'+mark+'</span><b>'+esc(name)+'</b><small>'+counts[id]+'</small></button>').join('');$('topicMap').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{state.topic=state.topic===b.dataset.topic?'':b.dataset.topic;update()}))}
-function sourceCard(r){const fs=thematicFigure(r),f=fs[0]||FIGURES[0],ss=SCENES.filter(s=>r.scenes.includes(s.id)),period=r.year>2020?'<span class="post">RECHERCHE POSTÉRIEURE</span>':'<span>ANTÉRIEUR OU CONTEMPORAIN AU COURS</span>';
+function sourceCard(r){
+ const fs=thematicFigure(r),f=fs[0]||FIGURES[0],ss=SCENES.filter(s=>r.scenes.includes(s.id)),
+ period=r.year>2020?'<span class="post">RECHERCHE POSTÉRIEURE</span>':'<span>ANTÉRIEUR OU CONTEMPORAIN AU COURS</span>';
  const art=figureIllustration(f,false);
  const a=ss.slice(0,3).map(s=>'<a href="../#'+esc(s.id)+'">◉ '+esc(s.title)+'</a>').join('');
  const v=fs.slice(0,2).map(f=>'<a href="../planches/?figure='+f.id+'&ref='+esc(r.id)+'">⌕ FIG. '+String(f.id).padStart(2,'0')+'</a>').join('');
- const direct=r.url.startsWith('https://doi.org/')?'CONSULTER LE DOI ↗':r.id==='S0'?'VOIR LA VIDÉO ↗':'CONSULTER LA SOURCE ↗';
- return '<article id="ref-'+esc(r.id)+'" class="refcard"><div class="ref-visual">'+art+'</div><div class="ref-meta"><span>'+esc(r.id)+'</span><span>'+esc(r.year||'S. D.')+'</span><span>'+esc(r.topic.toUpperCase())+'</span>'+period+'</div><h3>'+esc(r.title)+'</h3><div class="ref-auth">'+esc(r.author)+' · '+esc(r.journal)+'</div><p class="ref-desc">'+esc(r.insight)+'</p><div class="doi">'+(r.doi?'DOI : '+esc(r.doi):'LIEN DOCUMENTAIRE · '+esc(r.id))+'</div><div class="ref-actions"><a href="'+esc(r.url)+'" target="_blank" rel="noopener noreferrer">'+direct+'</a><button data-bib="'+esc(r.id)+'">COPIER LA CITATION</button></div><div class="connections">'+a+v+'</div></article>';
+ // A DOI or PubMed landing page does not automatically give access to a free PDF.
+ const target=String(r.url||'');
+ const valid=/^https:\/\//i.test(target);
+ const href=valid?esc(target):'https://search.crossref.org/?q='+encodeURIComponent(r.title);
+ const isVideo=r.id==='S0';
+ const isDoi=target.includes('doi.org/');
+ const sourceLabel=isVideo?'OUVRIR LA CONFÉRENCE ↗':isDoi?'OUVRIR L’ARTICLE VIA DOI ↗':'OUVRIR LA NOTICE DE L’ARTICLE ↗';
+ const linkTitle=isVideo?'Voir la conférence originale':isDoi?'Ouvrir la page de l’article via son DOI':'Consulter la notice ou le résumé de cette publication';
+ const pictureLink='<a class="ref-image-link" href="'+href+'" target="_blank" rel="noopener noreferrer" aria-label="'+esc(linkTitle+' : '+r.title)+'">'+art+'<span class="ref-open-overlay" aria-hidden="true">↗ VOIR L’ARTICLE</span></a>';
+ const doiLink=r.doi?'<a class="ref-doi-link" href="https://doi.org/'+encodeURI(r.doi)+'" target="_blank" rel="noopener noreferrer" title="Ouvrir le DOI de la publication">DOI : '+esc(r.doi)+' ↗</a>':'<a class="ref-doi-link" href="'+href+'" target="_blank" rel="noopener noreferrer">'+(isVideo?'VIDÉO ORIGINALE ↗':'NOTICE BIBLIOGRAPHIQUE ↗')+'</a>';
+ return '<article id="ref-'+esc(r.id)+'" class="refcard">'+
+ '<div class="ref-visual">'+pictureLink+'</div>'+
+ '<div class="ref-meta"><span>'+esc(r.id)+'</span><span>'+esc(r.year||'S. D.')+'</span><span>'+esc(r.topic.toUpperCase())+'</span>'+period+'</div>'+
+ '<h3><a class="ref-title-link" href="'+href+'" target="_blank" rel="noopener noreferrer" title="'+esc(linkTitle)+'">'+esc(r.title)+' <span aria-hidden="true">↗</span></a></h3>'+
+ '<div class="ref-auth">'+esc(r.author)+' · '+esc(r.journal)+'</div>'+
+ '<p class="ref-desc">'+esc(r.insight)+'</p>'+
+ '<div class="doi">'+doiLink+'</div>'+
+ '<div class="ref-actions"><a href="'+href+'" target="_blank" rel="noopener noreferrer">'+sourceLabel+'</a><button type="button" data-bib="'+esc(r.id)+'">COPIER LA CITATION</button></div>'+
+ '<div class="connections">'+a+v+'</div></article>';
 }
+
 function activeList(){const q=state.q.toLocaleLowerCase('fr').trim();return all.filter(r=>{if(state.topic&&r.topic!==state.topic)return false;if(state.period&&r.period!==state.period)return false;if(state.kind&&r.kind!==state.kind)return false;if(state.scene&&!r.scenes.includes(state.scene))return false;if(state.figure){let f=FIGURES.find(f=>String(f.id)===String(state.figure));if(f){let ds=SCENES.filter(s=>Math.abs(s.time-f.time)<190).map(s=>s.id);if(!r.scenes.some(s=>ds.includes(s))&&r.id!=='S0')return false}}const blob=[r.title,r.author,r.journal,r.doi,r.topic,r.year,r.insight,r.id].join(' ').toLocaleLowerCase('fr');return!q||blob.includes(q)})}
 function update(){createMap();let rows=activeList();$('totalRef').textContent=all.length+' SOURCES';$('resultsCount').textContent=rows.length+' RÉFÉRENCE'+(rows.length>1?'S':'')+' AFFICHÉE'+(rows.length>1?'S':'');$('results').innerHTML=rows.length?rows.map(sourceCard).join(''):'<div class="empty-list">Aucune référence pour cette combinaison de filtres. Modifiez la recherche.</div>';const related=state.scene?'Scène '+(SCENES.find(s=>s.id===state.scene)?.title||state.scene):state.figure?'Figure '+state.figure+' — rapprochement thématique indicatif':'';$('contextLabel').textContent=related||'34 recherches complémentaires et 19 références du dossier';history.replaceState(null,'',location.pathname+(state.topic||state.scene||state.figure?'?'+new URLSearchParams(Object.entries({topic:state.topic,scene:state.scene,figure:state.figure}).filter(([,v])=>v)).toString():'')+(location.hash||''));
  document.querySelectorAll('[data-bib]').forEach(button=>button.onclick=async()=>{const r=all.find(r=>r.id===button.dataset.bib);if(!r)return;const citation=r.title+' ('+(r.year||'s.d.')+'). '+r.journal+'. '+r.url;try{await navigator.clipboard.writeText(citation);button.textContent='COPIÉ ✓'}catch{button.textContent='COPIE INDISPONIBLE'}});
