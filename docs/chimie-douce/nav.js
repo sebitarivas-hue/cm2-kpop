@@ -1,4 +1,5 @@
 import {SCENES} from './src/content.js';
+import {initI18n,currentLanguage} from './i18n.js';
 const root=new URL('./',import.meta.url),links=[['Accueil','', '⌂'],['Atlas 3D','#laboratoire','◉'],['Ingénierie','ingenierie/','✥'],['Planches','planches/','▧'],['Cours','research/','◫'],['Bibliographie','bibliographie/','⌕'],['Essai','chimie_douce_interactive.html','✦'],['Labo','lab/','◇']];
 const url=path=>new URL(path,root).href;
 const h=(s)=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -7,8 +8,11 @@ const n=document.createElement('nav');n.id='atlasGlobalNav';n.setAttribute('aria
 n.insertAdjacentHTML('beforeend','<button type="button" id="atlasMobileMenuBtn" class="atlas-mobile-toggle" aria-expanded="false" aria-controls="atlasGlobalNavLinks" aria-label="Ouvrir le menu du site">☰ <span>MENU</span></button>');
 n.querySelector('.route-menu').id='atlasGlobalNavLinks';
 document.body.prepend(n);
+initI18n(n);
 const mobileToggle=document.getElementById('atlasMobileMenuBtn');
-const setMobileOpen=open=>{n.classList.toggle('mobile-menu-open',open);mobileToggle.setAttribute('aria-expanded',String(open));mobileToggle.setAttribute('aria-label',open?'Fermer le menu du site':'Ouvrir le menu du site');mobileToggle.innerHTML=open?'× <span>FERMER</span>':'☰ <span>MENU</span>'};
+const mobileLabels={fr:['MENU','FERMER'],en:['MENU','CLOSE'],es:['MENÚ','CERRAR'],it:['MENU','CHIUDI'],zh:['菜单','关闭']};
+const setMobileOpen=open=>{const labels=mobileLabels[currentLanguage()]||mobileLabels.fr;n.classList.toggle('mobile-menu-open',open);mobileToggle.setAttribute('aria-expanded',String(open));mobileToggle.setAttribute('aria-label',open?labels[1]:labels[0]);mobileToggle.innerHTML=open?'× <span>'+labels[1]+'</span>':'☰ <span>'+labels[0]+'</span>'};
+window.addEventListener('chimie:language',()=>setMobileOpen(n.classList.contains('mobile-menu-open')));
 mobileToggle.addEventListener('click',()=>setMobileOpen(!n.classList.contains('mobile-menu-open')));
 n.querySelectorAll('.route-menu a').forEach(a=>a.addEventListener('click',()=>setMobileOpen(false)));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')setMobileOpen(false)});
