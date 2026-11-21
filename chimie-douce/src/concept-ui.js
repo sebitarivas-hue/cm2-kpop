@@ -1,5 +1,5 @@
 import {conceptRelations,plateAsset,plateVideo} from './knowledge-graph.js';
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;':'&quot;'}[c]));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const base=new URL('../',import.meta.url);
 const link=p=>new URL(p,base).href;
 let dialog=null;
