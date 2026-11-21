@@ -2,8 +2,11 @@ import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {makeOrganicModel,disposeOrganicModel} from './models.js';
 import {evaluateKinetics} from './kinetics.js';
+import {translateTerm,currentLanguage} from '../i18n.js';
 
 const $=id=>document.getElementById(id);
+const tr=s=>translateTerm(s);
+const locale=()=>({fr:'fr-FR',en:'en-GB',es:'es-ES',it:'it-IT',zh:'zh-CN'}[currentLanguage()]||'fr-FR');
 const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const videos='https://www.youtube.com/watch?v=LkvdhO6XWZ4';
@@ -42,17 +45,17 @@ let mode=configs[0],t=0,playing=false,speed=1,last=performance.now(),current=nul
 function playbackUI(){
  const auto=$('autoRun'),play=$('play'),status=$('runStatus');
  if(auto){auto.setAttribute('aria-pressed',String(autoRun));auto.textContent=autoRun?'⟳ AUTO ON':'⟳ AUTO OFF';}
- if(play){play.textContent=playing?'❚❚':'▶';play.setAttribute('aria-label',playing?'Mettre la simulation en pause':'Démarrer la simulation');}
+ if(play){play.textContent=playing?'❚❚':'▶';play.setAttribute('aria-label',playing?tr('Mettre la simulation en pause'):tr('Démarrer la simulation'));}
  if(status)status.textContent=prefersReducedMotion.matches&&!autoRun?'ANIMATIONS RÉDUITES · LECTURE MANUELLE':autoRun?(document.hidden?'SUSPENDU HORS ÉCRAN':playing?'AUTO · ÉVOLUTION EN BOUCLE':'AUTO · EN PAUSE'):'LECTURE MANUELLE';
 }
 let renderer=null,scene=null,camera=null,orbit=null,resizeObserver=null;let frameCounter=0;
-function format(v,d=3){return Number(v).toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d})}
-function selectMode(id){mode=idMap[id]||configs[0];t=0;holdAtEnd=0;playing=autoRun&&!document.hidden;resumeAfterVisibility=false;playbackUI();$('sceneCounter').textContent=mode.n+' / 05';$('sceneTitle').textContent=mode.name;$('scaleLabel').textContent=mode.scale;$('modelIntro').textContent=mode.description;$('equation').textContent=mode.equation;$('equationDetail').textContent=mode.detail;$('graphTitle').textContent=mode.name;
- $('modeList').innerHTML=configs.map(c=>'<button type="button" class="mode-btn '+(mode.id===c.id?'active':'')+'" data-mode="'+c.id+'" aria-pressed="'+(mode.id===c.id)+'"><span class="mode-icon">'+c.icon+'</span><span><strong>'+escapeHTML(c.name)+'</strong><small>'+escapeHTML(c.sub)+'</small></span></button>').join('');
+function format(v,d=3){return Number(v).toLocaleString(locale(),{minimumFractionDigits:d,maximumFractionDigits:d})}
+function selectMode(id){mode=idMap[id]||configs[0];t=0;holdAtEnd=0;playing=autoRun&&!document.hidden;resumeAfterVisibility=false;playbackUI();$('sceneCounter').textContent=mode.n+' / 05';$('sceneTitle').textContent=tr(mode.name);$('scaleLabel').textContent=tr(mode.scale);$('modelIntro').textContent=tr(mode.description);$('equation').textContent=mode.equation;$('equationDetail').textContent=tr(mode.detail);$('graphTitle').textContent=tr(mode.name);
+ $('modeList').innerHTML=configs.map(c=>'<button type="button" class="mode-btn '+(mode.id===c.id?'active':'')+'" data-mode="'+c.id+'" aria-pressed="'+(mode.id===c.id)+'"><span class="mode-icon">'+c.icon+'</span><span><strong>'+escapeHTML(tr(c.name))+'</strong><small>'+escapeHTML(tr(c.sub))+'</small></span></button>').join('');
  $('modeList').querySelectorAll('button').forEach(b=>b.onclick=()=>selectMode(b.dataset.mode));
- $('parameters').innerHTML=mode.inputs.map(d=>'<div class="param-row"><div class="param-heading"><label for="p-'+d.key+'">'+escapeHTML(d.label)+'</label><output id="o-'+d.key+'">'+format(params[mode.id][d.key],d.step>=1?0:2)+' '+escapeHTML(d.unit)+'</output></div><input id="p-'+d.key+'" type="range" min="'+d.min+'" max="'+d.max+'" step="'+d.step+'" value="'+params[mode.id][d.key]+'"><small>'+escapeHTML(d.note)+'</small></div>').join('');
+ $('parameters').innerHTML=mode.inputs.map(d=>'<div class="param-row"><div class="param-heading"><label for="p-'+d.key+'">'+escapeHTML(tr(d.label))+'</label><output id="o-'+d.key+'">'+format(params[mode.id][d.key],d.step>=1?0:2)+' '+escapeHTML(d.unit)+'</output></div><input id="p-'+d.key+'" type="range" min="'+d.min+'" max="'+d.max+'" step="'+d.step+'" value="'+params[mode.id][d.key]+'"><small>'+escapeHTML(tr(d.note))+'</small></div>').join('');
  mode.inputs.forEach(d=>{const el=$('p-'+d.key);el.oninput=()=>{params[mode.id][d.key]=Number(el.value);$('o-'+d.key).textContent=format(Number(el.value),d.step>=1?0:2)+' '+d.unit;update()}});
- $('sources').innerHTML='<div class="pane-heading" style="padding:0 0 9px;margin:8px 0 3px"><span>PUBLICATIONS PRIMAIRES / REVUES</span></div>'+mode.sources.map(([name,href])=>'<a target="_blank" rel="noopener noreferrer" href="'+href+'">'+escapeHTML(name)+' ↗</a>').join('')+'<a href="../bibliographie/?scene='+({'vegetal':'cell','mycelium':'mycelium','solgel':'solgel','encapsulation':'encapsulation','mof':'mof'}[mode.id])+'">BIBLIOGRAPHIE CONNECTÉE →</a>';
+ $('sources').innerHTML='<div class="pane-heading" style="padding:0 0 9px;margin:8px 0 3px"><span>'+escapeHTML(tr('PUBLICATIONS PRIMAIRES / REVUES'))+'</span></div>'+mode.sources.map(([name,href])=>'<a target="_blank" rel="noopener noreferrer" href="'+href+'">'+escapeHTML(name)+' ↗</a>').join('')+'<a href="../bibliographie/?scene='+({'vegetal':'cell','mycelium':'mycelium','solgel':'solgel','encapsulation':'encapsulation','mof':'mof'}[mode.id])+'">BIBLIOGRAPHIE CONNECTÉE →</a>';
  if(current){disposeOrganicModel(current.root);scene.remove(current.root)}
  current=makeOrganicModel(mode.id,params[mode.id]);if(scene)scene.add(current.root);if(camera&&orbit){camera.position.set(...current.camera);orbit.target.set(0,.1,0);orbit.update()}
  const hash=new URL(location.href);hash.searchParams.set('mode',mode.id);history.replaceState({},'',hash.pathname+hash.search+hash.hash);document.dispatchEvent(new Event('atlas:navigate'));window.dispatchEvent(new CustomEvent('chimie:mode',{detail:{id:mode.id}}));update();
@@ -68,7 +71,7 @@ function phaseFor(id,m){
   default:return 0;
  }
 }
-function update(){if(!current)return;let p=params[mode.id],m=evaluateKinetics(mode.id,t,p);current.tick(t,m,p);$('timeline').value=Math.round(t*1000);$('timeDisplay').textContent='τ = '+format(t);$('coordLabel').textContent='τ = '+format(t);const idx=phaseFor(mode.id,m);const [title,desc]=mode.phases[idx];$('phaseNumber').textContent=String(idx+1).padStart(2,'0')+' / 04';$('phaseTitle').textContent=title;$('phaseDescription').textContent=desc;$('phaseTime').textContent='τ '+format(t,2)+' · INDICE DE PROCESSUS';$('metricGrid').innerHTML=mode.metrics.map(([key,label,unit])=>'<div class="metric"><small>'+escapeHTML(label)+'</small><strong>'+format(m[key],3)+'</strong><em> '+(unit==='fraction'?'[0–1]':'[réduit]')+'</em></div>').join('');$('graphLegend').textContent=mode.metrics.map((x,i)=>(['●','◆','○'][i]+' '+x[1])).join(' · ');$('processStatement').textContent=title+' — '+mode.name;$('whatYouSee').textContent=desc+' Transformation affichée : '+mode.metrics.slice(0,2).map(([k,l])=>l+' = '+format(m[k])).join(' ; ')+'. Les variables pilotent la géométrie uniquement sous les hypothèses déclarées.';drawGraph();}
+function update(){if(!current)return;let p=params[mode.id],m=evaluateKinetics(mode.id,t,p);current.tick(t,m,p);$('timeline').value=Math.round(t*1000);$('timeDisplay').textContent='τ = '+format(t);$('coordLabel').textContent='τ = '+format(t);const idx=phaseFor(mode.id,m);const [title,desc]=mode.phases[idx];$('phaseNumber').textContent=String(idx+1).padStart(2,'0')+' / 04';$('phaseTitle').textContent=tr(title);$('phaseDescription').textContent=tr(desc);$('phaseTime').textContent='τ '+format(t,2)+' · '+tr('INDICE DE PROCESSUS');$('metricGrid').innerHTML=mode.metrics.map(([key,label,unit])=>'<div class="metric"><small>'+escapeHTML(tr(label))+'</small><strong>'+format(m[key],3)+'</strong><em> '+(unit==='fraction'?'[0–1]':'[normalized]')+'</em></div>').join('');$('graphLegend').textContent=mode.metrics.map((x,i)=>(['●','◆','○'][i]+' '+tr(x[1]))).join(' · ');$('processStatement').textContent=tr(title)+' — '+tr(mode.name);$('whatYouSee').textContent=desc+' Transformation affichée : '+mode.metrics.slice(0,2).map(([k,l])=>l+' = '+format(m[k])).join(' ; ')+'. Les variables pilotent la géométrie uniquement sous les hypothèses déclarées.';drawGraph();}
 function drawGraph(){const canvas=$('chart'),ctx=canvas.getContext('2d');if(!ctx)return;const rect=canvas.getBoundingClientRect();const W=Math.max(340,Math.round(rect.width*(devicePixelRatio||1))),H=Math.max(180,Math.round(rect.height*(devicePixelRatio||1)));if(canvas.width!==W||canvas.height!==H){canvas.width=W;canvas.height=H;}ctx.clearRect(0,0,W,H);ctx.fillStyle='#091d20';ctx.fillRect(0,0,W,H);const left=54,top=25,right=W-20,bottom=H-36,width=right-left,height=bottom-top;
  ctx.strokeStyle='rgba(173,203,182,.14)';ctx.lineWidth=1;ctx.font=(Math.max(10,Math.round(W*.011)))+'px monospace';ctx.fillStyle='#9eb5ac';for(let i=0;i<=4;i++){const y=top+height*(i/4);ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(right,y);ctx.stroke();ctx.fillText(format(1-i/4,2),8,y+4);}for(let i=0;i<=4;i++){const x=left+width*i/4;ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,bottom);ctx.stroke();ctx.fillText(format(i/4,2),x-11,bottom+21)}
  const colors=['#a3e0c3','#e6c18b','#7babae'];mode.metrics.forEach(([k],j)=>{ctx.strokeStyle=colors[j];ctx.lineWidth=Math.max(2,W/510);ctx.beginPath();for(let i=0;i<=160;i++){let tau=i/160,m=evaluateKinetics(mode.id,tau,params[mode.id]),value=clamp(m[k]);const x=left+tau*width,y=bottom-value*height;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.stroke();const mm=evaluateKinetics(mode.id,t,params[mode.id]);ctx.fillStyle=colors[j];ctx.beginPath();ctx.arc(left+width*t,bottom-clamp(mm[k])*height,Math.max(4,W/180),0,Math.PI*2);ctx.fill()});ctx.strokeStyle='#d9c79c';ctx.setLineDash([4,5]);ctx.beginPath();ctx.moveTo(left+width*t,top);ctx.lineTo(left+width*t,bottom);ctx.stroke();ctx.setLineDash([]);}
@@ -102,5 +105,12 @@ document.addEventListener('visibilitychange',()=>{
 });
 prefersReducedMotion.addEventListener?.('change',e=>{if(e.matches){autoRun=false;playing=false;resumeAfterVisibility=false;playbackUI()}});
 
+// Rerender controls and computed labels on language changes, retaining experiment time and settings.
+window.addEventListener('chimie:language',()=>{
+ const savedT=t,savedPlaying=playing,savedAuto=autoRun;
+ selectMode(mode.id);
+ t=savedT;playing=savedPlaying;autoRun=savedAuto;
+ playbackUI();update();
+});
 window.addEventListener('chimie:requestMode',e=>{if(e.detail?.id&&idMap[e.detail.id])selectMode(e.detail.id)});
 init3D();selectMode(new URLSearchParams(location.search).get('mode')||'vegetal');playbackUI();requestAnimationFrame(animate);
