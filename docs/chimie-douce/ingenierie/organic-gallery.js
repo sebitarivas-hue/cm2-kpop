@@ -27,5 +27,5 @@ function renderGallery(){
  g.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{const mode=b.dataset.view;window.dispatchEvent(new CustomEvent('chimie:requestMode',{detail:{id:mode}}));lookup('engineering')?.scrollIntoView({behavior:'smooth',block:'start'})});
  g.querySelectorAll('[data-organic]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();window.dispatchEvent(new CustomEvent('chimie:requestMode',{detail:{id:a.dataset.organic}}));lookup('engineering')?.scrollIntoView({behavior:'smooth',block:'start'})}));
 }
-renderGallery();setObservation('vegetal');
+renderGallery();setObservation(new URLSearchParams(location.search).get('mode')||'vegetal');
 window.addEventListener('chimie:mode',e=>setObservation(e.detail?.id));
