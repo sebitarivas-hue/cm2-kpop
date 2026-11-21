@@ -1,7 +1,7 @@
 import {SOURCES,SCENES} from '../src/content.js';
 import {FIGURES} from '../src/figures.js';
 import {EXTRA_BIBLIO} from '../src/bibliography-extra.js';
-import {figureIllustration} from '../src/illustrations.js';
+import {SCENE_RESOURCE_MAP,PLATE_BY_ID} from '../src/knowledge-graph.js';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const yrs={S0:2020,R1:2002,R2:2003,R3:2011,R4:2014,R5:2016,R6:2016,R7:2017,R8:2016,R9:2017,R10:2006,R11:2019,R12:2018,R13:2018,R14:2006,R15:2007,R16:2015,R17:2011,R18:2016};
@@ -16,12 +16,12 @@ const indexed=Object.entries(SOURCES).map(([id,r])=>{const scenes=SCENES.filter(
 const expanded=EXTRA_BIBLIO.map(r=>({...r,origin:'approfondissement',kind:'article'}));
 const all=[...indexed,...expanded].sort((a,b)=>(b.year||0)-(a.year||0)||a.id.localeCompare(b.id));
 const parms=new URLSearchParams(location.search),state={q:'',topic:parms.get('topic')||'',period:'',kind:'',scene:parms.get('scene')||'',figure:parms.get('figure')||'',ref:parms.get('ref')||''};
-const thematicFigure=r=>{const ss=SCENES.filter(s=>r.scenes.includes(s.id));const list=FIGURES.map(f=>({f,d:Math.min(...(ss.length?ss:[{time:0}]).map(s=>Math.abs(s.time-f.time)))}));return list.sort((a,b)=>a.d-b.d).map(x=>x.f).slice(0,3)};
+const thematicFigure=r=>[...new Set((r.scenes||[]).flatMap(id=>SCENE_RESOURCE_MAP[id]?.plates||[]))].slice(0,3).map(id=>PLATE_BY_ID[id]).filter(Boolean);
 function createMap(){const counts=Object.fromEntries(groups.map(x=>[x[0],all.filter(r=>r.topic===x[0]).length]));$('topicMap').innerHTML=groups.map(([id,mark,name])=>'<button class="topic-node '+(state.topic===id?'active':'')+'" data-topic="'+esc(id)+'" aria-pressed="'+(state.topic===id)+'"><span class="symbol">'+mark+'</span><b>'+esc(name)+'</b><small>'+counts[id]+'</small></button>').join('');$('topicMap').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{state.topic=state.topic===b.dataset.topic?'':b.dataset.topic;update()}))}
 function sourceCard(r){
- const fs=thematicFigure(r),f=fs[0]||FIGURES[0],ss=SCENES.filter(s=>r.scenes.includes(s.id)),
+ const fs=thematicFigure(r),ss=SCENES.filter(s=>r.scenes.includes(s.id)),
  period=r.year>2020?'<span class="post">RECHERCHE POSTÉRIEURE</span>':'<span>ANTÉRIEUR OU CONTEMPORAIN AU COURS</span>';
- const art=figureIllustration(f,false);
+ const art='<span class="ref-journal-mark">PUBLICATION SCIENTIFIQUE</span><span class="ref-journal-year">'+esc(r.year||'—')+'</span><span class="ref-journal-topic">'+esc(r.topic.toUpperCase())+'</span>'; 
  const a=ss.slice(0,3).map(s=>'<a href="../#'+esc(s.id)+'">◉ '+esc(s.title)+'</a>').join('');
  const v=fs.slice(0,2).map(f=>'<a href="../planches/?figure='+f.id+'&ref='+esc(r.id)+'">⌕ FIG. '+String(f.id).padStart(2,'0')+'</a>').join('');
  // A DOI or PubMed landing page does not automatically give access to a free PDF.
@@ -32,7 +32,7 @@ function sourceCard(r){
  const isDoi=target.includes('doi.org/');
  const sourceLabel=isVideo?'OUVRIR LA CONFÉRENCE ↗':isDoi?'OUVRIR L’ARTICLE VIA DOI ↗':'OUVRIR LA NOTICE DE L’ARTICLE ↗';
  const linkTitle=isVideo?'Voir la conférence originale':isDoi?'Ouvrir la page de l’article via son DOI':'Consulter la notice ou le résumé de cette publication';
- const pictureLink='<a class="ref-image-link" href="'+href+'" target="_blank" rel="noopener noreferrer" aria-label="'+esc(linkTitle+' : '+r.title)+'">'+art+'<span class="ref-open-overlay" aria-hidden="true">↗ VOIR L’ARTICLE</span></a>';
+ const pictureLink='<a class="ref-image-link" href="'+href+'" target="_blank" rel="noopener noreferrer" aria-label="'+esc(linkTitle+' : '+r.title)+'">'+art+'<span class="ref-open-overlay" aria-hidden="true">↗ CONSULTER LA PUBLICATION</span></a>';
  const doiLink=r.doi?'<a class="ref-doi-link" href="https://doi.org/'+encodeURI(r.doi)+'" target="_blank" rel="noopener noreferrer" title="Ouvrir le DOI de la publication">DOI : '+esc(r.doi)+' ↗</a>':'<a class="ref-doi-link" href="'+href+'" target="_blank" rel="noopener noreferrer">'+(isVideo?'VIDÉO ORIGINALE ↗':'NOTICE BIBLIOGRAPHIQUE ↗')+'</a>';
  return '<article id="ref-'+esc(r.id)+'" class="refcard">'+
  '<div class="ref-visual">'+pictureLink+'</div>'+
