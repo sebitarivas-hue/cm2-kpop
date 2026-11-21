@@ -6,7 +6,7 @@
 <title>Clément Sanchez — Vers des matériaux hybrides vivants | Cours du Collège de France · Atlas 3D</title>
 <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./editorial.css">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.187.0/examples/jsm/"}}</script>
-<link rel="stylesheet" href="./nav.css"></head>
+<link rel="stylesheet" href="./nav.css"><link rel="stylesheet" href="./organic-home.css"></head>
 <body>
 <div id="app">
 <section class="editorial-hero" id="accueil" aria-label="Ouverture de l'atlas des matières vivantes">
@@ -23,7 +23,15 @@
   </div>
   <div class="hero-bottom"><span>01 / MATIÈRE COMME SYSTÈME</span><span>DOCUMENTATION SCIENTIFIQUE ET MODÈLES PÉDAGOGIQUES · SITE INDÉPENDANT</span><a href="#laboratoire">DÉCOUVRIR L'ATLAS ↓</a></div>
 </section>
-<div class="editorial-divider"><span class="serial">I.</span><span>L'EXPÉRIENCE COMMENCE ICI</span><div class="divider-hairline"></div><span class="divider-side">STRUCTURES / INTERFACES / ÉNERGIE</span></div>
+<section class="organic-home" aria-labelledby="organicHomeTitle" id="organique">
+  <div class="organic-home-heading"><div class="organic-home-kicker">02 / OBSERVATIONS ORGANIQUES · FORMES RÉELLES</div>
+  <h2 id="organicHomeTitle">La nature<br><em>avant le modèle.</em></h2>
+  <p>De la feuille au réseau fongique, de la matière poreuse aux cellules et cristaux : cinq images réelles de référence, chacune reliée à un mécanisme d’ingénierie chimique douce manipulable en 3D.</p>
+  <p class="organic-home-note">OBSERVATION ET SIMULATION NE SONT PAS IDENTIQUES : CERTAINES IMAGES DOCUMENTENT UNIQUEMENT LA MORPHOLOGIE, SANS MONTRER LA RÉACTION REPRÉSENTÉE.</p></div>
+  <div class="organic-home-grid" id="organicHomeCards" aria-label="Galerie de cinq photographies et micrographies"></div>
+  <div class="organic-home-bottom"><a href="./ingenierie/">EXPLORER LES PHOTOGRAPHIES ET LES MODÈLES 3D ↗</a><span>CRÉDITS ET LICENCES ASSOCIÉS À CHAQUE IMAGE</span></div>
+ </section>
+ <div class="editorial-divider"><span class="serial">I.</span><span>L'EXPÉRIENCE COMMENCE ICI</span><div class="divider-hairline"></div><span class="divider-side">STRUCTURES / INTERFACES / ÉNERGIE</span></div>
 <div class="workspace" id="laboratoire">
   <aside class="sidebar" id="sidebar" aria-label="Catalogue des scènes">
     <div class="sidebar-header"><div class="eyebrow gold">COLLECTION EXPÉRIMENTALE</div><h1>De la forme<br><em>à la vie.</em></h1><p>Une exploration multi-échelle de la chimie douce, des réseaux atomiques aux dispositifs biohybrides.</p></div>
@@ -68,4 +76,5 @@
 <button class="mobile-nav" id="mobileMenu" aria-label="Ouvrir le catalogue">☰ <span>SCÈNES</span></button>
 <script>window.__atlasBooted=false;setTimeout(()=>{if(!window.__atlasBooted){const l=document.getElementById('loading');if(l)l.innerHTML='<strong style="color:#e5bf80">Moteur WebGL non chargé</strong><span>Vérifiez la connexion Internet et les autorisations du navigateur.</span><a href="./research/" style="color:#91d2d8">Lire la monographie scientifique ↗</a>'}},9000);</script>
 <script type="module" src="./src/app.js"></script>
+<script type="module" src="./organic-home.js"></script>
 <script type="module" src="./nav.js"></script></body></html>

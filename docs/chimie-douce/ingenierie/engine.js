@@ -47,7 +47,7 @@ function selectMode(id){mode=idMap[id]||configs[0];t=0;playing=false;$('play').t
  $('sources').innerHTML='<div class="pane-heading" style="padding:0 0 9px;margin:8px 0 3px"><span>PUBLICATIONS PRIMAIRES / REVUES</span></div>'+mode.sources.map(([name,href])=>'<a target="_blank" rel="noopener noreferrer" href="'+href+'">'+escapeHTML(name)+' ↗</a>').join('')+'<a href="../bibliographie/?scene='+({'vegetal':'cell','mycelium':'mycelium','solgel':'solgel','encapsulation':'encapsulation','mof':'mof'}[mode.id])+'">BIBLIOGRAPHIE CONNECTÉE →</a>';
  if(current){disposeOrganicModel(current.root);scene.remove(current.root)}
  current=makeOrganicModel(mode.id,params[mode.id]);if(scene)scene.add(current.root);if(camera&&orbit){camera.position.set(...current.camera);orbit.target.set(0,.1,0);orbit.update()}
- const hash=new URL(location.href);hash.searchParams.set('mode',mode.id);history.replaceState({},'',hash.pathname+hash.search+hash.hash);document.dispatchEvent(new Event('atlas:navigate'));update();
+ const hash=new URL(location.href);hash.searchParams.set('mode',mode.id);history.replaceState({},'',hash.pathname+hash.search+hash.hash);document.dispatchEvent(new Event('atlas:navigate'));window.dispatchEvent(new CustomEvent('chimie:mode',{detail:{id:mode.id}}));update();
 }
 function phaseFor(id,m){
  // The phases are inferred from computed state variables, not arbitrary timeline quarters.
@@ -74,4 +74,5 @@ $('timeline').addEventListener('input',e=>{t=clamp(Number(e.target.value)/1000);
 $('exportCSV').onclick=()=>download(new Blob([csv()],{type:'text/csv;charset=utf-8'}),'chimie-douce_'+mode.id+'_tau.csv');$('savePNG').onclick=()=>{if(!renderer)return alert('Le rendu WebGL est indisponible.');renderer.render(scene,camera);renderer.domElement.toBlob(blob=>{if(blob)download(blob,'chimie-douce_'+mode.id+'_'+Math.round(t*1000)+'.png')},'image/png')};
 document.addEventListener('keydown',e=>{const tag=e.target?.tagName;if(['INPUT','TEXTAREA','SELECT','BUTTON'].includes(tag))return;if(e.key===' '){e.preventDefault();$('play').click()}if(e.key==='ArrowRight'){e.preventDefault();$('step').click()}if(e.key==='ArrowLeft'){e.preventDefault();playing=false;t=clamp(t-.025);update()}if(e.key.toLowerCase()==='r')$('reset').click()});
 document.addEventListener('visibilitychange',()=>{last=performance.now();if(document.hidden){playing=false;$('play').textContent='▶'}});
+window.addEventListener('chimie:requestMode',e=>{if(e.detail?.id&&idMap[e.detail.id])selectMode(e.detail.id)});
 init3D();selectMode(new URLSearchParams(location.search).get('mode')||'vegetal');if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){playing=false}else{playing=true;$('play').textContent='❚❚'}requestAnimationFrame(animate);
