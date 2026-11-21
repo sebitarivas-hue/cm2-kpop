@@ -93,8 +93,8 @@ function localTranslate(s,lang){
  const value=s.trim();
  let translated=CONCEPT_LABELS[value]?.[lang]??FIGURE_TITLE_TERMS[value]?.[lang]??INTERFACE_TERMS[value]?.[lang]??HOME_TERMS[value]?.[lang]??UI[value]?.[lang]??SCIENCE_TERMS[value]?.[lang]??CHAPTER_TERMS[value]?.[lang];
  if(!translated){
-  const entry=Object.entries(CHAPTER_TERMS).find(([key])=>/^\\d+\\.\\s/.test(key)&&key.includes(value));
-  if(entry?.[1]?.[lang])translated=entry[1][lang].replace(/^\\d+\\.\\s*/, '').replace(/\\s*\\(\\d\\d:\\d\\d[^)]*\\)$/, '');
+  const entry=Object.entries(CHAPTER_TERMS).find(([key])=>/^\d+\.\s/.test(key)&&key.includes(value));
+  if(entry?.[1]?.[lang])translated=entry[1][lang].replace(/^\d+\.\s*/, '').replace(/\s*\(\d\d:\d\d[^)]*\)$/, '');
  }
  return translated?s.replace(value,translated):null;
 }
