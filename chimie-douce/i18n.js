@@ -53,9 +53,9 @@ const UI={
 "OUVRIR LES 70 PLANCHES":{en:"OPEN ALL 70 PLATES",es:"ABRIR LAS 70 LÁMINAS",it:"APRI LE 70 TAVOLE",zh:"打开 70 张图版"},
 "ORIGINAL / COLLEGE DE FRANCE":{en:"ORIGINAL / COLLÈGE DE FRANCE",es:"ORIGINAL / COLLÈGE DE FRANCE",it:"ORIGINALE / COLLÈGE DE FRANCE",zh:"原始课程 / 法兰西公学院"}
 };
-const SKIP="script,style,noscript,pre,code,textarea,svg,math,[contenteditable],.ref-title-link,.ref-doi-link,.doi,.equation,.bibliographic-original,[data-no-translate]";
+const SKIP="script,style,noscript,pre,code,textarea,svg,math,[contenteditable],.ref-title-link,.ref-doi-link,.doi,.equation,.bibliographic-original,.atlas-language-control,[data-no-translate]";
 const textRecords=new Map(),attrRecords=new Map();
-let current='fr',version=0,busy=0,queue=[],seen=new Set(),observer=null,translater=null,scheduled=false,failures=0,success=0;
+let current='fr',version=0,busy=0,queue=[],processed=new WeakMap(),observer=null,translater=null,scheduled=false,failures=0,success=0;
 const storageKey="chimie:language";
 const canTranslate=n=>!!n?.parentElement&&!n.parentElement.closest(SKIP);
 const hasLanguage=s=>/[\p{L}]/u.test(s) && s.replace(/\s/g,'').length>4&&!/^[A-Z][A-Z0-9 .:+()−–\-×⁄%]+$/.test(s);
@@ -123,7 +123,8 @@ function textNode(n,original){
  if(!hasLanguage(src))return;
  if(!textRecords.has(n))textRecords.set(n,src);
  const v=textRecords.get(n);if(current==='fr'){n.nodeValue=v;return}
- const direct=localTranslate(v,current);if(direct!==null){n.nodeValue=direct;return}
+ if(processed.get(n)===current)return;
+ const direct=localTranslate(v,current);if(direct!==null){n.nodeValue=direct;processed.set(n,current);return}
  if(!/\b(de|du|des|une|un|le|la|les|dans|avec|pour|sur|par|et|est|sont|aux|entre|cette|ces|leurs|qui|que)\b/i.test(v)&&!/[éèàùêçîôûëï]/i.test(v))return;
  schedule({node:n,source:v,lang:current,version});
 }
@@ -147,8 +148,8 @@ function schedule(item){
  if(!item.node.isConnected)return;
  const rect=item.node.parentElement?.getBoundingClientRect();
  if(rect&&(rect.top>innerHeight+950||rect.bottom<-550))return;
- const key=item.lang+':'+item.source;
- if(seen.has(key)&&!item.node.isConnected)return;
+ if(processed.get(item.node)===item.lang)return;
+ processed.set(item.node,item.lang);
  queue.push(item);
  if(queue.length>650)queue=queue.slice(0,650);
  pump();
@@ -185,7 +186,7 @@ function displayLabels(){
 }
 export function setLanguage(lang){
  const next=normalizeLanguage(lang);
- if(next!==current){version++;queue=[];busy=0;current=next;translater=null;failures=success=0;}
+ if(next!==current){version++;queue=[];processed=new WeakMap();current=next;translater=null;failures=success=0;}
  try{localStorage.setItem(storageKey,current)}catch{}
  displayLabels();
  for(const [n,v] of textRecords)if(n.isConnected)n.nodeValue=v;
