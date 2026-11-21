@@ -65,6 +65,9 @@ const UI={
 };
 const SKIP="script,style,noscript,pre,code,textarea,svg,math,[contenteditable],.ref-title-link,.ref-doi-link,.doi,.equation,.bibliographic-original,.atlas-language-control,[data-no-translate]";
 const textRecords=new Map(),attrRecords=new Map();
+// Distinguish mutations produced by our translator from new French text injected by an interactive module.
+const appliedText=new WeakMap();
+function applyTranslation(node,value){appliedText.set(node,value);node.nodeValue=value}
 let current='fr',version=0,busy=0,queue=[],processed=new WeakMap(),observer=null,translater=null,scheduled=false,failures=0,success=0;
 const storageKey="chimie:language";
 
@@ -162,9 +165,9 @@ function textNode(n,original){
  const src=original??n.nodeValue;
  if(!hasLanguage(src))return;
  if(!textRecords.has(n))textRecords.set(n,src);
- const v=textRecords.get(n);if(current==='fr'){n.nodeValue=v;return}
+ const v=textRecords.get(n);if(current==='fr'){if(n.nodeValue!==v)applyTranslation(n,v);return}
  if(processed.get(n)===current)return;
- const direct=localTranslate(v,current);if(direct!==null){n.nodeValue=direct;processed.set(n,current);return}
+ const direct=localTranslate(v,current);if(direct!==null){applyTranslation(n,direct);processed.set(n,current);return}
  if(!/[\p{L}]/u.test(v))return;
  schedule({node:n,source:v,lang:current,version});
 }
@@ -214,7 +217,7 @@ async function pump(){
   (async()=>{
    try{
     const result=await translateScientific(task.source,task.lang);
-    if(task.version===version&&task.node.isConnected&&result){task.node.nodeValue=result;success++}
+    if(task.version===version&&task.node.isConnected&&result){applyTranslation(task.node,result);success++}
    }catch{failures++;processed.delete(task.node);if(failures===1||failures%20===0)status('Traduction automatique indisponible pour certains passages ; texte original conservé.',true)}
    finally{busy--;pump()}
   })();
@@ -249,7 +252,7 @@ export function setLanguage(lang){
  const next=normalizeLanguage(lang);
  if(next!==current){version++;queue=[];processed=new WeakMap();current=next;translater=null;failures=success=0;}
  try{localStorage.setItem(storageKey,current)}catch{}
- for(const [n,v] of textRecords)if(n.isConnected)n.nodeValue=v;
+ for(const [n,v] of textRecords)if(n.isConnected&&n.nodeValue!==v)applyTranslation(n,v);
  displayLabels();
  scan(document.body);
  const url=new URL(location.href);if(current==='fr')url.searchParams.delete('lang');else url.searchParams.set('lang',current);
@@ -267,7 +270,23 @@ export function initI18n(nav){
  const toggler=nav.querySelector('.atlas-mobile-toggle');
  nav.insertBefore(slot,toggler||null);
  slot.querySelector('select').addEventListener('change',e=>setLanguage(e.target.value));
- observer=new MutationObserver(mutations=>{if(current==='fr')return;for(const m of mutations){if(m.addedNodes.length){visibleScan();break}if(m.type==='characterData' && m.target?.parentElement && !m.target.parentElement.closest(SKIP)){const prev=textRecords.get(m.target);if(prev!==undefined && m.target.nodeValue!==prev && processed.get(m.target)!==current){textRecords.set(m.target,m.target.nodeValue)}visibleScan();break}}});
+ observer=new MutationObserver(mutations=>{
+ if(current==='fr')return;
+ let changed=false;
+ for(const m of mutations){
+  if(m.addedNodes.length){changed=true;continue}
+  if(m.type!=='characterData'||!m.target?.parentElement||m.target.parentElement.closest(SKIP))continue;
+  const node=m.target,value=node.nodeValue;
+  if(value===appliedText.get(node))continue;
+  const previous=textRecords.get(node);
+  if(previous!==value){
+   textRecords.set(node,value);
+   processed.delete(node);
+   changed=true;
+  }
+ }
+ if(changed)visibleScan();
+});
  observer.observe(document.body,{subtree:true,childList:true,characterData:true});
  addEventListener('scroll',visibleScan,{passive:true});
  addEventListener('hashchange',visibleScan);
