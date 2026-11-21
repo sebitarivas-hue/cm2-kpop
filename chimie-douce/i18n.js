@@ -27,8 +27,8 @@ const UI={
  es:"CURSO DE CLÉMENT SANCHEZ · COLLÈGE DE FRANCE",
  it:"LEZIONE DI CLÉMENT SANCHEZ · COLLÈGE DE FRANCE",
  zh:"克莱芒·桑切斯课程 · 法兰西公学院"},
-"Vers des matériaux":{en:"Toward Living",es:"Hacia materiales",it:"Verso materiali",zh:"迈向生命"},
-"hybrides vivants.":{en:"Hybrid Materials.",es:"híbridos vivos.",it:"ibridi viventi.",zh:"杂化材料。"},
+"Vers des matériaux":{en:"Toward Living",es:"Hacia materiales",it:"Verso materiali",zh:"迈向"},
+"hybrides vivants.":{en:"Hybrid Materials.",es:"híbridos vivos.",it:"ibridi viventi.",zh:"活体杂化材料。"},
 "UN COURS DE":{en:"A LECTURE BY",es:"CURSO IMPARTIDO POR",it:"LEZIONE DI",zh:"主讲人"},
 "COLLÈGE DE FRANCE · 18 FÉVRIER 2020":{en:"COLLÈGE DE FRANCE · FEBRUARY 18, 2020",es:"COLLÈGE DE FRANCE · 18 DE FEBRERO DE 2020",it:"COLLÈGE DE FRANCE · 18 FEBBRAIO 2020",zh:"法兰西公学院 · 2020年2月18日"},
 "↗ VOIR LA CONFÉRENCE ORIGINALE":{en:"↗ WATCH THE ORIGINAL LECTURE",es:"↗ VER LA CONFERENCIA ORIGINAL",it:"↗ GUARDA LA LEZIONE ORIGINALE",zh:"↗ 观看原始讲座"},
@@ -189,8 +189,8 @@ export function setLanguage(lang){
  const next=normalizeLanguage(lang);
  if(next!==current){version++;queue=[];processed=new WeakMap();current=next;translater=null;failures=success=0;}
  try{localStorage.setItem(storageKey,current)}catch{}
- displayLabels();
  for(const [n,v] of textRecords)if(n.isConnected)n.nodeValue=v;
+ displayLabels();
  scan(document.body);
  const url=new URL(location.href);if(current==='fr')url.searchParams.delete('lang');else url.searchParams.set('lang',current);
  history.replaceState(history.state,'',url);
