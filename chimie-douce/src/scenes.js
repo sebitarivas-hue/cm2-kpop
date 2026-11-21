@@ -20,63 +20,64 @@ function nucleus(root,x=0,y=0,z=0){const g=new THREE.Group();g.position.set(x,y,
 function bacillus(root,scale=1,opacity=.30){const g=new THREE.Group();g.scale.setScalar(scale);root.add(g);const outer=new THREE.Mesh(new THREE.CapsuleGeometry(.85,1.45,8,16),glass(C.teal,opacity));outer.rotation.z=Math.PI/2;g.add(outer);const inner=new THREE.Mesh(new THREE.CapsuleGeometry(.69,1.45,6,14),glass(C.cyan,.11));inner.rotation.z=Math.PI/2;g.add(inner);nucleus(g);for(let j=0;j<5;j++){const x=-.95+j*.48;const pts=[];for(let k=0;k<8;k++){let u=k/7;pts.push(V(x+u*1.35,(.8+u*.65)*Math.sin((j+1)*3.1+u*4.8),(.8+u*.65)*Math.cos((j+1)*3.1+u*4.8)))}wireCurve(g,pts,.015,M.gold)}return g}
 function animatedParticles(root,count,radius,seed=17,color='cyan',speed=.8){const matref=M[color]||M.cyan;const pts=instanced(root,count,.052,matref,seed,(i,r)=>{const a=r()*Math.PI*2,b=(r()-.5)*Math.PI;const dist=radius+r()*.9;return [Math.cos(a)*Math.cos(b)*dist,Math.sin(b)*dist,Math.sin(a)*Math.cos(b)*dist,.038+r()*.045]});return {object:pts,tick(t){pts.rotation.y=t*.06*speed;pts.rotation.x=Math.sin(t*.25)*.13}}}
 function makeSolgel(root,p){
- // Illustrative mesoscale topology, not a measured molecular structure.
- // Seeded, connected porous clusters replace the disconnected ball-and-stick cloud.
- const rng=rand(102),n=Math.max(48,Math.min(240,Math.round(p.density*1.55))),points=[];
- const spacing=1.08,half=3.0;
- const positions=[];
- for(let x=-half;x<=half;x+=spacing)for(let y=-2.65;y<=2.65;y+=spacing)for(let z=-2.65;z<=2.65;z+=spacing){
-   const q=V(x+(rng()-.5)*.36,y+(rng()-.5)*.36,z+(rng()-.5)*.36);
-   const cavity=((q.x-.45)/1.18)**2+((q.y+.1)/.97)**2+((q.z-.12)/1.12)**2;
-   if(cavity>1.1&&rng()>.07)positions.push(q);
+ // Editorial organic illustration of a porous sol-gel network.
+ // Not a reconstructed molecular topology, microscopy image, or calibrated pore size.
+ const rng=rand(102), network=new THREE.Group();root.add(network);
+ const shell=mat(0xdce5d8,{roughness:.8,metalness:0,side:THREE.DoubleSide});
+ const ribs=mat(0xc8d9c1,{roughness:.75,metalness:0});
+ const highlight=mat(0xe5d2a9,{roughness:.65,metalness:0});
+ const haze=glass(0xb8d3b8,.085);
+ const count=Math.round(64+p.density*.65),points=[];
+ // Distributed mesoscopic nodes with a deliberately accessible porous core.
+ for(let i=0;i<count*5&&points.length<count;i++){
+   const x=(rng()-.5)*6.4,y=(rng()-.5)*5.2,z=(rng()-.5)*5.0;
+   const cavity=((x-.5)/1.05)**2+((y+.08)/1.2)**2+((z-.35)/.9)**2;
+   if(cavity<1||Math.abs(x)>3.1||Math.abs(y)>2.6||Math.abs(z)>2.5)continue;
+   points.push(V(x,y,z));
  }
- // Evenly subsample rather than replacing chemistry with unpredictable particles.
- const stride=Math.max(1,Math.floor(positions.length/n));
- for(let i=0;i<positions.length&&points.length<n;i+=stride)points.push(positions[i]);
- const bondGeo=new THREE.CylinderGeometry(1,1,1,8);
- const nodeGeo=new THREE.IcosahedronGeometry(1,2);
- const oxygenGeo=new THREE.IcosahedronGeometry(1,1);
- const bondMaterial=mat(0xd5dfcd,{roughness:.56,metalness:0});
- const oxMaterial=mat(0xcda46e,{roughness:.53,metalness:0});
- const nodeMaterial=mat(0xe5dfcc,{roughness:.52,metalness:0});
- const skinMaterial=glass(0xdde8d2,.08);
- const maxEdges=n*4;
- const bonds=new THREE.InstancedMesh(bondGeo,bondMaterial,maxEdges);
- const bridges=new THREE.InstancedMesh(oxygenGeo,oxMaterial,maxEdges);
- const nodes=new THREE.InstancedMesh(nodeGeo,nodeMaterial,points.length);
- const transform=new THREE.Object3D(),up=V(0,1,0);
- let count=0;
+ const jointGeo=new THREE.IcosahedronGeometry(1,3);
+ const joints=new THREE.InstancedMesh(jointGeo,shell,points.length);
+ const object=new THREE.Object3D();
  for(let i=0;i<points.length;i++){
-   const a=points[i];transform.position.copy(a);transform.quaternion.identity();
-   transform.scale.setScalar(.095+(i%11===0?.046:0));transform.updateMatrix();nodes.setMatrixAt(i,transform.matrix);
-   const near=points.map((b,j)=>({j,d:a.distanceTo(b)})).filter(x=>x.j>i&&x.d<1.96)
-     .sort((x,y)=>x.d-y.d).slice(0,3);
+   object.position.copy(points[i]);object.rotation.set(rng()*.35,rng()*.35,rng()*.35);
+   const scale=.1+(rng()*.09);object.scale.set(scale*1.2,scale,scale*1.1);
+   object.updateMatrix();joints.setMatrixAt(i,object.matrix);
+ }
+ joints.instanceMatrix.needsUpdate=true;network.add(joints);
+ // Curved silica strands: variable tangents replace straight cylinders and toy-like ball-and-stick.
+ let edgeCount=0;
+ const maxD=1.65+(p.bonds/100)*.35;
+ for(let i=0;i<points.length;i++){
+   const a=points[i],near=points.map((b,j)=>({j,d:a.distanceTo(b)}))
+     .filter(o=>o.j>i&&o.d<maxD).sort((u,v)=>u.d-v.d).slice(0,3);
    for(const {j,d} of near){
-     if(count>=maxEdges)break;
-     if(rng()>.08+(100-p.bonds)/260)continue;
-     const b=points[j],mid=a.clone().add(b).multiplyScalar(.5),dir=b.clone().sub(a).normalize();
-     transform.position.copy(mid);transform.quaternion.setFromUnitVectors(up,dir);
-     transform.scale.set(.052+(.02*p.bonds/100),d,.052+(.02*p.bonds/100));
-     transform.updateMatrix();bonds.setMatrixAt(count,transform.matrix);
-     transform.quaternion.identity();transform.scale.setScalar(.073);transform.updateMatrix();
-     bridges.setMatrixAt(count,transform.matrix);
-     count++;
+     if(rng()>.46+p.bonds/300)continue;
+     const b=points[j],middle=a.clone().lerp(b,.5);
+     const lateral=V((rng()-.5)*.35,(rng()-.5)*.35,(rng()-.5)*.35);
+     middle.add(lateral);
+     const curve=new THREE.CatmullRomCurve3([a,middle,b],false,'centripetal');
+     const radius=(.07+rng()*.055)*(0.85+p.bonds/300);
+     const strand=new THREE.Mesh(new THREE.TubeGeometry(curve,9,radius,7,false),
+       edgeCount%13===0?highlight:edgeCount%3===0?ribs:shell);
+     network.add(strand);edgeCount++;
    }
  }
- nodes.instanceMatrix.needsUpdate=true;bonds.count=count;bonds.instanceMatrix.needsUpdate=true;
- bridges.count=count;bridges.instanceMatrix.needsUpdate=true;
- root.add(bonds,bridges,nodes);
- // Soft translucent silica volumes, localized around aggregates, not a solid bounding cage.
- const shellGeo=new THREE.IcosahedronGeometry(1,2);
- for(let i=0;i<Math.min(21,points.length);i+=1){
-  const v=points[Math.floor(i*points.length/21)],bubble=new THREE.Mesh(shellGeo,skinMaterial);
-  if(!v)continue;
-  bubble.position.copy(v);bubble.scale.set(.38+rng()*.31,.28+rng()*.25,.32+rng()*.29);root.add(bubble);
+ // Diffuse organic envelopes imply silica aggregates, never a glowing bounding cube.
+ const envelopeGeo=new THREE.IcosahedronGeometry(1,3);
+ for(let i=0;i<Math.min(20,points.length);i++){
+   const origin=points[Math.floor(i*points.length/20)];
+   if(!origin)continue;
+   const film=new THREE.Mesh(envelopeGeo,haze);
+   film.position.copy(origin);film.scale.set(.32+rng()*.34,.28+rng()*.3,.31+rng()*.37);
+   network.add(film);
  }
- const frame=boxFrame(root,7.25,5.75,5.75,0x9ab096);frame.material.opacity=.13;
- // Tracers illustrate transport; they are not atoms, molecules or kinetic predictions.
- const tracers=animatedParticles(root,Math.min(30,Math.round(p.motion/3)),2.8,52,'gold',p.motion/65);
- return t=>tracers.tick(t);
+ // Sparse golden molecules are explicitly transport tracers, not part of the measured matrix.
+ const tracers=animatedParticles(root,Math.min(24,Math.round(p.motion/5)),2.7,52,'gold',p.motion/65);
+ return t=>{
+   network.rotation.y=Math.sin(t*.14)*.042;
+   network.rotation.x=Math.sin(t*.09)*.018;
+   tracers.tick(t);
+ };
 }
 function makeCell(root,p){const b=bacillus(root,1,Math.min(.6,p.membrane/140));const particles=animatedParticles(root,p.nutrients,2.6,12,'gold',p.motion/65);return t=>{b.rotation.y=Math.sin(t*.26)*.12;particles.tick(t)}}
 function makeEncapsulation(root,p){const b=bacillus(root,.72,.29);const radius=2.4+p.shell/120;const sh=new THREE.Mesh(new THREE.IcosahedronGeometry(radius,3),glass(C.teal,.13));root.add(sh);const frame=new THREE.Mesh(new THREE.IcosahedronGeometry(radius,3),new THREE.MeshBasicMaterial({color:C.cyan,wireframe:true,transparent:true,opacity:.14}));root.add(frame);const R=rand(130);for(let k=0;k<Math.round(20+p.pores*.6);k++){const theta=R()*Math.PI*2,yy=R()*2-1,ss=Math.sqrt(1-yy*yy);const pos=V(Math.cos(theta)*ss,yy,Math.sin(theta)*ss).multiplyScalar(radius+.02);sphere(root,pos,.06+(p.pores/100)*.045,k%6?M.cyan:M.gold)}const particles=animatedParticles(root,55,3.15,104,'gold',p.motion/50);return t=>{b.rotation.y=Math.sin(t*.3)*.06;frame.rotation.y=t*.025;particles.tick(t)}}
