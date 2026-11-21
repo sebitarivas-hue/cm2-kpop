@@ -67,3 +67,21 @@
 .timeline-controls .run-status{font:10px/1.35 'DM Mono',monospace;letter-spacing:.06em;color:#b3d3c7;white-space:normal}
 .timeline-controls #play{min-width:45px;font-size:17px}
 @media(max-width:650px){.timeline-controls{gap:7px}.timeline-controls .run-status{width:100%;order:10;font-size:9px}.timeline-controls label{margin-left:5px}.timeline-controls .auto-run-toggle{min-width:92px;font-size:9px}}
+
+/* One provenance bridge: natural observation → original lecture slide → kinetics. */
+.engine-source{background:#e7e2d6;color:#1e342b;padding:clamp(40px,6vw,86px) max(22px,5vw);border-top:1px solid #998568;min-width:0}
+.engine-source-header{max-width:1350px;margin:0 auto 30px}
+.engine-source-header>span{font:11px 'DM Mono',monospace;color:#876f4b;letter-spacing:.12em}
+.engine-source-header h2{font:400 clamp(42px,5vw,79px)/1.03 'Bodoni Moda',Georgia,serif;letter-spacing:-.04em;margin:17px 0;color:#203c2a}
+.engine-source-header p{font:14px/1.75 'Space Grotesk',Arial,sans-serif;color:#556955;max-width:760px}
+.engine-source-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(19px,4vw,60px);max-width:1350px;margin:auto;align-items:start}
+.engine-source-grid>div{min-width:0}
+.engine-source-copy h3{font:400 clamp(25px,3.2vw,45px)/1.08 'Bodoni Moda',Georgia,serif;color:#2b4232;margin:0 0 15px}
+.engine-source-copy p{color:#53634f;font:13px/1.75 'Space Grotesk',Arial,sans-serif}
+.engine-source-copy h4{font:500 11px 'DM Mono',monospace;color:#8e7654;letter-spacing:.1em;margin:25px 0 13px;text-transform:uppercase}
+.engine-plate-links{display:grid;gap:4px}
+.engine-plate-links a{font:11px/1.55 'Space Grotesk',Arial,sans-serif;color:#2c624e;text-decoration:none;padding:7px;border-bottom:1px solid #ada38c;overflow-wrap:anywhere}
+.engine-plate-links a:hover{background:#d8dccf}
+.engine-source .source-original{margin:0}
+.engine-source .resource-links a{color:#325844}
+@media(max-width:900px){.engine-source-grid{grid-template-columns:1fr}.engine-source{padding:34px 20px}.engine-source .source-original img{max-height:none}}
