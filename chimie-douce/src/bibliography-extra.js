@@ -448,9 +448,9 @@ export const EXTRA_BIBLIO=[
   {
     "id": "B27",
     "year": 2022,
-    "author": "Étude Bioactive Materials",
+    "author": "Binelli et al.",
     "title": "Living materials made by 3D printing cellulose-producing bacteria in granular gels",
-    "journal": "Bioactive Materials",
+    "journal": "Biomaterials Advances",
     "doi": "10.1016/j.bioadv.2022.213095",
     "url": "https://doi.org/10.1016/j.bioadv.2022.213095",
     "topic": "biofabrication",
