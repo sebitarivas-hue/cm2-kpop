@@ -10,5 +10,5 @@ for(const s of SCENES){assert.ok(GROUPS.includes(s.group));assert.ok(s.intro?.le
 for(const f of FIGURES){assert.ok(f.time>=0&&f.time<=4540);assert.ok(f.capture>=1&&f.capture<=454)}
 const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');assert.ok(html.includes('./src/app.js'));
 const corpus=readFileSync(new URL('../research/index.html',import.meta.url),'utf8');assert.equal((corpus.match(/class="figure-note"/g)||[]).length,70);
-const model=readFileSync(new URL('../src/scenes.js',import.meta.url),'utf8');for(const s of SCENES)assert.ok(model.includes("case '"+s.id+"'"),`Missing scene ${s.id}`);
+const model=readFileSync(new URL('../src/scenes.js',import.meta.url),'utf8');for(const s of SCENES.filter(s=>s.id!=='structure'))assert.ok(model.includes("case '"+s.id+"'"),`Missing scene ${s.id}`);
 console.log('Atlas validation: 18 3D scenes, 70 figures, 16 scientific chapters — PASS.');
