@@ -59,6 +59,28 @@ const SKIP="script,style,noscript,pre,code,textarea,svg,math,[contenteditable],.
 const textRecords=new Map(),attrRecords=new Map();
 let current='fr',version=0,busy=0,queue=[],processed=new WeakMap(),observer=null,translater=null,scheduled=false,failures=0,success=0;
 const storageKey="chimie:language";
+
+const PAGE_TITLES={
+ home:{en:"Clément Sanchez | Toward Living Hybrid Materials — Collège de France",es:"Clément Sanchez | Hacia materiales híbridos vivos — Collège de France",it:"Clément Sanchez | Verso materiali ibridi viventi — Collège de France",zh:"克莱芒·桑切斯 | 迈向活体杂化材料 — 法兰西公学院"},
+ engineering:{en:"Engineering Living Materials — 3D Mechanisms | Clément Sanchez",es:"Ingeniería de materiales vivos — mecanismos 3D | Clément Sanchez",it:"Ingegneria dei materiali viventi — meccanismi 3D | Clément Sanchez",zh:"活体材料工程 — 3D 机理 | 克莱芒·桑切斯"},
+ research:{en:"Scientific Monograph — Clément Sanchez / Collège de France",es:"Monografía científica — Clément Sanchez / Collège de France",it:"Monografia scientifica — Clément Sanchez / Collège de France",zh:"科学专著 — 克莱芒·桑切斯 / 法兰西公学院"},
+ bibliography:{en:"Interactive Scientific Bibliography — Living Hybrid Materials",es:"Bibliografía científica interactiva — Materiales híbridos vivos",it:"Bibliografia scientifica interattiva — Materiali ibridi viventi",zh:"交互式科学参考文献 — 活体杂化材料"},
+ boards:{en:"70 Visual Scientific Plates — Living Hybrid Materials",es:"70 láminas científicas — Materiales híbridos vivos",it:"70 tavole scientifiche — Materiali ibridi viventi",zh:"70 张科学图版 — 活体杂化材料"},
+ essay:{en:"From Substance to System — Epistemology of Soft Chemistry",es:"De la sustancia al sistema — Epistemología de la química suave",it:"Dalla sostanza al sistema — Epistemologia della chimica dolce",zh:"从物质到系统 — 软化学认识论"},
+ lab:{en:"Virtual Laboratory — Living Hybrid Materials",es:"Laboratorio virtual — Materiales híbridos vivos",it:"Laboratorio virtuale — Materiali ibridi viventi",zh:"虚拟实验室 — 活体杂化材料"}
+};
+function pageId(){
+ const p=location.pathname;
+ if(p.includes('/ingenierie/'))return'eng ineering'.replace(' ','');
+ if(p.includes('/research/'))return'research';
+ if(p.includes('/bibliographie/'))return'bibliography';
+ if(p.includes('/planches/'))return'boards';
+ if(p.includes('/chimie_douce_interactive.html'))return'essay';
+ if(p.includes('/lab/'))return'lab';
+ return'home';
+}
+const originalTitle=document.title;
+
 const canTranslate=n=>!!n?.parentElement&&!n.parentElement.closest(SKIP);
 const hasLanguage=s=>/[\p{L}]/u.test(s) && s.replace(/\s/g,'').length>4&&!/^[A-Z][A-Z0-9 .:+()−–\-×⁄%]+$/.test(s);
 function localTranslate(s,lang){
@@ -175,6 +197,7 @@ function displayLabels(){
  const select=document.getElementById('atlasLanguageSelect');
  if(select)select.value=current;
  document.documentElement.lang=LANGUAGES[current].code;
+ document.title=current==='fr'?originalTitle:(PAGE_TITLES[pageId()]?.[current]||originalTitle);
  const external=document.getElementById('atlasFullPageTranslate');
  if(external){
    external.hidden=current==='fr';
