@@ -53,3 +53,9 @@
 @media(max-width:1250px){.visual-duo{grid-template-columns:1fr}.observed-photo{height:300px;flex:initial}.visual-duo>.viewport{min-height:480px}}
 @media(max-width:830px){.natural-gallery{grid-template-columns:1fr}.natural-card-image{height:270px}.natural-atlas{padding:70px 18px 45px}}
 @media(max-width:520px){.visual-duo>.viewport{min-height:360px}.comparison-legend{grid-template-columns:1fr}.natural-card-copy{padding:22px}.natural-card h3{font-size:32px}}
+
+/* Clément Sanchez is the unequivocal primary source of the scientific course. */
+.course-credit{display:flex!important;flex-wrap:wrap;align-items:center;gap:12px 21px!important;padding:22px 0!important}
+.course-credit strong{font:500 clamp(30px,3.7vw,59px)/1 'Instrument Serif',Georgia,serif!important;letter-spacing:-.024em!important;color:#f1dcb7!important;white-space:normal!important}
+.course-credit span{font-size:clamp(10px,1vw,12px)!important}
+@media(max-width:650px){.course-credit{align-items:start;flex-direction:column}.course-credit strong{font-size:46px!important}}
