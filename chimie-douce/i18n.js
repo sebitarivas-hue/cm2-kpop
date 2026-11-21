@@ -3,6 +3,7 @@ import {CHAPTER_TERMS} from './chapter-locales.js';
 import {HOME_TERMS} from './home-locales.js';
 import {CONCEPT_LABELS} from './concept-label-locales.js';
 import {INTERFACE_TERMS} from './interface-locales.js';
+import {FIGURE_TITLE_TERMS} from './figure-title-locales.js';
 /*
  * Chimie douce | runtime multilingual layer
  * Source of truth: the French course text remains unchanged.
@@ -90,7 +91,7 @@ const canTranslate=n=>!!n?.parentElement&&!n.parentElement.closest(SKIP);
 const hasLanguage=s=>/[\p{L}]/u.test(s) && s.trim().length>1;
 function localTranslate(s,lang){
  const value=s.trim();
- const translated=CONCEPT_LABELS[value]?.[lang]??INTERFACE_TERMS[value]?.[lang]??HOME_TERMS[value]?.[lang]??UI[value]?.[lang]??SCIENCE_TERMS[value]?.[lang]??CHAPTER_TERMS[value]?.[lang];
+ const translated=CONCEPT_LABELS[value]?.[lang]??FIGURE_TITLE_TERMS[value]?.[lang]??INTERFACE_TERMS[value]?.[lang]??HOME_TERMS[value]?.[lang]??UI[value]?.[lang]??SCIENCE_TERMS[value]?.[lang]??CHAPTER_TERMS[value]?.[lang];
  return translated?s.replace(value,translated):null;
 }
 function getSaved(){try{const q=new URLSearchParams(location.search).get('lang');if(q&&SAFE_LANG.includes(q))return q;const n=localStorage.getItem(storageKey);return SAFE_LANG.includes(n)?n:'fr'}catch{return 'fr'}}
