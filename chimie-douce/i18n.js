@@ -1,6 +1,7 @@
 import {SCIENCE_TERMS} from './science-locales.js';
 import {CHAPTER_TERMS} from './chapter-locales.js';
 import {HOME_TERMS} from './home-locales.js';
+import {CONCEPT_LABELS} from './concept-label-locales.js';
 /*
  * Chimie douce | runtime multilingual layer
  * Source of truth: the French course text remains unchanged.
@@ -88,11 +89,12 @@ const canTranslate=n=>!!n?.parentElement&&!n.parentElement.closest(SKIP);
 const hasLanguage=s=>/[\p{L}]/u.test(s) && s.trim().length>1;
 function localTranslate(s,lang){
  const value=s.trim();
- const translated=HOME_TERMS[value]?.[lang]??UI[value]?.[lang]??SCIENCE_TERMS[value]?.[lang]??CHAPTER_TERMS[value]?.[lang];
+ const translated=CONCEPT_LABELS[value]?.[lang]??HOME_TERMS[value]?.[lang]??UI[value]?.[lang]??SCIENCE_TERMS[value]?.[lang]??CHAPTER_TERMS[value]?.[lang];
  return translated?s.replace(value,translated):null;
 }
 function getSaved(){try{const q=new URLSearchParams(location.search).get('lang');if(q&&SAFE_LANG.includes(q))return q;const n=localStorage.getItem(storageKey);return SAFE_LANG.includes(n)?n:'fr'}catch{return 'fr'}}
 export function currentLanguage(){return current}
+export function translateTerm(source,lang=current){return lang==='fr'?source:(localTranslate(source,lang)??source)}
 function normalizeLanguage(code){return SAFE_LANG.includes(code)?code:'fr'}
 function status(message,error=false){
  const el=document.getElementById('atlasLanguageStatus');if(!el)return;
@@ -148,7 +150,7 @@ async function translateScientific(s,lang){
 function textNode(n,original){
  if(!canTranslate(n))return;
  const src=original??n.nodeValue;
- if(!hasLanguage(src) && !HOME_TERMS[src.trim()] && !CHAPTER_TERMS[src.trim()])return;
+ if(!hasLanguage(src))return;
  if(!textRecords.has(n))textRecords.set(n,src);
  const v=textRecords.get(n);if(current==='fr'){n.nodeValue=v;return}
  if(processed.get(n)===current)return;
@@ -255,7 +257,7 @@ export function initI18n(nav){
  const toggler=nav.querySelector('.atlas-mobile-toggle');
  nav.insertBefore(slot,toggler||null);
  slot.querySelector('select').addEventListener('change',e=>setLanguage(e.target.value));
- observer=new MutationObserver(mutations=>{if(current==='fr')return;for(const m of mutations){if(m.addedNodes.length||m.type==='characterData'){visibleScan();break}}});
+ observer=new MutationObserver(mutations=>{if(current==='fr')return;for(const m of mutations){if(m.addedNodes.length){visibleScan();break}if(m.type==='characterData' && m.target?.parentElement && !m.target.parentElement.closest(SKIP)){const prev=textRecords.get(m.target);if(prev!==undefined && m.target.nodeValue!==prev && processed.get(m.target)!==current){textRecords.set(m.target,m.target.nodeValue)}visibleScan();break}}});
  observer.observe(document.body,{subtree:true,childList:true,characterData:true});
  addEventListener('scroll',visibleScan,{passive:true});
  addEventListener('hashchange',visibleScan);
