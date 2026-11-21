@@ -10,7 +10,7 @@ const fmt=t=>String(Math.floor(t/60)).padStart(2,'0')+':'+String(Math.floor(t%60
 function render(){
  if(!root)return;
  const lang=currentLanguage();
- const translate=s=>{if(lang==='fr')return s;const direct=HOME_TERMS[s]?.[lang]||CHAPTER_TERMS[s]?.[lang];if(direct)return direct;const key=Object.keys(CHAPTER_TERMS).find(k=>k.includes(s));const full=key&&CHAPTER_TERMS[key]?.[lang];return full?full.replace(/^\\d+\\.\\s*/, '').replace(/\\s*\\(\\d\\d:\\d\\d[^)]*\\)$/, ''):s;};
+ const translate=s=>{if(lang==='fr')return s;const direct=HOME_TERMS[s]?.[lang]||CHAPTER_TERMS[s]?.[lang];if(direct)return direct;const key=Object.keys(CHAPTER_TERMS).find(k=>k.includes(s));const full=key&&CHAPTER_TERMS[key]?.[lang];return full?full.replace(/^\d+\.\s*/, '').replace(/\s*\\(\d\d:\d\d[^)]*\\)$/, ''):s;};
  const chapters=[...new Set(FIGURES.map(f=>f.chapter))];
  root.innerHTML=chapters.map((name,i)=>{
    const first=FIGURES.find(f=>f.chapter===name);
