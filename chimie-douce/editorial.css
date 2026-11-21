@@ -179,3 +179,9 @@ body{background:#f2efe8;font-family:var(--sans)}
 .stage:before{background:linear-gradient(180deg,#0f201842,transparent 40%,#0d181866)!important}
 .stage-grain{opacity:.10!important}
 .stage .stage-meta,.stage .stage-head{color:#d2d2bb}
+
+/* Mission de l'atlas : usage avant provenance, sans altérer l'identité restaurée. */
+.hero-purpose{display:grid;gap:9px;max-width:550px;padding:15px 0;margin:8px 0 1px;border-top:1px solid #c8d1cf40;border-bottom:1px solid #c8d1cf40}
+.hero-purpose strong{font:500 clamp(15px,1.35vw,19px)/1.45 'Space Grotesk',Arial,sans-serif;color:#f3e8d7;letter-spacing:-.01em}
+.hero-purpose span{font:12px/1.6 'Space Grotesk',Arial,sans-serif;color:#c0cfcb}
+@media(max-width:760px){.hero-purpose strong{font-size:16px}.hero-purpose span{font-size:12px}}
