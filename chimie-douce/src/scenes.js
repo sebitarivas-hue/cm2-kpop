@@ -53,7 +53,7 @@ function makeSolgel(root,p){
      .sort((x,y)=>x.d-y.d).slice(0,3);
    for(const {j,d} of near){
      if(count>=maxEdges)break;
-     if(rng()>.56+p.bonds/240)continue;
+     if(rng()>.08+(100-p.bonds)/260)continue;
      const b=points[j],mid=a.clone().add(b).multiplyScalar(.5),dir=b.clone().sub(a).normalize();
      transform.position.copy(mid);transform.quaternion.setFromUnitVectors(up,dir);
      transform.scale.set(.052+(.02*p.bonds/100),d,.052+(.02*p.bonds/100));
