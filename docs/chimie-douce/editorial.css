@@ -131,3 +131,51 @@ body{background:#f2efe8;font-family:var(--sans)}
  .lower-left,.lower-right{overflow-wrap:anywhere}
 }
 @media(min-width:751px){.atlas-tools #mobileMenu{display:none!important}}
+
+/* ORGANIC EDITORIAL DIRECTION V3 — factual microscopy instead of synthetic atom graphics. */
+.editorial-hero{background:#121b18!important}
+.editorial-hero:before{background:radial-gradient(ellipse at 74% 18%,rgba(66,77,49,.17),transparent 49%),linear-gradient(120deg,#131c19 0%,#1b2420 53%,#121916 100%)!important}
+.editorial-hero:after{opacity:.055!important;background-image:repeating-linear-gradient(90deg,transparent,transparent 9px,#e8dcba0c 10px)!important}
+.hero-copy{background:linear-gradient(120deg,#141c1a 0%,#1d2620 100%)}
+.hero-copy h1 em,.hero-course-credit span:nth-of-type(2){color:#d2bf97!important}
+.hero-kicker,.hero-bottom span:first-child{color:#ccbb96!important}
+.hero-copy h1{color:#eae7d9!important}
+.hero-art.organic-hero{display:flex;flex-direction:column;min-height:635px;max-height:none!important;height:auto;background:#18211b!important;overflow:hidden}
+.hero-art.organic-hero:before{display:none!important}
+.organic-hero-grid{display:grid;flex:1;min-height:600px;grid-template-columns:1.12fr .88fr;grid-template-rows:1fr 1fr;gap:8px;padding:9px;background:#101714}
+.organic-hero .hero-photo{position:relative;margin:0;min-width:0;min-height:0;background:linear-gradient(120deg,#38443b,#161e1a);overflow:hidden;border:1px solid #d7c59c30}
+.organic-hero .hero-photo-leaf{grid-column:1;grid-row:1/3}
+.organic-hero .hero-photo-hypha{grid-column:2;grid-row:1}
+.organic-hero .hero-photo-silica{grid-column:2;grid-row:2}
+.organic-hero .hero-photo>a{position:absolute;inset:0;display:block;color:#f8edd7;text-decoration:none}
+.organic-hero .hero-photo img{width:100%;height:100%;max-height:none!important;object-fit:cover!important;display:block;filter:saturate(.64) sepia(.11) contrast(1.06)!important;transform:none;animation:none!important;transition:transform .6s ease,filter .6s ease}
+.organic-hero .hero-photo a:hover img,.organic-hero .hero-photo a:focus-visible img{transform:scale(1.045);filter:saturate(.81) sepia(.06) contrast(1.09)!important}
+.organic-hero .hero-photo .photo-index{position:absolute;left:17px;top:16px;display:inline-block;background:#15221bd6;color:#efe0bb;border:1px solid #d8bd8557;padding:9px 11px;font:10px/1.4 'DM Mono',monospace;letter-spacing:.055em;pointer-events:none}
+.organic-hero .hero-photo figcaption{position:absolute;bottom:0;left:0;right:0;padding:21px 15px 12px;z-index:2;color:#ebe3cd;font:10px/1.5 'DM Mono',monospace;background:linear-gradient(0deg,#101d1adf,transparent);text-shadow:0 1px 2px #101411}
+.organic-hero-foot{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;padding:12px 17px;min-height:49px;background:#243028;color:#d5c59f;font:10px 'DM Mono',monospace;letter-spacing:.04em}
+.organic-hero-foot a{color:#e9dec6;text-decoration:underline;text-underline-offset:3px}
+.organic-hero .hero-photo-missing{display:grid;place-items:center;position:absolute;inset:20% 5%;font:16px/1.6 'Bodoni Moda',Georgia,serif;text-align:center;color:#e8cfaa}
+.organic-hero .hero-photo a.image-unavailable{background:radial-gradient(circle at 35% 60%,#47644d,#202d25 72%)}
+.hero-bottom{background:#29332a!important;color:#d0d3c3!important}
+@media(max-width:1150px){.organic-hero-grid{min-height:520px}.hero-art.organic-hero{min-height:560px}}
+@media(max-width:800px){
+ .hero-art.organic-hero{display:flex;min-height:420px!important;height:auto!important}
+ .organic-hero-grid{min-height:405px;grid-template-columns:1.04fr .96fr;gap:6px;padding:6px}
+ .organic-hero .hero-photo img{height:100%!important}
+ .organic-hero .hero-photo .photo-index{font-size:9px;padding:7px;left:8px;top:8px}
+ .organic-hero .hero-photo figcaption{font-size:8px;padding:16px 7px 9px}
+ .organic-hero-foot{padding:10px 12px;font-size:9px}
+}
+@media(max-width:480px){
+ .hero-art.organic-hero{height:auto!important;min-height:370px!important}
+ .organic-hero-grid{min-height:330px;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+ .organic-hero .hero-photo-leaf{grid-column:1;grid-row:1/3}
+ .organic-hero .hero-photo-hypha{grid-column:2;grid-row:1}
+ .organic-hero .hero-photo-silica{grid-column:2;grid-row:2}
+ .organic-hero-foot span{display:none}
+}
+/* Materiality over generic sci-fi glow in the process viewer. */
+.stage{background:radial-gradient(ellipse at 46% 39%,#283a35 0%,#152720 48%,#101d1c 85%)!important}
+.stage:before{background:linear-gradient(180deg,#0f201842,transparent 40%,#0d181866)!important}
+.stage-grain{opacity:.10!important}
+.stage .stage-meta,.stage .stage-head{color:#d2d2bb}
