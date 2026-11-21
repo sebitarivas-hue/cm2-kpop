@@ -12,10 +12,10 @@ const modelViewport=$('viewport');const canvas=document.createElement('canvas');
 let renderer,scene,camera,controls,lighting,resizeObserver;const mount=new THREE.Group();
 try{
  renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,preserveDrawingBuffer:true,powerPreference:'high-performance'});
- renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.17;renderer.setSize(modelViewport.clientWidth,modelViewport.clientHeight,false);
- scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x091a27,.018);scene.add(mount);camera=new THREE.PerspectiveCamera(39,1,.05,200);camera.position.set(8,6.6,10.3);
+ renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;renderer.setSize(modelViewport.clientWidth,modelViewport.clientHeight,false);
+ scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x1a3026,.018);scene.add(mount);camera=new THREE.PerspectiveCamera(39,1,.05,200);camera.position.set(8,6.6,10.3);
  controls=new OrbitControls(camera,canvas);controls.enableDamping=true;controls.dampingFactor=.055;controls.minDistance=4.3;controls.maxDistance=23;controls.maxPolarAngle=Math.PI*.93;controls.target.set(0,0,0);controls.update();
- scene.add(new THREE.HemisphereLight(0xc8ebf4,0x203241,1.9));let key=new THREE.DirectionalLight(0xffddad,3.7);key.position.set(5,8,7);scene.add(key);let rim=new THREE.PointLight(0x6cc3d6,60,30);rim.position.set(-6,-1,-3);scene.add(rim);
+ scene.add(new THREE.HemisphereLight(0xf3ead4,0x374d38,1.65));let key=new THREE.DirectionalLight(0xffefd1,3.0);key.position.set(5,8,7);scene.add(key);let rim=new THREE.PointLight(0x9abb8d,46,30);rim.position.set(-6,-1,-3);scene.add(rim);
  modelViewport.append(canvas);$('loading').remove();DATA.renderer=renderer;DATA.camera=camera;DATA.controls=controls;
 }catch(e){$('loading').innerHTML='<strong>WebGL indisponible</strong><span>Activez l’accélération matérielle de votre navigateur.</span>';console.error(e)}
 
