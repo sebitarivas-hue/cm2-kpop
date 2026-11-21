@@ -85,7 +85,7 @@ function pageId(){
 const originalTitle=document.title;
 
 const canTranslate=n=>!!n?.parentElement&&!n.parentElement.closest(SKIP);
-const hasLanguage=s=>/[\p{L}]/u.test(s) && s.replace(/\s/g,'').length>4&&!/^[A-Z][A-Z0-9 .:+()−–\-×⁄%]+$/.test(s);
+const hasLanguage=s=>/[\p{L}]/u.test(s) && s.trim().length>1;
 function localTranslate(s,lang){
  const value=s.trim();
  const translated=HOME_TERMS[value]?.[lang]??UI[value]?.[lang]??SCIENCE_TERMS[value]?.[lang]??CHAPTER_TERMS[value]?.[lang];
@@ -153,7 +153,7 @@ function textNode(n,original){
  const v=textRecords.get(n);if(current==='fr'){n.nodeValue=v;return}
  if(processed.get(n)===current)return;
  const direct=localTranslate(v,current);if(direct!==null){n.nodeValue=direct;processed.set(n,current);return}
- if(!/\b(de|du|des|une|un|le|la|les|dans|avec|pour|sur|par|et|est|sont|aux|entre|cette|ces|leurs|qui|que)\b/i.test(v)&&!/[éèàùêçîôûëï]/i.test(v))return;
+ if(!/[\p{L}]/u.test(v))return;
  schedule({node:n,source:v,lang:current,version});
 }
 function scan(root=document.body){
@@ -167,10 +167,24 @@ function scan(root=document.body){
    if(!el.hasAttribute(k))continue;
    if(!(k in original))original[k]=el.getAttribute(k);
    if(current==='fr'){el.setAttribute(k,original[k]);continue}
-   const direct=localTranslate(original[k],current);if(direct)el.setAttribute(k,direct);else if(el.getAttribute(k)!==original[k])el.setAttribute(k,original[k]);
+   const direct=localTranslate(original[k],current);
+   if(direct)el.setAttribute(k,direct);
+   else if(hasLanguage(original[k]))scheduleAttribute(el,k,original[k],current,version);
   }
   attrRecords.set(el,original);
  }
+}
+const attributePending=new WeakMap();
+async function scheduleAttribute(el,key,source,lang,stamp){
+ const token=lang+':'+source;
+ let pending=attributePending.get(el);
+ if(!pending){pending=new Map();attributePending.set(el,pending)}
+ if(pending.get(key)===token)return;
+ pending.set(key,token);
+ try{const translated=await translateScientific(source,lang);
+  if(stamp===version&&el.isConnected&&current===lang&&translated)el.setAttribute(key,translated);
+ }catch{failures++}
+ finally{if(pending.get(key)===token)pending.delete(key)}
 }
 function schedule(item){
  if(!item.node.isConnected)return;
@@ -179,7 +193,6 @@ function schedule(item){
  if(processed.get(item.node)===item.lang)return;
  processed.set(item.node,item.lang);
  queue.push(item);
- if(queue.length>650)queue=queue.slice(0,650);
  pump();
 }
 async function pump(){
@@ -189,9 +202,8 @@ async function pump(){
   (async()=>{
    try{
     const result=await translateScientific(task.source,task.lang);
-    if(task.version===version&&task.node.isConnected&&result)task.node.nodeValue=result;
-    success++;
-   }catch{failures++;if(failures===1||failures%20===0)status('Traduction automatique indisponible pour certains passages ; texte original conservé.',true)}
+    if(task.version===version&&task.node.isConnected&&result){task.node.nodeValue=result;success++}
+   }catch{failures++;processed.delete(task.node);if(failures===1||failures%20===0)status('Traduction automatique indisponible pour certains passages ; texte original conservé.',true)}
    finally{busy--;pump()}
   })();
  }
@@ -243,8 +255,8 @@ export function initI18n(nav){
  const toggler=nav.querySelector('.atlas-mobile-toggle');
  nav.insertBefore(slot,toggler||null);
  slot.querySelector('select').addEventListener('change',e=>setLanguage(e.target.value));
- observer=new MutationObserver(mutations=>{if(current==='fr')return;for(const m of mutations){if(m.addedNodes.length){visibleScan();break}}});
- observer.observe(document.body,{subtree:true,childList:true});
+ observer=new MutationObserver(mutations=>{if(current==='fr')return;for(const m of mutations){if(m.addedNodes.length||m.type==='characterData'){visibleScan();break}}});
+ observer.observe(document.body,{subtree:true,childList:true,characterData:true});
  addEventListener('scroll',visibleScan,{passive:true});
  addEventListener('hashchange',visibleScan);
  setLanguage(current);
