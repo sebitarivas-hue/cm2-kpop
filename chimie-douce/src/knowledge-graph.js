@@ -513,11 +513,197 @@ export const CONCEPTS=[
     "scene": "structure"
   }
 ];
+export const CONCEPT_PLATE_MAP={
+  "solgel": [
+    12,
+    15,
+    18
+  ],
+  "hydrolysis": [
+    12,
+    15
+  ],
+  "condensation": [
+    12,
+    15
+  ],
+  "gelation": [
+    12,
+    18
+  ],
+  "porosity": [
+    21,
+    25,
+    26
+  ],
+  "diffusion": [
+    25,
+    40
+  ],
+  "viability": [
+    12,
+    18,
+    38,
+    46
+  ],
+  "cellwall": [
+    2,
+    3,
+    10
+  ],
+  "interface": [
+    3,
+    11,
+    47,
+    67
+  ],
+  "encapsulation": [
+    12,
+    13,
+    16,
+    17,
+    18
+  ],
+  "immunoisolation": [
+    13,
+    14,
+    17
+  ],
+  "mycelium": [
+    5,
+    6
+  ],
+  "hyphae": [
+    5,
+    6
+  ],
+  "biofabrication": [
+    5,
+    57,
+    58,
+    59,
+    60
+  ],
+  "carbonation": [
+    7,
+    8
+  ],
+  "spores": [
+    8,
+    9
+  ],
+  "hygromorph": [
+    9
+  ],
+  "ldh": [
+    22,
+    23,
+    24
+  ],
+  "intercalation": [
+    22,
+    23
+  ],
+  "hipe": [
+    25,
+    26,
+    27
+  ],
+  "diatom": [
+    19,
+    28,
+    29
+  ],
+  "biomineralization": [
+    19,
+    28,
+    55,
+    56
+  ],
+  "photoelectron": [
+    41,
+    42,
+    43
+  ],
+  "mof": [
+    33,
+    34,
+    35
+  ],
+  "ligand": [
+    33,
+    34,
+    49
+  ],
+  "nucleation": [
+    35,
+    36,
+    55,
+    56
+  ],
+  "zif8": [
+    36,
+    37,
+    38,
+    39,
+    40
+  ],
+  "shield": [
+    44,
+    47,
+    48,
+    50
+  ],
+  "cryoprotection": [
+    53,
+    54
+  ],
+  "bioprinting": [
+    57,
+    59,
+    60
+  ],
+  "bioink": [
+    59,
+    60
+  ],
+  "cellulose": [
+    58,
+    59,
+    60,
+    64
+  ],
+  "nanofiber": [
+    58,
+    64
+  ],
+  "microbialfuel": [
+    61,
+    62,
+    63
+  ],
+  "biofilm": [
+    61,
+    62
+  ],
+  "electrontransfer": [
+    42,
+    61,
+    62
+  ],
+  "thermoelectric": [
+    64
+  ],
+  "crystallography": [
+    33,
+    34
+  ]
+};
 export const CONCEPT_BY_ID=Object.fromEntries(CONCEPTS.map(x=>[x.id,x]));
 export const LECTURE_ONLY_PLATES=[1,4,69,70];
 export const PLATE_BY_ID=Object.fromEntries(FIGURES.map(x=>[x.id,x]));
 export function plateAsset(n){const id=Number(n);if(!Number.isInteger(id)||id<1||id>70)throw new Error('Identifiant planche invalide');return new URL('../assets/planches/fig-'+String(id).padStart(2,'0')+'.webp',import.meta.url).href}
 export function sceneResources(sceneId){const s=SCENES.find(x=>x.id===sceneId);if(!s)return null;const links=SCENE_RESOURCE_MAP[sceneId]||{plates:[],terms:[]};return{scene:s,plates:links.plates.map(id=>PLATE_BY_ID[id]).filter(Boolean),concepts:links.terms.map(id=>CONCEPT_BY_ID[id]).filter(Boolean),sources:s.refs.map(id=>({...SOURCES[id],id})).filter(x=>x.name),chapters:[...new Set(links.plates.map(id=>PLATE_BY_ID[id]?.chapter).filter(Boolean))]}}
-export function conceptRelations(id){const c=CONCEPT_BY_ID[id];if(!c)return null;return{...c,scene:SCENES.find(x=>x.id===c.scene),plates:(SCENE_RESOURCE_MAP[c.scene]?.plates||[]).map(x=>PLATE_BY_ID[x]).filter(Boolean)}}
+export function conceptRelations(id){const c=CONCEPT_BY_ID[id];if(!c)return null;return{...c,scene:SCENES.find(x=>x.id===c.scene),plates:(CONCEPT_PLATE_MAP[id]||[]).map(x=>PLATE_BY_ID[x]).filter(Boolean)}}
 export function plateVideo(plate){return videoAt(plate.time)}
 export function plateLink(id){return '../planches/?figure='+Number(id)}
