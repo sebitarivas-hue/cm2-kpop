@@ -3,7 +3,7 @@ import {FIGURES} from './figures.js';
 import {sceneResources,plateAsset} from './knowledge-graph.js';
 import {ensureConceptDialog,conceptButton} from './concept-ui.js';
 const el=id=>document.getElementById(id);
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;':'&quot;','\'':'&#39;'}[c]));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const chapters=[...new Set(FIGURES.map(x=>x.chapter))];
 const chapterId=ch=>chapters.indexOf(ch)+1;
 let currentScene=null,activePlate=null;
