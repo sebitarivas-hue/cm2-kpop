@@ -19,7 +19,9 @@ export const SCENE_RESOURCE_MAP={
     "plates": [
       2,
       3,
-      10
+      10,
+      20,
+      65
     ],
     "terms": [
       "cellwall",
@@ -118,6 +120,7 @@ export const SCENE_RESOURCE_MAP={
     "plates": [
       30,
       31,
+      32,
       41,
       42,
       43
@@ -132,7 +135,9 @@ export const SCENE_RESOURCE_MAP={
     "plates": [
       33,
       34,
-      35
+      35,
+      55,
+      56
     ],
     "terms": [
       "mof",
@@ -167,7 +172,10 @@ export const SCENE_RESOURCE_MAP={
       49,
       50,
       51,
-      52
+      52,
+      66,
+      67,
+      68
     ],
     "terms": [
       "shield",
@@ -506,6 +514,7 @@ export const CONCEPTS=[
   }
 ];
 export const CONCEPT_BY_ID=Object.fromEntries(CONCEPTS.map(x=>[x.id,x]));
+export const LECTURE_ONLY_PLATES=[1,4,69,70];
 export const PLATE_BY_ID=Object.fromEntries(FIGURES.map(x=>[x.id,x]));
 export function plateAsset(n){const id=Number(n);if(!Number.isInteger(id)||id<1||id>70)throw new Error('Identifiant planche invalide');return new URL('../assets/planches/fig-'+String(id).padStart(2,'0')+'.webp',import.meta.url).href}
 export function sceneResources(sceneId){const s=SCENES.find(x=>x.id===sceneId);if(!s)return null;const links=SCENE_RESOURCE_MAP[sceneId]||{plates:[],terms:[]};return{scene:s,plates:links.plates.map(id=>PLATE_BY_ID[id]).filter(Boolean),concepts:links.terms.map(id=>CONCEPT_BY_ID[id]).filter(Boolean),sources:s.refs.map(id=>({...SOURCES[id],id})).filter(x=>x.name),chapters:[...new Set(links.plates.map(id=>PLATE_BY_ID[id]?.chapter).filter(Boolean))]}}
