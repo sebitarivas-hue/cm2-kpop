@@ -38,3 +38,19 @@ body{background:#f2efe8;font-family:var(--sans)}
 @media(max-width:1150px){.workspace{grid-template-columns:240px minmax(0,1fr)}.inspector{display:none}.hero-inner{min-height:560px}.hero-copy h1{font-size:clamp(66px,8.2vw,110px)}.hero-copy{padding-left:38px}.hero-art{min-height:490px}.hero-bottom span:nth-child(2){display:none}.ribbon-center{display:none}.top-desc{display:none}.editorial-divider{height:70px}}
 @media(max-width:800px){.masthead-ribbon{padding:0 16px;font-size:8px}.masthead-ribbon span:nth-child(2){display:none}.topbar{height:68px;padding:0 18px}.hero-inner{display:flex;flex-direction:column;min-height:auto}.hero-copy{padding:52px 21px 35px}.hero-kicker{font-size:8px;margin-bottom:27px}.hero-edition{display:none}.hero-copy h1{font-size:clamp(64px,14vw,104px);white-space:normal}.hero-lead{font-size:14px}.hero-buttons{gap:8px}.hero-button{min-height:48px;padding:0 14px;font-size:9px}.hero-stats{margin-top:44px;justify-content:space-between;gap:15px}.hero-stats strong{font-size:36px}.hero-stats span{font-size:8px}.hero-art{height:350px;min-height:350px}.hero-art img{object-fit:cover;object-position:center 46%}.hero-vertical{top:27px;right:18px;font-size:8px}.hero-art-caption{left:20px;bottom:15px;font-size:8px}.hero-bottom{height:49px;padding:0 20px;font-size:8px}.editorial-divider{height:63px;padding:0 16px;font-size:9px}.divider-side{display:none}.sidebar{top:68px}.stage{height:65dvh;min-height:450px}.lower{min-height:0}.bottombar{display:none}.mobile-nav{background:#dec7a1;color:#111b1d}.sidebar-footer{padding:15px}.stage-overlay{left:17px;bottom:90px}.stage-overlay h2{font-size:35px}.stage-head{top:19px;left:18px;right:15px}}
 @media(prefers-reduced-motion:reduce){.hero-art img{animation:none}}
+
+/* The lecture is the homepage's primary editorial identity. */
+.editorial-hero .hero-copy h1{font-size:clamp(49px,6.3vw,105px);line-height:.98;letter-spacing:-.057em;max-width:900px}
+.hero-course-credit{display:flex;flex-wrap:wrap;align-items:baseline;gap:11px 15px;margin:26px 0 16px;padding:16px 0;border-top:1px solid #a48b6965;border-bottom:1px solid #a48b6965;max-width:760px}
+.hero-course-credit span{font:10px/1.6 'DM Mono',monospace;letter-spacing:.08em;color:#a2aaa0}
+.hero-course-credit strong{font:600 clamp(18px,2vw,25px)/1.15 'Space Grotesk',sans-serif;letter-spacing:.08em;color:#eee4d1}
+.hero-course-credit span:nth-of-type(2){color:#e0bb84}
+.hero-course-credit a{font:11px 'DM Mono',monospace;text-decoration:none;color:#b1e0d3;transition:color .2s}
+.hero-course-credit a:hover{color:#f5d1a2}
+.atlas-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end;padding:12px 22px;background:#14201f;color:#d7cfb7;border-bottom:1px solid #bbab8b59}
+.atlas-tools>span{margin-right:auto;color:#aebcb3;font:10px 'DM Mono',monospace;letter-spacing:.11em}
+.atlas-tools button{background:#233935;border:1px solid #a7ad9770;padding:10px 14px;color:#e1d4bc;border-radius:0;font:10px 'DM Mono',monospace;letter-spacing:.06em}
+.atlas-tools button:hover,.atlas-tools button:focus-visible{background:#426053;color:#fff;border-color:#ddbf8b}
+.atlas-tools #buttonHelp{width:36px;font-weight:700;font-size:14px}
+@media(max-width:1050px){.hero-course-credit{margin:22px 0 15px}.editorial-hero .hero-copy h1{font-size:clamp(48px,7.2vw,82px)}}
+@media(max-width:670px){.editorial-hero .hero-copy h1{font-size:clamp(43px,10vw,66px)}.hero-course-credit{display:block;padding:10px 0}.hero-course-credit>*{display:block;margin:6px 0}.atlas-tools{justify-content:flex-start;padding:10px 12px}.atlas-tools>span{display:none}.atlas-tools button{padding:10px;font-size:9px}}

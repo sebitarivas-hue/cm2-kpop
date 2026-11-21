@@ -33,3 +33,33 @@ body.essay-page #atlasGlobalNav .nav-back{font-family:monospace}
  body.essay-page #nav .nav-brand{display:none}
  #atlasEssayTools{width:min(255px,calc(100vw - 12px));right:6px}
 }
+
+/* Navigation unifiée : un seul bandeau persistant, aucun deuxième en-tête. */
+.atlas-mobile-toggle{display:none}
+.reader-context,.lab-context{margin:0;padding:15px max(22px,5vw);font:10px/1.55 'DM Mono',monospace;letter-spacing:.09em;color:#d8c293;background:#172321;border-bottom:1px solid #b39f754f}
+body.essay-page #nav{display:none!important;visibility:hidden!important;height:0!important;pointer-events:none!important}
+body.essay-page #atlasGlobalNav{z-index:9999!important}
+body:has(.reader-context) .layout>aside{top:61px!important;height:calc(100vh - 61px)!important}
+@media(max-width:1000px){
+ #atlasGlobalNav{height:61px!important;display:flex!important;flex-wrap:nowrap!important;align-items:center!important}
+ #atlasGlobalNav .atlas-mobile-toggle{display:inline-flex!important;align-items:center;justify-content:center;gap:7px;background:#203733;color:#e6c895;border:1px solid #d1b68a88;padding:8px 11px;font:10px 'DM Mono',monospace;white-space:nowrap;margin-left:auto}
+ #atlasGlobalNav .route-menu{display:none!important;position:absolute!important;top:60px!important;left:0!important;right:0!important;height:auto!important;max-height:calc(100dvh - 61px)!important;overflow-y:auto!important;padding:10px 14px 18px!important;flex-direction:column!important;gap:2px!important;background:#101e21f9!important;border-bottom:1px solid #cbb38798!important;box-shadow:0 20px 55px #0009!important}
+ #atlasGlobalNav.mobile-menu-open .route-menu{display:flex!important}
+ #atlasGlobalNav .route-menu a{padding:13px 16px!important;min-height:44px!important;font:12px 'DM Mono',monospace!important;border-left:2px solid transparent!important;border-bottom:1px solid #9fa79528!important;display:flex!important}
+ #atlasGlobalNav .route-menu a.active{border-left-color:#dbb981!important}
+ #atlasGlobalNav .breadcrumbs{max-width:42vw!important;min-width:0!important;flex:1!important}
+ #atlasGlobalNav .nav-back{display:none!important}
+ .mobileAtlasNav{display:none!important}
+ body{padding-bottom:0!important}
+ body.essay-page #nav{display:none!important}
+ body.essay-page section[id]{scroll-margin-top:85px}
+ .layout>aside{height:auto!important}
+}
+@media(max-width:530px){
+ #atlasGlobalNav{padding:0 11px!important;gap:9px!important}
+ #atlasGlobalNav .nav-signature{font-size:10px!important;letter-spacing:.06em!important}
+ #atlasGlobalNav .breadcrumbs{font-size:9px!important;gap:5px!important}
+ #atlasGlobalNav .nav-divider{display:none!important}
+ #atlasGlobalNav .atlas-mobile-toggle span{display:none}
+ #atlasGlobalNav .atlas-mobile-toggle{width:40px;min-width:40px;padding:8px 0!important;font-size:18px}
+}
