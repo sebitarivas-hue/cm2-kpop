@@ -29,7 +29,7 @@ function render(id){
  el('resourceConcepts').innerHTML=r.concepts.map(conceptButton).join('');
  el('resourceChapters').innerHTML=r.chapters.map(ch=>'<a href="./research/#chapitre-'+chapterId(ch)+'">CHAPITRE '+String(chapterId(ch)).padStart(2,'0')+' / '+esc(ch)+' ↗</a>').join('');
  el('resourceReferences').innerHTML=r.sources.map(src=>'<a href="./bibliographie/?scene='+encodeURIComponent(id)+'&ref='+encodeURIComponent(src.id)+'"><span>'+esc(src.id)+'</span>'+esc(src.name)+' ↗</a>').join('');
- el('resourceExperiment').href='#laboratoire';
+ el('resourceExperiment').href='./#'+id;
  el('resourceTime').href=videoAt(scene.time);
  el('resourceTime').textContent='OUVRIR LE COURS À '+formatTime(scene.time)+' ↗';
  el('resourceGlossary').href='./notions/?scene='+encodeURIComponent(id);
@@ -42,6 +42,7 @@ function init(){
  root.innerHTML='<div class="resource-header"><span class="res-num" id="resourceSceneId">DOSSIER SCIENTIFIQUE</span><h2 id="resourceSceneTitle">Sources du cours</h2><p id="resourceSceneSummary"></p><div class="resource-actions"><a id="resourceExperiment" href="#laboratoire">◉ MANIPULER LE MODÈLE 3D</a><a id="resourceTime" target="_blank" rel="noopener noreferrer" href="#">▶ VOIR LE COURS</a><a id="resourceGlossary" href="./notions/">⌕ EXPLORER LES NOTIONS</a></div></div><div class="resource-grid"><div class="resource-observation"><div class="resource-section-title"><strong>01 / VOIR</strong><span id="resourcePlateCount"></span></div><div id="resourceOriginal" aria-live="polite"></div><div id="resourcePlatePicker" class="resource-plate-picker" aria-label="Autres planches originales du même dossier"></div></div><div class="resource-context"><div class="resource-section-title"><strong>02 / COMPRENDRE</strong><span>UNE SEULE SOURCE DOCUMENTAIRE</span></div><h3>Notions interactives</h3><div id="resourceConcepts" class="resource-concepts"></div><h3>Dans la monographie</h3><div id="resourceChapters" class="resource-links"></div><h3>Publications vérifiables</h3><div id="resourceReferences" class="resource-links resource-publications"></div><p class="resource-disclaimer">Documents originaux du cours et modèles pédagogiques indépendants : une correspondance thématique ne prouve ni une équivalence expérimentale ni une simulation validée. Les droits des diapositives demeurent ceux de leurs titulaires.</p></div></div>';
  lower.insertAdjacentElement('afterend',root);
  ensureConceptDialog();
+ el('resourceExperiment').addEventListener('click',e=>{e.preventDefault();document.querySelector('.stage')?.scrollIntoView({behavior:'smooth',block:'center'})});
  const update=()=>{const id=location.hash.slice(1)||SCENES[0].id;if(id!==currentScene)render(id)};
  window.addEventListener('hashchange',update);
  window.addEventListener('atlas:navigate',update);
