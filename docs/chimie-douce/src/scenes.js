@@ -1,13 +1,13 @@
 import * as THREE from 'three';
 import {createStructureModel} from './structure.js';
-const C={teal:0x749d85,cyan:0xa1bca0,gold:0xc3a67c,amber:0xd8bc91,blue:0x668f85,violet:0x9a9982,purple:0x8a8d72,coral:0xb78f7a,white:0xe8e0cc,green:0x88a36c,dark:0x253e33};
+const C={teal:0x64c4c9,cyan:0x8edfe0,gold:0xd2a266,amber:0xe9c083,blue:0x447caa,violet:0x9779bb,purple:0x8c65b3,coral:0xc77373,white:0xddebed,green:0x79bba2,dark:0x183447};
 const V=(x,y,z)=>new THREE.Vector3(x,y,z);
-const mat=(color,opts={})=>new THREE.MeshStandardMaterial({color,metalness:0,roughness:.78,...opts});
-const glass=(color,opacity=.2)=>new THREE.MeshPhysicalMaterial({color,roughness:.58,metalness:0,transparent:true,opacity,depthWrite:false,side:THREE.DoubleSide,transmission:0});
+const mat=(color,opts={})=>new THREE.MeshStandardMaterial({color,metalness:.12,roughness:.46,...opts});
+const glass=(color,opacity=.2)=>new THREE.MeshPhysicalMaterial({color,roughness:.23,metalness:.05,transparent:true,opacity,depthWrite:false,side:THREE.DoubleSide,transmission:0});
 const glow=(color)=>new THREE.MeshBasicMaterial({color,transparent:true,opacity:.82});
 const sph=new THREE.SphereGeometry(1,12,8);
 const hex=new THREE.IcosahedronGeometry(1,0);
-const M={gold:mat(C.gold,{metalness:.04,roughness:.69}),cyan:mat(C.cyan,{metalness:0,roughness:.73}),blue:mat(C.blue),teal:mat(C.teal),purple:mat(C.purple),coral:mat(C.coral),green:mat(C.green),white:mat(C.white),dark:mat(C.dark)};
+const M={gold:mat(C.gold,{metalness:.55,roughness:.28}),cyan:mat(C.cyan,{metalness:.25,roughness:.3}),blue:mat(C.blue),teal:mat(C.teal),purple:mat(C.purple),coral:mat(C.coral),green:mat(C.green),white:mat(C.white),dark:mat(C.dark)};
 function rand(seed=42){let a=seed>>>0;return()=>{a+=0x6D2B79F5;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296}}
 function sphere(parent,pos,r,material=M.cyan,geom=sph){const m=new THREE.Mesh(geom,material);m.position.copy(pos);m.scale.setScalar(r);parent.add(m);return m}
 function rod(parent,p1,p2,r=.024,material=M.cyan){const diff=p2.clone().sub(p1);const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,diff.length(),7),material);m.position.copy(p1).addScaledVector(diff,.5);m.quaternion.setFromUnitVectors(V(0,1,0),diff.normalize());parent.add(m);return m}
@@ -19,66 +19,7 @@ function shadowFloor(root){const g=new THREE.GridHelper(20,22,0x1a4251,0x103039)
 function nucleus(root,x=0,y=0,z=0){const g=new THREE.Group();g.position.set(x,y,z);root.add(g);let prev=null;for(let i=0;i<90;i++){const t=i/89*Math.PI*6,p=V(Math.cos(t)*.32,Math.sin(t)*.32,(i/89-.5)*2.3);sphere(g,p,.043,i%4?M.cyan:M.gold);if(prev)rod(g,prev,p,.013,M.blue);prev=p}return g}
 function bacillus(root,scale=1,opacity=.30){const g=new THREE.Group();g.scale.setScalar(scale);root.add(g);const outer=new THREE.Mesh(new THREE.CapsuleGeometry(.85,1.45,8,16),glass(C.teal,opacity));outer.rotation.z=Math.PI/2;g.add(outer);const inner=new THREE.Mesh(new THREE.CapsuleGeometry(.69,1.45,6,14),glass(C.cyan,.11));inner.rotation.z=Math.PI/2;g.add(inner);nucleus(g);for(let j=0;j<5;j++){const x=-.95+j*.48;const pts=[];for(let k=0;k<8;k++){let u=k/7;pts.push(V(x+u*1.35,(.8+u*.65)*Math.sin((j+1)*3.1+u*4.8),(.8+u*.65)*Math.cos((j+1)*3.1+u*4.8)))}wireCurve(g,pts,.015,M.gold)}return g}
 function animatedParticles(root,count,radius,seed=17,color='cyan',speed=.8){const matref=M[color]||M.cyan;const pts=instanced(root,count,.052,matref,seed,(i,r)=>{const a=r()*Math.PI*2,b=(r()-.5)*Math.PI;const dist=radius+r()*.9;return [Math.cos(a)*Math.cos(b)*dist,Math.sin(b)*dist,Math.sin(a)*Math.cos(b)*dist,.038+r()*.045]});return {object:pts,tick(t){pts.rotation.y=t*.06*speed;pts.rotation.x=Math.sin(t*.25)*.13}}}
-function makeSolgel(root,p){
- // Editorial organic illustration of a porous sol-gel network.
- // Not a reconstructed molecular topology, microscopy image, or calibrated pore size.
- const rng=rand(102), network=new THREE.Group();root.add(network);
- const shell=mat(0xdce5d8,{roughness:.8,metalness:0,side:THREE.DoubleSide});
- const ribs=mat(0xc8d9c1,{roughness:.75,metalness:0});
- const highlight=mat(0xe5d2a9,{roughness:.65,metalness:0});
- const haze=glass(0xb8d3b8,.085);
- const count=Math.round(64+p.density*.65),points=[];
- // Distributed mesoscopic nodes with a deliberately accessible porous core.
- for(let i=0;i<count*5&&points.length<count;i++){
-   const x=(rng()-.5)*6.4,y=(rng()-.5)*5.2,z=(rng()-.5)*5.0;
-   const cavity=((x-.5)/1.05)**2+((y+.08)/1.2)**2+((z-.35)/.9)**2;
-   if(cavity<1||Math.abs(x)>3.1||Math.abs(y)>2.6||Math.abs(z)>2.5)continue;
-   points.push(V(x,y,z));
- }
- const jointGeo=new THREE.IcosahedronGeometry(1,3);
- const joints=new THREE.InstancedMesh(jointGeo,shell,points.length);
- const object=new THREE.Object3D();
- for(let i=0;i<points.length;i++){
-   object.position.copy(points[i]);object.rotation.set(rng()*.35,rng()*.35,rng()*.35);
-   const scale=.1+(rng()*.09);object.scale.set(scale*1.2,scale,scale*1.1);
-   object.updateMatrix();joints.setMatrixAt(i,object.matrix);
- }
- joints.instanceMatrix.needsUpdate=true;network.add(joints);
- // Curved silica strands: variable tangents replace straight cylinders and toy-like ball-and-stick.
- let edgeCount=0;
- const maxD=1.65+(p.bonds/100)*.35;
- for(let i=0;i<points.length;i++){
-   const a=points[i],near=points.map((b,j)=>({j,d:a.distanceTo(b)}))
-     .filter(o=>o.j>i&&o.d<maxD).sort((u,v)=>u.d-v.d).slice(0,3);
-   for(const {j,d} of near){
-     if(rng()>.46+p.bonds/300)continue;
-     const b=points[j],middle=a.clone().lerp(b,.5);
-     const lateral=V((rng()-.5)*.35,(rng()-.5)*.35,(rng()-.5)*.35);
-     middle.add(lateral);
-     const curve=new THREE.CatmullRomCurve3([a,middle,b],false,'centripetal');
-     const radius=(.07+rng()*.055)*(0.85+p.bonds/300);
-     const strand=new THREE.Mesh(new THREE.TubeGeometry(curve,9,radius,7,false),
-       edgeCount%13===0?highlight:edgeCount%3===0?ribs:shell);
-     network.add(strand);edgeCount++;
-   }
- }
- // Diffuse organic envelopes imply silica aggregates, never a glowing bounding cube.
- const envelopeGeo=new THREE.IcosahedronGeometry(1,3);
- for(let i=0;i<Math.min(20,points.length);i++){
-   const origin=points[Math.floor(i*points.length/20)];
-   if(!origin)continue;
-   const film=new THREE.Mesh(envelopeGeo,haze);
-   film.position.copy(origin);film.scale.set(.32+rng()*.34,.28+rng()*.3,.31+rng()*.37);
-   network.add(film);
- }
- // Sparse golden molecules are explicitly transport tracers, not part of the measured matrix.
- const tracers=animatedParticles(root,Math.min(24,Math.round(p.motion/5)),2.7,52,'gold',p.motion/65);
- return t=>{
-   network.rotation.y=Math.sin(t*.14)*.042;
-   network.rotation.x=Math.sin(t*.09)*.018;
-   tracers.tick(t);
- };
-}
+function makeSolgel(root,p){const r=rand(102),n=p.density,points=[];for(let i=0;i<n;i++)points.push(V((r()-.5)*6.4,(r()-.5)*5.0,(r()-.5)*5.2));let count=0;points.forEach((a,i)=>{sphere(root,a,.11,i%11===0?M.gold:M.cyan);let candidates=points.slice(i+1).map((b,j)=>[i+1+j,a.distanceTo(b)]).sort((a,b)=>a[1]-b[1]).slice(0,4);for(const [j,d] of candidates){if(d<(1.0+p.bonds/100*1.65)&&r()<p.bonds/130){rod(root,a,points[j],.032,i%4===0?M.gold:M.teal);count++}}});boxFrame(root,7,5.7,5.6);const parts=animatedParticles(root,33,2.8,52,'gold',p.motion/60);return(t)=>parts.tick(t)}
 function makeCell(root,p){const b=bacillus(root,1,Math.min(.6,p.membrane/140));const particles=animatedParticles(root,p.nutrients,2.6,12,'gold',p.motion/65);return t=>{b.rotation.y=Math.sin(t*.26)*.12;particles.tick(t)}}
 function makeEncapsulation(root,p){const b=bacillus(root,.72,.29);const radius=2.4+p.shell/120;const sh=new THREE.Mesh(new THREE.IcosahedronGeometry(radius,3),glass(C.teal,.13));root.add(sh);const frame=new THREE.Mesh(new THREE.IcosahedronGeometry(radius,3),new THREE.MeshBasicMaterial({color:C.cyan,wireframe:true,transparent:true,opacity:.14}));root.add(frame);const R=rand(130);for(let k=0;k<Math.round(20+p.pores*.6);k++){const theta=R()*Math.PI*2,yy=R()*2-1,ss=Math.sqrt(1-yy*yy);const pos=V(Math.cos(theta)*ss,yy,Math.sin(theta)*ss).multiplyScalar(radius+.02);sphere(root,pos,.06+(p.pores/100)*.045,k%6?M.cyan:M.gold)}const particles=animatedParticles(root,55,3.15,104,'gold',p.motion/50);return t=>{b.rotation.y=Math.sin(t*.3)*.06;frame.rotation.y=t*.025;particles.tick(t)}}
 function makeMycelium(root,p){const R=rand(342),branches=p.branch;let segments=0;for(let i=0;i<Math.min(8,Math.floor(p.fibers/10));i++){const base=V((R()-.5)*5,-2.5,(R()-.5)*3),ang=R()*6.3;function grow(start,d,len,depth){if(segments>p.fibers*2||depth>branches)return;const end=start.clone().addScaledVector(d,len);rod(root,start,end,.013+(.035/(1+depth)),depth%3?M.green:M.gold);segments++;if(depth<branches){for(let k=0;k<(R()>.6?2:1);k++){const dir=d.clone().add(V((R()-.5)*1.6,(R()-.5)*.65,(R()-.5)*1.7)).normalize();grow(end,dir,len*(.63+R()*.12),depth+1)}}}grow(base,V(Math.cos(ang)*.35,.85,Math.sin(ang)*.35).normalize(),.7+R()*.5,0)}for(let i=0;i<25;i++)sphere(root,V((R()-.5)*6,-2.7+R()*.2,(R()-.5)*4),.11+R()*.18,M.dark);return t=>{root.rotation.y=Math.sin(t*.08*p.motion/100)*.045}}
