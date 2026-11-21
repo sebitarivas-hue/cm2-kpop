@@ -1,4 +1,5 @@
-import {CONCEPTS,sceneResources} from '../src/knowledge-graph.js';import {ensureConceptDialog,openConcept} from '../src/concept-ui.js';
+import {CONCEPTS,sceneResources} from '../src/knowledge-graph.js';
+import {ensureConceptDialog,openConcept} from '../src/concept-ui.js';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const input=document.getElementById('notionSearch'),grid=document.getElementById('notionGrid'),count=document.getElementById('notionCount');
 ensureConceptDialog();
