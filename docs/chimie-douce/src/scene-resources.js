@@ -2,13 +2,15 @@ import {SCENES,videoAt} from './content.js';
 import {FIGURES} from './figures.js';
 import {sceneResources,plateAsset} from './knowledge-graph.js';
 import {ensureConceptDialog,conceptButton} from './concept-ui.js';
+import {translateTerm} from '../i18n.js';
+const tr=s=>translateTerm(s);
 const el=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const chapters=[...new Set(FIGURES.map(x=>x.chapter))];
 const chapterId=ch=>chapters.indexOf(ch)+1;
 let currentScene=null,activePlate=null;
 function photo(f){
- return '<figure class="source-original"><a href="./planches/?figure='+f.id+'" title="Ouvrir la planche originale en grand"><img src="'+plateAsset(f.id)+'" alt="Diapositive originale '+f.id+' — '+esc(f.title)+'" loading="lazy"><span class="original-seal">ARCHIVE DU COURS · FIG. '+String(f.id).padStart(2,'0')+'</span></a><figcaption><b>'+esc(f.title)+'</b><p>'+esc(f.note)+'</p><div class="source-credits">Extrait du cours de Clément Sanchez · <a href="'+videoAt(f.time)+'" target="_blank" rel="noopener noreferrer">Vidéo à '+formatTime(f.time)+' ↗</a> · <a href="./planches/?figure='+f.id+'">Fiche canonique ↗</a></div></figcaption></figure>';
+ return '<figure class="source-original"><a href="./planches/?figure='+f.id+'" title="Ouvrir la planche originale en grand"><img src="'+plateAsset(f.id)+'" alt="Diapositive originale '+f.id+' — '+esc(tr(f.title))+'" loading="lazy"><span class="original-seal">ARCHIVE DU COURS · FIG. '+String(f.id).padStart(2,'0')+'</span></a><figcaption><b>'+esc(tr(f.title))+'</b><p>'+esc(tr(f.note))+'</p><div class="source-credits">Extrait du cours de Clément Sanchez · <a href="'+videoAt(f.time)+'" target="_blank" rel="noopener noreferrer">Vidéo à '+formatTime(f.time)+' ↗</a> · <a href="./planches/?figure='+f.id+'">Fiche canonique ↗</a></div></figcaption></figure>';
 }
 function formatTime(t){const s=Math.floor(t);return String(Math.floor(s/3600)).padStart(2,'0')+':'+String(Math.floor(s%3600/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
 function setImage(id){
@@ -23,11 +25,11 @@ function render(id){
  const r=sceneResources(id);if(!r)return;
  currentScene=id;
  const scene=r.scene;
- el('resourceSceneTitle').textContent=scene.title;
- el('resourceSceneSummary').textContent=scene.intro;
+ el('resourceSceneTitle').textContent=tr(scene.title);
+ el('resourceSceneSummary').textContent=tr(scene.intro);
  el('resourceSceneId').textContent='DOSSIER '+scene.n+' / 18';
  el('resourceConcepts').innerHTML=r.concepts.map(conceptButton).join('');
- el('resourceChapters').innerHTML=r.chapters.map(ch=>'<a href="./research/#chapitre-'+chapterId(ch)+'">CHAPITRE '+String(chapterId(ch)).padStart(2,'0')+' / '+esc(ch)+' ↗</a>').join('');
+ el('resourceChapters').innerHTML=r.chapters.map(ch=>'<a href="./research/#chapitre-'+chapterId(ch)+'">CHAPITRE '+String(chapterId(ch)).padStart(2,'0')+' / '+esc(tr(ch))+' ↗</a>').join('');
  el('resourceReferences').innerHTML=r.sources.map(src=>'<a href="./bibliographie/?scene='+encodeURIComponent(id)+'&ref='+encodeURIComponent(src.id)+'"><span>'+esc(src.id)+'</span>'+esc(src.name)+' ↗</a>').join('');
  el('resourceExperiment').href='./#'+id;
  el('resourceTime').href=videoAt(scene.time);
@@ -35,6 +37,7 @@ function render(id){
  el('resourceGlossary').href='./notions/?scene='+encodeURIComponent(id);
  const f=r.plates[0];if(f)setImage(f.id);else{el('resourceOriginal').textContent='Pas de diapositive spécifique attribuée à cette scène.';el('resourcePlatePicker').replaceChildren()}
 }
+window.addEventListener('chimie:language',()=>{if(currentScene)render(currentScene)});
 function init(){
  const lower=document.querySelector('.main .lower');if(!lower)return;
  const root=document.createElement('section');root.id='sceneResources';root.className='scene-resources';

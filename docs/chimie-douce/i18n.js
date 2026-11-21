@@ -1,5 +1,17 @@
 import {SCIENCE_TERMS} from './science-locales.js';
 import {CHAPTER_TERMS} from './chapter-locales.js';
+import {HOME_TERMS} from './home-locales.js';
+import {PAGE_INTRO_TERMS} from './page-intro-locales.js';
+import {ENGINEERING_TERMS} from './engineering-locales.js';
+import {ENGINEERING_PHASE_TERMS} from './engineering-phase-locales.js';
+import {ENGINEERING_SCIENCE_TERMS} from './engineering-science-locales.js';
+import {CONCEPT_LABELS} from './concept-label-locales.js';
+import {CONCEPT_SIMPLE_TERMS} from './concept-simple-locales.js';
+import {CONCEPT_DETAIL_TERMS} from './concept-detail-locales.js';
+import {INTERFACE_TERMS} from './interface-locales.js';
+import {FIGURE_TITLE_TERMS} from './figure-title-locales.js';
+import {FIGURE_NOTE_TERMS_A} from './figure-note-locales-a.js';
+import {FIGURE_NOTE_TERMS_B} from './figure-note-locales-b.js';
 /*
  * Chimie douce | runtime multilingual layer
  * Source of truth: the French course text remains unchanged.
@@ -57,6 +69,9 @@ const UI={
 };
 const SKIP="script,style,noscript,pre,code,textarea,svg,math,[contenteditable],.ref-title-link,.ref-doi-link,.doi,.equation,.bibliographic-original,.atlas-language-control,[data-no-translate]";
 const textRecords=new Map(),attrRecords=new Map();
+// Distinguish mutations produced by our translator from new French text injected by an interactive module.
+const appliedText=new WeakMap();
+function applyTranslation(node,value){appliedText.set(node,value);node.nodeValue=value}
 let current='fr',version=0,busy=0,queue=[],processed=new WeakMap(),observer=null,translater=null,scheduled=false,failures=0,success=0;
 const storageKey="chimie:language";
 
@@ -84,14 +99,19 @@ function pageId(){
 const originalTitle=document.title;
 
 const canTranslate=n=>!!n?.parentElement&&!n.parentElement.closest(SKIP);
-const hasLanguage=s=>/[\p{L}]/u.test(s) && s.replace(/\s/g,'').length>4&&!/^[A-Z][A-Z0-9 .:+()−–\-×⁄%]+$/.test(s);
+const hasLanguage=s=>/[\p{L}]/u.test(s) && s.trim().length>1;
 function localTranslate(s,lang){
  const value=s.trim();
- const translated=UI[value]?.[lang]??SCIENCE_TERMS[value]?.[lang]??CHAPTER_TERMS[value]?.[lang];
+ let translated=CONCEPT_LABELS[value]?.[lang]??CONCEPT_SIMPLE_TERMS[value]?.[lang]??CONCEPT_DETAIL_TERMS[value]?.[lang]??FIGURE_TITLE_TERMS[value]?.[lang]??FIGURE_NOTE_TERMS_A[value]?.[lang]??FIGURE_NOTE_TERMS_B[value]?.[lang]??INTERFACE_TERMS[value]?.[lang]??ENGINEERING_SCIENCE_TERMS[value]?.[lang]??ENGINEERING_PHASE_TERMS[value]?.[lang]??ENGINEERING_TERMS[value]?.[lang]??PAGE_INTRO_TERMS[value]?.[lang]??HOME_TERMS[value]?.[lang]??UI[value]?.[lang]??SCIENCE_TERMS[value]?.[lang]??CHAPTER_TERMS[value]?.[lang];
+ if(!translated){
+  const entry=Object.entries(CHAPTER_TERMS).find(([key])=>/^\d+\.\s/.test(key)&&key.includes(value));
+  if(entry?.[1]?.[lang])translated=entry[1][lang].replace(/^\d+\.\s*/, '').replace(/\s*\(\d\d:\d\d[^)]*\)$/, '');
+ }
  return translated?s.replace(value,translated):null;
 }
 function getSaved(){try{const q=new URLSearchParams(location.search).get('lang');if(q&&SAFE_LANG.includes(q))return q;const n=localStorage.getItem(storageKey);return SAFE_LANG.includes(n)?n:'fr'}catch{return 'fr'}}
 export function currentLanguage(){return current}
+export function translateTerm(source,lang=current){return lang==='fr'?source:(localTranslate(source,lang)??source)}
 function normalizeLanguage(code){return SAFE_LANG.includes(code)?code:'fr'}
 function status(message,error=false){
  const el=document.getElementById('atlasLanguageStatus');if(!el)return;
@@ -149,10 +169,10 @@ function textNode(n,original){
  const src=original??n.nodeValue;
  if(!hasLanguage(src))return;
  if(!textRecords.has(n))textRecords.set(n,src);
- const v=textRecords.get(n);if(current==='fr'){n.nodeValue=v;return}
+ const v=textRecords.get(n);if(current==='fr'){if(n.nodeValue!==v)applyTranslation(n,v);return}
  if(processed.get(n)===current)return;
- const direct=localTranslate(v,current);if(direct!==null){n.nodeValue=direct;processed.set(n,current);return}
- if(!/\b(de|du|des|une|un|le|la|les|dans|avec|pour|sur|par|et|est|sont|aux|entre|cette|ces|leurs|qui|que)\b/i.test(v)&&!/[éèàùêçîôûëï]/i.test(v))return;
+ const direct=localTranslate(v,current);if(direct!==null){applyTranslation(n,direct);processed.set(n,current);return}
+ if(!/[\p{L}]/u.test(v))return;
  schedule({node:n,source:v,lang:current,version});
 }
 function scan(root=document.body){
@@ -166,10 +186,24 @@ function scan(root=document.body){
    if(!el.hasAttribute(k))continue;
    if(!(k in original))original[k]=el.getAttribute(k);
    if(current==='fr'){el.setAttribute(k,original[k]);continue}
-   const direct=localTranslate(original[k],current);if(direct)el.setAttribute(k,direct);
+   const direct=localTranslate(original[k],current);
+   if(direct)el.setAttribute(k,direct);
+   else if(hasLanguage(original[k]))scheduleAttribute(el,k,original[k],current,version);
   }
   attrRecords.set(el,original);
  }
+}
+const attributePending=new WeakMap();
+async function scheduleAttribute(el,key,source,lang,stamp){
+ const token=lang+':'+source;
+ let pending=attributePending.get(el);
+ if(!pending){pending=new Map();attributePending.set(el,pending)}
+ if(pending.get(key)===token)return;
+ pending.set(key,token);
+ try{const translated=await translateScientific(source,lang);
+  if(stamp===version&&el.isConnected&&current===lang&&translated)el.setAttribute(key,translated);
+ }catch{failures++}
+ finally{if(pending.get(key)===token)pending.delete(key)}
 }
 function schedule(item){
  if(!item.node.isConnected)return;
@@ -178,7 +212,6 @@ function schedule(item){
  if(processed.get(item.node)===item.lang)return;
  processed.set(item.node,item.lang);
  queue.push(item);
- if(queue.length>650)queue=queue.slice(0,650);
  pump();
 }
 async function pump(){
@@ -188,9 +221,8 @@ async function pump(){
   (async()=>{
    try{
     const result=await translateScientific(task.source,task.lang);
-    if(task.version===version&&task.node.isConnected&&result)task.node.nodeValue=result;
-    success++;
-   }catch{failures++;if(failures===1||failures%20===0)status('Traduction automatique indisponible pour certains passages ; texte original conservé.',true)}
+    if(task.version===version&&task.node.isConnected&&result){applyTranslation(task.node,result);success++}
+   }catch{failures++;processed.delete(task.node);if(failures===1||failures%20===0)status('Traduction automatique indisponible pour certains passages ; texte original conservé.',true)}
    finally{busy--;pump()}
   })();
  }
@@ -224,7 +256,7 @@ export function setLanguage(lang){
  const next=normalizeLanguage(lang);
  if(next!==current){version++;queue=[];processed=new WeakMap();current=next;translater=null;failures=success=0;}
  try{localStorage.setItem(storageKey,current)}catch{}
- for(const [n,v] of textRecords)if(n.isConnected)n.nodeValue=v;
+ for(const [n,v] of textRecords)if(n.isConnected&&n.nodeValue!==v)applyTranslation(n,v);
  displayLabels();
  scan(document.body);
  const url=new URL(location.href);if(current==='fr')url.searchParams.delete('lang');else url.searchParams.set('lang',current);
@@ -242,8 +274,24 @@ export function initI18n(nav){
  const toggler=nav.querySelector('.atlas-mobile-toggle');
  nav.insertBefore(slot,toggler||null);
  slot.querySelector('select').addEventListener('change',e=>setLanguage(e.target.value));
- observer=new MutationObserver(mutations=>{if(current==='fr')return;for(const m of mutations){if(m.addedNodes.length){visibleScan();break}}});
- observer.observe(document.body,{subtree:true,childList:true});
+ observer=new MutationObserver(mutations=>{
+ if(current==='fr')return;
+ let changed=false;
+ for(const m of mutations){
+  if(m.addedNodes.length){changed=true;continue}
+  if(m.type!=='characterData'||!m.target?.parentElement||m.target.parentElement.closest(SKIP))continue;
+  const node=m.target,value=node.nodeValue;
+  if(value===appliedText.get(node))continue;
+  const previous=textRecords.get(node);
+  if(previous!==value){
+   textRecords.set(node,value);
+   processed.delete(node);
+   changed=true;
+  }
+ }
+ if(changed)visibleScan();
+});
+ observer.observe(document.body,{subtree:true,childList:true,characterData:true});
  addEventListener('scroll',visibleScan,{passive:true});
  addEventListener('hashchange',visibleScan);
  setLanguage(current);

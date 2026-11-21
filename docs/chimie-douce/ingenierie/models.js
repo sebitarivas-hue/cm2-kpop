@@ -3,9 +3,9 @@ import * as THREE from 'three';
 // This module constructs visual hypotheses, not resolved molecular structures.
 const V=(x=0,y=0,z=0)=>new THREE.Vector3(x,y,z);
 function prng(seed){let a=seed>>>0;return()=>{a+=0x6D2B79F5;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296;};}
-const palette={gold:0xdcb986,light:0xece1c3,mint:0x8adabe,teal:0x398b79,forest:0x245445,deep:0x0e3439,petal:0xc4e7b3,crystal:0x86e1d4,amber:0xe2ab73,spore:0xc9bc96};
-function material(color,extra={}){return new THREE.MeshStandardMaterial({color,roughness:.62,metalness:.04,...extra});}
-const gold=()=>material(palette.gold,{metalness:.25,roughness:.36});
+const palette={gold:0xc5a67b,light:0xe6ddc8,mint:0xa1b89b,teal:0x688a72,forest:0x365945,deep:0x233e32,petal:0xb6cba2,crystal:0xc8d9c7,amber:0xc69c6f,spore:0xc3ba97};
+function material(color,extra={}){return new THREE.MeshStandardMaterial({color,roughness:.78,metalness:0,...extra});}
+const gold=()=>material(palette.gold,{metalness:0,roughness:.62});
 const green=()=>material(palette.forest,{roughness:.78,side:THREE.DoubleSide});
 const darkGreen=()=>material(0x356e52,{side:THREE.DoubleSide,roughness:.82});
 const lightGreen=()=>material(0x83b582,{side:THREE.DoubleSide,roughness:.78});
@@ -117,9 +117,9 @@ function mof(params){
  const root=new THREE.Group(),core=sphere(root,V(),1.48,0x357e71,{material:{transparent:true,opacity:.93,roughness:.84}});
  core.scale.set(1.24,.85,.9);
  const nucleus=sphere(root,V(),.5,0xba9e70,{material:{roughness:.63}});
- const rng=prng(99),part=new THREE.InstancedMesh(new THREE.DodecahedronGeometry(.18,0),material(0x8ddaca,{metalness:.28,roughness:.36}),280);
+ const rng=prng(99),part=new THREE.InstancedMesh(new THREE.DodecahedronGeometry(.18,0),material(0x99b99b,{metalness:0,roughness:.72}),280);
  root.add(part);const dots=[];for(let i=0;i<280;i++){const y=1-2*(i+.5)/280,a=i*2.3999632,r=Math.sqrt(1-y*y);dots.push({p:V(2.14*r*Math.cos(a),1.65*y,1.74*r*Math.sin(a)),on:.10+.78*rng()});}
- const dummy=new THREE.Object3D();const metal=new THREE.Mesh(new THREE.IcosahedronGeometry(2.4,2),new THREE.MeshPhysicalMaterial({color:0x77cfc9,wireframe:true,transparent:true,opacity:.11}));root.add(metal);
+ const dummy=new THREE.Object3D();const metal=new THREE.Mesh(new THREE.IcosahedronGeometry(2.4,2),new THREE.MeshPhysicalMaterial({color:0xb4c5aa,wireframe:true,transparent:true,opacity:.07}));root.add(metal);
  function tick(t,state){const x=state.crystallinity;part.count=280;dots.forEach((d,i)=>{dummy.position.copy(d.p);dummy.rotation.set(i*.31,i*.17,i*.29);dummy.scale.setScalar(Math.max(0,Math.min(1,(x-d.on)/.12)));dummy.updateMatrix();part.setMatrixAt(i,dummy.matrix)});part.instanceMatrix.needsUpdate=true;metal.material.opacity=.02+.12*x;}
  return {root,tick,camera:[7,4.4,9]};
 }
