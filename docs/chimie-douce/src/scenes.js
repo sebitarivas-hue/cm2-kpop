@@ -19,7 +19,67 @@ function shadowFloor(root){const g=new THREE.GridHelper(20,22,0x1a4251,0x103039)
 function nucleus(root,x=0,y=0,z=0){const g=new THREE.Group();g.position.set(x,y,z);root.add(g);let prev=null;for(let i=0;i<90;i++){const t=i/89*Math.PI*6,p=V(Math.cos(t)*.32,Math.sin(t)*.32,(i/89-.5)*2.3);sphere(g,p,.043,i%4?M.cyan:M.gold);if(prev)rod(g,prev,p,.013,M.blue);prev=p}return g}
 function bacillus(root,scale=1,opacity=.30){const g=new THREE.Group();g.scale.setScalar(scale);root.add(g);const outer=new THREE.Mesh(new THREE.CapsuleGeometry(.85,1.45,8,16),glass(C.teal,opacity));outer.rotation.z=Math.PI/2;g.add(outer);const inner=new THREE.Mesh(new THREE.CapsuleGeometry(.69,1.45,6,14),glass(C.cyan,.11));inner.rotation.z=Math.PI/2;g.add(inner);nucleus(g);for(let j=0;j<5;j++){const x=-.95+j*.48;const pts=[];for(let k=0;k<8;k++){let u=k/7;pts.push(V(x+u*1.35,(.8+u*.65)*Math.sin((j+1)*3.1+u*4.8),(.8+u*.65)*Math.cos((j+1)*3.1+u*4.8)))}wireCurve(g,pts,.015,M.gold)}return g}
 function animatedParticles(root,count,radius,seed=17,color='cyan',speed=.8){const matref=M[color]||M.cyan;const pts=instanced(root,count,.052,matref,seed,(i,r)=>{const a=r()*Math.PI*2,b=(r()-.5)*Math.PI;const dist=radius+r()*.9;return [Math.cos(a)*Math.cos(b)*dist,Math.sin(b)*dist,Math.sin(a)*Math.cos(b)*dist,.038+r()*.045]});return {object:pts,tick(t){pts.rotation.y=t*.06*speed;pts.rotation.x=Math.sin(t*.25)*.13}}}
-function makeSolgel(root,p){const r=rand(102),n=p.density,points=[];for(let i=0;i<n;i++)points.push(V((r()-.5)*6.4,(r()-.5)*5.0,(r()-.5)*5.2));let count=0;points.forEach((a,i)=>{sphere(root,a,.11,i%11===0?M.gold:M.cyan);let candidates=points.slice(i+1).map((b,j)=>[i+1+j,a.distanceTo(b)]).sort((a,b)=>a[1]-b[1]).slice(0,4);for(const [j,d] of candidates){if(d<(1.0+p.bonds/100*1.65)&&r()<p.bonds/130){rod(root,a,points[j],.032,i%4===0?M.gold:M.teal);count++}}});boxFrame(root,7,5.7,5.6);const parts=animatedParticles(root,33,2.8,52,'gold',p.motion/60);return(t)=>parts.tick(t)}
+function makeSolgel(root,p){
+ // Illustrated mesoscopic network, not atomic coordinates or measured pore size.
+ // Organic silica strands and translucent aggregated surfaces replace scattered ball-and-stick objects.
+ const rng=rand(2026),g=new THREE.Group();root.add(g);
+ const silica=mat(0xd8e5d7,{metalness:0,roughness:.62,side:THREE.DoubleSide});
+ const silver=mat(0xeef0df,{metalness:0,roughness:.5});
+ const oxide=mat(0xcfa66b,{metalness:0,roughness:.52});
+ const membrane=glass(0xc9dfcd,.13);
+ const count=Math.min(156,Math.max(76,Math.round(p.density*1.25)));
+ const nodes=[],R=3.0;
+ // A continuous porous ribbon; central void is deliberately left open.
+ for(let i=0;i<count*8&&nodes.length<count;i++){
+  const x=(rng()-.5)*6.8,y=(rng()-.5)*5.6,z=(rng()-.5)*5.6;
+  const voidCenter=((x+.1)/1.0)**2+((y+.45)/1.06)**2+((z-.2)/1.1)**2;
+  const shell=Math.sin(1.3*x)*Math.cos(1.3*y)+Math.sin(1.3*y)*Math.cos(1.3*z)+Math.sin(1.3*z)*Math.cos(1.3*x);
+  if(voidCenter<1.05||Math.abs(shell)>1.4)continue;
+  nodes.push(V(x,y,z));
+ }
+ const sphereGeo=new THREE.IcosahedronGeometry(1,2);
+ const atoms=new THREE.InstancedMesh(sphereGeo,silica,nodes.length);
+ const tmp=new THREE.Object3D();
+ for(let i=0;i<nodes.length;i++){
+  const n=nodes[i];tmp.position.copy(n);tmp.rotation.set(rng()*2,rng()*2,rng()*2);
+  const size=.082+rng()*.085;tmp.scale.set(size,size*(.9+rng()*.35),size);
+  tmp.updateMatrix();atoms.setMatrixAt(i,tmp.matrix);
+ }
+ atoms.instanceMatrix.needsUpdate=true;g.add(atoms);
+ const bridges=new THREE.Group();g.add(bridges);
+ let connected=0;
+ const maxSpan=1.9+p.bonds*.003;
+ for(let i=0;i<nodes.length;i++){
+  const a=nodes[i], nearest=[];
+  for(let j=i+1;j<nodes.length;j++){
+   const d=a.distanceTo(nodes[j]);if(d<maxSpan)nearest.push([j,d]);
+  }
+  nearest.sort((x,y)=>x[1]-y[1]);
+  for(let k=0;k<Math.min(3,nearest.length);k++){
+   if(k>0&&rng()>(p.bonds/140+.16))continue;
+   const [j,d]=nearest[k],b=nodes[j];
+   const off=V((rng()-.5)*.4,(rng()-.5)*.4,(rng()-.5)*.4);
+   const mid=a.clone().lerp(b,.5).add(off);
+   const curve=new THREE.CatmullRomCurve3([a,mid,b],false,'centripetal');
+   const radius=.047+rng()*.046;
+   const tube=new THREE.Mesh(new THREE.TubeGeometry(curve,10,radius,7,false),
+       connected%9===0?oxide:connected%5===0?silver:silica);
+   bridges.add(tube);connected++;
+  }
+ }
+ // Semi-transparent mineral veils are visually explanatory, not a measurement.
+ const veilGeo=new THREE.IcosahedronGeometry(1,3);
+ const veils=new THREE.Group();g.add(veils);
+ for(let i=0;i<26&&nodes.length;i++){
+  const n=nodes[Math.floor(rng()*nodes.length)];
+  const veil=new THREE.Mesh(veilGeo,membrane);
+  veil.position.copy(n);veil.rotation.set(rng()*3,rng()*3,rng()*3);
+  veil.scale.set(.34+rng()*.43,.25+rng()*.38,.33+rng()*.39);veils.add(veil);
+ }
+ // Golden agents mark illustrative transport, not atoms in a quantified simulation.
+ const tracers=animatedParticles(root,Math.min(20,Math.round(p.motion/6)),2.7,88,'gold',p.motion/65);
+ return t=>{g.rotation.y=Math.sin(t*.14)*.045;g.rotation.x=Math.sin(t*.08)*.02;tracers.tick(t)};
+}
 function makeCell(root,p){const b=bacillus(root,1,Math.min(.6,p.membrane/140));const particles=animatedParticles(root,p.nutrients,2.6,12,'gold',p.motion/65);return t=>{b.rotation.y=Math.sin(t*.26)*.12;particles.tick(t)}}
 function makeEncapsulation(root,p){const b=bacillus(root,.72,.29);const radius=2.4+p.shell/120;const sh=new THREE.Mesh(new THREE.IcosahedronGeometry(radius,3),glass(C.teal,.13));root.add(sh);const frame=new THREE.Mesh(new THREE.IcosahedronGeometry(radius,3),new THREE.MeshBasicMaterial({color:C.cyan,wireframe:true,transparent:true,opacity:.14}));root.add(frame);const R=rand(130);for(let k=0;k<Math.round(20+p.pores*.6);k++){const theta=R()*Math.PI*2,yy=R()*2-1,ss=Math.sqrt(1-yy*yy);const pos=V(Math.cos(theta)*ss,yy,Math.sin(theta)*ss).multiplyScalar(radius+.02);sphere(root,pos,.06+(p.pores/100)*.045,k%6?M.cyan:M.gold)}const particles=animatedParticles(root,55,3.15,104,'gold',p.motion/50);return t=>{b.rotation.y=Math.sin(t*.3)*.06;frame.rotation.y=t*.025;particles.tick(t)}}
 function makeMycelium(root,p){const R=rand(342),branches=p.branch;let segments=0;for(let i=0;i<Math.min(8,Math.floor(p.fibers/10));i++){const base=V((R()-.5)*5,-2.5,(R()-.5)*3),ang=R()*6.3;function grow(start,d,len,depth){if(segments>p.fibers*2||depth>branches)return;const end=start.clone().addScaledVector(d,len);rod(root,start,end,.013+(.035/(1+depth)),depth%3?M.green:M.gold);segments++;if(depth<branches){for(let k=0;k<(R()>.6?2:1);k++){const dir=d.clone().add(V((R()-.5)*1.6,(R()-.5)*.65,(R()-.5)*1.7)).normalize();grow(end,dir,len*(.63+R()*.12),depth+1)}}}grow(base,V(Math.cos(ang)*.35,.85,Math.sin(ang)*.35).normalize(),.7+R()*.5,0)}for(let i=0;i<25;i++)sphere(root,V((R()-.5)*6,-2.7+R()*.2,(R()-.5)*4),.11+R()*.18,M.dark);return t=>{root.rotation.y=Math.sin(t*.08*p.motion/100)*.045}}
