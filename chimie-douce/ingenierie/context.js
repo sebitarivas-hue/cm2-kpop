@@ -3,6 +3,7 @@ import {videoAt} from '../src/content.js';
 import {FIGURES} from '../src/figures.js';
 import {conceptButton,ensureConceptDialog} from '../src/concept-ui.js';
 const map={vegetal:'mof',mycelium:'mycelium',solgel:'solgel',encapsulation:'encapsulation',mof:'zif'};
+const primaryPlate={vegetal:55,mycelium:5,solgel:12,encapsulation:18,mof:36};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const chapters=[...new Set(FIGURES.map(f=>f.chapter))];
 const root=document.createElement('section');root.className='engine-source';root.id='engineSource';root.setAttribute('aria-label','Preuves documentaires unifiées du mécanisme');
@@ -12,7 +13,7 @@ if(anchor)anchor.insertAdjacentElement('beforebegin',root);else document.querySe
 ensureConceptDialog();
 function render(mode){
  const id=map[mode]||map.vegetal,r=sceneResources(id);
- if(!r)return;const f=r.plates[0];
+ if(!r)return;const f=r.plates.find(x=>x.id===primaryPlate[mode])||r.plates[0];
  document.getElementById('engineSourceTitle').textContent=r.scene.title;
  document.getElementById('engineSourceText').textContent=r.scene.intro;
  document.getElementById('engineConcepts').innerHTML=r.concepts.map(conceptButton).join('');
