@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111d"><meta name="description" content="Atlas 3D de la chimie douce et des matériaux hybrides vivants : structures, mécanismes, expériences et sources du cours de Clément Sanchez.">
+<title>CHIMIE DOUCE — Atlas des matières vivantes</title>
+<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./styles.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.187.0/examples/jsm/"}}</script>
+</head>
+<body>
+<div id="app">
+<header class="topbar">
+  <a class="brand" href="#accueil" aria-label="Accueil de l'atlas"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span class="brand-text">CHIMIE<br><b>DOUCE</b></span></a>
+  <span class="brand-separator"></span><span class="eyebrow top-desc">ATLAS SCIENTIFIQUE INTERACTIF <span class="sep-dot">•</span> MATÉRIAUX & VIVANT</span>
+  <div class="top-actions"><a class="top-link hide-sm" href="./research/">Monographie ↗</a><button class="top-link hide-sm" id="buttonImport">Importer XYZ/CIF ↗</button><input type="file" id="structureFile" accept=".xyz,.cif" hidden><button class="top-link" id="buttonAtlas">Index des figures <span id="figureCount">70</span></button><a class="top-link hide-sm" href="https://www.youtube.com/watch?v=LkvdhO6XWZ4" target="_blank" rel="noopener noreferrer">Cours original ↗</a><a class="top-link hide-sm" href="./chimie_douce_interactive.html">Essai historique ↗</a><button class="icon-btn" id="buttonHelp" aria-label="Aide">?</button></div>
+</header>
+<div class="workspace">
+  <aside class="sidebar" id="sidebar" aria-label="Catalogue des scènes">
+    <div class="sidebar-header"><div class="eyebrow gold">EXPLORER LA MATIÈRE</div><h1>Du minéral<br><em>au vivant.</em></h1><p>Une exploration multi-échelle de la chimie douce, des réseaux atomiques aux dispositifs biohybrides.</p></div>
+    <label class="search-box"><span aria-hidden="true">⌕</span><input id="search" autocomplete="off" placeholder="Rechercher un mécanisme…" aria-label="Rechercher une scène"><kbd>/</kbd></label>
+    <div class="catalog-caption"><span>LES LABORATOIRES</span><span id="sceneCounter">00 / 18</span></div>
+    <nav id="sceneList" class="scene-list"></nav>
+    <div class="sidebar-footer"><div class="status-dot"></div><span>WEBGL · RENDU INTERACTIF</span><span class="mono">R187</span></div>
+  </aside>
+  <main class="main">
+    <section class="stage" aria-label="Visualisation tridimensionnelle">
+      <div class="stage-head"><span class="eyebrow" id="stageChapter">01 / STRUCTURES & PROCÉDÉS</span><div class="stage-meta"><span id="scaleText">ÉCHELLE CONCEPTUELLE</span><span class="stage-divider">/</span><span id="fps">● WEBGL</span></div></div>
+      <div id="viewport" role="img" aria-label="Scène 3D interactive manipulable par glissement et zoom"><div id="loading" class="load"><span class="loader-orbit"></span><span>INITIALISATION DU LABORATOIRE 3D</span></div></div>
+      <div class="stage-overlay"><div class="scene-num" id="sceneNum">01</div><div><div class="eyebrow gold" id="stageType">MODÈLE CONCEPTUEL</div><h2 id="stageTitle">Réseau sol–gel</h2><p id="stageTagline">De l'hydrolyse à la condensation.</p></div></div>
+      <div class="controls-bottom"><div class="view-tools"><button id="resetView" title="Recentrer la caméra">⌖ <span>Recentrer</span></button><button id="togglePlay" title="Mettre l'animation en pause">Ⅱ <span>Pause</span></button><button id="toggleLabels" title="Afficher/masquer les légendes">◉ <span>Repères</span></button><button id="shot" title="Enregistrer une capture d'écran">▣ <span>Capture</span></button></div><div class="drag-hint">GLISSER POUR TOURNER <span>·</span> DÉFILER POUR ZOOMER</div></div>
+      <div class="stage-grain" aria-hidden="true"></div>
+    </section>
+    <section class="lower">
+      <div class="lower-left"><div class="lower-header"><span class="eyebrow gold">01 — PARAMÈTRES EXPLORATOIRES</span><span class="caution">ILLUSTRATION, PAS SIMULATION VALIDÉE</span></div>
+        <div id="controls" class="param-list"></div><div class="parameter-note" id="parameterNote"></div>
+        <div class="model-ledger"><span class="ledger-dot"></span><span id="modelStatus">Géométrie schématique, non issue d'un fichier cristallographique ou d'une mesure de diffusion.</span></div>
+      </div>
+      <article class="lower-right"><div class="lower-header"><span class="eyebrow gold">02 — COMPRENDRE LE PHÉNOMÈNE</span><button class="source-action" id="openSources">SOURCES & FIGURES ↗</button></div>
+        <h3 id="contentTitle">La chimie du chemin réactionnel</h3><p id="contentBody"></p><div class="science-facts" id="scienceFacts"></div><div class="science-footer"><span class="eyebrow">DANS LE COURS</span><a id="timeLink" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=LkvdhO6XWZ4">VOIR LA SÉQUENCE ↗</a><span id="sceneTime">00:00</span></div>
+      </article>
+    </section>
+  </main>
+  <aside class="inspector" id="inspector"><div class="inspector-head"><span class="eyebrow gold">FICHE SCIENTIFIQUE</span><button id="toggleInspector" class="text-btn" aria-label="Masquer le panneau scientifique">−</button></div><div id="inspectorContent"></div>
+    <div class="inspector-bottom"><span class="eyebrow">MÉTHODOLOGIE</span><p>Reconstruction conceptuelle à des fins d'exploration. Les coordonnées atomiques, tailles de pores et cinétiques affichées ne proviennent pas de mesures expérimentales.</p><button id="methodsLink">Lire la méthode ↗</button></div>
+  </aside>
+</div>
+<footer class="bottombar"><span><b>CHIMIE DOUCE</b> / ATLAS 3D</span><span>Sources : conférence de Clément Sanchez, Collège de France, 18.02.2020 · <b>Projet indépendant, sans affiliation institutionnelle</b></span><span>v 1.0 · 2026</span></footer>
+</div>
+<dialog id="overlayDialog" class="overlay-dialog"><div class="dialog-head"><div><span class="eyebrow gold" id="dialogKicker">ARCHIVES & TRAÇABILITÉ</span><h2 id="dialogTitle">Atlas documentaire</h2></div><button id="closeDialog" class="x-btn" aria-label="Fermer">×</button></div><div id="dialogBody" class="dialog-body"></div></dialog>
+<button class="mobile-nav" id="mobileMenu" aria-label="Ouvrir le catalogue">☰ <span>SCÈNES</span></button>
+<script>window.__atlasBooted=false;setTimeout(()=>{if(!window.__atlasBooted){const l=document.getElementById('loading');if(l)l.innerHTML='<strong style="color:#e5bf80">Moteur WebGL non chargé</strong><span>Vérifiez la connexion Internet et les autorisations du navigateur.</span><a href="./research/" style="color:#91d2d8">Lire la monographie scientifique ↗</a>'}},9000);</script>
+<script type="module" src="./src/app.js"></script>
+</body></html>
