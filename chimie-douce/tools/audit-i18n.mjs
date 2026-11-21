@@ -36,7 +36,8 @@ const dictionaries={
  conceptDetails:parseJsonExport(file('concept-detail-locales.js'),'CONCEPT_DETAIL_TERMS'),
  home:parseJsonExport(file('home-locales.js'),'HOME_TERMS'),
  ui:parseJsonExport(file('interface-locales.js'),'INTERFACE_TERMS'),
- figureTitles:parseJsonExport(file('figure-title-locales.js'),'FIGURE_TITLE_TERMS')
+ figureTitles:parseJsonExport(file('figure-title-locales.js'),'FIGURE_TITLE_TERMS'),
+ figureNotes:{...parseJsonExport(file('figure-note-locales-a.js'),'FIGURE_NOTE_TERMS_A'),...parseJsonExport(file('figure-note-locales-b.js'),'FIGURE_NOTE_TERMS_B')}
 };
 const chapterText=file('chapter-locales.js');
 const scienceText=file('science-locales.js');
@@ -53,10 +54,10 @@ const stats={
  conceptDetails:{translated:matched(concepts.map(c=>c.detail),dictionaries.conceptDetails).length,total:concepts.length,missing:concepts.filter(c=>!valid(dictionaries.conceptDetails[c.detail])).map(c=>c.id)},
  homeStrings:{translated:matched(homeKeys,dictionaries.home).length,total:homeKeys.length},
  interfaceStrings:{translated:matched(uiKeys,dictionaries.ui).length,total:uiKeys.length},
- figures:{total:figures.length,translatedTitles:matched(figures.map(f=>f.title),dictionaries.figureTitles).length,missingTitles:figures.map(f=>f.title).filter(k=>!valid(dictionaries.figureTitles[k])),translatedScientificNotes:0},
+ figures:{total:figures.length,translatedTitles:matched(figures.map(f=>f.title),dictionaries.figureTitles).length,missingTitles:figures.map(f=>f.title).filter(k=>!valid(dictionaries.figureTitles[k])),translatedScientificNotes:matched(figures.map(f=>f.note),dictionaries.figureNotes).length,missingNotes:figures.filter(f=>!valid(dictionaries.figureNotes[f.note])).map(f=>f.id)},
  chapters:{total:chapters.length,chapterDictionaryPresent:chapterText.includes('CHAPTER_TERMS')},
  scientificLongForm:{monographHasDedicatedTranslatedVersions:false},
  runtimeMachineTranslation:'fallback only; not counted as persisted translation'
 };
 console.log(JSON.stringify(stats,null,2));
-if(stats.conceptDetails.missing.length||stats.conceptSummaries.missing.length||stats.conceptNames.missing.length||stats.homeStrings.translated!==stats.homeStrings.total||stats.interfaceStrings.translated!==stats.interfaceStrings.total||stats.figures.missingTitles.length)process.exitCode=1;
+if(stats.conceptDetails.missing.length||stats.conceptSummaries.missing.length||stats.conceptNames.missing.length||stats.homeStrings.translated!==stats.homeStrings.total||stats.interfaceStrings.translated!==stats.interfaceStrings.total||stats.figures.missingTitles.length||stats.figures.missingNotes.length)process.exitCode=1;
