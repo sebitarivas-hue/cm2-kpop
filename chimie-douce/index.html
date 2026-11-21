@@ -2,31 +2,26 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#101719"><meta name="description" content="Atlas 3D de la chimie douce et des matériaux hybrides vivants : structures, mécanismes, expériences et sources du cours de Clément Sanchez.">
-<title>CHIMIE DOUCE — Atlas des matières vivantes</title>
+<meta name="theme-color" content="#101719"><meta name="description" content="Atlas scientifique interactif indépendant à partir du cours « Vers des matériaux hybrides vivants » de Clément Sanchez, Collège de France, 18 février 2020 : 3D, planches, cours et bibliographie.">
+<title>Clément Sanchez — Vers des matériaux hybrides vivants | Cours du Collège de France · Atlas 3D</title>
 <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./editorial.css">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.187.0/examples/jsm/"}}</script>
 <link rel="stylesheet" href="./nav.css"></head>
 <body>
 <div id="app">
-<div class="masthead-ribbon"><span>ATLAS DES SCIENCES MATÉRIELLES</span><span class="ribbon-center">UNIVERS DE RECHERCHE · ÉDITION 2026</span><span>UN PROJET INDÉPENDANT</span></div>
-<header class="topbar">
-  <a class="brand" href="#accueil" aria-label="Accueil de l'atlas"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span class="brand-text">CHIMIE<span class="brand-cross">×</span><br><b>DOUCE</b></span></a>
-  <span class="brand-separator"></span><span class="eyebrow top-desc">EXPLORATION SCIENTIFIQUE <span class="sep-dot">/</span> LE VIVANT EN MATIÈRE</span>
-  <div class="top-actions"><a class="top-link hide-sm" href="./lab/">Labo virtuel ↗</a><a class="top-link hide-sm" href="./bibliographie/">Bibliothèque ↗</a><a class="top-link hide-sm" href="./research/">Monographie ↗</a><button class="top-link hide-sm" id="buttonImport">Importer XYZ/CIF ↗</button><input type="file" id="structureFile" accept=".xyz,.cif" hidden><button class="top-link" id="buttonAtlas">Index des figures <span id="figureCount">70</span></button><a class="top-link hide-sm" href="https://www.youtube.com/watch?v=LkvdhO6XWZ4" target="_blank" rel="noopener noreferrer">Cours original ↗</a><a class="top-link hide-sm" href="./chimie_douce_interactive.html">Essai historique ↗</a><button class="icon-btn" id="buttonHelp" aria-label="Aide">?</button></div>
-</header>
 <section class="editorial-hero" id="accueil" aria-label="Ouverture de l'atlas des matières vivantes">
   <div class="hero-inner">
     <div class="hero-copy">
-      <div class="hero-kicker"><span class="little-square"></span> LE GRAND ATLAS DE LA CHIMIE DOUCE <span class="hero-edition">N° 001 / 2026</span></div>
-      <h1>La matière<br><em>prend vie.</em><span class="hero-star" aria-hidden="true">✳</span></h1>
-      <p class="hero-lead">Des atomes aux organismes. Une traversée spectaculaire des architectures moléculaires, des matériaux hybrides et de la matière vivante.</p>
+      <div class="hero-kicker"><span class="little-square"></span> LE COURS DE CLÉMENT SANCHEZ · COLLÈGE DE FRANCE <span class="hero-edition">N° 001 / 2026</span></div>
+      <h1>Vers des matériaux<br><em>hybrides vivants.</em><span class="hero-star" aria-hidden="true">✳</span></h1>
+      <div class="hero-course-credit"><span>UN COURS DE</span><strong>CLÉMENT SANCHEZ</strong><span>COLLÈGE DE FRANCE · 18 FÉVRIER 2020</span><a href="https://www.youtube.com/watch?v=LkvdhO6XWZ4" target="_blank" rel="noopener noreferrer">↗ VOIR LA CONFÉRENCE ORIGINALE</a></div>
+      <p class="hero-lead">Un atlas interactif construit à partir de la conférence de Clément Sanchez au Collège de France : architectures moléculaires, matériaux hybrides, interfaces cellulaires et matière vivante.</p>
       <div class="hero-buttons"><a class="hero-button primary" href="#laboratoire">EXPLORER LES LABORATOIRES <span>↗</span></a><a class="hero-button secondary" href="./lab/">EXPÉRIMENTER EN LABO <span>↗</span></a></div>
       <div class="hero-stats" aria-label="Contenu de l'atlas"><div><strong>18</strong><span>LABORATOIRES 3D</span></div><div><strong>70</strong><span>FIGURES MINUTÉES</span></div><div><strong>16</strong><span>CHAPITRES</span></div></div>
     </div>
     <div class="hero-art"><div class="hero-art-glow"></div><img src="./assets/hero-lattice.svg" alt="Composition artistique de réseaux et d'interfaces moléculaires, représentation conceptuelle non à l'échelle" width="700" height="740" loading="eager"/><div class="hero-vertical">MATERIAL SCIENCE / EXPERIMENTAL ATLAS</div><div class="hero-art-caption">ÉTUDE DE FORMES / COMPOSITION CONCEPTUELLE</div></div>
   </div>
-  <div class="hero-bottom"><span>01 / MATIÈRE COMME SYSTÈME</span><span>À PARTIR DU COURS DE CLÉMENT SANCHEZ · COLLÈGE DE FRANCE, 18.02.2020</span><a href="#laboratoire">DÉCOUVRIR L'ATLAS ↓</a></div>
+  <div class="hero-bottom"><span>01 / MATIÈRE COMME SYSTÈME</span><span>DOCUMENTATION SCIENTIFIQUE ET MODÈLES PÉDAGOGIQUES · SITE INDÉPENDANT</span><a href="#laboratoire">DÉCOUVRIR L'ATLAS ↓</a></div>
 </section>
 <div class="editorial-divider"><span class="serial">I.</span><span>L'EXPÉRIENCE COMMENCE ICI</span><div class="divider-hairline"></div><span class="divider-side">STRUCTURES / INTERFACES / ÉNERGIE</span></div>
 <div class="workspace" id="laboratoire">
@@ -38,6 +33,13 @@
     <div class="sidebar-footer"><div class="status-dot"></div><span>WEBGL · RENDU INTERACTIF</span><span class="mono">R187</span></div>
   </aside>
   <main class="main">
+    <div class="atlas-tools" role="group" aria-label="Outils du laboratoire 3D">
+      <span>OUTILS DU LABORATOIRE</span>
+      <button type="button" id="buttonImport">IMPORTER XYZ/CIF ↗</button>
+      <input type="file" id="structureFile" accept=".xyz,.cif" hidden>
+      <button type="button" id="buttonAtlas">OUVRIR LES 70 PLANCHES <span id="figureCount">70</span> ↗</button>
+      <button type="button" id="buttonHelp" aria-label="Aide">?</button>
+    </div>
     <section class="stage" aria-label="Visualisation tridimensionnelle">
       <div class="stage-head"><span class="eyebrow" id="stageChapter">01 / STRUCTURES & PROCÉDÉS</span><div class="stage-meta"><span id="scaleText">ÉCHELLE CONCEPTUELLE</span><span class="stage-divider">/</span><span id="fps">● WEBGL</span></div></div>
       <div id="viewport" role="img" aria-label="Scène 3D interactive manipulable par glissement et zoom"><div id="loading" class="load"><span class="loader-orbit"></span><span>INITIALISATION DU LABORATOIRE 3D</span></div></div>
