@@ -14,3 +14,13 @@ body{background:#0c1415!important;color:#eeeae2!important;font-family:'Space Gro
 .refcard a:focus-visible{outline:2px solid #efd69f;outline-offset:3px}
 .refcard .ref-actions>a:first-child{background:#305249;line-height:1.4;font-weight:600}
 .refcard .ref-actions>a:first-child:hover{background:#477962}
+
+/* Bibliographic references never reuse an unrelated lecture diagram as visual evidence. */
+.ref-visual{height:136px!important;background:linear-gradient(120deg,#344138,#1e302d)!important;border-bottom:1px solid #a89b7157}
+.ref-journal-mark,.ref-journal-year,.ref-journal-topic{position:absolute;font-family:'DM Mono',monospace;color:#d8c9a8}
+.ref-journal-mark{top:19px;left:25px;font-size:10px;letter-spacing:.15em}
+.ref-journal-year{right:22px;bottom:5px;font:500 65px/1 'Bodoni Moda',Georgia,serif;opacity:.52}
+.ref-journal-topic{bottom:19px;left:25px;font-size:10px}
+.ref-image-link{display:block;position:relative}
+.ref-image-link:hover{background:#425443}
+.ref-open-overlay{z-index:4;right:10px;top:12px;bottom:auto;padding:6px 9px;opacity:.9}

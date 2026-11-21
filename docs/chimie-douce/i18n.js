@@ -16,11 +16,11 @@ export const LANGUAGES={
 };
 const SAFE_LANG=Object.keys(LANGUAGES);
 const LABELS={
- fr:["Accueil","Atlas 3D","Ingénierie","Planches","Cours","Bibliographie","Essai","Labo","MENU","FERMER","RETOUR","ATLAS","ESSAI"],
- en:["Home","3D Atlas","Engineering","Plates","Lectures","Bibliography","Essay","Lab","MENU","CLOSE","BACK","ATLAS","ESSAY"],
- es:["Inicio","Atlas 3D","Ingeniería","Láminas","Clases","Bibliografía","Ensayo","Lab.","MENÚ","CERRAR","VOLVER","ATLAS","ENSAYO"],
- it:["Home","Atlante 3D","Ingegneria","Tavole","Lezioni","Bibliografia","Saggio","Lab.","MENU","CHIUDI","INDIETRO","ATLANTE","SAGGIO"],
- zh:["首页","3D 图谱","工程建模","图版","课程","参考文献","论文","实验室","菜单","关闭","返回","图谱","论文"]
+ fr:["Accueil","Atlas 3D","Ingénierie","Planches","Notions","Cours","Bibliographie","Essai","Labo","MENU","FERMER","RETOUR","ATLAS","ESSAI"],
+ en:["Home","3D Atlas","Engineering","Plates","Concepts","Lectures","Bibliography","Essay","Lab","MENU","CLOSE","BACK","ATLAS","ESSAY"],
+ es:["Inicio","Atlas 3D","Ingeniería","Láminas","Conceptos","Clases","Bibliografía","Ensayo","Lab.","MENÚ","CERRAR","VOLVER","ATLAS","ENSAYO"],
+ it:["Home","Atlante 3D","Ingegneria","Tavole","Concetti","Lezioni","Bibliografia","Saggio","Lab.","MENU","CHIUDI","INDIETRO","ATLANTE","SAGGIO"],
+ zh:["首页","3D 图谱","工程建模","图版","概念","课程","参考文献","论文","实验室","菜单","关闭","返回","图谱","论文"]
 };
 const UI={
 "LE COURS DE CLÉMENT SANCHEZ · COLLÈGE DE FRANCE":{
@@ -64,6 +64,7 @@ const PAGE_TITLES={
  home:{en:"Clément Sanchez | Toward Living Hybrid Materials — Collège de France",es:"Clément Sanchez | Hacia materiales híbridos vivos — Collège de France",it:"Clément Sanchez | Verso materiali ibridi viventi — Collège de France",zh:"克莱芒·桑切斯 | 迈向活体杂化材料 — 法兰西公学院"},
  engineering:{en:"Engineering Living Materials — 3D Mechanisms | Clément Sanchez",es:"Ingeniería de materiales vivos — mecanismos 3D | Clément Sanchez",it:"Ingegneria dei materiali viventi — meccanismi 3D | Clément Sanchez",zh:"活体材料工程 — 3D 机理 | 克莱芒·桑切斯"},
  research:{en:"Scientific Monograph — Clément Sanchez / Collège de France",es:"Monografía científica — Clément Sanchez / Collège de France",it:"Monografia scientifica — Clément Sanchez / Collège de France",zh:"科学专著 — 克莱芒·桑切斯 / 法兰西公学院"},
+ notions:{en:"Scientific Glossary — Soft Chemistry",es:"Glosario científico — Química suave",it:"Glossario scientifico — Chimica dolce",zh:"科学术语词汇表 — 软化学"},
  bibliography:{en:"Interactive Scientific Bibliography — Living Hybrid Materials",es:"Bibliografía científica interactiva — Materiales híbridos vivos",it:"Bibliografia scientifica interattiva — Materiali ibridi viventi",zh:"交互式科学参考文献 — 活体杂化材料"},
  boards:{en:"70 Visual Scientific Plates — Living Hybrid Materials",es:"70 láminas científicas — Materiales híbridos vivos",it:"70 tavole scientifiche — Materiali ibridi viventi",zh:"70 张科学图版 — 活体杂化材料"},
  essay:{en:"From Substance to System — Epistemology of Soft Chemistry",es:"De la sustancia al sistema — Epistemología de la química suave",it:"Dalla sostanza al sistema — Epistemologia della chimica dolce",zh:"从物质到系统 — 软化学认识论"},
@@ -74,6 +75,7 @@ function pageId(){
  if(p.includes('/ingenierie/'))return'engineering';
  if(p.includes('/research/'))return'research';
  if(p.includes('/bibliographie/'))return'bibliography';
+ if(p.includes('/notions/'))return'notions';
  if(p.includes('/planches/'))return'boards';
  if(p.includes('/chimie_douce_interactive.html'))return'essay';
  if(p.includes('/lab/'))return'lab';
@@ -212,7 +214,7 @@ function displayLabels(){
   if(e.dataset.translationKey){
     const i=Number(e.dataset.translationKey);if(Number.isInteger(i)&&LABELS[current][i])e.textContent=LABELS[current][i];
   }else{
-    const order=['Accueil','Atlas 3D','Ingénierie','Planches','Cours','Bibliographie','Essai','Labo'];
+    const order=['Accueil','Atlas 3D','Ingénierie','Planches','Notions','Cours','Bibliographie','Essai','Labo'];
     const idx=order.indexOf(e.dataset.route);
     if(idx!==-1)e.textContent=LABELS[current][idx];
   }
