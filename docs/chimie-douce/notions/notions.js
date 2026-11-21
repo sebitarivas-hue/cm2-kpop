@@ -4,7 +4,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const input=document.getElementById('notionSearch'),grid=document.getElementById('notionGrid'),count=document.getElementById('notionCount');
 ensureConceptDialog();
 const params=new URLSearchParams(location.search),scene=params.get('scene');
-if(scene){const set=new Set(sceneResources(scene)?.concepts.map(c=>c.id)||[]);if(set.size){input.placeholder='Notions liées à cette scène ; effacer pour toutes les notions';}}
+if(scene){const set=new Set(sceneResources(scene)?.concepts.map(c=>c.id)||[]);if(set.size){input.placeholder='Notions liées à cette scène';const back=document.createElement('a');back.href='./';back.textContent='VOIR LES 38 NOTIONS ↗';back.style.cssText='color:#325841;text-decoration:underline;font:11px monospace;padding:8px';input.parentElement.append(back)}}
 function update(){
  const q=input.value.trim().toLocaleLowerCase('fr');
  const arr=CONCEPTS.filter(c=>(!scene||sceneResources(scene)?.concepts.some(x=>x.id===c.id))&&(!q||(c.label+' '+c.simple+' '+c.detail).toLocaleLowerCase('fr').includes(q)));
