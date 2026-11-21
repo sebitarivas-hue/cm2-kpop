@@ -11,7 +11,7 @@ const file=name=>readFileSync(path.join(root,name),'utf8');
 const parseJsonExport=(source,symbol)=>{
  const start=source.indexOf('export const '+symbol+'=');
  if(start<0)throw Error('Cannot find export '+symbol);
- const from=source.indexOf(start+('export const '+symbol+'=').length);
+ const from=start+('export const '+symbol+'=').length;
  let begin=from;while(/\s/.test(source[begin]))begin++;
  const opener=source[begin],close=opener==='['?']':'}';
  if(!['[','{'].includes(opener))throw Error('Unsupported JSON export: '+symbol);
