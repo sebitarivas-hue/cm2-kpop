@@ -5,6 +5,7 @@ import {PAGE_INTRO_TERMS} from './page-intro-locales.js';
 import {ENGINEERING_TERMS} from './engineering-locales.js';
 import {ENGINEERING_PHASE_TERMS} from './engineering-phase-locales.js';
 import {ENGINEERING_SCIENCE_TERMS} from './engineering-science-locales.js';
+import {ENGINEERING_CONTROL_TERMS} from './engineering-control-locales.js';
 import {CONCEPT_LABELS} from './concept-label-locales.js';
 import {CONCEPT_SIMPLE_TERMS} from './concept-simple-locales.js';
 import {CONCEPT_DETAIL_TERMS} from './concept-detail-locales.js';
@@ -102,7 +103,7 @@ const canTranslate=n=>!!n?.parentElement&&!n.parentElement.closest(SKIP);
 const hasLanguage=s=>/[\p{L}]/u.test(s) && s.trim().length>1;
 function localTranslate(s,lang){
  const value=s.trim();
- let translated=CONCEPT_LABELS[value]?.[lang]??CONCEPT_SIMPLE_TERMS[value]?.[lang]??CONCEPT_DETAIL_TERMS[value]?.[lang]??FIGURE_TITLE_TERMS[value]?.[lang]??FIGURE_NOTE_TERMS_A[value]?.[lang]??FIGURE_NOTE_TERMS_B[value]?.[lang]??INTERFACE_TERMS[value]?.[lang]??ENGINEERING_SCIENCE_TERMS[value]?.[lang]??ENGINEERING_PHASE_TERMS[value]?.[lang]??ENGINEERING_TERMS[value]?.[lang]??PAGE_INTRO_TERMS[value]?.[lang]??HOME_TERMS[value]?.[lang]??UI[value]?.[lang]??SCIENCE_TERMS[value]?.[lang]??CHAPTER_TERMS[value]?.[lang];
+ let translated=CONCEPT_LABELS[value]?.[lang]??CONCEPT_SIMPLE_TERMS[value]?.[lang]??CONCEPT_DETAIL_TERMS[value]?.[lang]??FIGURE_TITLE_TERMS[value]?.[lang]??FIGURE_NOTE_TERMS_A[value]?.[lang]??FIGURE_NOTE_TERMS_B[value]?.[lang]??INTERFACE_TERMS[value]?.[lang]??ENGINEERING_CONTROL_TERMS[value]?.[lang]??ENGINEERING_SCIENCE_TERMS[value]?.[lang]??ENGINEERING_PHASE_TERMS[value]?.[lang]??ENGINEERING_TERMS[value]?.[lang]??PAGE_INTRO_TERMS[value]?.[lang]??HOME_TERMS[value]?.[lang]??UI[value]?.[lang]??SCIENCE_TERMS[value]?.[lang]??CHAPTER_TERMS[value]?.[lang];
  if(!translated){
   const entry=Object.entries(CHAPTER_TERMS).find(([key])=>/^\d+\.\s/.test(key)&&key.includes(value));
   if(entry?.[1]?.[lang])translated=entry[1][lang].replace(/^\d+\.\s*/, '').replace(/\s*\(\d\d:\d\d[^)]*\)$/, '');
