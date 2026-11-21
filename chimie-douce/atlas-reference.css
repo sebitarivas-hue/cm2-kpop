@@ -207,3 +207,45 @@
 @media(prefers-reduced-motion:reduce){
  #laboratoire.workspace .scene-item{transition:none!important}
 }
+
+/* Reference artwork specimen legend and breadcrumb — overlays do not block 3D control. */
+#laboratoire.workspace .atlas-evidence-head{
+ position:absolute;top:90px;left:clamp(32px,4vw,64px);z-index:5;
+ display:flex;align-items:center;gap:15px;pointer-events:none;
+ color:#e6dec7;font:500 10px/1.4 'DM Mono',monospace;
+ letter-spacing:.11em;text-transform:uppercase
+}
+#laboratoire.workspace .atlas-evidence-head .atlas-evidence-sep{color:#d8be8b}
+#laboratoire.workspace .atlas-exhibit-legend{
+ position:absolute;bottom:110px;right:clamp(32px,4vw,64px);z-index:5;
+ display:flex;flex-direction:column;gap:13px;
+ border:1px solid #cbd4ae66;border-radius:3px 13px 3px 13px;
+ color:#e6ebdb;padding:17px 20px;background:#12241cc7;
+ backdrop-filter:blur(16px);pointer-events:none;
+ font:500 10px 'DM Sans',sans-serif;letter-spacing:.03em
+}
+#laboratoire.workspace .atlas-exhibit-legend>span{display:flex;gap:10px;align-items:center}
+#laboratoire.workspace .atlas-legend-dot{
+ display:inline-block;width:12px;height:12px;border-radius:50%;
+ background:radial-gradient(circle at 30% 25%,#fffef0,#c2cbb9 60%,#829687);
+ border:1px solid #edecd5aa
+}
+#laboratoire.workspace .atlas-legend-dot.oxygen{
+ background:radial-gradient(circle at 30% 25%,#f9e9c8,#c89e64 62%,#7d6b47)
+}
+#laboratoire.workspace .atlas-legend-dot.porosity{
+ border-radius:42% 58% 56% 44%;background:#9bb09c88;
+ box-shadow:inset 2px 2px 4px #d5e0c9aa
+}
+#laboratoire.workspace .atlas-exhibit-legend[hidden]{display:none!important}
+@media(max-width:1050px){
+ #laboratoire.workspace .atlas-exhibit-legend{right:18px;bottom:102px;padding:11px}
+}
+@media(max-width:750px){
+ #laboratoire.workspace .atlas-evidence-head{top:58px;left:20px;font-size:9px}
+ #laboratoire.workspace .atlas-exhibit-legend{
+  top:94px;bottom:auto;right:14px;
+  padding:10px;gap:8px;font-size:9px;max-width:130px
+ }
+ #laboratoire.workspace .atlas-exhibit-legend>span{gap:6px}
+}
