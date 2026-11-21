@@ -1,4 +1,4 @@
-import {currentLanguage,translateTerm} from '../i18n.js';
+import {translateTerm} from '../i18n.js';
 import {CONCEPTS,sceneResources} from '../src/knowledge-graph.js';
 import {ensureConceptDialog,openConcept} from '../src/concept-ui.js';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -10,7 +10,7 @@ function update(){
  const q=input.value.trim().toLocaleLowerCase('fr');
  const arr=CONCEPTS.filter(c=>(!scene||sceneResources(scene)?.concepts.some(x=>x.id===c.id))&&(!q||(c.label+' '+c.simple+' '+c.detail).toLocaleLowerCase('fr').includes(q)));
  count.textContent=arr.length+' / '+CONCEPTS.length+' NOTIONS';
- grid.innerHTML=arr.map((c,i)=>'<article class="notion-card" id="notion-'+esc(c.id)+'"><span class="number">NOTION '+String(CONCEPTS.indexOf(c)+1).padStart(2,'0')+' / '+CONCEPTS.length+'</span><h2>'+esc(translateTerm(c.label))+'</h2><p>'+esc(c.simple)+'</p><div class="notion-card-actions"><button type="button" data-concept="'+esc(c.id)+'">COMPRENDRE ↗</button><a href="../#'+esc(c.scene)+'">MANIPULER EN 3D ↗</a></div></article>').join('');
+ grid.innerHTML=arr.map((c,i)=>'<article class="notion-card" id="notion-'+esc(c.id)+'"><span class="number">NOTION '+String(CONCEPTS.indexOf(c)+1).padStart(2,'0')+' / '+CONCEPTS.length+'</span><h2 data-no-translate>'+esc(translateTerm(c.label))+'</h2><p>'+esc(c.simple)+'</p><div class="notion-card-actions"><button type="button" data-concept="'+esc(c.id)+'">COMPRENDRE ↗</button><a href="../#'+esc(c.scene)+'">MANIPULER EN 3D ↗</a></div></article>').join('');
  if(!arr.length)grid.textContent='Aucune notion trouvée. Essayez une autre recherche.';
 }
 input.addEventListener('input',update);window.addEventListener('chimie:language',update);update();
