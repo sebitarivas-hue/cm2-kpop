@@ -61,3 +61,73 @@ body{background:#f2efe8;font-family:var(--sans)}
 .hero-course-credit span:nth-of-type(2){font:600 clamp(11px,1.2vw,15px) 'Space Grotesk',sans-serif;letter-spacing:.115em;color:#d5b886}
 .hero-course-credit>a{margin-top:5px}
 @media(max-width:620px){.hero-course-credit{padding:17px 0;margin:20px 0}.hero-course-credit strong{font-size:clamp(39px,10.2vw,61px)!important}}
+
+/* RESPONSIVE TYPOGRAPHY / NO OVERLAP: real constraints rather than shrinking entire UI. */
+.hero-inner,.hero-copy,.hero-art,.hero-course-credit{min-width:0}
+.hero-copy h1,.editorial-hero .hero-copy h1{white-space:normal!important;max-width:100%!important;overflow-wrap:normal;hyphens:auto;text-wrap:balance;line-height:1.075!important;letter-spacing:-.048em!important}
+.hero-star{display:none!important}
+.hero-copy .hero-course-credit strong{max-width:100%;overflow-wrap:break-word;line-height:1.08!important}
+.hero-kicker{white-space:normal!important;line-height:1.6;max-width:100%}
+.hero-copy .hero-buttons{min-width:0}
+.hero-copy .hero-button{max-width:100%;min-width:0}
+.hero-copy .hero-button span{flex:0 0 auto}
+@media(min-width:801px){
+ .editorial-hero .hero-copy h1{font-size:clamp(46px,4.8vw,86px)!important}
+ .hero-copy{padding-right:clamp(20px,3vw,65px)!important}
+ .hero-course-credit strong{font-size:clamp(38px,4.4vw,75px)!important}
+}
+@media(max-width:800px){
+ .hero-copy{padding:clamp(35px,8vw,60px) clamp(20px,5.1vw,37px) 37px!important}
+ .editorial-hero .hero-copy h1{font-size:clamp(39px,7.8vw,61px)!important;letter-spacing:-.045em!important;line-height:1.13!important;margin-bottom:22px!important}
+ .hero-course-credit{gap:7px!important;padding:17px 0!important;max-width:100%!important}
+ .hero-course-credit strong{font-size:clamp(40px,8.3vw,64px)!important;letter-spacing:-.05em!important}
+ .hero-course-credit>a{overflow-wrap:anywhere}
+ .hero-lead{max-width:50ch;line-height:1.7}
+ .hero-buttons{display:grid!important;grid-template-columns:minmax(0,1fr);width:100%;gap:10px!important}
+ .hero-button{width:100%;min-height:53px;max-width:100%;white-space:normal;line-height:1.5;padding:11px 15px}
+ .hero-art{width:100%;min-height:300px}
+ .hero-bottom{min-height:55px;height:auto;padding:13px 20px;flex-wrap:wrap;gap:10px}
+ .hero-bottom a{white-space:normal}
+ .hero-stats{gap:10px!important;flex-wrap:wrap}
+}
+@media(max-width:480px){
+ .editorial-hero .hero-copy h1{font-size:clamp(33px,8.0vw,41px)!important;letter-spacing:-.044em!important}
+ .hero-copy h1 br{display:none}
+ .hero-copy h1 em{display:block;max-width:100%}
+ .hero-course-credit strong{font-size:clamp(41px,10.2vw,52px)!important}
+ .hero-kicker{font-size:9px!important;letter-spacing:.075em!important;gap:8px}
+ .hero-lead{font-size:14px;line-height:1.67}
+ .hero-art{height:290px!important;min-height:290px!important}
+ .hero-art img{height:100%;object-fit:cover}
+ .hero-stats{margin-top:27px!important}
+ .hero-stats>div{min-width:26%;flex:1}
+ .hero-stats strong{font-size:30px}
+}
+/* The 3D viewport and the scientific caption form separate document blocks on small screens. */
+@media(max-width:750px){
+ .workspace{display:block!important;scroll-margin-top:73px}
+ .stage{display:flex!important;flex-direction:column!important;height:auto!important;min-height:0!important;overflow:visible!important;isolation:isolate}
+ .stage #viewport{position:relative!important;inset:auto!important;height:clamp(300px,52dvh,475px)!important;min-height:300px!important;flex:0 0 auto;overflow:hidden;background:#091a23}
+ .stage .stage-head{top:11px!important;left:13px!important;right:13px!important;z-index:5!important;gap:6px}
+ .stage .stage-meta{display:none!important}
+ .stage .stage-head .eyebrow{font-size:10px!important}
+ .stage .stage-overlay{position:relative!important;inset:auto!important;left:auto!important;right:auto!important;bottom:auto!important;width:100%!important;z-index:5!important;display:flex!important;align-items:center!important;gap:14px!important;margin:0!important;padding:20px 17px 19px!important;pointer-events:auto!important;background:#0c1c23;border-top:1px solid #7993944a;box-sizing:border-box;min-height:0!important}
+ .stage .stage-overlay>div:last-child{min-width:0;flex:1}
+ .stage .scene-num,.stage-overlay .scene-num{font:italic 38px/1 var(--serif)!important;min-width:39px!important;opacity:.37!important;align-self:flex-start}
+ .stage .stage-overlay h2{font-size:clamp(28px,6.8vw,38px)!important;line-height:1.13!important;letter-spacing:-.025em!important;margin:5px 0 8px!important;overflow-wrap:anywhere}
+ .stage .stage-overlay p{line-height:1.55!important;font-size:12px!important}
+ .stage .controls-bottom{position:relative!important;inset:auto!important;left:auto!important;bottom:auto!important;right:auto!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:9px!important;background:#0c1c23;padding:5px 17px 17px!important;width:100%!important;z-index:5!important;box-sizing:border-box}
+ .stage .view-tools{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important}
+ .stage .view-tools button{min-height:46px!important;justify-content:center!important;padding:8px 5px!important}
+ .stage .drag-hint{font-size:9px!important;line-height:1.45!important;letter-spacing:.045em!important}
+ .stage .stage-grain{display:none!important}
+ .stage:before{display:none!important}
+ .atlas-tools{gap:9px!important;padding:12px 14px!important;display:flex!important;align-items:stretch!important}
+ .atlas-tools button{min-height:42px}
+ .atlas-tools #mobileMenu{position:static!important;inset:auto!important;bottom:auto!important;right:auto!important;z-index:auto!important;display:inline-flex!important;align-items:center!important;gap:7px!important;box-shadow:none!important;margin:0!important;padding:9px 13px!important;min-height:42px!important;min-width:auto;background:#d9c29d!important;color:#121a1a!important;font:11px var(--mono)!important}
+ .atlas-tools #mobileMenu span{font-size:10px!important}
+ .sidebar{top:61px!important;bottom:0!important;max-height:calc(100dvh - 61px)!important}
+ .lower{position:relative;z-index:1}
+ .lower-left,.lower-right{overflow-wrap:anywhere}
+}
+@media(min-width:751px){.atlas-tools #mobileMenu{display:none!important}}
