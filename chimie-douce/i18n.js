@@ -1,5 +1,6 @@
 import {SCIENCE_TERMS} from './science-locales.js';
 import {CHAPTER_TERMS} from './chapter-locales.js';
+import {HOME_TERMS} from './home-locales.js';
 /*
  * Chimie douce | runtime multilingual layer
  * Source of truth: the French course text remains unchanged.
@@ -87,7 +88,7 @@ const canTranslate=n=>!!n?.parentElement&&!n.parentElement.closest(SKIP);
 const hasLanguage=s=>/[\p{L}]/u.test(s) && s.replace(/\s/g,'').length>4&&!/^[A-Z][A-Z0-9 .:+()−–\-×⁄%]+$/.test(s);
 function localTranslate(s,lang){
  const value=s.trim();
- const translated=UI[value]?.[lang]??SCIENCE_TERMS[value]?.[lang]??CHAPTER_TERMS[value]?.[lang];
+ const translated=HOME_TERMS[value]?.[lang]??UI[value]?.[lang]??SCIENCE_TERMS[value]?.[lang]??CHAPTER_TERMS[value]?.[lang];
  return translated?s.replace(value,translated):null;
 }
 function getSaved(){try{const q=new URLSearchParams(location.search).get('lang');if(q&&SAFE_LANG.includes(q))return q;const n=localStorage.getItem(storageKey);return SAFE_LANG.includes(n)?n:'fr'}catch{return 'fr'}}
@@ -147,7 +148,7 @@ async function translateScientific(s,lang){
 function textNode(n,original){
  if(!canTranslate(n))return;
  const src=original??n.nodeValue;
- if(!hasLanguage(src))return;
+ if(!hasLanguage(src) && !HOME_TERMS[src.trim()] && !CHAPTER_TERMS[src.trim()])return;
  if(!textRecords.has(n))textRecords.set(n,src);
  const v=textRecords.get(n);if(current==='fr'){n.nodeValue=v;return}
  if(processed.get(n)===current)return;
@@ -166,7 +167,7 @@ function scan(root=document.body){
    if(!el.hasAttribute(k))continue;
    if(!(k in original))original[k]=el.getAttribute(k);
    if(current==='fr'){el.setAttribute(k,original[k]);continue}
-   const direct=localTranslate(original[k],current);if(direct)el.setAttribute(k,direct);
+   const direct=localTranslate(original[k],current);if(direct)el.setAttribute(k,direct);else if(el.getAttribute(k)!==original[k])el.setAttribute(k,original[k]);
   }
   attrRecords.set(el,original);
  }
