@@ -738,12 +738,18 @@ footer .colophon {
 .epoch-btn:hover { border-color: var(--accent); color: var(--text); }
 .epoch-btn.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
 </style>
+<link rel="stylesheet" href="./nav.css?v=essay-navigation-20261121">
+<style>
+.essay-home-link{display:inline-flex;align-items:center;gap:12px;position:relative;z-index:3;margin-bottom:26px;padding:11px 16px;border:1px solid rgba(214,183,128,.6);color:#dfc7a2;font:600 11px 'Inter',sans-serif;letter-spacing:.11em;text-decoration:none;background:#151d22cc;transition:background .2s,border-color .2s}
+.essay-home-link:hover,.essay-home-link:focus-visible{background:#263d38;border-color:#9ed9c6;color:#fff}
+</style>
 </head>
-<body>
+<body class="essay-page">
 
 <!-- ============ HERO ============ -->
 <div class="hero" id="hero">
   <div class="hero-content">
+    <a href="./" class="essay-home-link" aria-label="Retourner à l’accueil de l’Atlas Chimie douce">← RETOUR À L’ATLAS SCIENTIFIQUE</a>
     <p class="meta">Collège de France &middot; Chaire de Chimie des Matériaux Hybrides</p>
     <h1>De la matière comme substance<br>à la matière comme système</h1>
     <p class="subtitle">Épistémologie critique de la chimie douce</p>
@@ -1455,5 +1461,6 @@ const counterObs = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.stats-bar').forEach(s => counterObs.observe(s));
 </script>
+<script type="module" src="./nav.js?v=essay-navigation-20261121"></script>
 </body>
 </html>
