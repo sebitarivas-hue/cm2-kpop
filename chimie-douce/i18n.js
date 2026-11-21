@@ -91,7 +91,11 @@ const canTranslate=n=>!!n?.parentElement&&!n.parentElement.closest(SKIP);
 const hasLanguage=s=>/[\p{L}]/u.test(s) && s.trim().length>1;
 function localTranslate(s,lang){
  const value=s.trim();
- const translated=CONCEPT_LABELS[value]?.[lang]??FIGURE_TITLE_TERMS[value]?.[lang]??INTERFACE_TERMS[value]?.[lang]??HOME_TERMS[value]?.[lang]??UI[value]?.[lang]??SCIENCE_TERMS[value]?.[lang]??CHAPTER_TERMS[value]?.[lang];
+ let translated=CONCEPT_LABELS[value]?.[lang]??FIGURE_TITLE_TERMS[value]?.[lang]??INTERFACE_TERMS[value]?.[lang]??HOME_TERMS[value]?.[lang]??UI[value]?.[lang]??SCIENCE_TERMS[value]?.[lang]??CHAPTER_TERMS[value]?.[lang];
+ if(!translated){
+  const entry=Object.entries(CHAPTER_TERMS).find(([key])=>/^\\d+\\.\\s/.test(key)&&key.includes(value));
+  if(entry?.[1]?.[lang])translated=entry[1][lang].replace(/^\\d+\\.\\s*/, '').replace(/\\s*\\(\\d\\d:\\d\\d[^)]*\\)$/, '');
+ }
  return translated?s.replace(value,translated):null;
 }
 function getSaved(){try{const q=new URLSearchParams(location.search).get('lang');if(q&&SAFE_LANG.includes(q))return q;const n=localStorage.getItem(storageKey);return SAFE_LANG.includes(n)?n:'fr'}catch{return 'fr'}}
