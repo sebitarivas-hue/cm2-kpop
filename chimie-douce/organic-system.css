@@ -1,0 +1,153 @@
+/*
+ * CHIMIE DOUCE — ORGANIC EDITORIAL SYSTEM
+ * Unifies presentation only; canonical figures, 3D engines and source content unchanged.
+ * Material vocabulary: cellulose, uncoated paper, mycelium, mineral, scientific light.
+ */
+:root{
+ --organic-ink:#1d3029;--organic-deep:#14241e;--organic-forest:#203b31;
+ --organic-moss:#667a58;--organic-leaf:#8b9973;--organic-clay:#b99678;
+ --organic-sand:#e2d5bd;--organic-paper:#f0ecdf;--organic-cream:#faf7ed;
+ --organic-hairline:#a7a78b66;--organic-copy:#506053;
+ --organic-serif:'Bodoni Moda','Instrument Serif',Georgia,serif;
+ --organic-sans:'Space Grotesk','DM Sans',Arial,sans-serif;
+ --organic-shadow:0 16px 45px #14251e18;
+}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{font-family:var(--organic-sans);overflow-x:clip}
+body::selection{background:#819873;color:#fff}
+:is(button,a,input,textarea,select):focus-visible{outline:2px solid #b68b59!important;outline-offset:3px}
+:is(.editorial-hero,.intro,.lab-intro,.bib-hero,.board-hero,.organic-home,.discovery,.notions-hero,.hero,.scope,.scene-resources){isolation:isolate}
+:is(.editorial-hero,.engineering>.intro,.bib-hero,.board-hero,.organic-home,.essay-page .hero){
+ background-color:var(--organic-deep)!important;
+ background-image:radial-gradient(ellipse at 78% 24%,#5377603d,transparent 48%),radial-gradient(ellipse at 13% 86%,#a2a3751c,transparent 55%),linear-gradient(135deg,#172b23,#102019 70%)!important;
+}
+:is(.editorial-hero,.engineering>.intro,.bib-hero,.board-hero,.organic-home,.essay-page .hero)::after{
+ content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+ background:repeating-linear-gradient(114deg,transparent 0 26px,#e9e2c308 27px 28px,transparent 29px 65px);
+ opacity:.26;
+}
+:is(.editorial-hero,.engineering>.intro,.bib-hero,.board-hero,.organic-home,.essay-page .hero)>*{position:relative;z-index:1}
+:is(.editorial-hero,.intro,.bib-hero,.board-hero,.organic-home,.lab-intro,.essay-page .hero) h1,
+:is(.discovery,.organic-home,.scene-resources,.notions-main,.bib-hero,.engineering,.lab-intro,.essay-page) h2{
+ font-family:var(--organic-serif);
+}
+:is(.intro,.bib-hero,.board-hero,.organic-home) h1 em,
+:is(.editorial-hero,.discovery,.organic-home,.lab-intro,.engineering,.bib-hero,.board-hero) em{color:#d8c29a}
+:is(.board-hero,.bib-hero,.engineering>.intro,.organic-home) :is(p,.scope-note){max-width:76ch}
+#atlasGlobalNav{
+ background:#f0ecdfed!important;color:var(--organic-ink)!important;
+ border-bottom:1px solid #9b9f85aa!important;
+ box-shadow:0 7px 30px #2035291e!important
+}
+#atlasGlobalNav .nav-signature{color:#253d30!important}
+#atlasGlobalNav .sig-orb{
+ border-radius:44% 57% 51% 47%!important;
+ border:1px solid #748968!important;
+ background:radial-gradient(circle at 37% 30%,#b8cf9c,#6f9076 42%,#314b3a 100%)!important;
+ box-shadow:inset -5px -5px 10px #1c3d3044!important
+}
+#atlasGlobalNav :is(.route-menu a,.breadcrumbs,.breadcrumbs a,.crumb-current){color:#374e3f!important}
+#atlasGlobalNav .route-menu a:hover,#atlasGlobalNav .route-menu a.active{background:#dce5d3!important;border-bottom-color:#7c9271!important;color:#213c2c!important}
+#atlasGlobalNav .nav-back,#atlasGlobalNav .atlas-mobile-toggle{background:#dfe6d7!important;color:#264432!important;border-color:#8a9b84!important}
+#atlasGlobalNav .route-menu{background:#f0ecdf!important}
+#atlasGlobalNav .route-menu:before{color:#667b5d!important}
+:is(.discovery,.scene-resources,.notions-main,.knowledge-map,.research-filters,.bib-method){
+ --paper-local:var(--organic-paper);
+}
+.discovery,.scene-resources{background:var(--organic-paper)!important;color:var(--organic-ink)!important}
+.discovery-card,.discovery-chapter,.notion-card,.source-original,.fig-card,.topic-node{
+ box-shadow:var(--organic-shadow);
+ border-color:#93a08699!important;
+ transition:transform .22s ease,background .22s ease,box-shadow .22s ease,border-color .22s ease;
+}
+.discovery-card,.notion-card,.discovery-chapter{
+ background:var(--organic-cream)!important;
+ border-radius:3px 22px 4px 22px!important;
+}
+.discovery-card:nth-child(3n + 2){border-radius:24px 3px 22px 5px!important}
+.discovery-card:nth-child(3n + 3){border-radius:4px 22px 22px 5px!important}
+.discovery-card:hover,.notion-card:hover,.discovery-chapter:hover{box-shadow:0 20px 42px #193e2a22!important;background:#edf1e5!important}
+.discovery-video{border-radius:3px 35px 4px 35px;overflow:hidden;background:#21392b!important}
+.discovery-video-frame{background:#172d24!important}
+.discovery-card strong,.discovery-heading h2,.discovery-guide h3,.discovery-sequence h3{color:#243d2d}
+.discovery-method{border-color:#849f76}
+.organic-home .home-organic-card,.home-organic-card{
+ border-radius:2px 32px 4px 32px;overflow:hidden;
+ background:#20352d!important;border:1px solid #8b9a7d78!important;
+}
+.home-organic-media{background:#28463b!important}
+.home-organic-media img{filter:saturate(.87) contrast(1.05)}
+.home-organic-caption h3{color:#e9dfcc!important}
+.home-organic-card:nth-child(2){border-radius:30px 3px 30px 3px}
+.home-organic-card:nth-child(3){border-radius:3px 30px 24px 3px}
+.scene-resources .source-original{border-radius:3px 22px 4px 22px;overflow:hidden;background:#faf8ef}
+.resource-actions a,.notion-card-actions button,.notion-card-actions a,.discovery-cta{
+ border-radius:3px 18px 3px 18px!important;
+ box-shadow:none!important
+}
+.resource-actions a{background:#304f39!important;border-color:#304f39!important}
+.resource-plate-picker button{border-radius:3px 13px 4px 13px}
+.concept-dialog,.fig-dialog,.overlay-dialog{
+ border-radius:5px 30px 5px 30px!important;
+ overflow:auto;box-shadow:0 20px 80px #101e18a8!important
+}
+/* Lecture: replace tech-blue slabs with warmer, readable editorial paper. */
+body:has(.layout>aside) {
+ --bg:#eae5d8;--panel:#f8f5ec;--text:#273d31;--muted:#536b5a;
+ --gold:#907648;--line:#a7b39d;
+ background:#eae5d8!important;color:#273d31!important;
+}
+body:has(.layout>aside) header{background:#eae5d8f2!important;color:#2d4937!important;border-color:#aeb7a3!important}
+body:has(.layout>aside) .layout aside{background:#eae5d8!important;border-color:#a9b49f!important}
+body:has(.layout>aside) :is(main,article){color:#283e30}
+body:has(.layout>aside) :is(a,aside nav a){color:#395e47}
+body:has(.layout>aside) :is(input,textarea){background:#fffaf0!important;color:#283f32!important;border-color:#98a88f!important}
+body:has(.layout>aside) .intro h1{color:#263c2f!important}
+body:has(.layout>aside) :is(.article-card,.figure-card,.monograph-figure){border-radius:3px 18px 4px 18px}
+body:has(.layout>aside) .layout{gap:clamp(22px,5vw,85px)}
+/* The essay should belong to the same natural-material family, not a purple sci-fi dashboard. */
+.essay-page{
+ --bg:#17291f;--bg-card:#20382b;--bg-card-hover:#304938;
+ --text:#f0eade;--text-dim:#c4cebb;--accent:#d6bd90;--accent-light:#ead5a9;
+ --accent-glow:#b8c79b24;--blue:#87a997;--blue-light:#b1c9b2;
+ --green:#a1c18a;--purple:#baaa91;--red:#c39583;--border:#65796977;
+ background:#162920!important;color:#eee9dc!important
+}
+.essay-page :is(.card,.stat-card,.timeline-event,.chapter-card,.tab-panel){border-radius:4px 23px 5px 23px}
+.essay-page :is(.hero,.section,.essay-section){background-image:radial-gradient(ellipse at 70% 25%,#73906c25,transparent 56%)}
+.essay-page .hero::before{background:radial-gradient(ellipse at 28% 43%,#95a98224,transparent 60%)!important}
+/* Bibliography: replace diagrammatic orbital identity with a seed/plant-cell texture. */
+.bib-hero .orb-wrap{filter:saturate(.7);transform:scale(.92)}
+.bib-hero .orb-ring{border-style:dotted!important;border-width:1px!important;border-color:#a9bd91aa!important}
+.bib-hero .orb-core{
+ border-radius:41% 60% 54% 44%!important;
+ background:radial-gradient(ellipse at 31% 27%,#c7d7ac,#7ca08a 36%,#3d7057 73%,#253a2a)!important;
+ box-shadow:inset -24px -22px 38px #263d2a77,0 0 40px #88a77b37!important
+}
+.bib-hero .orb-center{color:#f8f1dc!important}
+.topic-node{border-radius:4px 24px 5px 24px;background:linear-gradient(145deg,#244436,#15291f)!important}
+.topic-node:nth-child(even){border-radius:24px 4px 24px 4px}
+.fig-card{border-radius:3px 22px 4px 22px;overflow:hidden;background:#20362c!important}
+.fig-art{background:#e9e4d6!important}
+.fig-art img{filter:saturate(.94)}
+.notions-main{background:#eee9db!important}
+.notions-hero h1{color:#2c4634}
+.notions-tools input{border-radius:4px 18px 4px 18px}
+.notions-grid{gap:16px}
+/* Preserve interactive WebGL canvas; natural surrounding frame and controls only. */
+:is(.laboratory-layout,.lab-layout,.workspace){--surface:#182a22;--panel:#213c2e}
+:is(.laboratory-layout,.lab-layout) :is(.stage,.settings,.control-panel,.process-list){border-color:#7e947b7a!important}
+:is(.engineering,.lab-layout) :is(.stage,.viewport,#webgl){background-color:#182a22!important}
+:is(.engineering,.lab-layout) :is(.control-panel,.settings,.process-list){background:#1b2d25!important}
+:is(.engineering,.lab-layout) :is(button,select,input){accent-color:#8cac7d}
+:is(.engineering,.lab-layout) button:focus-visible{outline-color:#d3b786}
+:lang(zh) :is(h1,h2,h3,.discovery-card strong){letter-spacing:0!important;line-height:1.25}
+@media(max-width:760px){
+ .discovery-video,.discovery-card,.discovery-chapter,.notion-card,.fig-card{border-radius:4px 20px 4px 20px!important}
+ .orb-wrap{max-width:100%}
+ .engineering .intro,.lab-intro{padding-inline:clamp(17px,5vw,35px)}
+ .discovery-heading h2{overflow-wrap:anywhere}
+}
+@media(prefers-reduced-motion:reduce){
+ :is(.discovery-card,.notion-card,.fig-card,.discovery-chapter){transition:none!important;transform:none!important}
+}
