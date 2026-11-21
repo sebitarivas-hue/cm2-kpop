@@ -33,7 +33,8 @@ const concepts=parseJsonExport(graph,'CONCEPTS');
 const dictionaries={
  concepts:parseJsonExport(file('concept-label-locales.js'),'CONCEPT_LABELS'),
  home:parseJsonExport(file('home-locales.js'),'HOME_TERMS'),
- ui:parseJsonExport(file('interface-locales.js'),'INTERFACE_TERMS')
+ ui:parseJsonExport(file('interface-locales.js'),'INTERFACE_TERMS'),
+ figureTitles:parseJsonExport(file('figure-title-locales.js'),'FIGURE_TITLE_TERMS')
 };
 const chapterText=file('chapter-locales.js');
 const scienceText=file('science-locales.js');
@@ -48,10 +49,10 @@ const stats={
  conceptNames:{translated:translatedConceptNames.length,total:conceptNames.length,missing:conceptNames.filter(k=>!valid(dictionaries.concepts[k]))},
  homeStrings:{translated:matched(homeKeys,dictionaries.home).length,total:homeKeys.length},
  interfaceStrings:{translated:matched(uiKeys,dictionaries.ui).length,total:uiKeys.length},
- figures:{total:figures.length,originalTitleAndCaptionTranslationsStored:0},
+ figures:{total:figures.length,translatedTitles:matched(figures.map(f=>f.title),dictionaries.figureTitles).length,missingTitles:figures.map(f=>f.title).filter(k=>!valid(dictionaries.figureTitles[k])),translatedScientificNotes:0},
  chapters:{total:chapters.length,chapterDictionaryPresent:chapterText.includes('CHAPTER_TERMS')},
  scientificLongForm:{monographHasDedicatedTranslatedVersions:false},
  runtimeMachineTranslation:'fallback only; not counted as persisted translation'
 };
 console.log(JSON.stringify(stats,null,2));
-if(stats.conceptNames.missing.length||stats.homeStrings.translated!==stats.homeStrings.total||stats.interfaceStrings.translated!==stats.interfaceStrings.total)process.exitCode=1;
+if(stats.conceptNames.missing.length||stats.homeStrings.translated!==stats.homeStrings.total||stats.interfaceStrings.translated!==stats.interfaceStrings.total||stats.figures.missingTitles.length)process.exitCode=1;
