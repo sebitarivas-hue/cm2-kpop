@@ -26,3 +26,5 @@ Références vérifiées :
 - Sol–gel review (2016), DOI 10.1039/C5MH00260E, https://pubs.rsc.org/en/content/articlehtml/2016/mh/c5mh00260e
 - Modelling of hyphal growth and branching (2023), https://pmc.ncbi.nlm.nih.gov/articles/PMC10213032/
 - Bruggeman approximation and effective diffusivity (2021), https://pmc.ncbi.nlm.nih.gov/articles/PMC7914409/
+
+- Les phases affichées sont désormais déterminées par des seuils sur les variables du modèle, pas par un découpage arbitraire du temps en quarts. Ces seuils restent pédagogiques et non expérimentaux.
