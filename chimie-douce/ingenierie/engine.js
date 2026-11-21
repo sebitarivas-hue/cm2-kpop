@@ -36,10 +36,18 @@ const configs=[
 ];
 const idMap=Object.fromEntries(configs.map(c=>[c.id,c]));
 const params=Object.fromEntries(configs.map(c=>[c.id,Object.fromEntries(c.inputs.map(x=>[x.key,x.value]))]));
+const prefersReducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+let autoRun=!prefersReducedMotion.matches,holdAtEnd=0,resumeAfterVisibility=false;
 let mode=configs[0],t=0,playing=false,speed=1,last=performance.now(),current=null;
+function playbackUI(){
+ const auto=$('autoRun'),play=$('play'),status=$('runStatus');
+ if(auto){auto.setAttribute('aria-pressed',String(autoRun));auto.textContent=autoRun?'⟳ AUTO ON':'⟳ AUTO OFF';}
+ if(play){play.textContent=playing?'❚❚':'▶';play.setAttribute('aria-label',playing?'Mettre la simulation en pause':'Démarrer la simulation');}
+ if(status)status.textContent=prefersReducedMotion.matches&&!autoRun?'ANIMATIONS RÉDUITES · LECTURE MANUELLE':autoRun?(document.hidden?'SUSPENDU HORS ÉCRAN':playing?'AUTO · ÉVOLUTION EN BOUCLE':'AUTO · EN PAUSE'):'LECTURE MANUELLE';
+}
 let renderer=null,scene=null,camera=null,orbit=null,resizeObserver=null;let frameCounter=0;
 function format(v,d=3){return Number(v).toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d})}
-function selectMode(id){mode=idMap[id]||configs[0];t=0;playing=false;$('play').textContent='▶';$('sceneCounter').textContent=mode.n+' / 05';$('sceneTitle').textContent=mode.name;$('scaleLabel').textContent=mode.scale;$('modelIntro').textContent=mode.description;$('equation').textContent=mode.equation;$('equationDetail').textContent=mode.detail;$('graphTitle').textContent=mode.name;
+function selectMode(id){mode=idMap[id]||configs[0];t=0;holdAtEnd=0;playing=autoRun&&!document.hidden;resumeAfterVisibility=false;playbackUI();$('sceneCounter').textContent=mode.n+' / 05';$('sceneTitle').textContent=mode.name;$('scaleLabel').textContent=mode.scale;$('modelIntro').textContent=mode.description;$('equation').textContent=mode.equation;$('equationDetail').textContent=mode.detail;$('graphTitle').textContent=mode.name;
  $('modeList').innerHTML=configs.map(c=>'<button type="button" class="mode-btn '+(mode.id===c.id?'active':'')+'" data-mode="'+c.id+'" aria-pressed="'+(mode.id===c.id)+'"><span class="mode-icon">'+c.icon+'</span><span><strong>'+escapeHTML(c.name)+'</strong><small>'+escapeHTML(c.sub)+'</small></span></button>').join('');
  $('modeList').querySelectorAll('button').forEach(b=>b.onclick=()=>selectMode(b.dataset.mode));
  $('parameters').innerHTML=mode.inputs.map(d=>'<div class="param-row"><div class="param-heading"><label for="p-'+d.key+'">'+escapeHTML(d.label)+'</label><output id="o-'+d.key+'">'+format(params[mode.id][d.key],d.step>=1?0:2)+' '+escapeHTML(d.unit)+'</output></div><input id="p-'+d.key+'" type="range" min="'+d.min+'" max="'+d.max+'" step="'+d.step+'" value="'+params[mode.id][d.key]+'"><small>'+escapeHTML(d.note)+'</small></div>').join('');
@@ -69,10 +77,30 @@ function download(blob,name){const u=URL.createObjectURL(blob),a=document.create
 function init3D(){try{const view=$('viewport'),canvas=document.createElement('canvas');canvas.setAttribute('aria-label','Visualisation scientifique tridimensionnelle manipulable');view.prepend(canvas);renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,preserveDrawingBuffer:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(2,window.devicePixelRatio||1));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.5;scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x0b2021,.021);camera=new THREE.PerspectiveCamera(44,1,.08,130);const orbitClass=OrbitControls;orbit=new orbitClass(camera,canvas);orbit.enableDamping=true;orbit.dampingFactor=.045;orbit.minDistance=3;orbit.maxDistance=28;orbit.maxPolarAngle=Math.PI*.85;
  scene.add(new THREE.HemisphereLight(0xcdeee1,0x19342d,2.0));const key=new THREE.DirectionalLight(0xffe9c4,3.3);key.position.set(5,10,6);scene.add(key);const rim=new THREE.DirectionalLight(0x6ad9b7,2.3);rim.position.set(-7,3,-8);scene.add(rim);const floor=new THREE.GridHelper(23,26,0x527f70,0x2b5149);floor.position.y=-2.8;floor.material.opacity=.12;floor.material.transparent=true;scene.add(floor);
  const resize=()=>{const w=Math.max(1,view.clientWidth),h=Math.max(1,view.clientHeight);renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();drawGraph()};resize();resizeObserver=new ResizeObserver(resize);resizeObserver.observe(view);$('canvasLoading').remove();return true;}catch(e){$('canvasLoading').innerHTML='<strong>RENDU 3D NON DISPONIBLE</strong><small>'+escapeHTML(e.message)+'. Les équations et courbes restent accessibles.</small>';return false}}
-function animate(now){let delta=Math.min((now-last)/1000,.05);last=now;if(playing){t=clamp(t+delta*speed/24);if(t>=1){playing=false;$('play').textContent='▶';}update();}if(renderer){if(current&&playing)current.root.rotation.y+=delta*.035;orbit.update();renderer.render(scene,camera)}requestAnimationFrame(animate)}
-$('timeline').addEventListener('input',e=>{t=clamp(Number(e.target.value)/1000);playing=false;$('play').textContent='▶';update()});$('play').onclick=()=>{if(t>=1)t=0;playing=!playing;$('play').textContent=playing?'❚❚':'▶';update()};$('step').onclick=()=>{playing=false;$('play').textContent='▶';t=clamp(t+.025);update()};$('reset').onclick=()=>{playing=false;t=0;$('play').textContent='▶';update()};$('speed').onchange=e=>speed=Number(e.target.value);
+function animate(now){
+ let delta=Math.min(Math.max((now-last)/1000,0),.05);last=now;
+ if(playing){
+  if(t>=1&&autoRun){holdAtEnd+=delta;if(holdAtEnd>=1.15){t=0;holdAtEnd=0;update()}}
+  else{t=clamp(t+delta*speed/24);update();if(t>=1&&!autoRun){playing=false;playbackUI()}}
+ }
+ if(renderer){if(current&&playing)current.root.rotation.y+=delta*.035;orbit.update();renderer.render(scene,camera)}
+ requestAnimationFrame(animate)
+}
+$('timeline').addEventListener('input',e=>{t=clamp(Number(e.target.value)/1000);holdAtEnd=0;playing=false;resumeAfterVisibility=false;playbackUI();update()});
+$('play').onclick=()=>{if(t>=1){t=0;holdAtEnd=0;}playing=!playing;resumeAfterVisibility=false;playbackUI();update()};
+$('step').onclick=()=>{playing=false;resumeAfterVisibility=false;holdAtEnd=0;t=clamp(t+.025);playbackUI();update()};
+$('reset').onclick=()=>{playing=autoRun&&!document.hidden;resumeAfterVisibility=false;holdAtEnd=0;t=0;playbackUI();update()};
+$('autoRun').onclick=()=>{autoRun=!autoRun;holdAtEnd=0;playing=autoRun&&!document.hidden;resumeAfterVisibility=false;if(autoRun&&t>=1)t=0;playbackUI();update()};
+$('speed').onchange=e=>speed=Number(e.target.value);
 $('exportCSV').onclick=()=>download(new Blob([csv()],{type:'text/csv;charset=utf-8'}),'chimie-douce_'+mode.id+'_tau.csv');$('savePNG').onclick=()=>{if(!renderer)return alert('Le rendu WebGL est indisponible.');renderer.render(scene,camera);renderer.domElement.toBlob(blob=>{if(blob)download(blob,'chimie-douce_'+mode.id+'_'+Math.round(t*1000)+'.png')},'image/png')};
 document.addEventListener('keydown',e=>{const tag=e.target?.tagName;if(['INPUT','TEXTAREA','SELECT','BUTTON'].includes(tag))return;if(e.key===' '){e.preventDefault();$('play').click()}if(e.key==='ArrowRight'){e.preventDefault();$('step').click()}if(e.key==='ArrowLeft'){e.preventDefault();playing=false;t=clamp(t-.025);update()}if(e.key.toLowerCase()==='r')$('reset').click()});
-document.addEventListener('visibilitychange',()=>{last=performance.now();if(document.hidden){playing=false;$('play').textContent='▶'}});
+document.addEventListener('visibilitychange',()=>{
+ last=performance.now();
+ if(document.hidden){resumeAfterVisibility=playing;playing=false}
+ else if(resumeAfterVisibility){playing=autoRun;resumeAfterVisibility=false}
+ playbackUI()
+});
+prefersReducedMotion.addEventListener?.('change',e=>{if(e.matches){autoRun=false;playing=false;resumeAfterVisibility=false;playbackUI()}});
+
 window.addEventListener('chimie:requestMode',e=>{if(e.detail?.id&&idMap[e.detail.id])selectMode(e.detail.id)});
-init3D();selectMode(new URLSearchParams(location.search).get('mode')||'vegetal');if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){playing=false}else{playing=true;$('play').textContent='❚❚'}requestAnimationFrame(animate);
+init3D();selectMode(new URLSearchParams(location.search).get('mode')||'vegetal');playbackUI();requestAnimationFrame(animate);
