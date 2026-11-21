@@ -71,7 +71,7 @@ const PAGE_TITLES={
 };
 function pageId(){
  const p=location.pathname;
- if(p.includes('/ingenierie/'))return'eng ineering'.replace(' ','');
+ if(p.includes('/ingenierie/'))return'engineering';
  if(p.includes('/research/'))return'research';
  if(p.includes('/bibliographie/'))return'bibliography';
  if(p.includes('/planches/'))return'boards';
