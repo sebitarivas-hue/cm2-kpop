@@ -66,6 +66,9 @@ const REVIEWED=Object.freeze({
 });
 const REDESIGNED=Object.freeze({...LEGACY,...VECTOR,...REVIEWED});
 export const redesignedPlate=id=>REDESIGNED[Number(id)]||null;
-export const redesignedCount=()=>IDS.length+VECTOR_IDS.length;
-export const editorialPlateStatus=id=>([1,7].includes(Number(id))?'titre à corriger':VECTOR_IDS.includes(Number(id))?'refonte graphique nécessaire':'illustration scientifique disponible');
+export const redesignedCount=()=>new Set([...IDS,...VECTOR_IDS,...Object.keys(REVIEWED).map(Number)]).size;
+/* Presence does not mean art-direction approval: precise progress categories. */
+export const detailedPlateCount=()=>new Set([...IDS,...Object.keys(REVIEWED).map(Number)]).size;
+export const schematicPlateCount=()=>VECTOR_IDS.filter(id=>!REVIEWED[id]).length;
+export const editorialPlateStatus=id=>([1,7].includes(Number(id))?'titre intégré à corriger':REVIEWED[id]?'illustration détaillée disponible':VECTOR_IDS.includes(Number(id))?'reconstruction schématique à reprendre':'illustration détaillée disponible');
 export const redesignedIds=()=>[...IDS,...VECTOR_IDS].sort((a,b)=>a-b);
