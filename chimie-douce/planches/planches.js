@@ -14,7 +14,12 @@ const scientificReview=Object.freeze({
  37:'Microscopie : documenter l’échelle, la préparation, la technique et les témoins avant de qualifier une couche d’exosquelette cristallin.',
  38:'Réponse au stress : séparer viabilité, intégrité membranaire, reprise métabolique et prolifération ; toute protection dépend du stress et du protocole.',
  39:'Enzymes et MOFs : distinguer incorporation, adsorption et activité catalytique conservée ; l’accessibilité du substrat et la stabilité sont à mesurer.',
- 40:'Transport : la perméabilité dépend du type de molécule, de la porosité effective, des défauts et des interactions ; une coque ZIF-8 n’est pas une membrane idéale.'
+ 40:'Transport : la perméabilité dépend du type de molécule, de la porosité effective, des défauts et des interactions ; une coque ZIF-8 n’est pas une membrane idéale.',
+ 42:'Photoexcitation de CdS et transfert électronique à la bactérie : le trajet des électrons est un schéma mécanistique, pas une mesure électrochimique. Le couplage au métabolisme doit être interprété à partir des expériences originales.',
+ 43:'Les courbes de cette illustration sont inventées et ne doivent servir ni à quantifier la production d’acétate ni à comparer les groupes. La diapositive scientifique originale est affichée par défaut.',
+ 44:'La couverture nanométrique dessinée et les épaisseurs indiquées sont conceptuelles ; l’attribution structurale et les performances réelles nécessitent les données de l’article source.',
+ 45:'La représentation d’une coque limitant le passage de l’oxygène est une hypothèse explicative : ne pas l’assimiler à une imperméabilité de principe. Vérifier les contrôles de survie et d’activité.',
+ 46:'Les graphiques figurant dans la reconstruction sont fictifs et non quantitatifs. La diapositive originale est affichée par défaut, car elle seule permet de vérifier les conditions et les mesures rapportées.'
 });
 const chapterNames=[...new Set(FIGURES.map(f=>f.chapter))];
 chapterNames.forEach((n,i)=>$('chapter').add(new Option(String(i+1).padStart(2,'0')+' · '+n,n)));
@@ -36,9 +41,9 @@ function render(){
  const rows=FIGURES.filter(f=>(!state.chapter||f.chapter===state.chapter)&&(!q||(f.title+' '+f.note+' '+f.chapter).toLocaleLowerCase('fr').includes(q)));
  $('counter').textContent=rows.length+' / '+FIGURES.length+' PLANCHES · '+redesignedCount()+' ILLUSTRATIONS REDESSINÉES · SOURCES ORIGINALES CONSERVÉES';
  $('gallery').innerHTML=rows.map(f=>{
-  const art=redesignedPlate(f.id),src=art?.src||plateAsset(f.id);
+  const art=redesignedPlate(f.id),src=(art&&!art.defaultOriginal)?art.src:plateAsset(f.id);
   return '<button class="fig-card '+(art?'fig-card-new':'')+'" data-id="'+f.id+'" aria-label="Ouvrir la planche '+f.id+' : '+esc(f.title)+'">'+
-   '<span class="fig-art"><img src="'+esc(src)+'" alt="'+(art?'Reconstruction scientifique de la planche ':'Diapositive originale ')+f.id+' — '+esc(f.title)+'" loading="lazy" decoding="async"></span>'+
+   '<span class="fig-art"><img src="'+esc(src)+'" alt="'+(art&&!art.defaultOriginal?'Reconstruction scientifique de la planche ':'Diapositive originale ')+f.id+' — '+esc(f.title)+'" loading="lazy" decoding="async"></span>'+
    '<span class="fig-body"><span class="fig-number">FIG. '+String(f.id).padStart(2,'0')+' / '+time(f.time)+' · CH. '+String(chapterNames.indexOf(f.chapter)+1).padStart(2,'0')+'</span>'+
    '<span class="fig-title">'+esc(f.title)+'</span><span class="fig-chapter">'+esc(f.chapter)+'</span>'+
    '<span class="fig-visit">'+(art?'ILLUSTRATION + SOURCE ORIGINALE ↗':'OUVRIR LA SOURCE ↗')+'</span>'+
@@ -69,7 +74,8 @@ function displayFigureArt(){
 function openFigure(id){
  const f=FIGURES.find(f=>f.id===id);if(!f)return;
  state.id=f.id;
- state.view=(new URLSearchParams(location.search).get('view')==='original')?'original':(redesignedPlate(f.id)?'illustration':'original');
+ const requestedView=new URLSearchParams(location.search).get('view');const edition=redesignedPlate(f.id);
+ state.view=requestedView==='original'?'original':requestedView==='illustration'&&edition?'illustration':(edition&&!edition.defaultOriginal?'illustration':'original');
  $('dialogMeta').textContent='CLÉMENT SANCHEZ · COLLÈGE DE FRANCE / FIGURE '+String(f.id).padStart(2,'0')+' / '+time(f.time);
  $('dialogChapter').textContent='CHAPITRE '+String(chapterNames.indexOf(f.chapter)+1).padStart(2,'0')+' · '+f.chapter;
  $('dialogTitle').textContent=f.title;
