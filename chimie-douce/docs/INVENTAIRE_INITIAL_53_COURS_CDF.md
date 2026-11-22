@@ -1,7 +1,7 @@
 # Inventaire initial des 53 séances de cours — Clément Sanchez / Collège de France
 
 **Référence documentaire :** programmes officiels des neuf cycles de cours de 2010–2011 à 2019–2020, consultés le 22 novembre 2026.
-**Statut :** titres et dates relevés des pages de programmes institutionnels ; **liens de séances individuels, médias, transcriptions et droits restent à contrôler**.
+**Statut actualisé :** titres, dates et **53 permaliens individuels de séances** contrôlés sur les pages officielles ; **disponibilité et droits des médias, transcriptions, citations et réutilisation** restent à contrôler. Voir `docs/donnees/enseignements_officiels_confirmes_2011_2020.json`.
 
 > L'index de la chaire comprend dix entrées de cycles, dont 2017–2018 signalé sans enseignement statutaire : il ne faut ni inventer six cours supplémentaires ni assimiler les séminaires invités à des cours de Sanchez. La leçon inaugurale est une entrée distincte.
 
@@ -133,7 +133,7 @@
 
 ## Contrôles complémentaires nécessaires
 
-1. Ouvrir et enregistrer le permalien institutionnel **individuel** de chaque cours, son identifiant et la version de son titre affichée.
+1. **Effectué pour 53 cours :** permalien institutionnel individuel, date et titre. À faire : vérifier les éventuelles évolutions du contenu et compléter les identifiants média pérennes.
 2. Vérifier séparément vidéo et audio, durée, langue, transcription, documentation et droits d'intégration.
 3. Compléter séminaires, colloques et invités en tables distinctes ; 160 médias listés par le moteur audiovisuel ne signifient pas 160 leçons de Clément Sanchez.
 4. Relier les 70 planches d'origine **uniquement** à la séance du 18 février 2020, puis établir les liens thématiques aux autres cours avec justification.
