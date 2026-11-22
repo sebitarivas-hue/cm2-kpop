@@ -2,7 +2,7 @@ import {FIGURES} from '../src/figures.js';
 import {SCENES,videoAt} from '../src/content.js';
 import {SCENE_RESOURCE_MAP} from '../src/knowledge-graph.js';
 import {plateAsset} from '../src/knowledge-graph.js';
-import {redesignedPlate,redesignedCount} from '../src/redesigned-plates.js';
+import {redesignedPlate,editorialPlateStatus} from '../src/redesigned-plates.js';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const scientificReview=Object.freeze({
@@ -49,7 +49,7 @@ function renderNavigator(){
 function render(){
  const q=state.q.toLocaleLowerCase('fr');
  const rows=FIGURES.filter(f=>(!state.chapter||f.chapter===state.chapter)&&(!q||(f.title+' '+f.note+' '+f.chapter).toLocaleLowerCase('fr').includes(q)));
- $('counter').textContent=rows.length+' / '+FIGURES.length+' PLANCHES · '+redesignedCount()+' ILLUSTRATIONS REDESSINÉES · SOURCES ORIGINALES CONSERVÉES';
+ $('counter').textContent=rows.length+' / '+FIGURES.length+' PLANCHES · 38 ILLUSTRATIONS DÉTAILLÉES (01 ET 07 À RECTIFIER) · 32 SVG EN REFONTE · 70 SOURCES ORIGINALES';
  $('gallery').innerHTML=rows.map(f=>{
   const art=redesignedPlate(f.id),src=(art&&!art.defaultOriginal)?art.src:plateAsset(f.id);
   return '<button class="fig-card '+(art?'fig-card-new':'')+'" data-id="'+f.id+'" aria-label="Ouvrir la planche '+f.id+' : '+esc(f.title)+'">'+
@@ -57,6 +57,7 @@ function render(){
    '<span class="fig-body"><span class="fig-number">FIG. '+String(f.id).padStart(2,'0')+' / '+time(f.time)+' · CH. '+String(chapterNames.indexOf(f.chapter)+1).padStart(2,'0')+'</span>'+
    '<span class="fig-title">'+esc(f.title)+'</span><span class="fig-chapter">'+esc(f.chapter)+'</span>'+
    '<span class="fig-visit">'+(art?'ILLUSTRATION + SOURCE ORIGINALE ↗':'OUVRIR LA SOURCE ↗')+'</span>'+
+   '<span class="plate-editorial-status">'+esc(editorialPlateStatus(f.id))+'</span>'+ 
    '<span class="sanchez-plate-credit">CLÉMENT SANCHEZ · COLLÈGE DE FRANCE · 2020</span>'+ 
    (art?'<span class="redesigned-status">ILLUSTRATION CONCEPTUELLE · NON EXPÉRIMENTALE</span>':'')+
    '</span></button>';
