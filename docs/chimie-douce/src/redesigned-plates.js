@@ -54,7 +54,17 @@ const VECTOR=Object.fromEntries(VECTOR_IDS.map(id=>[id,Object.freeze({
  caution:VECTOR_NOTES[id],
  defaultOriginal:true
 })]));
-const REDESIGNED=Object.freeze({...LEGACY,...VECTOR});
+/* Source-checked high-resolution illustration replacements supersede schematic vectors. */
+const REVIEWED=Object.freeze({
+ 52:Object.freeze({
+  src:new URL('../assets/atlas-redessine/planche-52.webp',import.meta.url).href,
+  kind:'reconstruction',
+  source:SOURCE,
+  caution:'Reconstruction conceptuelle : les matériaux MIL-100(Fe), UiO-66, Fe₃O₄, silices mésoporeuses et MET-3 doivent être vérifiés séparément dans la source ; aucune activité simultanée ou biocompatibilité in vivo n’est établie par ce dessin.',
+  defaultOriginal:false
+ })
+});
+const REDESIGNED=Object.freeze({...LEGACY,...VECTOR,...REVIEWED});
 export const redesignedPlate=id=>REDESIGNED[Number(id)]||null;
 export const redesignedCount=()=>IDS.length+VECTOR_IDS.length;
 export const editorialPlateStatus=id=>([1,7].includes(Number(id))?'titre à corriger':VECTOR_IDS.includes(Number(id))?'refonte graphique nécessaire':'illustration scientifique disponible');
