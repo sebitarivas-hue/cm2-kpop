@@ -1,0 +1,828 @@
+{
+  "schema_version": "0.1-triage",
+  "date": "2026-11-22",
+  "source_catalogue": "ressources/international/ressources_chimie_douce.json",
+  "source_branch": "main",
+  "purpose": "File d'attente de validation, jamais un graphe de relations scientifiques publié",
+  "no_verified_relationships": true,
+  "review_policy": "Les suggestions de notions proviennent uniquement des mots-clés / titres du catalogue. Elles ne constituent ni un lien historique, ni une filiation, ni un résultat expérimental partagé. Examiner la source avant toute validation.",
+  "rows": [
+    {
+      "resource_id": "JP-HOK-01",
+      "kind_for_inventory": "bibliographie_laboratoire",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "hydrogels",
+        "réseaux doubles",
+        "mécanique des gels"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "JP-HOK-02",
+      "kind_for_inventory": "page_projet_laboratoire",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "hydrogels",
+        "mécanochimie",
+        "autocicatrisation"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "JP-HOK-03",
+      "kind_for_inventory": "presentation_laboratoire",
+      "priorite_source": 2,
+      "topic_keywords_from_catalogue": [
+        "gels",
+        "biomatériaux",
+        "mécanique"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "JP-HOK-04",
+      "kind_for_inventory": "fiche_laboratoire",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "hydrogels",
+        "biohybrides",
+        "adhésifs sous-marins"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "JP-RIK-01",
+      "kind_for_inventory": "page_projet_laboratoire",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "matériaux biomimétiques",
+        "auto-organisation",
+        "soft matter"
+      ],
+      "concept_id_suggestions_unreviewed": [
+        "biofabrication"
+      ],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "JP-RIK-02",
+      "kind_for_inventory": "bibliographie_laboratoire",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "supramoléculaire",
+        "hydrogels",
+        "matériaux bio-inspirés"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "JP-RIK-03",
+      "kind_for_inventory": "galerie_protegee",
+      "priorite_source": 2,
+      "topic_keywords_from_catalogue": [
+        "matériaux",
+        "microstructure",
+        "visualisation"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "JP-RIK-04",
+      "kind_for_inventory": "fiche_laboratoire",
+      "priorite_source": 2,
+      "topic_keywords_from_catalogue": [
+        "matière molle",
+        "biomimétisme"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "CN-CAS-01",
+      "kind_for_inventory": "page_institution",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "interfaces intelligentes",
+        "biomatériaux",
+        "photochemie"
+      ],
+      "concept_id_suggestions_unreviewed": [
+        "interface"
+      ],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "CN-CAS-02",
+      "kind_for_inventory": "page_projet_laboratoire",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "interfaces bio-inspirées",
+        "énergie",
+        "catalyse"
+      ],
+      "concept_id_suggestions_unreviewed": [
+        "interface",
+        "photoelectron"
+      ],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "CN-SCUT-01",
+      "kind_for_inventory": "page_projet_laboratoire",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "matériaux hybrides",
+        "biomatériaux",
+        "chimie verte"
+      ],
+      "concept_id_suggestions_unreviewed": [
+        "biofabrication"
+      ],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "CN-SCUT-02",
+      "kind_for_inventory": "page_institution",
+      "priorite_source": 2,
+      "topic_keywords_from_catalogue": [
+        "recherche",
+        "formation doctorale",
+        "industrie"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "EU-MC-01",
+      "kind_for_inventory": "portail_donnees",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "science des matériaux",
+        "données",
+        "simulations"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "EU-MC-02",
+      "kind_for_inventory": "conditions_d_utilisation",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "archives",
+        "DOI",
+        "données de recherche"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "EU-MC-03",
+      "kind_for_inventory": "portail_pedagogique",
+      "priorite_source": 2,
+      "topic_keywords_from_catalogue": [
+        "visualisation",
+        "cours",
+        "calcul"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "INT-MV-01",
+      "kind_for_inventory": "code_source_tiers",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "visualisation 3D",
+        "cristaux",
+        "diagrammes de phase"
+      ],
+      "concept_id_suggestions_unreviewed": [
+        "crystallography"
+      ],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "INT-MV-02",
+      "kind_for_inventory": "demonstration_logicielle",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "cristaux",
+        "molécules",
+        "trajectoires"
+      ],
+      "concept_id_suggestions_unreviewed": [
+        "crystallography"
+      ],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "US-PHET-01",
+      "kind_for_inventory": "simulateur_tiers",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "chimie générale",
+        "molécules",
+        "phases"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "US-PHET-02",
+      "kind_for_inventory": "conditions_d_utilisation",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "licences",
+        "simulation",
+        "réutilisation"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "US-CHEM-01",
+      "kind_for_inventory": "simulateur_tiers",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "thermochimie",
+        "solubilité",
+        "acides bases"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "US-CHEM-02",
+      "kind_for_inventory": "documentation_logicielle",
+      "priorite_source": 2,
+      "topic_keywords_from_catalogue": [
+        "laboratoire virtuel",
+        "simulations"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "INT-MOL-01",
+      "kind_for_inventory": "outil_visualisation_tiers",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "molécules",
+        "spectroscopie",
+        "cristaux"
+      ],
+      "concept_id_suggestions_unreviewed": [
+        "crystallography"
+      ],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "INT-MOL-02",
+      "kind_for_inventory": "code_et_droits",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "molécules",
+        "éditeur chimique"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "INT-COD-01",
+      "kind_for_inventory": "base_donnees_cristallographiques",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "cristallographie",
+        "structure",
+        "CIF"
+      ],
+      "concept_id_suggestions_unreviewed": [
+        "crystallography"
+      ],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "INT-COD-02",
+      "kind_for_inventory": "documentation_donnees",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "CIF",
+        "données cristallographiques"
+      ],
+      "concept_id_suggestions_unreviewed": [
+        "crystallography"
+      ],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "US-PUB-01",
+      "kind_for_inventory": "api_donnees",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "chimie moléculaire",
+        "formules",
+        "propriétés"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "EU-PMC-01",
+      "kind_for_inventory": "api_bibliographique",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "publications",
+        "texte intégral",
+        "DOI"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "EU-PMC-02",
+      "kind_for_inventory": "collection_open_access",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "articles",
+        "figures",
+        "supplements"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "EU-ZEN-01",
+      "kind_for_inventory": "api_archives",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "datasets",
+        "protocoles",
+        "DOI"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "INT-IUP-01",
+      "kind_for_inventory": "definition_normative",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "sol-gel",
+        "définitions",
+        "processus"
+      ],
+      "concept_id_suggestions_unreviewed": [
+        "solgel"
+      ],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "INT-IUP-02",
+      "kind_for_inventory": "definition_normative",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "sol-gel",
+        "transition",
+        "gélification"
+      ],
+      "concept_id_suggestions_unreviewed": [
+        "solgel",
+        "gelation"
+      ],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "INT-IUP-03",
+      "kind_for_inventory": "definition_normative",
+      "priorite_source": 2,
+      "topic_keywords_from_catalogue": [
+        "colloïdes",
+        "gélification",
+        "concentration"
+      ],
+      "concept_id_suggestions_unreviewed": [
+        "gelation"
+      ],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "INT-RSC-01",
+      "kind_for_inventory": "publication_revue",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "sol-gel",
+        "synthèse",
+        "applications"
+      ],
+      "concept_id_suggestions_unreviewed": [
+        "solgel"
+      ],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "JP-HOK-05",
+      "kind_for_inventory": "article_scientifique",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "hydrogels",
+        "réseaux doubles",
+        "fracture"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "JP-HOK-06",
+      "kind_for_inventory": "article_scientifique",
+      "priorite_source": 1,
+      "topic_keywords_from_catalogue": [
+        "hydrogels",
+        "fatigue",
+        "autocicatrisation"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "JP-HOK-07",
+      "kind_for_inventory": "article_scientifique",
+      "priorite_source": 2,
+      "topic_keywords_from_catalogue": [
+        "hydrogels",
+        "mémoire",
+        "dynamique"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "titre_auteurs_date_editeur_confirmes",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "JP-HOK-08",
+      "kind_for_inventory": "article_scientifique",
+      "priorite_source": 2,
+      "topic_keywords_from_catalogue": [
+        "hydrogels",
+        "mécanochimie",
+        "croissance"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    },
+    {
+      "resource_id": "INT-RIK-PDF",
+      "kind_for_inventory": "pdf_institutionnel",
+      "priorite_source": 2,
+      "topic_keywords_from_catalogue": [
+        "soft matter",
+        "laboratoires",
+        "applications"
+      ],
+      "concept_id_suggestions_unreviewed": [],
+      "figure_ids_suggestions_unreviewed": [],
+      "scene_ids_suggestions_unreviewed": [],
+      "lecture_ids_suggestions_unreviewed": [],
+      "link_availability_check": "non_teste_individuellement",
+      "bibliographic_metadata_check": "non_applicable_ou_non_verifie",
+      "scientific_relation_status": "aucune_relation_verifiee",
+      "evidence_refs": [],
+      "claim_status": "aucune_affirmation_scientifique_extraite",
+      "rights_status": "se_referer_au_catalogue_et_verifier_licence_exacte"
+    }
+  ],
+  "coverage_gaps": [
+    "MIT : absence de page institutionnelle MIT dans les 38 sources du catalogue.",
+    "Hydrogels : thème récurrent à créer dans la taxonomie si la revue confirme le périmètre, sans faux rattachement aux concepts historiques.",
+    "Ressources japonaises et chinoises : vérifier dates, laboratoires, sources primaires et translittérations avant toute attribution à une leçon."
+  ],
+  "checked_doi": [
+    {
+      "resource_id": "JP-HOK-05",
+      "doi": "10.1021/acs.macromol.1c01214",
+      "status": "resolveur_non_accessible_403_non_concluant",
+      "publication_metadata": "non_verifie"
+    },
+    {
+      "resource_id": "JP-HOK-06",
+      "doi": "10.1126/sciadv.abe8210",
+      "status": "resolveur_non_accessible_403_non_concluant",
+      "publication_metadata": "non_verifie"
+    },
+    {
+      "resource_id": "JP-HOK-07",
+      "doi": "10.1073/pnas.2006842117",
+      "status": "page_editeur_accessible_titre_auteurs_et_date_identifies",
+      "title": "Hydrogels as dynamic memory with forgetting ability",
+      "publisher_url": "https://www.pnas.org/doi/full/10.1073/pnas.2006842117",
+      "date": "2020-07-27"
+    },
+    {
+      "resource_id": "JP-HOK-08",
+      "doi": "10.1126/science.aau9533",
+      "status": "resolver_non_accessible_index_secondaire_identifie",
+      "publication_metadata": "a_verifier_a_la_source"
+    }
+  ]
+}

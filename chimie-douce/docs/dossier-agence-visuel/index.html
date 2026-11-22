@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f2e7">
+<meta name="description" content="Dossier visuel de direction artistique et développement scientifique, établi à partir des véritables planches du site Clément Sanchez.">
+<title>Clément Sanchez | Dossier de direction artistique et développement scientifique</title>
+<style>
+:root{--paper:#f7f1e5;--white:#fffaf1;--ink:#1c231c;--olive:#19452e;--dark:#102b24;--red:#9a1c1e;--pale:#e8e3d6;--sub:#566459;--rule:#c7c3b8;--serif:Georgia,"Times New Roman",serif;--sans:"Helvetica Neue",Arial,sans-serif;--mono:Consolas,Monaco,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{background:var(--paper);color:var(--ink);font:16px/1.55 var(--sans);margin:0}
+h1,h2,h3,p,figure{margin-top:0}
+h1,h2,h3{font-family:var(--serif);font-weight:normal;letter-spacing:-.045em}
+a{color:inherit;text-underline-offset:3px}
+a:hover{color:var(--red)}
+button{cursor:pointer}
+button,input{font:inherit}
+button:focus-visible,a:focus-visible{outline:3px solid #e25831;outline-offset:4px}
+button{border:1px solid #b3ae9d;background:var(--paper);padding:10px 15px;color:var(--ink)}
+button:hover,button[aria-pressed="true"]{background:var(--olive);color:white;border-color:var(--olive)}
+.container{width:min(1480px,calc(100% - clamp(28px,5vw,100px)));margin:auto}
+.superline{font:600 .64rem var(--mono);text-transform:uppercase;letter-spacing:.12em}
+.top{position:sticky;top:0;z-index:10;background:rgba(247,241,229,.97);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.top-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:76px}
+.identity{font:600 .76rem/1.35 var(--sans);letter-spacing:.09em;text-transform:uppercase;text-decoration:none}
+.identity span{color:var(--red);margin-right:8px;font:normal 2rem var(--serif)}
+.nav{display:flex;flex-wrap:wrap;gap:23px;align-items:center}
+.nav a{text-decoration:none;text-transform:uppercase;letter-spacing:.08em;font-size:.71rem;font-weight:600}
+.print{background:var(--dark);color:white;border:0;font-size:.67rem;letter-spacing:.04em}
+.hero{padding:clamp(54px,7.5vw,130px) 0 85px;border-bottom:2px solid var(--olive);display:grid;grid-template-columns:1fr 1.03fr;gap:6%;align-items:center}
+.issue{color:var(--red);margin-bottom:26px}
+h1{font-size:clamp(4.4rem,7vw,8.5rem);line-height:.95;margin-bottom:30px}
+h1 em{font-weight:normal;color:var(--red)}
+.hero .summary{font:normal clamp(1.25rem,1.7vw,1.7rem)/1.55 var(--serif);max-width:640px}
+.hero .context{max-width:600px;color:var(--sub);font-size:.9rem;line-height:1.8}
+.hero-image{background:#eee8dc;padding:13px;border:1px solid #d0cabf}
+.hero-image img{width:100%;height:auto;display:block}
+.hero-image figcaption{font:.68rem/1.6 var(--mono);color:#5d6759;margin:12px 2px}
+.status{margin-top:35px;border-top:1px solid var(--rule);padding-top:16px;font:.7rem/1.65 var(--mono);color:#6a685e}
+.section{padding:95px 0;border-bottom:1px solid var(--rule)}
+.section-head{display:grid;grid-template-columns:1fr .87fr;align-items:end;gap:50px;margin-bottom:50px}
+.kicker{color:var(--red);font:600 .69rem/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+h2{font-size:clamp(3.4rem,5.8vw,7rem);line-height:1.02;margin-bottom:0}
+.section-head p{font:normal 1.2rem/1.6 var(--serif);max-width:580px;color:#536455;margin:0}
+.introgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.introgrid div{padding:25px 25px 30px;border-top:3px solid var(--olive);background:#eae8dc}
+.introgrid strong{font:normal 2.1rem/1.1 var(--serif)}
+.introgrid p{font-size:.87rem;color:var(--sub);line-height:1.8;margin:12px 0 0}
+.hero-plate{margin-bottom:45px;border:1px solid var(--rule);background:#fff7ec;padding:14px}
+.hero-plate img{display:block;width:100%;height:auto}
+.hero-plate figcaption{display:flex;align-items:start;justify-content:space-between;gap:25px;margin:16px 8px 6px;color:var(--sub);font-size:.81rem;line-height:1.55}
+.hero-plate figcaption b{color:var(--ink)}
+.plate-pair{display:grid;grid-template-columns:1fr 1fr;gap:35px}
+.plate-box{background:#fff9ed;border:1px solid var(--rule);padding:11px}
+.plate-box img{display:block;width:100%}
+.plate-box figcaption{padding:13px 10px 10px;font:.79rem/1.75 var(--sans)}
+.plate-box b{font:normal 1.7rem/1.15 var(--serif);display:block;margin:0 0 8px}
+.analysis{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin:28px 0 70px}
+.analysis>div{border-top:2px solid var(--olive);padding-top:16px}
+.analysis .risk{border-color:var(--red)}
+.analysis h3{font-size:1.85rem;margin-bottom:11px}
+.analysis p{font:.91rem/1.78 var(--sans);color:#4f5c51}
+.analysis small{font:.69rem var(--mono);color:var(--red)}
+.feature{display:grid;grid-template-columns:1.25fr .75fr;gap:45px;align-items:start;margin-top:35px}
+.feature .copy{padding-top:25px}
+.feature h3{font-size:clamp(2.7rem,4vw,5rem);line-height:1.05}
+.feature p{font-size:.98rem;color:var(--sub);line-height:1.78}
+.feature ul{padding-left:20px}
+.feature li{margin:11px 0;line-height:1.58;font-size:.91rem}
+.caption{color:var(--sub);font:.68rem/1.6 var(--mono)}
+.diagram{background:#ebeee7;padding:28px;border:1px solid #bacaba}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:#bac8b8;border:1px solid #bac8b8;margin:35px 0}
+.steps>div{background:#e5e9e0;padding:25px;min-height:230px}
+.steps .no{font:normal 3.1rem var(--serif);color:var(--red)}
+.steps strong{font:normal 1.3rem/1.25 var(--serif);display:block;margin:17px 0 9px}
+.steps span{font-size:.78rem;color:var(--sub);line-height:1.65}
+.journey{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.journey div{padding:17px;background:#fdf9ef;min-height:160px}
+.journey b{font:.66rem/1.5 var(--mono);color:var(--red)}
+.journey strong{font:normal 1.25rem/1.18 var(--serif);display:block;margin:13px 0 8px}
+.journey small{font-size:.71rem;color:var(--sub)}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.84rem;line-height:1.65}
+th{text-align:left;background:var(--olive);color:white;padding:13px 16px;font-weight:600;letter-spacing:.03em}
+td{border-bottom:1px solid var(--rule);padding:15px 16px;vertical-align:top}
+td:first-child{font-weight:700;color:#9e2c24;white-space:nowrap}
+td:nth-child(2){font-weight:600}
+.decision{background:var(--dark);color:#ecf0e6;padding:65px clamp(25px,5vw,70px)}
+.decision h2{color:#fff4e5;margin-bottom:20px;font-size:clamp(3rem,5.2vw,6rem)}
+.decision .intro{color:#bbcbbb;font:normal 1.2rem/1.6 var(--serif);max-width:800px}
+.decision-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:40px}
+.decision-grid article{border:1px solid #5b7666;background:#1b3a2e;padding:23px}
+.decision-grid strong{display:block;font:normal 1.4rem var(--serif);margin-bottom:12px}
+.decision-grid p{font:.87rem/1.75 var(--sans);color:#c7d7c5;margin:0}
+.footer{padding:40px 0 55px;font:.7rem/1.6 var(--mono);color:#617065;display:flex;justify-content:space-between;gap:20px}
+.viewer[hidden]{display:none!important}
+.viewer{position:fixed;inset:0;z-index:99;background:rgba(9,17,13,.97);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;padding:20px}
+.viewer img{max-width:96vw;max-height:84vh;object-fit:contain}
+.viewer button{align-self:flex-end;color:white;background:#315545;border:1px solid #6e9679}
+.viewer small{color:white;max-width:900px;text-align:center}
+img{max-width:100%}
+a.image-link{display:block;cursor:zoom-in}
+:is(.plate-box,.hero-plate,.hero-image) a:focus-visible{outline:4px solid var(--red)}
+@media(max-width:980px){
+ .nav{gap:12px}.nav a{font-size:.62rem}
+ .hero,.section-head,.feature{grid-template-columns:1fr}
+ .hero{gap:30px;padding-top:55px}
+ .introgrid{grid-template-columns:1fr}
+ .journey{grid-template-columns:repeat(3,1fr)}
+ .steps{grid-template-columns:repeat(2,1fr)}
+ .hero-image{max-width:800px}
+}
+@media(max-width:640px){
+ .top-inner{align-items:start;flex-direction:column;padding:12px 0;gap:7px}
+ .nav{overflow-x:auto;flex-wrap:nowrap;max-width:100%;padding:0 0 5px;white-space:nowrap}
+ .print{display:none}
+ .hero{padding-bottom:45px}
+ h1{font-size:clamp(3.8rem,14vw,5rem)}
+ .section{padding:65px 0}
+ h2{font-size:3.6rem}
+ .section-head{gap:15px;margin-bottom:30px}
+ .section-head p{font-size:1.1rem}
+ .plate-pair,.analysis,.decision-grid{grid-template-columns:1fr;gap:20px}
+ .feature{gap:0}
+ .journey{grid-template-columns:repeat(2,1fr)}
+ .steps{grid-template-columns:1fr}
+ .steps>div{min-height:0}
+ .hero-plate{padding:7px}
+ .hero-plate figcaption{flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{
+ @page{size:A4 landscape;margin:9mm}
+ body{background:white;color:#171e18;font-size:10pt}
+ .top,.print,.viewer{display:none!important}
+ .container{width:100%}
+ .hero{min-height:180mm;page-break-after:always}
+ .section{padding:25px 0;break-before:page}
+ h1{font-size:60pt}h2{font-size:34pt}
+ .hero-plate{max-height:160mm}
+ .hero-plate img{max-height:139mm;object-fit:contain}
+ .feature,.analysis,.introgrid,.plate-pair,.steps{break-inside:avoid}
+ .decision{background:#173d2c!important;color:white!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;break-before:page}
+ img{print-color-adjust:exact}
+ .footer{padding:12px 0}
+}
+</style>
+</head>
+<body>
+<div class="top">
+<div class="container top-inner">
+<a class="identity" href="#accueil"><span>C.</span> CLÉMENT SANCHEZ / DOSSIER D’AGENCE</a>
+<nav class="nav" aria-label="Sommaire"><a href="#langage">Langage visuel</a><a href="#planches">Planches réelles</a><a href="#3d">3D</a><a href="#parcours">Parcours</a><a href="#bibliographie">Bibliographie</a><a href="#validation">Décisions</a></nav>
+<button type="button" class="print" onclick="window.print()">Exporter en PDF ↗</button>
+</div>
+</div>
+<main>
+<header id="accueil" class="container hero">
+<div>
+<div class="kicker issue">Direction artistique · Expérience scientifique · Architecture web</div>
+<h1>La science<br><em>déjà illustrée.</em></h1>
+<p class="summary">Notre rôle n’est pas de refaire le site. Il est de prendre sa richesse graphique et scientifique actuelle comme <strong>grammaire de référence</strong> — puis de l’étendre aux innovations contemporaines de Clément Sanchez.</p>
+<p class="context">Dossier de contre-audit réalisé sur les actifs de production du dépôt GitHub : cinq planches redessinées directement examinées, architecture documentaire et mécanismes WebGL étudiés. Ce document montre les œuvres existantes et sépare leurs évolutions proposées des résultats scientifiques validés.</p>
+<div class="status">BASE : dépôt <code>sebitarivas-hue/cm2-kpop</code>, branche main, 22.11.2026 · AUCUNE MODIFICATION DU SITE PUBLIC · CONTRÔLES DE RENDU NAVIGATEUR ET DROITS À COMPLÉTER</div>
+</div>
+<figure class="hero-image">
+<a class="image-link" href="../../assets/atlas-redessine/planche-59.webp" data-zoom data-caption="Planche 59 — Bio-impression de bactéries. Reconstruction pédagogique existante, source 2020."><img src="../../assets/atlas-redessine/planche-59.webp" alt="Véritable planche 59 du site : composition détaillée sur la bio-impression, agrandissement de la matière, composants, étapes et applications"></a>
+<figcaption>PIÈCE 59 / 70 · Une production existante du site — pas une maquette d'agence. <a href="../../planches/?figure=59&view=comparison">Comparer source et reconstruction ↗</a></figcaption>
+</figure>
+</header>
+<section id="langage" class="section">
+<div class="container">
+<div class="section-head"><div><div class="kicker">01 — Ce qui est déjà réussi</div><h2>Une identité.<br>Pas un thème.</h2></div><p>Le site possède déjà un vocabulaire d'image reconnaissable : objets scientifiques spectaculaires, annotations ancrées sur la matière et scénarios explicatifs. Le conserver constitue la première décision de DA.</p></div>
+<div class="introgrid">
+<div><strong>Un objet au centre</strong><p>Représentation dense du matériau, à échelle généreuse, avec vraie présence visuelle : transparence, porosité, surface, matière organique, contraste de phases.</p></div>
+<div><strong>La science autour</strong><p>Zooms, coupes, séquences, typologie moléculaire, relations anatomiques, cartouches et mécanismes précisément positionnés.</p></div>
+<div><strong>Une preuve au pied</strong><p>Source, date, statut de reconstruction et limites épistémiques. Cette dernière couche doit être aussi visible que le récit principal.</p></div>
+</div>
+<div class="analysis">
+<div><h3>À préserver</h3><p>Titraille spectaculaire, sérif imprimée, mots d'accent rouge profond, panneaux de protocole vert foncé, scénographie de matière à grande échelle, richesse organique et composition multi-niveaux. Ne pas réduire à des cartes standardisées.</p></div>
+<div class="risk"><h3>À rationaliser, pas supprimer</h3><p>Variantes de polices et de CSS entre modules, tailles parfois trop petites sur mobile, concurrence entre métadonnées de source et illustrations, statuts d'images non uniformisés. Un design system doit rendre la complexité accessible, pas la gommer.</p></div>
+</div>
+</div>
+</section>
+<section id="planches" class="section">
+<div class="container">
+<div class="section-head"><div><div class="kicker">02 — Audit d'œuvres réelles</div><h2>Cinq planches.<br>Cinq leçons.</h2></div><p>Ces images sont chargées directement depuis les fichiers du site. Cliquer pour les agrandir : la composition et la microtypographie sont essentielles à l'analyse.</p></div>
+<figure class="hero-plate"><a class="image-link" data-zoom data-caption="28 — Diatomées, radiolaires et architectures naturelles. Reconstruction conceptuelle; aucune micrographie réelle reproduite." href="../../assets/atlas-redessine/planche-28.webp"><img loading="lazy" src="../../assets/atlas-redessine/planche-28.webp" alt="Planche 28 détaillée, textures de diatomées et radiolaires, annotations, panneaux de propriétés"></a><figcaption><span><b>28 / 70 — Diatomées, radiolaires et architectures naturelles</b><br>Leçons : encyclopédie de formes, zoom sur structures, vocabulaire de matériau et inspiration biohybride</span><span>Conserver l'ampleur de la scène centrale. Sur téléphone : lecteur par régions et légendes synchronisées, pas miniature illisible.</span></figcaption></figure>
+<div class="plate-pair">
+<figure class="plate-box"><a class="image-link" data-zoom data-caption="36 — ZIF-8 : formation d'une coque cellulaire. Schéma conceptuel; pas un ensemble de coordonnées atomiques validées." href="../../assets/atlas-redessine/planche-36.webp"><img loading="lazy" src="../../assets/atlas-redessine/planche-36.webp" alt="Planche 36, ZIF-8 : ions, ligand, cellule, nucléation, cristallisation, coupes et détails"></a><figcaption><b>36 / ZIF-8 et coque cellulaire</b>Le modèle 3D doit devenir un scénario multi-échelle : cellule, membrane, dépôts, cristallites, structure ZIF-8 authentique séparée.</figcaption></figure>
+<figure class="plate-box"><a class="image-link" data-zoom data-caption="55 — Synthèse de MOFs dans les plantes. Coupes de tige, transport, deux stratégies de synthèse et limites d'observation." href="../../assets/atlas-redessine/planche-55.webp"><img loading="lazy" src="../../assets/atlas-redessine/planche-55.webp" alt="Planche 55, plante, xylème et phloème, section de tige, réactions et observations limites"></a><figcaption><b>55 / MOFs dans les plantes</b>Exemple de structure narrative aboutie : trajet → compartiments → matériau → observations → « ce que cela ne prouve pas ».</figcaption></figure>
+<figure class="plate-box"><a class="image-link" data-zoom data-caption="59 — Bio-impression de bactéries. Une reconstruction conceptuelle, non une photographie d'expérience." href="../../assets/atlas-redessine/planche-59.webp"><img loading="lazy" src="../../assets/atlas-redessine/planche-59.webp" alt="Planche 59, impression d'hydrogel, agrandissement de la matière, composants et étapes"></a><figcaption><b>59 / Bio-impression de bactéries</b>La richesse visuelle naît d'un grand objet central, de vignettes de matériaux, d'une loupe et de la progression des opérations.</figcaption></figure>
+<figure class="plate-box"><a class="image-link" data-zoom data-caption="60 — Biofabrication : tissus et démonstrateurs. Le dispositif présenté ne constitue pas à lui seul une preuve de viabilité cellulaire." href="../../assets/atlas-redessine/planche-60.webp"><img loading="lazy" src="../../assets/atlas-redessine/planche-60.webp" alt="Planche 60, biofabrication d'hydrogel, géométrie, étapes, démonstration et contrôles"></a><figcaption><b>60 / Tissus et démonstrateurs</b>La planche explique une chaîne de fabrication puis d'évaluation. Éviter la répétition des n° 59–60 par des liens et vues complémentaires.</figcaption></figure>
+</div>
+<div class="analysis">
+<div><h3>Ce que le site fait déjà très bien</h3><p>Les planches font coexister un objet quasi tactile, une chaîne expérimentale, plusieurs échelles et les informations qui permettent d'en comprendre les fonctions.</p></div>
+<div class="risk"><h3>Ce que la revue scientifique doit trancher</h3><p>Le caractère conceptuel de certains détails photoréalistes ; la validité des légendes moléculaires ; l'attribution des figures et des sources ; l'impossibilité de déduire survie, rendement ou activité de la seule géométrie.</p></div>
+</div>
+</div>
+</section>
+<section id="3d" class="section">
+<div class="container">
+<div class="section-head"><div><div class="kicker">03 — Les 3D déjà construites</div><h2>Du dessin<br>au phénomène.</h2></div><p>L'ambition n'est pas de faire tourner une jolie molécule. C'est d'ouvrir la planche et d'en extraire les processus, les couches, les états et les données — avec un niveau de fidélité déclaré.</p></div>
+<figure class="hero-plate"><a class="image-link" data-zoom data-caption="Planche 36 — storyboard à conserver pour construire un simulateur multi-échelle distinguant coque cellulaire et structure cristalline réelle." href="../../assets/atlas-redessine/planche-36.webp"><img loading="lazy" src="../../assets/atlas-redessine/planche-36.webp" alt="Storyboard original ZIF-8 : cellule, précurseurs, nucléation, cristallisation, couches et agrandissements"></a><figcaption><span><b>Storyboard réel : planche 36</b><br>Un seul matériau = plusieurs vues scientifiques reliées, non un volume artificiel universel.</span><span>Laboratoires existants : <a href="../../#laboratoire">atlas 18 scènes</a> · <a href="../../lab/">diffusion / sol–gel / MOF</a> · <a href="../../ingenierie/">atelier d'ingénierie</a></span></figcaption></figure>
+<div class="steps">
+<div><div class="no">D0</div><strong>Illustrer le mécanisme</strong><span>Relation, étapes, fonctionnement hypothétique. Modèle explicite « schématique non quantitatif ».</span></div>
+<div><div class="no">D1</div><strong>Reproduire une forme documentée</strong><span>Structure ou morphologie appuyée sur une microscopie ou des dimensions mesurées.</span></div>
+<div><div class="no">D2</div><strong>Charger une structure réelle</strong><span>CIF / PDB / coordonnées atomiques sourcées, maille, unités, incertitudes et licence.</span></div>
+<div><div class="no">D3</div><strong>Calculer et confronter</strong><span>Équations, conditions, validation expérimentale ou numérique, limites et reproductibilité.</span></div>
+</div>
+<div class="feature">
+<div class="diagram">
+<div class="kicker">Proposition d'interaction pour planche 36</div>
+<svg viewBox="0 0 1000 490" width="100%" role="img" aria-label="Storyboard UX : cellule, couche de nucléation, coques cristallines et structure ZIF-8 avec transitions d'échelle déclarées">
+<defs><radialGradient id="cell"><stop stop-color="#bfc3f2"/><stop offset="1" stop-color="#7569b3"/></radialGradient><linearGradient id="coat" x2=".9" y2="1"><stop stop-color="#d8cce8"/><stop offset="1" stop-color="#7e69af"/></linearGradient></defs>
+<rect width="1000" height="490" fill="#e8ede6"/>
+<text x="30" y="42" font-family="Georgia" font-size="27" fill="#263e32">Une seule expérience. Quatre niveaux.</text>
+<g transform="translate(40 94)"><ellipse cx="89" cy="160" rx="78" ry="129" fill="url(#cell)" stroke="#5c4d85" stroke-width="5"/><ellipse cx="89" cy="160" rx="55" ry="106" fill="#7b71b1" opacity=".5"/><text x="89" y="330" text-anchor="middle" font-family="Georgia" font-size="19">01. Cellule</text><text x="89" y="357" text-anchor="middle" font-size="14">géométrie D0</text></g>
+<g transform="translate(283 94)"><ellipse cx="89" cy="160" rx="78" ry="129" fill="url(#cell)" stroke="#5c4d85" stroke-width="5"/><g fill="#c3a3e3" stroke="#7868a6"><circle cx="85" cy="30" r="11"/><circle cx="38" cy="63" r="11"/><circle cx="13" cy="146" r="12"/><circle cx="39" cy="254" r="12"/><circle cx="111" cy="286" r="11"/><circle cx="163" cy="196" r="11"/><circle cx="162" cy="96" r="11"/></g><text x="89" y="330" text-anchor="middle" font-family="Georgia" font-size="19">02. Nucléation</text><text x="89" y="357" text-anchor="middle" font-size="14">étapes D0/D1</text></g>
+<g transform="translate(528 94)"><ellipse cx="89" cy="160" rx="84" ry="135" fill="url(#coat)" stroke="#715d94" stroke-width="6"/><ellipse cx="89" cy="160" rx="59" ry="113" fill="url(#cell)"/><g fill="none" stroke="#8875b7" stroke-width="3"><path d="M12 125l18-34 32-18 21-41 36 18 26 28 25 12M11 180l24 23 20 50 54 30 38-14 17-32M12 146l42 20 27-37 55-13 32 30M31 90l25 28 39-22 49-20M24 210l38-23 51 27 42-40"/></g><text x="89" y="330" text-anchor="middle" font-family="Georgia" font-size="19">03. Cristallites</text><text x="89" y="357" text-anchor="middle" font-size="14">coque D0/D1</text></g>
+<g transform="translate(777 136)"><rect width="170" height="218" rx="5" fill="#f6f5ef" stroke="#adc3b0"/><g stroke="#375a79" stroke-width="3" fill="none"><path d="M85 30L135 63L135 128L85 159L35 128L35 63Z"/><path d="M85 30v65l50 33M85 95l-50 33M85 95l50-32M85 95l-50-32"/></g><g fill="#b58833"><circle cx="85" cy="30" r="8"/><circle cx="135" cy="63" r="8"/><circle cx="135" cy="128" r="8"/><circle cx="85" cy="159" r="8"/><circle cx="35" cy="128" r="8"/><circle cx="35" cy="63" r="8"/></g><text x="85" y="194" text-anchor="middle" font-size="14" fill="#8b2923">FICHIER CIF REQUIS</text></g>
+<g fill="#992a1d" font-family="Georgia" font-size="35"><text x="245" y="260">→</text><text x="492" y="260">→</text><text x="745" y="260">≠</text></g>
+<text x="865" y="374" text-anchor="middle" font-family="Georgia" font-size="19">04. Cristal ZIF-8</text><text x="865" y="401" text-anchor="middle" font-size="14">D2 après validation CIF</text>
+<text x="40" y="462" font-family="monospace" font-size="13" fill="#6c766d">SCHÉMA UX ORIGINAL • NON QUANTITATIF • NE REPRÉSENTE PAS UNE STRUCTURE CRISTALLOGRAPHIQUE RÉELLE</text>
+</svg>
+<p class="caption">Ce diagramme est une proposition de scénarisation issue de la planche 36 — il ne doit pas être confondu avec une mesure, un CIF ou un résultat de simulation.</p>
+</div>
+<div class="copy"><h3>Vraie interaction,<br>vraies limites.</h3><ul><li>Tourner, isoler, couper, zoomer, réinitialiser.</li><li>Changer de niveau d'échelle avec une transition explicite.</li><li>Afficher la source de la géométrie et des liaisons.</li><li>Pour toute modification de paramètre : distinguer « changement de représentation » et « calcul ».</li><li>Conserver les modèles didactiques déjà codés, sans les rebaptiser simulations scientifiques validées.</li></ul><p><a href="../../lab/">Ouvrir le laboratoire existant ↗</a> · <a href="../../ingenierie/">Ouvrir l'ingénierie ↗</a></p></div>
+</div>
+</div>
+</section>
+<section id="parcours" class="section">
+<div class="container">
+<div class="section-head"><div><div class="kicker">04 — Architecture d'une seule œuvre</div><h2>Un parcours.<br>Des centaines de portes.</h2></div><p>Ne pas isoler les publics dans trois sites qui se répètent. Chaque objet doit posséder une fiche canonique, puis trois niveaux de lecture : découverte, recherche, application.</p></div>
+<div class="journey">
+<div><b>01 / ACCUEIL</b><strong>Innovation actuelle</strong><small>Résultats datés, statut et sélection validée par Clément</small></div>
+<div><b>02 / IDÉE</b><strong>Leçon inaugurale</strong><small>Naissance d'une pensée, termes et héritages</small></div>
+<div><b>03 / OBJET</b><strong>Planche source</strong><small>Figures originales / reconstruction / limites</small></div>
+<div><b>04 / MÉCANISME</b><strong>Atelier 3D</strong><small>Étapes, données, paramètres, niveau D0–D3</small></div>
+<div><b>05 / PREUVE</b><strong>Bibliographie</strong><small>DOI, protocole, auteurs, statut scientifique</small></div>
+<div><b>06 / TRANSFERT</b><strong>Industrie</strong><small>Brevet, titulaire, pilote, produit si prouvé</small></div>
+</div>
+<div class="analysis"><div><h3>Pour Clément</h3><p>Chaque axe scientifique devient un parcours qu'il peut approuver indépendamment. Les sujets confidentiels ou susceptibles de polémique ne sont pas publiés, même si une illustration est terminée.</p></div><div class="risk"><h3>Sur téléphone</h3><p>La planche reste entière en aperçu, puis se lit région par région. Les panneaux s'ouvrent sans masquer la matière ; les annotations suivent le zoom, les sources et limites restent accessibles.</p></div></div>
+</div>
+</section>
+<section id="bibliographie" class="section">
+<div class="container">
+<div class="section-head"><div><div class="kicker">05 — Bibliographie & traçabilité</div><h2>Chaque image<br>a une source.</h2></div><p>Le site dispose déjà d'une bibliographie navigable pour la leçon de 2020. L'extension à l'œuvre entière implique une construction éditoriale et documentaire méthodique, pas l'ajout mécanique de liens DOI.</p></div>
+<div class="tablewrap">
+<table aria-label="Registre des objets et des preuves"><thead><tr><th>Objet</th><th>Ce qui existe</th><th>Ce qu'il reste à construire</th><th>Validation</th></tr></thead><tbody>
+<tr><td>70 planches</td><td>70 originaux et reconstructions réparties dans l'atlas</td><td>Comparaison harmonisée, statut par région et liens aux articles</td><td>Figure + légendes + droits</td></tr>
+<tr><td>18 scènes 3D</td><td>Objets WebGL et relations avec un grand nombre de planches</td><td>Fidélité D0–D3 visible ; coordonnées et validations D2/D3 si disponibles</td><td>Données + protocole + limitations</td></tr>
+<tr><td>38 notions</td><td>Graphe sémantique associé au cours 2020</td><td>Définitions pérennes et liens vers cours, travaux récents et applications</td><td>Relecture scientifique</td></tr>
+<tr><td>53 cours + inaugurale</td><td>Index officiel structuré en branche documentaire</td><td>Choix de Clément, médias, documents et planches autorisées</td><td>Attribution + droit de reprise</td></tr>
+<tr><td>Publications</td><td>Bibliographie 2020 + source institutionnelle historique + 5 dossiers 2025–2026</td><td>Dédoublonnage, DOI, type de document, preuve des conclusions</td><td>Source primaire, auteur, date</td></tr>
+<tr><td>Industrie</td><td>Premiers dossiers de brevets et partenariats recensés</td><td>Familles, détenteurs, statut juridique et preuve éventuelle d'exploitation</td><td>Ni licence ni produit supposés</td></tr>
+</tbody></table>
+</div>
+<div class="analysis"><div><h3>Une seule notice par ressource</h3><p>Une publication pourra être retrouvée depuis la planche, le cours, le laboratoire, la biographie et l'application — mais sans duplication de contenu ni contradiction d'attribution.</p></div><div class="risk"><h3>Ne pas fabriquer une filiation</h3><p>Une recherche japonaise, chinoise, russe ou américaine sur un sujet proche n'est pas automatiquement une collaboration de Sanchez. Les co-publications vérifiées doivent être distinguées des rapprochements thématiques.</p></div></div>
+<p class="caption">Bibliothèque du site : <a href="../../bibliographie/">bibliographie existante</a> · <a href="../../research/">monographie du cours 2020</a> · <a href="../../planches/">atlas des planches</a>. Les dossiers additionnels sont pour l'instant dans la branche documentaire, non en production.</p>
+</div>
+</section>
+<section class="section">
+<div class="container">
+<div class="section-head"><div><div class="kicker">06 — Tickets de direction technique</div><h2>Améliorer.<br>Sans détruire.</h2></div><p>La dette à corriger est ciblée et traçable. Les choix validés et les visuels existants constituent une référence de non-régression.</p></div>
+<div class="tablewrap"><table aria-label="Tickets à prioriser"><thead><tr><th>Ticket</th><th>Constat code actuel</th><th>Décision de développement</th><th>Critère de réussite</th></tr></thead><tbody>
+<tr><td>DA-01</td><td>Superposition de plusieurs styles éditoriaux et laboratoire</td><td>Formaliser les tokens et les responsabilités CSS sans remaquetter arbitrairement</td><td>Mêmes invariants visuels sur les six espaces</td></tr>
+<tr><td>VIS-02</td><td>Préférence original/reconstruction traitée différemment selon les vues</td><td>Résolveur canonique d'image et statut scientifique visible</td><td>70/70 fiches contrôlées</td></tr>
+<tr><td>UX-03</td><td>Planches riches illisibles en réduction sur mobile</td><td>Lecteur de régions zoomables avec légendes ancrées</td><td>Tests 320–1440 px, clavier et zoom 200 %</td></tr>
+<tr><td>3D-04</td><td>Modèles didactiques et WebGL sans dossier D2/D3 universel</td><td>Fiches de fidélité, source des structures, validation et état initial stable</td><td>Une scène D2 traçable + dossier de test</td></tr>
+<tr><td>BIB-05</td><td>Corpus bibliographique principalement autour du cours 2020</td><td>Référentiel interconnecté des œuvres et publications avec DOI</td><td>Zéro fusion de notices ambiguës</td></tr>
+<tr><td>EDIT-06</td><td>Accueil centré sur « matériaux hybrides vivants »</td><td>Placer les innovations actuelles approuvées au premier plan</td><td>Clément valide la sélection et les titres</td></tr>
+</tbody></table></div>
+</div>
+</section>
+<section id="validation" class="section">
+<div class="container">
+<div class="decision">
+<div class="kicker" style="color:#e2b1a5">07 — La décision de Clément</div>
+<h2>Chaque étape<br>avec toi.</h2>
+<p class="intro">Il ne s'agit pas de te demander de valider un projet entier d'un seul coup. Nous soumettrons des pièces identifiables, avec un avant/après, une note scientifique, un état de droits et une version à conserver.</p>
+<div class="decision-grid">
+<article><strong>01 — Les recherches centrales</strong><p>Tu sélectionnes les découvertes et programmes actuels qui méritent la place principale, et ce qui ne doit pas encore être rendu public.</p></article>
+<article><strong>02 — L'identité visuelle</strong><p>Nous partons des planches déjà réalisées. Tu approuves les évolutions de mise en page, les couleurs secondaires et les types de schémas.</p></article>
+<article><strong>03 — Les représentations 3D</strong><p>Pour chaque modèle, validation du sens des étapes, des échelles, de la géométrie et de ce qui est réellement mesuré ou simulé.</p></article>
+<article><strong>04 — Les dossiers et la publication</strong><p>Chaque mise en ligne nécessite une relecture des assertions, sources, légendes et applications. Une correction n'affecte pas le reste du corpus.</p></article>
+</div>
+<p style="margin:34px 0 0;color:#bbd5c0;font-size:.86rem">Les premiers travaux restent sur une branche de revue ; la mise en production n'intervient qu'après décision explicite.</p>
+</div>
+</div>
+</section>
+</main>
+<footer class="container footer"><span>Clément Sanchez — dossier agence / audit visuel des actifs existants / 22 novembre 2026</span><span>Sources du site · Reconstitutions et droits à valider · Projet indépendant</span></footer>
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Agrandissement de la planche scientifique" hidden>
+<button type="button" id="close-viewer">Fermer ×</button>
+<img id="viewer-image" alt="">
+<small id="viewer-caption"></small>
+</div>
+<script>
+(function(){
+ const v=document.getElementById("viewer"),im=document.getElementById("viewer-image"),cap=document.getElementById("viewer-caption"),cl=document.getElementById("close-viewer");
+ let focusBack=null;
+ document.querySelectorAll("a[data-zoom]").forEach(a=>a.addEventListener("click",e=>{
+  e.preventDefault();focusBack=a;im.src=a.href;im.alt=a.querySelector("img")?.alt||"Planche scientifique";cap.textContent=a.dataset.caption||"";v.hidden=false;document.body.style.overflow="hidden";cl.focus();
+ }));
+ function close(){v.hidden=true;im.removeAttribute("src");document.body.style.overflow="";focusBack?.focus()}
+ cl.addEventListener("click",close);
+ v.addEventListener("click",e=>{if(e.target===v)close()});
+ document.addEventListener("keydown",e=>{if(v.hidden)return;if(e.key==="Escape")close();if(e.key==="Tab"){e.preventDefault();cl.focus()}});
+})();
+</script>
+</body>
+</html>
