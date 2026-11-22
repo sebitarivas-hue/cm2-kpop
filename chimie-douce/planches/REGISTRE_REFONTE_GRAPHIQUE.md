@@ -2,9 +2,9 @@
 
 **Source primaire :** Clément Sanchez, *Vers des matériaux hybrides vivants*, Collège de France, 18 février 2020.
 
-**État au 22 novembre 2026 :** 40/70 illustrations détaillées disponibles sous réserve de vérification ; **30/70 à refaire ou à corriger**. L’existence d’un fichier SVG/WEBP ne constitue pas une validation scientifique ni artistique.
+**État au 22 novembre 2026 :** 42/70 illustrations détaillées disponibles sous réserve de vérification ; **28/70 à refaire ou à corriger**. L’existence d’un fichier SVG/WEBP ne constitue pas une validation scientifique ni artistique.
 
-## Planches à reprendre (30)
+## Planches à reprendre (28)
 | N° | Titre exact et immuable du catalogue | Statut |
 |---:|---|---|
 | 01 | Plan analytique du cours | Titre intégré dans l'image à corriger |
@@ -21,8 +21,6 @@
 | 48 | Réponse à une sonde fonctionnalisée | Schéma provisoire : illustration éditoriale à refaire |
 | 49 | Ligands polyfonctionnels de couplage | Schéma provisoire : illustration éditoriale à refaire |
 | 50 | Stabilité biologique de supracellules | Schéma provisoire : illustration éditoriale à refaire |
-| 55 | Synthèse de MOFs à l'intérieur des plantes | Schéma provisoire : illustration éditoriale à refaire |
-| 56 | Localisation des phases MOF dans le végétal | Schéma provisoire : illustration éditoriale à refaire |
 | 57 | Panorama des procédés de mise en forme | Schéma provisoire : illustration éditoriale à refaire |
 | 58 | Cellulose bactérienne : matériau produit par le vivant | Schéma provisoire : illustration éditoriale à refaire |
 | 59 | Bio-impression de bactéries dans des matériaux | Schéma provisoire : illustration éditoriale à refaire |
@@ -37,6 +35,13 @@
 | 68 | Assemblage E. coli–zéolithe | Schéma provisoire : illustration éditoriale à refaire |
 | 69 | Vers une ingénierie intégrative | Schéma provisoire : illustration éditoriale à refaire |
 | 70 | Perspectives et conception du vivant | Schéma provisoire : illustration éditoriale à refaire |
+
+## Remplacements en place depuis ce lot
+
+- **55 — Synthèse de MOFs à l'intérieur des plantes** : illustration française à fond crème, édition conceptuelle, diapositive 2020 conservée ; localisation et cinétique non démontrées par le dessin
+- **56 — Localisation des phases MOF dans le végétal** : illustration botanique multi-échelles, diapositive 2020 conservée ; la localisation vacuolaire n'est qu'une possibilité pédagogique et nécessite la vérification analytique
+
+**Attention :** « illustration détaillée disponible » n'est pas synonyme de « validation définitive par Clément Sanchez » ou de qualité scientifique certifiée. Les données originales restent l'autorité documentaire.
 
 ## Critères bloquants avant validation
 
