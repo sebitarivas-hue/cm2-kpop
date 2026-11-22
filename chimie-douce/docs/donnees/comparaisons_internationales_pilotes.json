@@ -1,0 +1,116 @@
+{
+  "schema_version": "0.1",
+  "status": "lot_de_comparaisons_pilotes_scientifiquement_differenciees",
+  "date": "2026-11-22",
+  "scope": "4 sources hors du catalogue des 38, sans insertion automatique; 2 publications primaires identifiées et 2 programmes institutionnels",
+  "comparison_statement": "Comparaison thématique documentée; aucune relation de citation, de filiation scientifique ou de collaboration entre les auteurs n'a été démontrée.",
+  "records": [
+    {
+      "id": "EXT-US-MIT-CHEN-2014",
+      "country": "États-Unis",
+      "institution": "MIT / Harvard",
+      "type": "publication_primaire",
+      "year": 2014,
+      "title": "Synthesis and patterning of tunable multiscale materials with engineered cells",
+      "publication": "Nature Materials 13, 515–523 (2014)",
+      "doi": "10.1038/nmat3912",
+      "sources": [
+        "https://www.nature.com/articles/nmat3912",
+        "https://pubmed.ncbi.nlm.nih.gov/24658114/",
+        "https://news.mit.edu/2014/engineers-design-living-materials"
+      ],
+      "related_inaugural_axes": [
+        "AX-04",
+        "AX-06"
+      ],
+      "comparison_type": "recoupement_conceptuel_documente_sans_filiation_historique",
+      "verified_scientific_summary": "Ingénierie de biofilms à base de fibres curli produites par des bactéries génétiquement modifiées, fonctionnalisées pour organiser des nanoparticules ; contrôle de composition et structuration multiscalaire.",
+      "experimental_system": "E. coli vivant, fibres amyloïdes extracellulaires, partenaires inorganiques notamment nanoparticules d'or et points quantiques.",
+      "key_difference": "Biofabrication extracellulaire par biofilm génétiquement programmé, non encapsulation de cellules dans une matrice sol-gel ; ne pas assimiler à une coque MOF cytoprotectrice.",
+      "time_relation": "postérieur_de_3_ans_a_inaugurale_2011_anterieur_a_2020",
+      "links_to_sanchez": "Aucune citation directe ou collaboration vérifiée par cette revue.",
+      "data_status": "article_primaire_et_index_PubMed_confirmes; mesures_non_extraites",
+      "image_rights": "aucune image réutilisée; page MIT avec licence spécifique pour certaines images"
+    },
+    {
+      "id": "EXT-JP-NIMS-HAYASE",
+      "country": "Japon",
+      "institution": "NIMS / groupe matériaux amorphes",
+      "type": "programme_institutionnel_recherche",
+      "year": null,
+      "title": "Gen Hayase — Sol-gel and porous monolithic materials",
+      "publication": null,
+      "doi": null,
+      "sources": [
+        "https://samurai.nims.go.jp/profiles/hayase_gen?locale=en"
+      ],
+      "related_inaugural_axes": [
+        "AX-02",
+        "AX-06",
+        "AX-07"
+      ],
+      "comparison_type": "familie_de_procedes_commune_recherche_a_approfondir",
+      "verified_scientific_summary": "Profil institutionnel décrivant le recours à la synthèse sol-gel pour obtenir des monolithes poreux et des aérogels, avec applications possibles dans l'isolation et les matériaux fonctionnels.",
+      "experimental_system": "Monolithes poreux et aérogels synthétisés par voies sol-gel ; compositions et protocoles à extraire des publications individuelles.",
+      "key_difference": "Le profil ne décrit pas nécessairement un matériau vivant ou une cellule encapsulée ; ne pas assimiler ces matériaux à l'ensemble du corpus biohybride.",
+      "time_relation": "profil_institutionnel_courant; articles_par_annee_a_identifier",
+      "links_to_sanchez": "Aucune collaboration ou citation vérifiée.",
+      "data_status": "profil_institutionnel_indexe; publications_primaires_non_selectionnees",
+      "image_rights": "aucun réemploi de visuel"
+    },
+    {
+      "id": "EXT-JP-KYOTO-KITAGAWA",
+      "country": "Japon",
+      "institution": "Kyoto University iCeMS / Kitagawa group",
+      "type": "programme_institutionnel_recherche",
+      "year": null,
+      "title": "Porous coordination polymers / metal-organic frameworks",
+      "publication": null,
+      "doi": null,
+      "sources": [
+        "https://www.kitagawa.icems.kyoto-u.ac.jp/research_en/",
+        "https://www.kitagawa.icems.kyoto-u.ac.jp/publication_en/"
+      ],
+      "related_inaugural_axes": [
+        "AX-03",
+        "AX-06"
+      ],
+      "comparison_type": "theme_de_reseaux_hybrides_poreux_a_confronter_a_un_cours_precis",
+      "verified_scientific_summary": "Programme de recherche sur les polymères de coordination poreux/MOF pour adsorption, séparation moléculaire et catalyse, avec catalogue de publications.",
+      "experimental_system": "Charpentes cristallines de coordination, porosité et reconnaissance moléculaire ; sélectionner ensuite articles et structures pour analyse.",
+      "key_difference": "MOF poreux cristallin ≠ cluster utilisé comme nanobrique légochimique, ni cellule vivante encapsulée ; topologie et chimie doivent être comparées séparément.",
+      "time_relation": "programme_continu; comparaison_par_article_et_date_requise",
+      "links_to_sanchez": "Aucune collaboration ou citation vérifiée.",
+      "data_status": "institution_et_perimetre_recherche_confirmes; articles_a_selectionner",
+      "image_rights": "aucun réemploi de visuel"
+    },
+    {
+      "id": "EXT-CN-CAS-JI-2025",
+      "country": "Chine",
+      "institution": "Institute of Chemistry, Chinese Academy of Sciences",
+      "type": "publication_primaire",
+      "year": 2025,
+      "title": "Interfacial assembly of biomimetic MOF-based porous membranes on coacervates to build complex protocells and prototissues",
+      "publication": "Nature Chemistry 17, 986–996 (2025)",
+      "doi": "10.1038/s41557-025-01827-7",
+      "sources": [
+        "https://www.nature.com/articles/s41557-025-01827-7",
+        "https://pubmed.ncbi.nlm.nih.gov/40467892/",
+        "https://english.cas.cn/newsroom/research_news/chem/202506/t20250623_1046005.shtml"
+      ],
+      "related_inaugural_axes": [
+        "AX-04",
+        "AX-05",
+        "AX-06"
+      ],
+      "comparison_type": "developpement_posterieur_sur_interfaces_biomimetiques_distinct_des_cellules_vivantes",
+      "verified_scientific_summary": "Assemblage interfacial de nanoparticules MOF autour de coacervats pour former des protocellules et organiser des protéines et fonctions membranaires biomimétiques.",
+      "experimental_system": "Gouttelettes de coacervats à séparation de phases liquide–liquide et membrane poreuse composée de nanoparticules MOF, dont ZIF-8 selon la CAS.",
+      "key_difference": "Une protocellule artificielle non vivante n'est pas une cellule biologique vivante protégée par une coque ZIF-8 ; ne pas extrapoler viabilité ou protection d'organismes.",
+      "time_relation": "postérieur_de_14_ans_a_inaugurale_et_de_5_ans_au_cours_2020",
+      "links_to_sanchez": "Aucune citation ou filiation démontrée dans cet audit.",
+      "data_status": "publication_nature_chemistry_et_pubmed_confirmees; details_experimentaux_a_auditer",
+      "image_rights": "pas de réemploi de figures"
+    }
+  ]
+}
