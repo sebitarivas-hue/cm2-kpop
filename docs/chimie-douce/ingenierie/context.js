@@ -1,0 +1,30 @@
+import {sceneResources,plateAsset} from '../src/knowledge-graph.js';
+import {videoAt} from '../src/content.js';
+import {FIGURES} from '../src/figures.js';
+import {conceptButton,ensureConceptDialog} from '../src/concept-ui.js';
+import {translateTerm} from '../i18n.js';
+const tr=s=>translateTerm(s);
+const map={vegetal:'mof',mycelium:'mycelium',solgel:'solgel',encapsulation:'encapsulation',mof:'zif'};
+const primaryPlate={vegetal:55,mycelium:5,solgel:12,encapsulation:18,mof:36};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const chapters=[...new Set(FIGURES.map(f=>f.chapter))];
+const root=document.createElement('section');root.className='engine-source';root.id='engineSource';root.setAttribute('aria-label','Preuves documentaires unifiées du mécanisme');
+root.innerHTML='<div class="engine-source-header"><span>04 / SOURCE DU COURS · ARCHIVE SCIENTIFIQUE</span><h2>La preuve, sous les yeux.</h2><p>L’observation photographique, la diapositive originale et le modèle 3D ne sont pas des preuves interchangeables. Les liens ci-dessous conservent leur provenance et leurs limites.</p></div><div class="engine-source-grid"><div id="engineOriginal"></div><div class="engine-source-copy"><h3 id="engineSourceTitle"></h3><p id="engineSourceText"></p><h4>Notions à comprendre</h4><div id="engineConcepts" class="resource-concepts"></div><h4>Autres planches du même dossier</h4><div id="engineOtherPlates" class="engine-plate-links"></div><h4>Prolonger la recherche</h4><div id="engineSourceLinks" class="resource-links"></div></div></div>';
+const anchor=document.querySelector('.engineering-analysis');
+if(anchor)anchor.insertAdjacentElement('beforebegin',root);else document.querySelector('main')?.append(root);
+ensureConceptDialog();
+function render(mode){
+ const id=map[mode]||map.vegetal,r=sceneResources(id);
+ if(!r)return;const f=r.plates.find(x=>x.id===primaryPlate[mode])||r.plates[0];
+ document.getElementById('engineSourceTitle').textContent=tr(r.scene.title);
+ document.getElementById('engineSourceText').textContent=tr(r.scene.intro);
+ document.getElementById('engineConcepts').innerHTML=r.concepts.map(conceptButton).join('');
+ const panel=document.getElementById('engineOriginal');
+ panel.innerHTML='<figure class="source-original"><a href="../planches/?figure='+f.id+'" title="Ouvrir le document original"><img src="'+plateAsset(f.id)+'" alt="Planche originale '+f.id+' : '+esc(tr(f.title))+'" loading="lazy"></a><figcaption><b>FIG. '+String(f.id).padStart(2,'0')+' / '+esc(tr(f.title))+'</b><p>'+esc(tr(f.note))+'</p><div class="source-credits">CLÉMENT SANCHEZ · 2020 <a href="'+videoAt(f.time)+'" target="_blank" rel="noopener noreferrer">VOIR LA VIDÉO ↗</a></div></figcaption></figure>';
+ document.getElementById('engineOtherPlates').innerHTML=r.plates.filter(x=>x.id!==f.id).map(x=>'<a href="../planches/?figure='+x.id+'">FIG. '+String(x.id).padStart(2,'0')+' · '+esc(tr(x.title))+' ↗</a>').join('');
+ document.getElementById('engineSourceLinks').innerHTML='<a href="../#'+id+'">VOIR LA SCÈNE 3D DE L’ATLAS ↗</a><a href="../research/#chapitre-'+(chapters.indexOf(f.chapter)+1)+'">CHAPITRE DE LA MONOGRAPHIE ↗</a><a href="../bibliographie/?scene='+id+'">ARTICLES SCIENTIFIQUES ↗</a><a href="../notions/?scene='+id+'">GLOSSAIRE DU PROCÉDÉ ↗</a>';
+}
+render(new URLSearchParams(location.search).get('mode')||'vegetal');
+let lastMode=new URLSearchParams(location.search).get('mode')||'vegetal';
+window.addEventListener('chimie:mode',e=>{lastMode=e.detail?.id||lastMode;render(lastMode)});
+window.addEventListener('chimie:language',()=>render(lastMode));

@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><script src="/cm2-kpop/chimie-douce/access-gate.js?v=1"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De la Substance au Système — L'épistémologie de la chimie douce</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #0a0a0f;
+  --bg-card: #12121a;
+  --bg-card-hover: #1a1a28;
+  --text: #e8e6e3;
+  --text-dim: #9a9590;
+  --accent: #c8956c;
+  --accent-light: #e8b68c;
+  --accent-glow: rgba(200, 149, 108, 0.15);
+  --blue: #6c8cc8;
+  --blue-light: #8caae8;
+  --green: #6cc89a;
+  --purple: #9a6cc8;
+  --red: #c86c6c;
+  --border: #2a2a3a;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Inter', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ---- SCROLLBAR ---- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ---- HERO ---- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 30% 50%, rgba(200,149,108,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 50%, rgba(108,140,200,0.04) 0%, transparent 60%);
+  animation: heroGlow 12s ease-in-out infinite alternate;
+}
+
+@keyframes heroGlow {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(2%, -1%) rotate(1deg); }
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 900px; }
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero .subtitle {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  color: var(--text-dim);
+  margin-bottom: 2rem;
+}
+
+.hero .meta {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+}
+
+.hero .thesis-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  padding: 1.5rem 2rem;
+  text-align: left;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 3rem;
+  max-width: 700px;
+}
+
+.hero .thesis-box p {
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.hero .thesis-box .label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.scroll-indicator svg { width: 20px; height: 20px; }
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ---- NAV ---- */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+  padding: 0 2rem;
+}
+
+nav.visible { transform: translateY(0); }
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  height: 56px;
+  gap: 1rem;
+  overflow-x: auto;
+}
+
+.nav-inner::-webkit-scrollbar { height: 0; }
+
+.nav-brand {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  color: var(--accent);
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-right: 1rem;
+}
+
+.nav-link {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--accent-light);
+  background: var(--accent-glow);
+}
+
+/* ---- SECTIONS ---- */
+section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+}
+
+section h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+section h2 .num {
+  color: var(--accent);
+  font-weight: 400;
+  margin-right: 0.3rem;
+}
+
+section h3 {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--accent-light);
+  margin: 2rem 0 1rem;
+}
+
+section p {
+  color: var(--text-dim);
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+}
+
+.section-intro {
+  font-size: 1.1rem !important;
+  color: var(--text) !important;
+  border-left: 2px solid var(--accent);
+  padding-left: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* ---- PARADIGM SHIFTS INTERACTIVE ---- */
+.shifts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.shift-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.8rem;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.shift-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--blue));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+
+.shift-card:hover::before, .shift-card.active::before { transform: scaleX(1); }
+
+.shift-card:hover, .shift-card.active {
+  background: var(--bg-card-hover);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(200, 149, 108, 0.08);
+}
+
+.shift-card .icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.shift-card h4 {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  margin-bottom: 0.3rem;
+}
+
+.shift-card .arrow {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+}
+
+.shift-card p {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  margin-bottom: 0;
+}
+
+.shift-detail {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-top: 1.5rem;
+  display: none;
+  animation: fadeSlide 0.4s ease;
+}
+
+.shift-detail.visible { display: block; }
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- TIMELINE ---- */
+.timeline {
+  position: relative;
+  padding: 2rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 24px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent), var(--blue), var(--purple));
+}
+
+.tl-item {
+  position: relative;
+  padding-left: 64px;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tl-item.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.tl-dot {
+  position: absolute;
+  left: 16px;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 3px solid var(--accent);
+  z-index: 1;
+  transition: all 0.3s;
+}
+
+.tl-item:hover .tl-dot {
+  background: var(--accent);
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.tl-year {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
+
+.tl-title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  margin-bottom: 0.3rem;
+}
+
+.tl-desc {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+.tl-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  margin-top: 0.4rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tag-concept { background: rgba(108,140,200,0.15); color: var(--blue-light); }
+.tag-person { background: rgba(200,149,108,0.15); color: var(--accent-light); }
+.tag-breakthrough { background: rgba(108,200,154,0.15); color: var(--green); }
+.tag-institution { background: rgba(154,108,200,0.15); color: var(--purple); }
+
+/* ---- SCIENTISTS NETWORK ---- */
+.scientists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.scientist-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.2rem;
+  transition: all 0.3s;
+  cursor: default;
+}
+
+.scientist-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(200,149,108,0.06);
+}
+
+.scientist-card .name {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  margin-bottom: 0.2rem;
+}
+
+.scientist-card .country {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.scientist-card .contribution {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+/* ---- STATS BAR ---- */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.stat-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.2rem;
+  text-align: center;
+}
+
+.stat-num {
+  font-family: var(--mono);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-top: 0.3rem;
+}
+
+/* ---- BIBLIOMETRICS ---- */
+.bar-chart {
+  margin: 2rem 0;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  gap: 1rem;
+}
+
+.bar-label {
+  width: 120px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.bar-track {
+  flex: 1;
+  height: 28px;
+  background: var(--bg-card);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--bg);
+}
+
+.bar-fill.animated { width: var(--target-width); }
+
+/* ---- CHAPTER CONTENT ---- */
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.chapter-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+}
+
+.chapter-card:hover {
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+}
+
+.chapter-card .ch-num {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.chapter-card h4 {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  margin: 0.3rem 0 0.6rem;
+}
+
+.chapter-card p {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+/* ---- QUOTES ---- */
+.quote-block {
+  border-left: 3px solid var(--accent);
+  padding: 1.2rem 1.5rem;
+  margin: 2rem 0;
+  background: var(--bg-card);
+  border-radius: 0 8px 8px 0;
+}
+
+.quote-block p {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.quote-block .author {
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 0.85rem;
+  color: var(--accent);
+}
+
+/* ---- LIMITS SECTION ---- */
+.limit-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--red);
+  border-radius: 0 10px 10px 0;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.limit-item h4 {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  margin-bottom: 0.4rem;
+  color: var(--text);
+}
+
+.limit-item p {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+/* ---- FOOTER ---- */
+footer {
+  text-align: center;
+  padding: 4rem 2rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+footer .colophon {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+/* ---- TABS ---- */
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-card);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab-btn:hover { border-color: var(--accent); color: var(--text); }
+.tab-btn.active {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ---- DIVIDER ---- */
+.divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  margin: 1rem 0 2rem;
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+  section { padding: 4rem 1.2rem; }
+  .shifts-grid { grid-template-columns: 1fr; }
+  .scientists-grid { grid-template-columns: 1fr 1fr; }
+  .bar-label { width: 80px; font-size: 0.75rem; }
+  .nav-inner { gap: 0.5rem; }
+}
+
+@media (max-width: 480px) {
+  .scientists-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- FADE IN ---- */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- CONCEPT MAP ---- */
+.concept-map {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.concept-map svg { max-width: 100%; height: auto; }
+
+/* ---- EPOCH FILTER ---- */
+.epoch-filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.epoch-btn {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.epoch-btn:hover { border-color: var(--accent); color: var(--text); }
+.epoch-btn.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+</style>
+<link rel="stylesheet" href="./nav.css?v=essay-navigation-20261121">
+<style>
+.essay-home-link{display:inline-flex;align-items:center;gap:12px;position:relative;z-index:3;margin-bottom:26px;padding:11px 16px;border:1px solid rgba(214,183,128,.6);color:#dfc7a2;font:600 11px 'Inter',sans-serif;letter-spacing:.11em;text-decoration:none;background:#151d22cc;transition:background .2s,border-color .2s}
+.essay-home-link:hover,.essay-home-link:focus-visible{background:#263d38;border-color:#9ed9c6;color:#fff}
+</style>
+</head>
+<body class="essay-page">
+
+<!-- ============ HERO ============ -->
+<div class="hero" id="hero">
+  <div class="hero-content">
+    <a href="./" class="essay-home-link" aria-label="Retourner à l’accueil de l’Atlas Chimie douce">← RETOUR À L’ATLAS SCIENTIFIQUE</a>
+    <p class="meta">ESSAI CRITIQUE INDÉPENDANT · EN DIALOGUE AVEC LES COURS DE CLÉMENT SANCHEZ AU COLLÈGE DE FRANCE</p>
+    <h1>De la matière comme substance<br>à la matière comme système</h1>
+    <p class="subtitle">Épistémologie critique de la chimie douce</p>
+    <div class="thesis-box">
+      <p class="label">Thèse centrale</p>
+      <p>La chimie douce n'est pas simplement une méthode de synthèse à basse température. Elle constitue une révolution épistémologique qui a transformé la science des matériaux d'une science de la <em>composition</em> en une science de l'<em>organisation</em> de la matière — où la structure, le procédé et la fonction deviennent indissociables.</p>
+    </div>
+  </div>
+  <div class="scroll-indicator" onclick="document.getElementById('paradigmes').scrollIntoView({behavior:'smooth'})">
+    Explorer
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <span class="nav-brand">Substance → Système</span>
+    <a href="#paradigmes" class="nav-link">Paradigmes</a>
+    <a href="#chronologie" class="nav-link">Chronologie</a>
+    <a href="#chapitres" class="nav-link">Chapitres</a>
+    <a href="#acteurs" class="nav-link">Acteurs</a>
+    <a href="#bibliometrie" class="nav-link">Bibliométrie</a>
+    <a href="#limites" class="nav-link">Limites</a>
+    <a href="#conclusion" class="nav-link">Conclusion</a>
+  </div>
+</nav>
+
+<!-- ============ 4 PARADIGM SHIFTS ============ -->
+<section id="paradigmes" class="fade-in">
+  <h2>Les quatre ruptures épistémologiques</h2>
+  <div class="divider"></div>
+  <p class="section-intro">La chimie douce opère quatre déplacements fondamentaux dans la manière de penser la matière. Chacun marque une rupture avec le paradigme classique de la chimie du solide, héritée de la métallurgie haute température.</p>
+
+  <div class="shifts-grid">
+    <div class="shift-card" data-shift="1" onclick="toggleShift(1)">
+      <div class="icon" style="background:rgba(200,149,108,0.12);">🧪</div>
+      <h4>Première rupture</h4>
+      <div class="arrow">Composition → Organisation</div>
+      <p>La matière n'est plus définie par ce qu'elle contient, mais par comment elle est structurée à toutes les échelles.</p>
+    </div>
+    <div class="shift-card" data-shift="2" onclick="toggleShift(2)">
+      <div class="icon" style="background:rgba(108,140,200,0.12);">⚗️</div>
+      <h4>Deuxième rupture</h4>
+      <div class="arrow">Résultat → Procédé</div>
+      <p>Le chemin réactionnel — cinétique, conditions douces, vieillissement — détermine le matériau autant que les réactifs.</p>
+    </div>
+    <div class="shift-card" data-shift="3" onclick="toggleShift(3)">
+      <div class="icon" style="background:rgba(108,200,154,0.12);">🔬</div>
+      <h4>Troisième rupture</h4>
+      <div class="arrow">Synthèse → Assemblage</div>
+      <p>On ne fabrique plus les matériaux atome par atome mais en assemblant des briques nanométriques préformées.</p>
+    </div>
+    <div class="shift-card" data-shift="4" onclick="toggleShift(4)">
+      <div class="icon" style="background:rgba(154,108,200,0.12);">🌐</div>
+      <h4>Quatrième rupture</h4>
+      <div class="arrow">Objet → Système</div>
+      <p>Le matériau devient un système complexe, adaptatif, intégrant des fonctions multiples dans une architecture hiérarchique.</p>
+    </div>
+  </div>
+
+  <div class="shift-detail" id="shift-detail-1">
+    <h3>De la composition à l'organisation</h3>
+    <p>Dans la chimie du solide classique, un matériau est d'abord défini par sa formule brute — sa stœchiométrie. La chimie douce renverse cette primauté : deux matériaux de composition identique peuvent avoir des propriétés radicalement différentes selon leur organisation structurale (porosité, cristallinité, interfaces). Les travaux pionniers de Jacques Livage sur les gels de vanadium (années 1970-80) montrent que le contrôle cinétique des réactions d'hydrolyse-condensation permet d'obtenir des architectures variées à partir des mêmes précurseurs. C'est un obstacle épistémologique au sens de Bachelard : penser la matière par sa composition empêchait de voir que l'organisation est le véritable déterminant fonctionnel.</p>
+  </div>
+  <div class="shift-detail" id="shift-detail-2">
+    <h3>Du résultat au procédé</h3>
+    <p>La thermodynamique classique impose l'idée que l'état final d'un matériau est déterminé par les variables d'état (T, P, composition) indépendamment du chemin. La chimie douce réintroduit le chemin réactionnel comme variable fondamentale : la vitesse d'hydrolyse, le pH, le vieillissement, le séchage — chaque étape du procédé inscrit sa mémoire dans la structure finale. C'est ce que Livage appelle la « mémoire du gel ». Cette sensibilité aux conditions de synthèse, loin d'être un défaut, devient un outil de design. Le procédé sol-gel est paradigmatique : la même chimie, conduite différemment, produit des films minces, des fibres, des aérogels ou des monolithes massifs.</p>
+  </div>
+  <div class="shift-detail" id="shift-detail-3">
+    <h3>De la synthèse à l'assemblage</h3>
+    <p>L'approche « nanobuilding blocks » (NBB), développée notamment par Clément Sanchez et ses collaborateurs, marque le passage d'une chimie synthétique à une chimie constructive. Plutôt que de former le matériau in situ, on préforme des briques nanométriques — clusters d'oxo-métalliques, nanoparticules fonctionnalisées, polyèdres oligomériques (POSS) — puis on les assemble comme un jeu de construction moléculaire. Les travaux de Yaghi (MOFs), Kitagawa (coordination polymers) et Férey (MIL) illustrent cette logique : le matériau émerge de la connexion topologique de briques prédéfinies. Le chimiste n'est plus un alchimiste qui transforme la matière, mais un architecte qui la construit.</p>
+  </div>
+  <div class="shift-detail" id="shift-detail-4">
+    <h3>De l'objet au système</h3>
+    <p>La quatrième rupture est la plus radicale. Le matériau cesse d'être un objet passif pour devenir un système complexe au sens de Herbert Simon — une architecture de sous-systèmes emboîtés, chacun porteur de fonctions propres. Les matériaux hybrides multifonctionnels intègrent dans une même structure des composantes organiques et inorganiques, combinant luminescence, catalyse, réponse mécanique et transport ionique. Cette complexité organisée, qui rappelle les systèmes biologiques, ouvre la voie à la « chimie intégrative » théorisée par Nicole et Sanchez : une chimie qui ne décompose plus la matière en éléments simples, mais qui pense l'intégration de fonctions dans des architectures hiérarchiques.</p>
+  </div>
+</section>
+
+<!-- ============ TIMELINE ============ -->
+<section id="chronologie" class="fade-in">
+  <h2>Chronologie de la chimie douce</h2>
+  <div class="divider"></div>
+  <p class="section-intro">Des premières synthèses sol-gel aux matériaux intelligents, un demi-siècle de révolution conceptuelle.</p>
+
+  <div class="epoch-filters">
+    <button class="epoch-btn active" onclick="filterTimeline('all')">Tout</button>
+    <button class="epoch-btn" onclick="filterTimeline('fondations')">Fondations (1970–1990)</button>
+    <button class="epoch-btn" onclick="filterTimeline('hybrides')">Hybrides (1990–2005)</button>
+    <button class="epoch-btn" onclick="filterTimeline('complexite')">Complexité (2005–)</button>
+  </div>
+
+  <div class="timeline" id="timeline">
+    <div class="tl-item" data-epoch="fondations">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1970–1975</div>
+      <div class="tl-title">Naissance du concept de chimie douce</div>
+      <div class="tl-desc">Jacques Livage introduit le terme « chimie douce » pour désigner les réactions en solution aqueuse à température ambiante, en rupture avec la chimie du solide haute température.</div>
+      <span class="tl-tag tag-concept">Concept fondateur</span>
+    </div>
+
+    <div class="tl-item" data-epoch="fondations">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1979</div>
+      <div class="tl-title">Gels de vanadium de Livage</div>
+      <div class="tl-desc">Publication des premiers travaux systématiques sur les gels de V₂O₅ par voie sol-gel. La « chimie de la douceur » entre dans la littérature internationale.</div>
+      <span class="tl-tag tag-breakthrough">Percée</span>
+    </div>
+
+    <div class="tl-item" data-epoch="fondations">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1984</div>
+      <div class="tl-title">Monographie de Brinker & Scherer</div>
+      <div class="tl-desc">Publication de <em>Sol-Gel Science</em>, ouvrage de référence qui systématise la science du procédé sol-gel et établit les fondements physico-chimiques.</div>
+      <span class="tl-tag tag-person">Brinker, Scherer</span>
+    </div>
+
+    <div class="tl-item" data-epoch="fondations">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1988</div>
+      <div class="tl-title">Première classification des hybrides</div>
+      <div class="tl-desc">Distinction fondamentale entre hybrides de classe I (interactions faibles) et classe II (liaisons covalentes) — une taxonomie qui structurera le champ pendant deux décennies.</div>
+      <span class="tl-tag tag-concept">Concept</span>
+    </div>
+
+    <div class="tl-item" data-epoch="hybrides">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1990–1995</div>
+      <div class="tl-title">Explosion des matériaux hybrides organique-inorganique</div>
+      <div class="tl-desc">Sanchez, Ribot, puis Schubert développent les matériaux hybrides comme nouveau paradigme. L'interface organique-inorganique devient un objet de design chimique.</div>
+      <span class="tl-tag tag-person">Sanchez, Schubert</span>
+    </div>
+
+    <div class="tl-item" data-epoch="hybrides">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1992</div>
+      <div class="tl-title">Silices mésoporeuses MCM-41 (Mobil)</div>
+      <div class="tl-desc">Découverte des silices mésoporeuses ordonnées utilisant des tensioactifs comme agents structurants. L'auto-assemblage entre dans la boîte à outils du chimiste des matériaux.</div>
+      <span class="tl-tag tag-breakthrough">Percée</span>
+    </div>
+
+    <div class="tl-item" data-epoch="hybrides">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1995–1998</div>
+      <div class="tl-title">Auto-assemblage coopératif (EISA)</div>
+      <div class="tl-desc">Stucky, puis Grosso et Sanchez, développent le procédé EISA (Evaporation-Induced Self-Assembly) : les films minces nanostructurés par auto-assemblage induit par évaporation.</div>
+      <span class="tl-tag tag-person">Stucky, Grosso, Sanchez</span>
+    </div>
+
+    <div class="tl-item" data-epoch="hybrides">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1999</div>
+      <div class="tl-title">MOFs — Yaghi et Kitagawa</div>
+      <div class="tl-desc">Publication des Metal-Organic Frameworks (MOF-5 par Yaghi, coordination polymers par Kitagawa). Des matériaux cristallins à porosité permanente assemblés à partir de briques moléculaires.</div>
+      <span class="tl-tag tag-breakthrough">Percée</span>
+    </div>
+
+    <div class="tl-item" data-epoch="hybrides">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2001–2005</div>
+      <div class="tl-title">Nanobuilding blocks (NBB)</div>
+      <div class="tl-desc">Sanchez conceptualise l'approche NBB : des briques nanométriques fonctionnalisées (clusters, nanoparticules, POSS) sont assemblées en architectures hiérarchiques complexes.</div>
+      <span class="tl-tag tag-concept">Concept</span>
+    </div>
+
+    <div class="tl-item" data-epoch="hybrides">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2003–2005</div>
+      <div class="tl-title">MIL de Férey</div>
+      <div class="tl-desc">Gérard Férey développe les MIL (Matériaux de l'Institut Lavoisier) — une famille de MOFs à très haute porosité, dont le MIL-101 avec sa surface spécifique record.</div>
+      <span class="tl-tag tag-person">Férey</span>
+    </div>
+
+    <div class="tl-item" data-epoch="complexite">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2006–2010</div>
+      <div class="tl-title">Biominéralisation et bioinspiration</div>
+      <div class="tl-desc">Mann, Ozin, Sanchez développent des matériaux bioinspirés : nacre artificielle, os synthétiques, structures hiérarchiques mimant le vivant. La nature comme modèle d'architecture.</div>
+      <span class="tl-tag tag-concept">Bioinspiration</span>
+    </div>
+
+    <div class="tl-item" data-epoch="complexite">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2010</div>
+      <div class="tl-title">Chimie intégrative</div>
+      <div class="tl-desc">Nicole et Sanchez proposent le concept de « chimie intégrative » : une approche qui combine bottom-up et top-down pour créer des systèmes fonctionnels multi-échelles.</div>
+      <span class="tl-tag tag-concept">Concept</span>
+    </div>
+
+    <div class="tl-item" data-epoch="complexite">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2012–2015</div>
+      <div class="tl-title">Matériaux hiérarchiques multi-échelles</div>
+      <div class="tl-desc">Backov, Sanchez et d'autres développent des mousses, aérogels et structures à porosité hiérarchique contrôlée de l'échelle moléculaire au centimètre.</div>
+      <span class="tl-tag tag-person">Backov, Sanchez</span>
+    </div>
+
+    <div class="tl-item" data-epoch="complexite">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2015–2020</div>
+      <div class="tl-title">Intelligence matérielle</div>
+      <div class="tl-desc">Émergence de matériaux « intelligents » : systèmes auto-réparants, adaptatifs, capables de réponse autonome aux stimuli. Le matériau comme système complexe au sens de Simon.</div>
+      <span class="tl-tag tag-breakthrough">Percée</span>
+    </div>
+
+    <div class="tl-item" data-epoch="complexite">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2020–</div>
+      <div class="tl-title">Vers une science intégrative de la matière</div>
+      <div class="tl-desc">Convergence chimie douce / biologie / intelligence artificielle. Le machine learning accélère la découverte, la chimie douce fournit les briques d'une matière programmable.</div>
+      <span class="tl-tag tag-concept">Frontière</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTERS ============ -->
+<section id="chapitres" class="fade-in">
+  <h2>Architecture de l'essai</h2>
+  <div class="divider"></div>
+  <p class="section-intro">L'essai déploie en neuf chapitres le passage du paradigme de la substance à celui du système, en analysant chaque étape conceptuelle et ses acteurs.</p>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('overview')">Vue d'ensemble</button>
+    <button class="tab-btn" onclick="switchTab('details')">Détail des chapitres</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-overview">
+    <div class="chapter-grid">
+      <div class="chapter-card" onclick="switchTab('details')">
+        <div class="ch-num">Chapitre 1</div>
+        <h4>Le paradigme compositionnel</h4>
+        <p>Comment la chimie du solide s'est construite autour de la composition comme variable première — et les limites de ce cadre.</p>
+      </div>
+      <div class="chapter-card" onclick="switchTab('details')">
+        <div class="ch-num">Chapitre 2</div>
+        <h4>La révolution sol-gel</h4>
+        <p>Le procédé sol-gel comme première rupture : quand le chemin réactionnel sculpte la matière.</p>
+      </div>
+      <div class="chapter-card" onclick="switchTab('details')">
+        <div class="ch-num">Chapitre 3</div>
+        <h4>Matériaux hybrides</h4>
+        <p>L'hybridation organique-inorganique abolit les frontières disciplinaires et crée un nouveau continent chimique.</p>
+      </div>
+      <div class="chapter-card" onclick="switchTab('details')">
+        <div class="ch-num">Chapitre 4</div>
+        <h4>Architecture NBB</h4>
+        <p>Les nanobuilding blocks : du chimiste-alchimiste au chimiste-architecte de la matière.</p>
+      </div>
+      <div class="chapter-card" onclick="switchTab('details')">
+        <div class="ch-num">Chapitre 5</div>
+        <h4>Matière hiérarchique</h4>
+        <p>L'auto-assemblage multi-échelles : quand la matière s'organise sur cinq ordres de grandeur.</p>
+      </div>
+      <div class="chapter-card" onclick="switchTab('details')">
+        <div class="ch-num">Chapitre 6</div>
+        <h4>Bioinspiration</h4>
+        <p>La nature comme ingénieur de la matière — nacre, os, bois : des modèles de complexité structurale.</p>
+      </div>
+      <div class="chapter-card" onclick="switchTab('details')">
+        <div class="ch-num">Chapitre 7</div>
+        <h4>Chimie intégrative</h4>
+        <p>L'intégration de fonctions multiples dans des architectures unifiées — la matière comme système.</p>
+      </div>
+      <div class="chapter-card" onclick="switchTab('details')">
+        <div class="ch-num">Chapitre 8</div>
+        <h4>Intelligence matérielle</h4>
+        <p>Matériaux adaptatifs, auto-réparants, répondants — quand le matériau « pense ».</p>
+      </div>
+      <div class="chapter-card" onclick="switchTab('details')">
+        <div class="ch-num" style="color:var(--red);">Chapitre 9</div>
+        <h4>Limites et échecs</h4>
+        <p>Regard critique : les promesses non tenues, le scale-up impossible, les angles morts du programme.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-details">
+    <div style="margin-bottom:2rem;">
+      <h3>1. Le paradigme compositionnel et ses limites</h3>
+      <p>La chimie du solide classique, héritière de la métallurgie, pense la matière par sa composition. Le diagramme de phases — invention thermodynamique majeure — associe à chaque combinaison (T, P, x) une phase unique. Ce cadre, extraordinairement fécond, a produit les semi-conducteurs, les supraconducteurs, les céramiques techniques. Mais il repose sur un postulat implicite : la matière est d'abord substance, définie par ses constituants. Bachelard parlerait d'obstacle substantialiste.</p>
+
+      <h3>2. La révolution sol-gel : quand le procédé fait le matériau</h3>
+      <p>Le procédé sol-gel, développé par Livage et systématisé par Brinker et Scherer, introduit un renversement majeur. En travaillant à basse température, en solution, les réactions d'hydrolyse et de polycondensation ne sont pas à l'équilibre : elles sont gouvernées par la cinétique. Le même précurseur Si(OR)₄ peut donner un gel dense ou poreux, un film mince ou un aérogel, selon les conditions de synthèse. La matière garde la mémoire de son procédé — c'est la « mémoire du gel » de Livage.</p>
+
+      <h3>3. Matériaux hybrides organique-inorganique : l'abolition des frontières</h3>
+      <p>L'hybridation organique-inorganique représente une transgression disciplinaire fondamentale. Les classes I et II de Sanchez établissent une taxonomie selon la nature de l'interface. Mais au-delà de la classification, c'est le concept même de matériau qui change : la dualité organique/minéral, héritée de Berzelius, est abolie au profit d'un continuum.</p>
+
+      <h3>4. L'architecture des nanobuilding blocks</h3>
+      <p>L'approche NBB franchit un seuil qualitatif : on ne synthétise plus le matériau, on le construit. Les briques — clusters d'oxo-polymétalliques, nanoparticules, POSS, cages moléculaires — sont des objets nanométriques préformés, fonctionnalisés, que le chimiste connecte par des liens contrôlés. C'est la logique du LEGO moléculaire, mais avec une richesse combinatoire considérable.</p>
+
+      <h3>5. Matière hiérarchique et auto-assemblage</h3>
+      <p>L'auto-assemblage — utilisant tensioactifs, copolymères à blocs, cristaux liquides comme agents structurants — permet de contrôler l'organisation de la matière sur plusieurs échelles simultanément. Du nanomètre (pore) au micromètre (domaine) au millimètre (forme macroscopique), la matière hiérarchique reproduit la logique de la nature.</p>
+
+      <h3>6. Bioinspiration : la nature comme modèle d'architecture</h3>
+      <p>La nacre, l'os, le bois, la diatomée — autant de matériaux biologiques qui surpassent en performance leurs équivalents synthétiques, avec des compositions chimiques banales (CaCO₃, hydroxyapatite, cellulose, silice). Le secret : l'architecture multi-échelle, le contrôle des interfaces, l'organisation hiérarchique. La chimie douce est la seule chimie capable d'approcher cette complexité organisationnelle.</p>
+
+      <h3>7. Chimie intégrative : la matière comme système</h3>
+      <p>La chimie intégrative, proposée par Nicole et Sanchez, marque l'aboutissement conceptuel du programme. Il ne s'agit plus de synthétiser un matériau ayant une propriété, mais de concevoir un système matériel intégrant des fonctions multiples (optique, mécanique, catalytique, électronique) dans une architecture cohérente. Le passage de la propriété à la fonction, puis de la fonction au système.</p>
+
+      <h3>8. L'intelligence matérielle</h3>
+      <p>Les matériaux adaptatifs — auto-réparants, auto-nettoyants, à mémoire de forme, répondants aux stimuli — posent une question épistémologique fascinante : peut-on parler d'intelligence sans cognition ? Ces matériaux « sentent » (captent un signal), « décident » (transforment le signal en réponse) et « agissent » (changent de propriété). Une forme primitive d'intelligence matérielle qui trouble les frontières entre vivant et inerte.</p>
+
+      <h3 style="color:var(--red);">9. Limites, échecs et angles morts</h3>
+      <p>Toute révolution scientifique a ses zones d'ombre. Le scale-up industriel reste le talon d'Achille de la chimie douce : la plupart des matériaux développés en laboratoire ne franchissent jamais le stade pilote. La reproductibilité est souvent problématique. La complexité architecturale, vantée comme un atout, se révèle un obstacle à la production de masse. Certaines promesses — les matériaux auto-réparants généralisés, les cellules solaires hybrides compétitives — tardent à se concrétiser.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACTORS ============ -->
+<section id="acteurs" class="fade-in">
+  <h2>Les acteurs de la révolution douce</h2>
+  <div class="divider"></div>
+  <p class="section-intro">Un réseau international de chimistes, physiciens et théoriciens dont les travaux convergent vers une nouvelle science de la matière organisée.</p>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchActors('france')">École française</button>
+    <button class="tab-btn" onclick="switchActors('international')">International</button>
+    <button class="tab-btn" onclick="switchActors('philosophes')">Philosophes & théoriciens</button>
+  </div>
+
+  <div class="tab-panel active" id="actors-france">
+    <div class="scientists-grid">
+      <div class="scientist-card">
+        <div class="name">Jacques Livage</div>
+        <div class="country">France — Collège de France</div>
+        <div class="contribution">Père fondateur de la chimie douce. Procédé sol-gel, gels de vanadium, concept de « mémoire du gel ». A nommé et conceptualisé le champ.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Clément Sanchez</div>
+        <div class="country">France — Collège de France</div>
+        <div class="contribution">Matériaux hybrides organique-inorganique, classification I/II, nanobuilding blocks, chimie intégrative. Successeur de Livage à la chaire.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Rénal Backov</div>
+        <div class="country">France — CRPP Bordeaux</div>
+        <div class="contribution">Mousses et matériaux hiérarchiques multi-échelles. Architectures cellulaires biomimétiques, matière à porosité contrôlée.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Lionel Nicole</div>
+        <div class="country">France — Sorbonne Université</div>
+        <div class="contribution">Co-concepteur de la chimie intégrative. Films minces fonctionnels, capteurs sol-gel, matériaux pour l'énergie.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">David Grosso</div>
+        <div class="country">France — Aix-Marseille</div>
+        <div class="contribution">Procédé EISA, films minces mésostructurés, nanostructuration par auto-assemblage induit par évaporation.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Gérard Férey</div>
+        <div class="country">France — Institut Lavoisier</div>
+        <div class="contribution">Créateur des MIL (Matériaux de l'Institut Lavoisier). Solides poreux hybrides à porosité géante (MIL-101).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="actors-international">
+    <div class="scientists-grid">
+      <div class="scientist-card">
+        <div class="name">C. Jeffrey Brinker</div>
+        <div class="country">États-Unis — Sandia / UNM</div>
+        <div class="contribution"><em>Sol-Gel Science</em> (1990) avec Scherer. Systématisation du procédé sol-gel. Films auto-assemblés.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Galen Stucky</div>
+        <div class="country">États-Unis — UCSB</div>
+        <div class="contribution">Auto-assemblage coopératif, silices mésoporeuses SBA-15, extension aux oxydes non-siliciques.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Geoffrey Ozin</div>
+        <div class="country">Canada — Toronto</div>
+        <div class="contribution">« Nanochimie » comme discipline. Matériaux photoniques, cristaux colloïdaux, biominéralisation artificielle.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Omar Yaghi</div>
+        <div class="country">États-Unis — UC Berkeley</div>
+        <div class="contribution">Inventeur des MOFs (Metal-Organic Frameworks) et des COFs. Chimie réticulaire : design rationnel de réseaux cristallins poreux.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Susumu Kitagawa</div>
+        <div class="country">Japon — Kyoto</div>
+        <div class="contribution">Pionnnier des « coordination polymers » poreux. Développement parallèle et indépendant des MOFs.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Stephen Mann</div>
+        <div class="country">Royaume-Uni — Bristol</div>
+        <div class="contribution">Biominéralisation, morphosynthèse, matériaux bioinspirés. Pont entre chimie douce et biologie.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Makoto Fujita</div>
+        <div class="country">Japon — Tokyo</div>
+        <div class="contribution">Auto-assemblage de cages et sphères moléculaires par coordination métallo-organique.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Markus Antonietti</div>
+        <div class="country">Allemagne — MPI Colloids</div>
+        <div class="contribution">Matériaux carbonés mésoporeux, chimie colloïdale, nitrure de carbone graphitique pour la photocatalyse.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="actors-philosophes">
+    <div class="scientists-grid">
+      <div class="scientist-card">
+        <div class="name">Gaston Bachelard</div>
+        <div class="country">France — Philosophie des sciences</div>
+        <div class="contribution">Concept d'obstacle épistémologique. Le « substantialisme » comme obstacle à la compréhension de la matière organisée.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Thomas Kuhn</div>
+        <div class="country">États-Unis — Philosophie des sciences</div>
+        <div class="contribution">Théorie des paradigmes et des révolutions scientifiques. La chimie douce comme changement de paradigme.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Imre Lakatos</div>
+        <div class="country">Hongrie/Royaume-Uni</div>
+        <div class="contribution">Programmes de recherche. La chimie douce comme programme progressif vs. le programme dégénératif de la chimie du solide classique.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Herbert Simon</div>
+        <div class="country">États-Unis — Sciences de la complexité</div>
+        <div class="contribution"><em>The Architecture of Complexity</em> (1962). Les systèmes hiérarchiques quasi-décomposables — modèle pour les matériaux hybrides.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Ilya Prigogine</div>
+        <div class="country">Belgique</div>
+        <div class="contribution">Structures dissipatives, thermodynamique hors équilibre. Fondement théorique de l'auto-organisation en chimie douce.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Pierre-Gilles de Gennes</div>
+        <div class="country">France — Collège de France</div>
+        <div class="contribution">Physique de la matière molle. Cadre théorique pour les interfaces, polymères, colloïdes — la physique de la chimie douce.</div>
+      </div>
+      <div class="scientist-card">
+        <div class="name">Jean-Marie Lehn</div>
+        <div class="country">France — Nobel 1987</div>
+        <div class="contribution">Chimie supramoléculaire. Auto-assemblage dirigé par l'information moléculaire — pont conceptuel avec la chimie douce.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BIBLIOMETRICS ============ -->
+<section id="bibliometrie" class="fade-in">
+  <h2>Empreinte bibliométrique</h2>
+  <div class="divider"></div>
+  <p class="section-intro">Données quantitatives sur l'essor du champ : publications, citations, répartition géographique.</p>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-num" data-target="85000">0</span>
+      <div class="stat-label">Publications « sol-gel »<br>(Web of Science, 1970–2024)</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="48000">0</span>
+      <div class="stat-label">Publications « hybrid materials »<br>(1990–2024)</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="72000">0</span>
+      <div class="stat-label">Publications « MOF »<br>(1999–2024)</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-target="15">0</span>
+      <div class="stat-label">Prix Nobel liés<br>(supramoléculaire, matière molle...)</div>
+    </div>
+  </div>
+
+  <h3>Répartition par domaine d'application</h3>
+  <div class="bar-chart" id="barChart">
+    <div class="bar-row">
+      <span class="bar-label">Énergie</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="--target-width:85%; background: linear-gradient(90deg, var(--accent), var(--accent-light));">85%</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Catalyse</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="--target-width:78%; background: linear-gradient(90deg, var(--blue), var(--blue-light));">78%</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Optique</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="--target-width:62%; background: linear-gradient(90deg, var(--green), #8ce8b8);">62%</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Biomédical</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="--target-width:55%; background: linear-gradient(90deg, var(--purple), #b88ce8);">55%</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Environnement</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="--target-width:48%; background: linear-gradient(90deg, var(--red), #e88c8c);">48%</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Électronique</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="--target-width:40%; background: linear-gradient(90deg, #c8c86c, #e8e88c);">40%</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Répartition géographique des publications</h3>
+  <div class="bar-chart" id="geoChart">
+    <div class="bar-row">
+      <span class="bar-label">Chine</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="--target-width:35%; background: linear-gradient(90deg, var(--red), #e88c8c);">35%</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">États-Unis</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="--target-width:22%; background: linear-gradient(90deg, var(--blue), var(--blue-light));">22%</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Europe</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="--target-width:25%; background: linear-gradient(90deg, var(--accent), var(--accent-light));">25%</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Japon/Corée</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="--target-width:12%; background: linear-gradient(90deg, var(--green), #8ce8b8);">12%</div>
+      </div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Autres</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="--target-width:6%; background: linear-gradient(90deg, var(--purple), #b88ce8);">6%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIMITS ============ -->
+<section id="limites" class="fade-in">
+  <h2>Limites et angles morts</h2>
+  <div class="divider"></div>
+  <p class="section-intro">Une épistémologie critique ne peut éluder les faiblesses du programme. Cinq défis majeurs persistent.</p>
+
+  <div class="limit-item">
+    <h4>Le problème du scale-up</h4>
+    <p>La plupart des matériaux issus de la chimie douce restent confinés au laboratoire. Le passage à l'échelle industrielle se heurte à la sensibilité extrême des procédés aux conditions de synthèse. Ce qui fonctionne dans un bécher de 100 mL ne se transpose pas dans un réacteur de 1000 litres. L'écart entre la promesse académique et la réalité industrielle reste considérable.</p>
+  </div>
+  <div class="limit-item">
+    <h4>La crise de la reproductibilité</h4>
+    <p>La richesse paramétrique de la chimie douce — pH, température, concentration, humidité, vieillissement — est aussi sa malédiction. La reproductibilité d'un matériau sol-gel entre deux laboratoires, voire entre deux expérimentateurs du même laboratoire, est souvent problématique. La « mémoire du gel » signifie aussi que chaque synthèse est, en un sens, unique.</p>
+  </div>
+  <div class="limit-item">
+    <h4>L'effet de mode bibliométrique</h4>
+    <p>Le champ souffre d'un emballement bibliométrique : l'explosion des publications sur les MOFs, les pérovskites hybrides ou les matériaux auto-réparants obéit parfois plus à la logique du publish or perish qu'à une progression réelle des connaissances. Le taux de citation élevé masque parfois un recyclage conceptuel.</p>
+  </div>
+  <div class="limit-item">
+    <h4>Le « gap » théorique</h4>
+    <p>La chimie douce reste empirique pour l'essentiel. Il n'existe pas de théorie prédictive permettant de concevoir rationnellement un matériau hybride à partir du cahier des charges. La relation structure-propriété, malgré les progrès de la modélisation, reste largement phénoménologique. Le machine learning pourrait combler ce gap, mais il n'a pas encore produit de percée conceptuelle.</p>
+  </div>
+  <div class="limit-item">
+    <h4>La question environnementale</h4>
+    <p>Paradoxalement, la chimie « douce » n'est pas toujours verte. Les solvants organiques, les précurseurs métallo-organiques, les tensioactifs utilisés comme templates posent des problèmes environnementaux. L'analyse de cycle de vie des matériaux issus de la chimie douce reste rarement favorable à grande échelle.</p>
+  </div>
+</section>
+
+<!-- ============ CONCLUSION ============ -->
+<section id="conclusion" class="fade-in">
+  <h2>Conclusion : un changement de paradigme inachevé</h2>
+  <div class="divider"></div>
+
+  <div class="quote-block">
+    <p>La chimie douce a accompli une révolution silencieuse : elle a transformé la matière d'objet passif en système actif, de substance en architecture, de résultat en processus.</p>
+    <span class="author">— Thèse de l'essai</span>
+  </div>
+
+  <p>En un demi-siècle, la chimie douce a déplacé le centre de gravité de la science des matériaux. Le matériau n'est plus une substance définie par une formule, mais un système organisé défini par son architecture multi-échelle, son procédé d'élaboration et ses fonctions intégrées. Ce déplacement — de la substance au système — constitue un authentique changement de paradigme au sens de Kuhn.</p>
+
+  <p>Mais c'est un paradigme inachevé. La théorie manque encore à cette science empiriquement riche. Le transfert industriel reste l'exception. Et la question fondamentale — comment la complexité organisée émerge-t-elle de composants simples ? — reste ouverte, au carrefour de la chimie, de la physique et de la biologie.</p>
+
+  <p>C'est peut-être là la contribution la plus profonde de la chimie douce à l'épistémologie des sciences de la matière : avoir montré que la matière est d'abord une question d'organisation — et que comprendre cette organisation exige de dépasser les frontières disciplinaires pour penser en termes de systèmes.</p>
+
+  <div class="quote-block" style="border-left-color: var(--blue);">
+    <p>La matière n'est pas ce dont les choses sont faites, mais la manière dont elles sont organisées.</p>
+    <span class="author">— Leçon épistémologique de la chimie douce</span>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <p class="colophon">De la matière comme substance à la matière comme système</p>
+  <p>Essai d'épistémologie critique de la chimie douce &middot; Collège de France</p>
+  <p style="margin-top:1rem; font-size:0.75rem; color: #555;">Site interactif généré à partir de l'essai V4 (35 pages, 220 paragraphes, 28 notes, 56 références)</p>
+</footer>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+// ---- NAV VISIBILITY ----
+const nav = document.getElementById('nav');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  nav.classList.toggle('visible', y > window.innerHeight * 0.6);
+  lastScroll = y;
+});
+
+// ---- NAV ACTIVE LINK ----
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 200) current = s.id;
+  });
+  navLinks.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+});
+
+// ---- FADE IN OBSERVER ----
+const fadeObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in, .tl-item').forEach(el => fadeObs.observe(el));
+
+// ---- PARADIGM SHIFTS ----
+let activeShift = null;
+function toggleShift(n) {
+  document.querySelectorAll('.shift-card').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.shift-detail').forEach(d => d.classList.remove('visible'));
+  if (activeShift === n) { activeShift = null; return; }
+  activeShift = n;
+  document.querySelector(`.shift-card[data-shift="${n}"]`).classList.add('active');
+  document.getElementById(`shift-detail-${n}`).classList.add('visible');
+}
+
+// ---- TIMELINE FILTER ----
+function filterTimeline(epoch) {
+  document.querySelectorAll('.epoch-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.tl-item').forEach(item => {
+    if (epoch === 'all' || item.dataset.epoch === epoch) {
+      item.style.display = '';
+      setTimeout(() => item.classList.add('visible'), 50);
+    } else {
+      item.style.display = 'none';
+      item.classList.remove('visible');
+    }
+  });
+}
+
+// ---- TABS ----
+function switchTab(tab) {
+  document.querySelectorAll('#chapitres .tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#chapitres .tab-panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById(`tab-${tab}`).classList.add('active');
+}
+
+function switchActors(tab) {
+  document.querySelectorAll('#acteurs .tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#acteurs .tab-panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById(`actors-${tab}`).classList.add('active');
+}
+
+// ---- BAR CHART ANIMATION ----
+const barObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.bar-fill').forEach((bar, i) => {
+        setTimeout(() => bar.classList.add('animated'), i * 150);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.bar-chart').forEach(c => barObs.observe(c));
+
+// ---- COUNTER ANIMATION ----
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !e.target.dataset.counted) {
+      e.target.dataset.counted = 'true';
+      const nums = e.target.querySelectorAll('.stat-num[data-target]');
+      nums.forEach(num => {
+        const target = parseInt(num.dataset.target);
+        const duration = 2000;
+        const start = performance.now();
+        function tick(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(target * eased);
+          num.textContent = target > 1000 ? current.toLocaleString('fr-FR') : current;
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.stats-bar').forEach(s => counterObs.observe(s));
+</script>
+<script type="module" src="./nav.js?v=essay-navigation-20261121"></script>
+</body>
+</html>

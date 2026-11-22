@@ -1,0 +1,141 @@
+/* Chimie douce / single-scene reference treatment.
+   Scope: interactive 3D atlas only. Preserve existing navigation, cards, pages and typography elsewhere. */
+#laboratoire.workspace{
+  display:grid;grid-template-columns:clamp(235px,19vw,284px) minmax(0,1fr)!important;
+  background:#10231b!important;color:#f4efe2!important
+}
+#laboratoire .sidebar{grid-column:1!important;grid-row:1!important;background:#0e211b!important;border-right:1px solid #9c9c7959!important;color:#eee5cf!important}
+#laboratoire .sidebar-header{background:transparent!important}
+#laboratoire .sidebar-header h1{color:#f2e8d6!important}
+#laboratoire .sidebar-header p{color:#c7d1bf!important}
+#laboratoire .scene-item{border-radius:0!important}
+#laboratoire .scene-item.active{background:#284232!important;color:#f3e4c5!important;border-left:2px solid #d4b37c!important}
+#laboratoire .scene-item .t{color:#eee6d9!important}
+#laboratoire .scene-item .s{color:#aec0ad!important}
+#laboratoire .catalog-caption,#laboratoire .sidebar-footer{color:#e4d5b4!important}
+#laboratoire .main{grid-column:2!important;grid-row:1!important;min-width:0!important;background:#f4efe3!important}
+#laboratoire .atlas-tools{
+ background:#15271f!important;border-bottom:1px solid #a9a27b6b!important;
+ color:#ebdfcb!important;min-height:62px;display:flex;gap:12px;align-items:center;padding:10px 24px!important
+}
+#laboratoire .atlas-tools button{border:1px solid #a7a68999!important;border-radius:3px!important;color:#f0e8d7!important;background:#233729!important;font-size:11px!important}
+#laboratoire .atlas-tools button:hover{background:#43513a!important}
+#laboratoire .stage{
+ height:clamp(600px,73vh,860px)!important;min-height:600px!important;
+ background:radial-gradient(ellipse at 70% 47%,#3c614739,#182c21 54%,#0a1b13 95%)!important;
+ position:relative!important;overflow:hidden!important;isolation:isolate
+}
+#laboratoire .stage:before{
+ content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+ background:linear-gradient(90deg,#0d211ae5 0%,#10251dd1 19%,#142c1e66 36%,transparent 66%),
+ radial-gradient(ellipse at 76% 35%,#dcc69e15,transparent 58%)!important
+}
+#laboratoire .stage:after{
+ content:"";position:absolute;inset:0;pointer-events:none;z-index:2;opacity:.13;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.42' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.3'/%3E%3C/svg%3E")
+}
+#laboratoire #viewport{position:absolute!important;inset:0!important;z-index:1!important;touch-action:none}
+#laboratoire #viewport canvas{display:block;width:100%;height:100%;filter:saturate(.91) contrast(1.05)}
+#laboratoire .stage-head{
+ top:32px!important;left:34px!important;right:30px!important;z-index:5!important;
+ color:#e1d5bd!important
+}
+#laboratoire .stage-head .eyebrow,#laboratoire .stage-meta{
+ color:#d8c6a4!important;font-size:11px!important;letter-spacing:.12em!important
+}
+#laboratoire .stage-overlay{
+ left:clamp(28px,4vw,64px)!important;bottom:auto!important;top:28%!important;
+ width:min(40%,380px);display:block!important;z-index:5!important;
+ pointer-events:none!important
+}
+#laboratoire .scene-num{
+ min-width:0!important;font:italic 400 clamp(72px,6vw,104px)/.82 'Instrument Serif',Georgia,serif!important;
+ color:#d9b681!important;text-shadow:0 3px 20px #071811!important;
+ margin-bottom:26px!important
+}
+#laboratoire .stage-overlay .eyebrow{color:#e4c691!important;font-size:11px!important;letter-spacing:.16em!important}
+#laboratoire .stage-overlay h2{
+ margin:12px 0 14px!important;font:400 clamp(47px,4.6vw,77px)/1.03 'Instrument Serif',Georgia,serif!important;
+ color:#faf5e9!important;letter-spacing:-.045em!important;text-shadow:0 2px 19px #08160fcc!important;
+ overflow-wrap:normal!important;text-wrap:balance
+}
+#laboratoire .stage-overlay p{
+ font:italic 400 clamp(17px,1.55vw,24px)/1.37 'Instrument Serif',Georgia,serif!important;
+ color:#e1dfd0!important;max-width:28ch!important
+}
+#laboratoire .controls-bottom{
+ left:clamp(24px,3.5vw,52px)!important;right:clamp(24px,3.5vw,52px)!important;
+ bottom:25px!important;z-index:6!important;align-items:center!important;
+ border-top:1px solid #e6d8b754!important;padding-top:16px;gap:15px
+}
+#laboratoire .view-tools{gap:8px;flex-wrap:wrap}
+#laboratoire .view-tools button{
+ border-radius:3px!important;color:#f4e9d7!important;background:#1d3227e8!important;
+ border:1px solid #d6c89e91!important;min-height:43px;
+ font:500 12px 'DM Sans',sans-serif!important;padding:10px 14px!important
+}
+#laboratoire .view-tools button:hover{color:#19291f!important;background:#dec59c!important}
+#laboratoire .drag-hint{color:#dfdfce!important;font-size:10px!important}
+#laboratoire .stage-grain{opacity:.035!important}
+#laboratoire .label3d{
+ border:1px solid #ddc497b5!important;border-radius:3px!important;
+ background:#14271fd9!important;color:#fff0d1!important;
+ padding:7px 10px!important;font:italic 13px 'Instrument Serif',Georgia,serif!important;
+ box-shadow:0 4px 19px #07181188!important
+}
+#laboratoire .lower{
+ display:grid!important;grid-template-columns:minmax(0,42fr) minmax(0,58fr)!important;
+ background:#f0e9dc!important;color:#22372a!important;border-top:1px solid #baa989!important
+}
+#laboratoire .lower-left{background:#eee7d8!important;border-color:#c5b7a0!important}
+#laboratoire .lower-right{background:#f5efdf!important;color:#273a2d!important}
+#laboratoire .lower .lower-header{border-color:#bbae95!important}
+#laboratoire .lower .eyebrow,#laboratoire .lower .f-label{color:#775e40!important}
+#laboratoire .lower h3{color:#273c2d!important;font:400 clamp(32px,3vw,45px)/1.09 'Instrument Serif',Georgia,serif!important}
+#laboratoire .lower p,#laboratoire .lower .f-text{color:#384b3b!important;line-height:1.65!important;font-size:13px!important}
+#laboratoire .lower input[type=range]{accent-color:#aa8755}
+#laboratoire .inspector{
+ grid-column:1 / -1!important;grid-row:2!important;display:grid!important;
+ grid-template-columns:minmax(0,220px) minmax(0,1fr) minmax(220px,28%)!important;
+ background:#e8e5d7!important;color:#253b2d!important;border-top:1px solid #b9baa5!important
+}
+#laboratoire .inspector-head{padding:25px!important;color:#394f3c!important;border-right:1px solid #c5c5af!important}
+#laboratoire #inspectorContent{padding:0 22px!important}
+#laboratoire .inspector-bottom{margin:0!important;border-left:1px solid #c5c5af!important;padding:25px!important}
+#laboratoire .inspector .eyebrow{color:#795e42!important}
+#laboratoire .inspector .big-title{font-family:'Instrument Serif',Georgia,serif!important;color:#243a2e!important;font-size:35px!important}
+#laboratoire .inspector :is(p,.inspect-point){color:#455a49!important}
+@media(max-width:1040px){
+ #laboratoire.workspace{grid-template-columns:220px minmax(0,1fr)!important}
+ #laboratoire .stage-overlay{width:45%;top:32%!important}
+ #laboratoire .stage-overlay h2{font-size:48px!important}
+ #laboratoire .inspector{grid-template-columns:200px 1fr!important}
+ #laboratoire .inspector-bottom{grid-column:1/-1;border-top:1px solid #c5c5af!important;border-left:0!important}
+}
+@media(max-width:750px){
+ #laboratoire.workspace{display:block!important}
+ #laboratoire .sidebar{position:fixed!important;z-index:31!important;top:61px!important;width:min(82vw,330px)!important}
+ #laboratoire .stage{display:flex!important;flex-direction:column!important;height:auto!important;min-height:0!important}
+ #laboratoire #viewport{position:relative!important;height:clamp(320px,52dvh,500px)!important;order:1!important;inset:auto!important;flex:none}
+ #laboratoire .stage:before{background:linear-gradient(0deg,#11221944,transparent 55%)!important}
+ #laboratoire .stage-head{top:16px!important;left:17px!important;right:17px!important}
+ #laboratoire .stage-overlay{
+  position:relative!important;order:2!important;top:auto!important;left:auto!important;bottom:auto!important;
+  width:100%!important;max-width:none!important;padding:17px 23px 12px!important;background:#14291e!important
+ }
+ #laboratoire .scene-num{font-size:58px!important;margin-bottom:14px!important}
+ #laboratoire .stage-overlay h2{font-size:45px!important}
+ #laboratoire .stage-overlay p{font-size:19px!important}
+ #laboratoire .controls-bottom{
+  position:relative!important;order:3!important;left:auto!important;right:auto!important;
+  bottom:auto!important;padding:14px 20px 22px!important;background:#14291e!important;
+  flex-direction:column!important;align-items:flex-start!important
+ }
+ #laboratoire .view-tools button span{display:inline!important}
+ #laboratoire .drag-hint{display:none!important}
+ #laboratoire .lower{display:block!important}
+ #laboratoire .inspector{display:block!important}
+ #laboratoire #inspectorContent{padding:0 18px!important}
+ #laboratoire .inspector-bottom{padding:24px!important}
+}
+@media(prefers-reduced-motion:reduce){#laboratoire .view-tools button{transition:none!important}}

@@ -1,0 +1,90 @@
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {SCENES,GROUPS,SOURCES,byId,timefmt,videoAt,VIDEO} from './content.js';
+import {FIGURES} from './figures.js';
+import {buildModel,disposeModel,C} from './scenes.js';
+import {parseStructure,setImportedStructure,getImportedStructure} from './structure.js';
+
+const $=(id)=>document.getElementById(id);
+const escapeHtml=s=>String(s).replace(/[&<>"']/g,k=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[k]));
+const DATA={values:{},scene:SCENES[0],paused:false,labels:true,visible:true,model:null,elapsed:0,last:performance.now(),frames:0,lastFPS:performance.now(),dialog:'',renderer:null,camera:null,controls:null};
+const modelViewport=$('viewport');const canvas=document.createElement('canvas');canvas.setAttribute('aria-hidden','true');
+let renderer,scene,camera,controls,lighting,resizeObserver;const mount=new THREE.Group();
+try{
+ renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,preserveDrawingBuffer:true,powerPreference:'high-performance'});
+ renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.17;renderer.setSize(modelViewport.clientWidth,modelViewport.clientHeight,false);
+ scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x091a27,.018);scene.add(mount);camera=new THREE.PerspectiveCamera(39,1,.05,200);camera.position.set(8,6.6,10.3);
+ controls=new OrbitControls(camera,canvas);controls.enableDamping=true;controls.dampingFactor=.055;controls.minDistance=4.3;controls.maxDistance=23;controls.maxPolarAngle=Math.PI*.93;controls.target.set(0,0,0);controls.update();
+ scene.add(new THREE.HemisphereLight(0xc8ebf4,0x203241,1.9));let key=new THREE.DirectionalLight(0xffddad,3.7);key.position.set(5,8,7);scene.add(key);let rim=new THREE.PointLight(0x6cc3d6,60,30);rim.position.set(-6,-1,-3);scene.add(rim);
+ modelViewport.append(canvas);$('loading').remove();DATA.renderer=renderer;DATA.camera=camera;DATA.controls=controls;
+}catch(e){$('loading').innerHTML='<strong>WebGL indisponible</strong><span>Activez l’accélération matérielle de votre navigateur.</span>';console.error(e)}
+
+function renderList(filter=''){
+ const list=$('sceneList'),previousScroll=list.scrollTop;
+ const term=filter.trim().toLocaleLowerCase('fr');const matching=SCENES.filter(x=>(x.title+' '+x.subtitle+' '+x.group+' '+x.intro).toLocaleLowerCase('fr').includes(term));
+ $('sceneCounter').textContent=String(matching.length).padStart(2,'0')+' / '+SCENES.length;
+ $('sceneList').innerHTML=GROUPS.map(g=>{const matches=matching.filter(x=>x.group===g);if(!matches.length)return '';return '<div class="group-title">'+escapeHtml(g)+'</div>'+matches.map(x=>'<button class="scene-item '+(DATA.scene.id===x.id?'active':'')+'" data-scene="'+x.id+'" aria-current="'+(DATA.scene.id===x.id?'true':'false')+'"><span class="n">'+x.n+'</span><span><span class="t">'+escapeHtml(x.title)+'</span><span class="s">'+escapeHtml(x.subtitle)+'</span></span></button>').join('')}).join('')||'<p class="inspect-desc" style="padding:20px">Aucun modèle correspondant.</p>';
+ list.scrollTop=previousScroll;
+ list.querySelectorAll('[data-scene]').forEach(el=>el.addEventListener('click',()=>{
+   selectScene(el.dataset.scene);
+   setMobileCatalogueOpen(false);
+ }));
+}
+function setMobileCatalogueOpen(open){
+ const drawer=$('sidebar'),toggle=$('mobileMenu');
+ drawer.classList.toggle('open',open);
+ toggle.setAttribute('aria-expanded',String(open));
+ toggle.setAttribute('aria-controls','sidebar');
+ toggle.querySelector('span').textContent=open?'FERMER':'SCÈNES';
+}
+function keepActiveVisible(){
+ const list=$('sceneList'),active=list.querySelector('.scene-item.active');
+ if(!active)return;
+ const item=active.getBoundingClientRect(),viewport=list.getBoundingClientRect();
+ if(item.top<viewport.top)list.scrollTop-=viewport.top-item.top+12;
+ else if(item.bottom>viewport.bottom)list.scrollTop+=item.bottom-viewport.bottom+12;
+}
+function selectScene(id,preserveHash=false){const exhibit=byId[id]||SCENES[0];DATA.scene=exhibit;DATA.values=Object.fromEntries(exhibit.controls.map(x=>[x.key,x.value]));
+ $('stageChapter').textContent=exhibit.n+' / '+exhibit.group;$('stageType').textContent=exhibit.tag;$('scaleText').textContent=exhibit.scale;$('stageTitle').textContent=exhibit.title;$('stageTagline').textContent=exhibit.subtitle;$('sceneNum').textContent=exhibit.n;
+ $('contentTitle').textContent=exhibit.title+' — principe et limites';$('contentBody').textContent=exhibit.intro;$('sceneTime').textContent=timefmt(exhibit.time);$('timeLink').href=videoAt(exhibit.time);
+ $('scienceFacts').innerHTML=exhibit.facts.map(f=>'<div class="science-fact"><span class="f-label">'+escapeHtml(f[0])+'</span><span class="f-text">'+escapeHtml(f[1])+'</span></div>').join('');
+ $('modelStatus').textContent=exhibit.id==='structure'? getImportedStructure().warning : exhibit.type+'. Les valeurs des curseurs ne sont pas des résultats expérimentaux.';
+ $('parameterNote').textContent='Curseurs de représentation : aucune équation de transport ou de réaction n’est calibrée sur ces valeurs.';
+ $('controls').innerHTML=exhibit.controls.map(param=>{let pct=(param.value-param.min)/(param.max-param.min)*100;return '<div class="param-row"><label for="param-'+param.key+'">'+escapeHtml(param.label)+'<output id="out-'+param.key+'">'+param.value+escapeHtml(param.unit)+'</output></label><input type="range" id="param-'+param.key+'" data-key="'+param.key+'" min="'+param.min+'" max="'+param.max+'" step="'+param.step+'" value="'+param.value+'" style="--fill:'+pct+'%"></div>'}).join('');
+ let scheduled=false;$('controls').querySelectorAll('input').forEach(input=>input.addEventListener('input',()=>{const key=input.dataset.key;DATA.values[key]=Number(input.value);const param=exhibit.controls.find(x=>x.key===key);$('out-'+key).textContent=input.value+param.unit;input.style.setProperty('--fill',((input.value-param.min)/(param.max-param.min)*100)+'%');if(!scheduled){scheduled=true;requestAnimationFrame(()=>{scheduled=false;rebuild()})}}));
+ $('inspectorContent').innerHTML='<div class="inspect-body"><span class="eyebrow">QUESTIONS DE LA SCÈNE</span><h3 class="big-title">'+escapeHtml(exhibit.title)+'</h3><div class="inspect-section">'+exhibit.questions.map(q=>'<div class="inspect-point">'+escapeHtml(q)+'</div>').join('')+'</div><button type="button" class="source-action" id="inspectorResourceJump">VOIR LA SOURCE ORIGINALE, LES NOTIONS ET LES ARTICLES ↗</button></div>';
+ const jump=$('inspectorResourceJump');if(jump)jump.onclick=()=>document.getElementById('sceneResources')?.scrollIntoView({behavior:'smooth',block:'start'});
+ renderList($('search').value);keepActiveVisible();if(exhibit.id==='structure'){$('contentBody').textContent=getImportedStructure().warning+' Fichier : '+getImportedStructure().filename;}if(!preserveHash){history.replaceState(null,'','#'+exhibit.id);window.dispatchEvent(new Event('atlas:navigate'))}rebuild();resetCamera();
+}
+let currentLabelElements=[];const LABELS={solgel:[['Nœud du réseau',[1.3,1,.5]],['Condensation',[0,-1.8,1.8]]],cell:[['Enveloppe cellulaire',[1.15,1,0]],['ADN schématisé',[0,0,.5]]],encapsulation:[['Matrice hôte',[2.2,1.7,0]],['Cellule encapsulée',[0,-.8,1.4]]],concrete:[['Fissure',[0,1.5,1.3]],['CaCO₃',[.3,-1.4,1.2]]],ldh:[['Feuillet hydroxylé',[2.1,1,.6]],['Anions interfoliaires',[0,0,1.4]]],foam:[['Macropore',[1,1.2,1]],['Interconnexion',[-1,-1.1,1]]],mof:[['Nœud métallique',[1.4,1.6,1]],['Ligand organique',[-1.2,0,1]]],zif:[['Cristallites de surface',[1.9,1,0]],['Cellule protégée',[0,-.6,1.5]]],photo:[['Semi-conducteur',[-1.3,1.3,.9]],['Cellule métabolique',[1.3,-.7,.9]]],fuel:[['Anode',[ -3,0,1.6]],['Cathode',[3,0,1.6]]],print:[['Tête d’extrusion',[0,1.3,0]],['Dépôt stratifié',[0,-1.5,1.6]]],diatom:[['Frustule poreux',[.4,1.6,1]],['Architecture biologique',[0,-1.7,1]]],mycelium:[['Hyphe',[-1,1.5,1]],['Substrat',[0,-2.7,1]]],spore:[['Composite actif',[0,1,.5]],['Spores',[1,-.7,1]]],shield:[['Couche particulaire',[1.3,1.2,1]],['Cellule',[0,-.6,1.7]]],cryo:[['Cristaux illustratifs',[1.2,1,.6]],['Enveloppe biologique',[-1.2,-.9,1]]],cellulose:[['Nanofibrilles',[1,1.6,.5]]]} ;
+function clearLabels(){currentLabelElements.forEach(x=>x.el.remove());currentLabelElements=[]}
+function makeLabels(){clearLabels();(LABELS[DATA.scene.id]||[]).forEach(([label,coords])=>{const el=document.createElement('div');el.className='label3d';el.textContent=label;Object.assign(el.style,{position:'absolute',zIndex:'3',pointerEvents:'none',border:'1px solid rgba(120,200,205,.35)',background:'rgba(5,17,29,.77)',color:'#d3e6e5',font:'10px DM Mono, monospace',padding:'5px 8px',whiteSpace:'nowrap',transform:'translate(-50%,-50%)',backdropFilter:'blur(4px)'});modelViewport.append(el);currentLabelElements.push({el,v:new THREE.Vector3(...coords)})})}
+function drawLabels(){if(!camera||!renderer)return;const w=modelViewport.clientWidth,h=modelViewport.clientHeight;for(const item of currentLabelElements){item.el.style.display=DATA.labels?'block':'none';if(!DATA.labels)continue;const p=item.v.clone().project(camera);item.el.style.left=((p.x*.5+.5)*w)+'px';item.el.style.top=((-p.y*.5+.5)*h)+'px';item.el.style.opacity=p.z<0||p.z>1?0:1}}
+function rebuild(){if(!scene)return;const old=DATA.model;if(old){mount.remove(old.root);disposeModel(old.root)}try{DATA.model=buildModel(DATA.scene.id,DATA.values);mount.add(DATA.model.root);makeLabels();drawLabels()}catch(e){console.error('Model',e);$('modelStatus').textContent='Erreur du modèle — consulter la console du navigateur.'}}
+function resetCamera(){if(!controls)return;const specimen=DATA.scene?.id==='solgel'&&window.innerWidth>750;camera.position.set(specimen?9.2:8,specimen?5.6:6.2,specimen?12.6:10.4);controls.target.set(specimen?-1.35:0,0,0);controls.update()}
+function resize(){if(!renderer)return;const w=Math.max(1,modelViewport.clientWidth),h=Math.max(1,modelViewport.clientHeight);renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}
+function frame(t){requestAnimationFrame(frame);if(!renderer)return;const now=t/1000;const dt=Math.min(.08,(t-DATA.last)/1000||0);DATA.last=t;DATA.frames++;if(t-DATA.lastFPS>1400){$('fps').textContent=Math.round(DATA.frames*1000/(t-DATA.lastFPS))+' FPS';DATA.frames=0;DATA.lastFPS=t}if(!DATA.paused)DATA.elapsed+=dt;if(DATA.model&&!DATA.paused)DATA.model.tick(DATA.elapsed);controls.update();drawLabels();renderer.render(scene,camera)}
+function openDialog(type){const dialog=$('overlayDialog');const header=$('dialogKicker'),title=$('dialogTitle'),body=$('dialogBody');DATA.dialog=type;
+ if(type==='figures'){header.textContent='70 FIGURES / CONFÉRENCE DU 18 FÉVRIER 2020';title.textContent='Atlas chronologique';body.innerHTML='<p>70 points d’entrée vers les figures de la conférence. Les captures originales proviennent de l’enregistrement vidéo de 75 min 40 s. Les figures ne sont pas recopiées ici : chaque entrée ouvre le moment correspondant dans la vidéo source.</p><input class="dialog-filter" id="figureSearch" placeholder="Filtrer par titre, mécanisme ou chapitre…" aria-label="Filtrer les figures"><div class="figure-grid" id="figureGrid"></div>';const paint=()=>{const q=$('figureSearch').value.toLowerCase();$('figureGrid').innerHTML=FIGURES.filter(f=>(f.title+' '+f.chapter+' '+f.note).toLowerCase().includes(q)).map(f=>'<a target="_blank" rel="noopener noreferrer" class="figure-card" title="'+escapeHtml(f.note)+'" href="'+videoAt(f.time)+'"><b>FIG. '+String(f.id).padStart(2,'0')+' / '+timefmt(f.time)+'</b><span class="f-name">'+escapeHtml(f.title)+'</span><small>CAPTURE '+String(f.capture).padStart(5,'0')+' ↗</small></a>').join('')};$('figureSearch').addEventListener('input',paint);paint()}
+ else if(type==='methods'){header.textContent='MÉTHODE SCIENTIFIQUE';title.textContent='Ce que les modèles prouvent — et ne prouvent pas';body.innerHTML='<h3>Trois niveaux explicitement séparés</h3><p><b>1. Donnée primaire.</b> Les expériences, figures et chiffres sont attribuables à la vidéo originale et aux publications référencées. Chaque modèle comporte des liens directs vers les articles lorsqu’ils sont connus.</p><p><b>2. Schéma spatial.</b> Les scènes Three.js sont des interprétations géométriques : elles expliquent la topologie, les échelles et l’emplacement des interfaces, mais ne sont pas des reconstructions de microscopie, des fichiers CIF ni des calculs de dynamique moléculaire.</p><p><b>3. Animation.</b> Les curseurs manipulent des propriétés visuelles. Les trajectoires ne calculent ni diffusivité réelle ni rendement ; aucune prédiction de viabilité, de cristallisation ou d’électrochimie n’est produite.</p><h3>Matériaux de base</h3><p>Clément Sanchez, « Vers des matériaux hybrides vivants », Collège de France, 18 février 2020 ; transcription française et 454 captures de travail ; monographie documentaire de 16 chapitres, 70 figures sélectionnées ; essai interactif historique conservé dans le dépôt.</p><h3>Technologie</h3><p>Three.js r187 sur WebGL, OrbitControls et modèles procéduraux. Dépendance JavaScript chargée depuis jsDelivr : une connexion Internet est nécessaire. Le projet n’est pas affilié au Collège de France et n’utilise pas son logotype.</p>'}
+ else{header.textContent='GUIDE D’EXPLORATION';title.textContent='Bienvenue dans l’atlas';body.innerHTML='<p>Choisissez un laboratoire dans le panneau de gauche, faites tourner le modèle avec le pointeur, utilisez la molette pour changer le cadrage et ajustez les paramètres sous la scène.</p><h3>Raccourcis</h3><p><b>← →</b> changer de laboratoire · <b>espace</b> mettre en pause · <b>/</b> rechercher · <b>Échap</b> fermer la fenêtre.</p><h3>À lire avant toute interprétation</h3><p>Ce site est un atlas pédagogique en WebGL, non un moteur de simulation physicochimique. Consultez les sources scientifiques et les figures originales pour interpréter les résultats expérimentaux.</p>'}
+ dialog.showModal();}
+function setup(){
+ const catalogue=$('sceneList'),pane=$('sidebar');
+ const step=()=>Math.max(180,Math.round(catalogue.clientHeight*.73));
+ $('catalogUp').addEventListener('click',()=>catalogue.scrollBy({top:-step(),behavior:'smooth'}));
+ $('catalogDown').addEventListener('click',()=>catalogue.scrollBy({top:step(),behavior:'smooth'}));
+ pane.addEventListener('wheel',event=>{
+   if(event.ctrlKey||event.metaKey)return;
+   event.preventDefault();
+   catalogue.scrollTop+=event.deltaY;
+ },{passive:false});
+ renderList();const initial=window.location.hash.slice(1);selectScene(byId[initial]?initial:'solgel',!!initial);$('figureCount').textContent=String(FIGURES.length);$('search').addEventListener('input',e=>renderList(e.target.value));$('buttonAtlas').onclick=()=>{location.href='./planches/'};
+ $('buttonImport').onclick=()=>$('structureFile').click();
+ $('structureFile').addEventListener('change',async(e)=>{const file=e.target.files?.[0];if(!file)return;try{const data=parseStructure(file.name,await file.text());setImportedStructure(data);selectScene('structure');$('modelStatus').textContent=data.warning;$('contentBody').textContent=data.warning+' — '+data.atoms.length+' atomes. Source : '+data.filename;}catch(error){alert('Impossible de charger la structure : '+error.message)}finally{e.target.value=''}});
+$('buttonHelp').onclick=()=>openDialog('help');$('methodsLink').onclick=()=>openDialog('methods');$('openSources').onclick=()=>document.getElementById('sceneResources')?.scrollIntoView({behavior:'smooth',block:'start'});$('closeDialog').onclick=()=>$('overlayDialog').close();$('resetView').onclick=resetCamera;$('togglePlay').onclick=()=>{DATA.paused=!DATA.paused;$('togglePlay').innerHTML=DATA.paused?'▶ <span>Reprendre</span>':'Ⅱ <span>Pause</span>'};$('toggleLabels').onclick=()=>{DATA.labels=!DATA.labels;$('toggleLabels').style.color=DATA.labels?'':'#768995';drawLabels()};$('shot').onclick=()=>{if(!renderer)return;renderer.render(scene,camera);const a=document.createElement('a');a.download='chimie-douce-'+DATA.scene.id+'.png';a.href=canvas.toDataURL('image/png');a.click()};$('mobileMenu').onclick=()=>setMobileCatalogueOpen(!$('sidebar').classList.contains('open'));$('toggleInspector').onclick=()=>{$('inspector').style.display='none'};window.addEventListener('hashchange',()=>{const id=window.location.hash.slice(1);if(byId[id]&&id!==DATA.scene.id)selectScene(id,true)});
+ window.addEventListener('keydown',e=>{const textfield=['INPUT','TEXTAREA'].includes(document.activeElement?.tagName);if(e.key==='Escape'){setMobileCatalogueOpen(false);if($('overlayDialog').open)$('overlayDialog').close();return}if(e.key==='/'&&!textfield){e.preventDefault();$('search').focus();if(matchMedia('(max-width:750px)').matches)setMobileCatalogueOpen(true)}if(textfield||$('overlayDialog').open)return;const i=SCENES.findIndex(x=>x.id===DATA.scene.id);if(e.key==='ArrowRight')selectScene(SCENES[(i+1)%SCENES.length].id);if(e.key==='ArrowLeft')selectScene(SCENES[(i-1+SCENES.length)%SCENES.length].id);if(e.code==='Space'){e.preventDefault();$('togglePlay').click()}});
+ if(renderer){resizeObserver=new ResizeObserver(resize);resizeObserver.observe(modelViewport);requestAnimationFrame(frame);document.addEventListener('visibilitychange',()=>{DATA.last=performance.now()})}
+}
+window.__atlasBooted=true;
+setup();
