@@ -11,7 +11,7 @@ const LEGACY=Object.fromEntries(IDS.map(id=>[
   })
 ]));
 /* Scientific vector edition, drawn on cream stock. All original slides remain available. */
-const VECTOR_IDS=Object.freeze([1,2,3,4,5,6,8,9,10,47,48,49,50,52,57,58,59,60,61,62,63,64,65,66,67,68,69,70]);
+const VECTOR_IDS=Object.freeze([1,2,3,4,5,6,8,9,10,47,48,49,50,57,58,59,60,61,62,63,64,65,66,67,68,69,70]);
 const VECTOR_NOTES=Object.freeze({
  1:'Carte du cours : illustration conceptuelle sans hiérarchie expérimentale.',
  2:'Bactéries, archées et eucaryotes sont distincts ; la diversité biologique est schématisée.',
@@ -70,4 +70,4 @@ export const redesignedCount=()=>new Set([...IDS,...VECTOR_IDS,...Object.keys(RE
 export const detailedPlateCount=()=>new Set([...IDS,...Object.keys(REVIEWED).map(Number)]).size;
 export const schematicPlateCount=()=>VECTOR_IDS.filter(id=>!REVIEWED[id]).length;
 export const editorialPlateStatus=id=>([1,7].includes(Number(id))?'titre intégré à corriger':REVIEWED[id]?'illustration détaillée disponible':VECTOR_IDS.includes(Number(id))?'reconstruction schématique à reprendre':'illustration détaillée disponible');
-export const redesignedIds=()=>[...IDS,...VECTOR_IDS].sort((a,b)=>a-b);
+export const redesignedIds=()=>[...new Set([...IDS,...VECTOR_IDS,...Object.keys(REVIEWED).map(Number)])].sort((a,b)=>a-b);
