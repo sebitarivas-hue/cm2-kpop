@@ -1,0 +1,258 @@
+{
+  "schema_version": "0.1",
+  "status": "analyse_documentaire_sur_resume_officiel_pas_transcription_exhaustive",
+  "authoritative_source": {
+    "id": "cdf-inaugurale-2011",
+    "title": "Chimie des matériaux hybrides",
+    "author": "Clément Sanchez",
+    "date": "2011-02-10",
+    "type": "lecon_inaugurale",
+    "url": "https://www.college-de-france.fr/fr/agenda/lecon-inaugurale/chimie-des-materiaux-hybrides/chimie-des-materiaux-hybrides",
+    "source_section": "Résumé",
+    "media_page": "https://www.college-de-france.fr/fr/agenda/lecon-inaugurale/chimie-des-materiaux-hybrides/chimie-des-materiaux-hybrides",
+    "video_url": "https://www.youtube.com/watch?v=FoQOCi5CLKo",
+    "digital_book_url": "https://books.openedition.org/cdf/485",
+    "digital_book_access": "anti-bot, texte non directement consultable pour cet audit",
+    "audio_url": "présence visible sur la fiche ; fichier non téléchargé",
+    "usage_rights": "liens et paraphrases seulement ; réutilisation intégrale et illustrations à vérifier"
+  },
+  "interpreted_scope": "Structure conceptuelle établie par lecture du RÉSUMÉ OFFICIEL (2011), pas par transcription minute à minute ni par revue des planches originales de cette leçon.",
+  "evidence_levels": {
+    "source_evidence": "idee explicite dans le résumé officiel",
+    "followup_resume_detaille": "thème corroboré par le résumé institutionnel de la leçon postérieure",
+    "followup_titre": "proximité seulement au niveau du titre : vérification du contenu requise"
+  },
+  "axes": [
+    {
+      "id": "AX-01",
+      "title": "Qu'est-ce qu'un matériau hybride ?",
+      "source_locator": "Résumé — paragraphe sur le contraste entre propriétés organiques et minérales et leur couplage",
+      "source_evidence": "La cible n'est pas un simple mélange : l'association de propriétés et leurs interactions de surface sont centrales.",
+      "scientific_scope": "Cadre conceptuel ; ni composition précise, ni propriété quantitative, ni critère de performance unique ne sont fournis dans le résumé.",
+      "existing_concepts_candidate": [
+        "interface"
+      ],
+      "new_concepts_needed": [
+        "materiau_hybride",
+        "synergie_interfaciale",
+        "classe_I_classe_II"
+      ],
+      "proposed_followups": [
+        {
+          "id": "cdf-sanchez-2011a-01",
+          "official_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur",
+          "relation": "theme_elabore_dans_un_cours_posterieur",
+          "evidence_strength": "resume_detaille",
+          "evidence_summary": "La première séance définit explicitement deux familles selon les types d'interactions à l'interface."
+        },
+        {
+          "id": "cdf-sanchez-2011a-02",
+          "official_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/materiaux-lamellaires-hybridation-un-probleme-insertion",
+          "relation": "theme_elabore_dans_un_cours_posterieur",
+          "evidence_strength": "resume_detaille",
+          "evidence_summary": "L'intercalation dans des solides lamellaires développe l'une des voies d'hybridation."
+        }
+      ],
+      "public_explanation": "Combiner des propriétés du minéral et de l'organique pour inventer des fonctions nouvelles sans supposer que les performances s'additionnent automatiquement.",
+      "research_question": "Quelles interactions interfaciales dominent et comment les caractériser ?"
+    },
+    {
+      "id": "AX-02",
+      "title": "Précurseurs fonctionnels et auto-assemblage",
+      "source_locator": "Résumé — passage sur les organosilanes, les matériaux chiraux et les membranes ionosélectives",
+      "source_evidence": "La synthèse d'hybrides via des précurseurs moléculaires fonctionnels auto-assemblés est illustrée par des familles de matériaux.",
+      "scientific_scope": "L'existence de membranes sélectives est évoquée ; aucun coefficient de transport ni mesure de chiralité n'est fourni dans le résumé.",
+      "existing_concepts_candidate": [
+        "solgel",
+        "diffusion"
+      ],
+      "new_concepts_needed": [
+        "autoassemblage",
+        "organosilane",
+        "hybride_chiral"
+      ],
+      "proposed_followups": [
+        {
+          "id": "cdf-sanchez-2011b-04",
+          "official_url": "https://www.college-de-france.fr/fr/agenda/cours/chimie-douce-et-polymeres-un-mariage-reussi",
+          "relation": "theme_elabore_dans_un_cours_posterieur",
+          "evidence_strength": "resume_du_cycle",
+          "evidence_summary": "Le cycle 2011-2012 traite le couplage sol-gel-polymères et les architectures fonctionnelles."
+        }
+      ],
+      "public_explanation": "Des molécules conçues pour réagir et s'organiser servent de point de départ à la construction de structures plus grandes.",
+      "research_question": "Quelles conditions contrôlent l'auto-assemblage, la réactivité et la sélectivité ?"
+    },
+    {
+      "id": "AX-03",
+      "title": "Légochimie : assembler des nanobriques hybrides",
+      "source_locator": "Résumé — passage sur l'assemblage codé de clusters, agrégats et nanoparticules",
+      "source_evidence": "Des entités préformées et fonctionnalisées permettent des assemblages hiérarchisés et des fonctions optiques, catalytiques ou de détection.",
+      "scientific_scope": "Image conceptuelle de construction : aucune structure atomique ou efficacité catalytique n'est établie par analogie avec des Lego.",
+      "existing_concepts_candidate": [
+        "ligand"
+      ],
+      "new_concepts_needed": [
+        "legochimie",
+        "nanobrique",
+        "chimie_de_surface"
+      ],
+      "proposed_followups": [
+        {
+          "id": "cdf-sanchez-2011a-04",
+          "official_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/approche-legochimique-des-materiaux-hybrides",
+          "relation": "theme_elabore_dans_un_cours_posterieur",
+          "evidence_strength": "resume_detaille",
+          "evidence_summary": "Le cours du 23 mars 2011 décrit les propriétés des cœurs et des ligands de surface et les contraintes de stabilité lors de l'assemblage."
+        }
+      ],
+      "public_explanation": "Préparer des unités dotées de fonctions de surface compatibles, puis les assembler au lieu de tout synthétiser d'un seul bloc.",
+      "research_question": "Comment garantir l'intégrité des nanobriques pendant leur fonctionnalisaton et leur assemblage ?"
+    },
+    {
+      "id": "AX-04",
+      "title": "Encapsuler des composants biologiques",
+      "source_locator": "Résumé — première des trois stratégies du vivant, bio-composantes dans une matrice hybride",
+      "source_evidence": "Sanchez distingue l'utilisation d'enzymes, cellules, bactéries ou virus comme composants actifs, confinés dans une matrice.",
+      "scientific_scope": "Confinement et maintien de fonctionnalité ne sont pas des propriétés synonymes ; la viabilité, la perméabilité et la biocompatibilité exigent des expériences distinctes.",
+      "existing_concepts_candidate": [
+        "encapsulation",
+        "viability",
+        "diffusion"
+      ],
+      "new_concepts_needed": [
+        "bio_composante_active",
+        "biointerface_fonctionnelle"
+      ],
+      "proposed_followups": [
+        {
+          "id": "cdf-sanchez-2020-05",
+          "official_url": "https://www.college-de-france.fr/fr/agenda/cours/chimie-douce-2020/vers-des-materiaux-hybrides-vivants",
+          "relation": "theme_elabore_dans_un_cours_posterieur",
+          "evidence_strength": "titre_et_fiche_officielle",
+          "evidence_summary": "Le cours du 18 février 2020 porte sur les matériaux hybrides vivants ; les exemples scientifiques précis doivent être vérifiés dans le contenu audio/vidéo."
+        }
+      ],
+      "public_explanation": "Protéger un élément vivant ou une enzyme dans un matériau tout en préservant les échanges nécessaires à son fonctionnement.",
+      "research_question": "Comment mesurer séparément confinement, activité biologique, survie et transport ?"
+    },
+    {
+      "id": "AX-05",
+      "title": "Biomimétisme et bio-inspiration",
+      "source_locator": "Résumé — deuxième et troisième stratégies ; lotus, carapace de crabe, matériaux mésoporeux",
+      "source_evidence": "Deux voies sont distinguées : reproduire certaines fonctions du vivant et emprunter à son organisation des principes de conception.",
+      "scientific_scope": "Un matériau n'est pas automatiquement durable ou performant parce qu'il est bio-inspiré ; chaque mécanisme et chaque résultat doit être documenté.",
+      "existing_concepts_candidate": [
+        "biomineralization",
+        "porosity"
+      ],
+      "new_concepts_needed": [
+        "biomimetisme",
+        "bioinspiration",
+        "fonctionnalite_surface"
+      ],
+      "proposed_followups": [
+        {
+          "id": "cdf-sanchez-2013-02",
+          "official_url": "https://www.college-de-france.fr/fr/agenda/cours/interfaces-chimie-des-materiaux-biologie-medecine/vers-des-materiaux-bio-inspires",
+          "relation": "theme_elabore_dans_un_cours_posterieur",
+          "evidence_strength": "titre_et_fiche_officielle",
+          "evidence_summary": "Le cours du 20 novembre 2013 est dédié aux matériaux bio-inspirés."
+        }
+      ],
+      "public_explanation": "Observer comment la nature obtient une propriété, puis s'en servir pour concevoir un matériau artificiel.",
+      "research_question": "Quel mécanisme naturel a été reproduit, et avec quelle comparaison expérimentale ?"
+    },
+    {
+      "id": "AX-06",
+      "title": "Hiérarchie structurale et fonctionnelle",
+      "source_locator": "Résumé — passage sur les structures hiérarchiques et procédés d'élaboration",
+      "source_evidence": "Les propriétés des matériaux naturels dépendent de l'organisation à plusieurs échelles ; le couplage chimie/mise en forme peut produire des architectures hybrides complexes.",
+      "scientific_scope": "Le contrôle des échelles micro/nano et l'existence de pores ne suffisent pas à démontrer des performances de séparation ou de catalyse.",
+      "existing_concepts_candidate": [
+        "porosity",
+        "crystallography"
+      ],
+      "new_concepts_needed": [
+        "hierarchie_structurale",
+        "multiechelle"
+      ],
+      "proposed_followups": [
+        {
+          "id": "cdf-sanchez-2011a-03",
+          "official_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/materiaux-poreux-nanostructures",
+          "relation": "theme_elabore_dans_un_cours_posterieur",
+          "evidence_strength": "resume_detaille",
+          "evidence_summary": "Le cours du 16 mars 2011 explique tailles de pores, transport, adsorption et structures poreuses hiérarchiques."
+        }
+      ],
+      "public_explanation": "Une même matière peut être organisée de la molécule jusqu'à l'objet fini, et cette organisation influe sur son comportement.",
+      "research_question": "Quelles tailles de structures pilotent effectivement les propriétés mesurées ?"
+    },
+    {
+      "id": "AX-07",
+      "title": "Couplage chimie–procédés et caractérisation in situ",
+      "source_locator": "Résumé — paragraphe sur lithographie, jet d'encre, extrusion, aérosols, microémulsions et caractérisation en cours de formation",
+      "source_evidence": "La voie de fabrication n'est pas accessoire : elle interagit avec la chimie pour contrôler les architectures obtenues et leur évolution.",
+      "scientific_scope": "Le résumé cite des familles de procédés sans protocoles ni validation de rendement, de vitesse ou de reproductibilité.",
+      "existing_concepts_candidate": [
+        "biofabrication"
+      ],
+      "new_concepts_needed": [
+        "couplage_chimie_procedes",
+        "caracterisation_in_situ"
+      ],
+      "proposed_followups": [
+        {
+          "id": "cdf-sanchez-2011a-03",
+          "official_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/materiaux-poreux-nanostructures",
+          "relation": "theme_elabore_dans_un_cours_posterieur",
+          "evidence_strength": "resume_detaille",
+          "evidence_summary": "Le cours insiste sur les conditions de synthèse permettant la structuration de la porosité."
+        }
+      ],
+      "public_explanation": "Le résultat dépend autant de la manière de fabriquer que des molécules utilisées.",
+      "research_question": "Comment suivre en temps réel les étapes de formation et les relier à la structure finale ?"
+    },
+    {
+      "id": "AX-08",
+      "title": "Chimie intégrative : applications, environnement et pédagogie",
+      "source_locator": "Résumé — derniers paragraphes sur les applications, la chimie intégrative et la formation interdisciplinaire",
+      "source_evidence": "L'association de la chimie douce, de la matière molle, de l'ingénierie et de la biologie s'inscrit dans un programme multidisciplinaire ; des domaines d'application sont envisagés ou cités.",
+      "scientific_scope": "Les promesses environnementales ou cliniques ne constituent pas des preuves de baisse d'impact ou d'efficacité thérapeutique ; les technologies doivent être situées par niveau de maturité.",
+      "existing_concepts_candidate": [
+        "interface"
+      ],
+      "new_concepts_needed": [
+        "chimie_integrative",
+        "analyse_cycle_vie",
+        "transfert_industriel"
+      ],
+      "proposed_followups": [
+        {
+          "id": "cdf-sanchez-2011a-01",
+          "official_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur",
+          "relation": "theme_elabore_dans_un_cours_posterieur",
+          "evidence_strength": "resume_detaille",
+          "evidence_summary": "Le premier cours développe l'histoire du champ et le rôle des communautés de recherche."
+        }
+      ],
+      "public_explanation": "Concevoir des matériaux exige un dialogue entre chimie, physique, biologie, fabrication et usages.",
+      "research_question": "Quels bénéfices sont établis expérimentalement et quels enjeux demeurent prospectifs ?"
+    }
+  ],
+  "validation": {
+    "axis_count": 8,
+    "concepts_are_candidate_links": true,
+    "followup_links_are_thematic_not_citations": true,
+    "primary_figures_from_2020_attributed_to_inaugurale": false,
+    "video_timestamps_verified": false,
+    "editorial_review_required": true,
+    "scientific_peer_review_required": true
+  },
+  "editorial_modes": {
+    "research": "Hypothèse/énoncé, nature des interfaces, mécanismes, méthode de caractérisation, source, limites, prolongements sourcés.",
+    "industry": "Processus, conditions et coûts lorsqu'ils sont publiés ; ne pas inventer TRL, rendement ou ACV.",
+    "discovery": "Notion simple, comparaison visuelle de structure, manipulation conceptuelle distincte des mesures, retour à la source."
+  }
+}
