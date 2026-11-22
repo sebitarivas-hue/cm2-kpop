@@ -417,3 +417,6 @@ a:hover{color:var(--terracotta)}
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{transition-duration:0s!important;animation-duration:0s!important}
 }
+
+/* Explicitly honor the HTML hidden state over component display layouts. */
+.lab-live[hidden],.lab-preview[hidden]{display:none!important}
