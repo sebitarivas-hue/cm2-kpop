@@ -57,13 +57,17 @@ function time(t){const s=Math.round(t);return String(Math.floor(s/3600)).padStar
 function displayFigureArt(){
  const f=FIGURES.find(x=>x.id===state.id);if(!f)return;
  const enhanced=redesignedPlate(f.id);
+ const comparing=Boolean(enhanced&&state.view==='comparison');
  const newView=Boolean(enhanced&&state.view==='illustration');
  const src=newView?enhanced.src:plateAsset(f.id);
- const description=newView?enhanced.caution:'Diapositive originale du cours de Clément Sanchez (2020), conservée comme document source.';
- $('bigArt').innerHTML='<img src="'+esc(src)+'" alt="'+esc(description)+' Planche '+f.id+' — '+esc(f.title)+'">';
+ const description=(newView||comparing)?enhanced.caution:'Diapositive originale du cours de Clément Sanchez (2020), conservée comme document source.';
+ const originalImage='<img src="'+esc(plateAsset(f.id))+'" alt="Diapositive originale 2020 : '+esc(f.title)+'">';
+ const redrawImage=enhanced?'<img src="'+esc(enhanced.src)+'" alt="Reconstruction pédagogique distincte de la planche '+f.id+' : '+esc(f.title)+'">':'';
+ $('bigArt').classList.toggle('comparison-view',comparing);
+ $('bigArt').innerHTML=comparing?'<div class="comparison-panel"><strong>SOURCE ORIGINALE 2020</strong>'+originalImage+'</div><div class="comparison-panel"><strong>RECONSTRUCTION PÉDAGOGIQUE</strong>'+redrawImage+'</div>':'<img src="'+esc(src)+'" alt="'+esc(description)+' Planche '+f.id+' — '+esc(f.title)+'">';
  const versions=$('figureVersions');
  versions.hidden=!enhanced;
- versions.innerHTML=enhanced?'<button type="button" data-view="illustration" aria-pressed="'+newView+'">ILLUSTRATION REDESSINÉE</button><button type="button" data-view="original" aria-pressed="'+(!newView)+'">SOURCE ORIGINALE 2020</button>':'';
+ versions.innerHTML=enhanced?'<button type="button" data-view="illustration" aria-pressed="'+newView+'">ILLUSTRATION REDESSINÉE</button><button type="button" data-view="original" aria-pressed="'+(!newView&&!comparing)+'">SOURCE ORIGINALE 2020</button><button type="button" data-view="comparison" aria-pressed="'+comparing+'">COMPARER LES DEUX</button>':'';
  versions.querySelectorAll('button[data-view]').forEach(button=>button.onclick=()=>{
   state.view=button.dataset.view;displayFigureArt();
  });
@@ -75,7 +79,7 @@ function openFigure(id){
  const f=FIGURES.find(f=>f.id===id);if(!f)return;
  state.id=f.id;
  const requestedView=new URLSearchParams(location.search).get('view');const edition=redesignedPlate(f.id);
- state.view=requestedView==='original'?'original':requestedView==='illustration'&&edition?'illustration':(edition&&!edition.defaultOriginal?'illustration':'original');
+ state.view=requestedView==='original'?'original':requestedView==='comparison'&&edition?'comparison':requestedView==='illustration'&&edition?'illustration':(edition&&!edition.defaultOriginal?'illustration':'original');
  $('dialogMeta').textContent='CLÉMENT SANCHEZ · COLLÈGE DE FRANCE / FIGURE '+String(f.id).padStart(2,'0')+' / '+time(f.time);
  $('dialogChapter').textContent='CHAPITRE '+String(chapterNames.indexOf(f.chapter)+1).padStart(2,'0')+' · '+f.chapter;
  $('dialogTitle').textContent=f.title;
@@ -90,7 +94,7 @@ function openFigure(id){
  if(scenes.length)ln+=scenes.slice(0,2).map(s=>'<a href="../#'+esc(s.id)+'">EXPLORER EN 3D : '+esc(s.title)+' ↗</a>').join('');
  $('dialogLinks').innerHTML=ln;
  const d=$('details');if(!d.open)d.showModal();
- const url=new URL(location.href);url.searchParams.set('figure',id);history.replaceState({},'',url);
+ const url=new URL(location.href);url.searchParams.set('figure',id);url.searchParams.delete('view');history.replaceState({},'',url);
  document.title='Figure '+String(f.id).padStart(2,'0')+' — '+f.title+' · Clément Sanchez · Collège de France';
  document.querySelectorAll('.plate-index-item').forEach(el=>el.setAttribute('aria-current',String(Number(el.dataset.figureJump)===f.id)));
 
