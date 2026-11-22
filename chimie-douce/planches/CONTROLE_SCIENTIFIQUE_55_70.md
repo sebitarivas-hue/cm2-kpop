@@ -32,3 +32,23 @@ Ce tableau distingue le titre du catalogue, la page de l'atlas documentaire, le 
 - Les notions de viabilité, perméabilité, efficacité et recyclabilité ne peuvent être présumées à partir d'une image.
 
 *Édition de travail indépendante : aucun aval institutionnel de Clément Sanchez ou du Collège de France n'est revendiqué.*
+
+## Contrôles automatisés réalisés le 22 novembre 2026
+
+- **Correspondance des sources 55–70 : 16/16** pages localisées dans la monographie graphique de travail (pages 73, 74, 76–79, 81–84, 86–91).
+- **Correspondance des minutages : 16/16**, différence de **0 seconde** entre les valeurs `time` du catalogue GitHub et les repères imprimés dans le dossier PDF. Ces repères demeurent assortis de l'incertitude du document source (**±10 s**).
+- **Titres des SVG encore actifs : 26/26** contiennent textuellement l'intitulé exact de `src/figures.js` ; ce contrôle textuel n'implique pas une bonne mise en page ni une vérification scientifique des dessins.
+- **Inventaire des reconstructions : 70/70** numéros présents, **44 WebP + 26 SVG**, sans doublons d'identifiants après suppression des anciens SVG 51–52 et 55–56.
+- **Diapositives originales : 70/70** disponibles séparément ; aucune source n'a été substituée par une reconstruction.
+- **Statut artistique : 26 SVG sont des schémas provisoires** ; le niveau visuel de la série approuvée n'est pas atteint sur ces figures. Les 55 et 56 sont des reconstructions plus détaillées, mais restent à faire relire scientifiquement.
+
+### Repères temporels contrôlés
+
+| Figures | Minutages figurant dans le dossier source |
+|---|---|
+| 55–58 | 01:02:50 ; 01:03:30 ; 01:04:50 ; 01:05:20 |
+| 59–62 | 01:06:30 ; 01:07:20 ; 01:07:50 ; 01:09:40 |
+| 63–66 | 01:10:00 ; 01:10:30 ; 01:11:10 ; 01:11:30 |
+| 67–70 | 01:12:10 ; 01:12:40 ; 01:13:10 ; 01:14:10 |
+
+**Limite de l'audit :** les textes intégrés aux illustrations raster WebP n'ont pas été reconnus et confrontés automatiquement ; la lecture spécialisée demeure nécessaire pour les structures moléculaires, échelles, statistiques et propriétés biologiques. Ce rapport ne revendique pas une validation par Clément Sanchez ou par le Collège de France.
