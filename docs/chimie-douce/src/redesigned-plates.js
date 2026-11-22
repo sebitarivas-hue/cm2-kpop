@@ -1,6 +1,6 @@
 /* Non-interactive educational reconstructions. Original source slides are always retained. */
 const SOURCE='Clément Sanchez — Collège de France, 18 février 2020';
-const IDS=Object.freeze([7,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,51,52,53,54,55,56,57,58,59]);
+const IDS=Object.freeze([7,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,51,52,53,54,55,56,57,58,59,60]);
 const LEGACY=Object.fromEntries(IDS.map(id=>[
   id,Object.freeze({
     src:new URL('../assets/atlas-redessine/planche-'+String(id).padStart(2,'0')+'.webp',import.meta.url).href,
@@ -11,7 +11,7 @@ const LEGACY=Object.fromEntries(IDS.map(id=>[
   })
 ]));
 /* Scientific vector edition, drawn on cream stock. All original slides remain available. */
-const VECTOR_IDS=Object.freeze([1,2,3,4,5,6,8,9,10,47,48,49,50,60,61,62,63,64,65,66,67,68,69,70]);
+const VECTOR_IDS=Object.freeze([1,2,3,4,5,6,8,9,10,47,48,49,50,61,62,63,64,65,66,67,68,69,70]);
 const VECTOR_NOTES=Object.freeze({
  1:'Carte du cours : illustration conceptuelle sans hiérarchie expérimentale.',
  2:'Bactéries, archées et eucaryotes sont distincts ; la diversité biologique est schématisée.',
