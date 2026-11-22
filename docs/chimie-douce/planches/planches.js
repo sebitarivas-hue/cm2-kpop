@@ -35,12 +35,21 @@ const chapterNames=[...new Set(FIGURES.map(f=>f.chapter))];
 chapterNames.forEach((n,i)=>$('chapter').add(new Option(String(i+1).padStart(2,'0')+' · '+n,n)));
 const params=new URLSearchParams(location.search);
 const state={chapter:params.get('chapter')||'',q:'',id:Number(params.get('figure')||0),view:'illustration'};
+const needsArtwork=f=>{const x=editorialPlateStatus(f.id);return x==='reconstruction schématique à reprendre'||x==='titre intégré à corriger'};
+const platesPending=()=>FIGURES.filter(needsArtwork);
+function renderEditorialProgress(){
+ const pending=platesPending().length,progress=FIGURES.length-pending;
+ $('editorialProgress').value=progress;
+ $('editorialProgressText').textContent=progress+' / '+FIGURES.length+' · '+Math.round(progress/FIGURES.length*100)+' % · '+pending+' À REPRENDRE';
+ $('editorialProgressNote').textContent='70 diapositives originales conservées. '+pending+' reconstructions restent provisoires ou comportent un titre à rectifier. Les autres illustrations restent soumises à validation scientifique.';
+}
+
 function relevantScenes(f){return SCENES.filter(s=>SCENE_RESOURCE_MAP[s.id]?.plates.includes(f.id)).slice(0,4)}
 function renderNavigator(){
  const nav=$('plateNavigator');if(!nav)return;
  nav.innerHTML=FIGURES.map(f=>{
-  const edition=redesignedPlate(f.id);
-  return '<button type="button" data-figure-jump="'+f.id+'" class="plate-index-item'+(edition?' has-edition':'')+
+  const edition=redesignedPlate(f.id),provisional=needsArtwork(f);
+  return '<button type="button" data-figure-jump="'+f.id+'" class="plate-index-item'+(edition?' has-edition':'')+(provisional?' is-provisional':'')+
   '" title="'+esc(f.title)+'" aria-label="Voir la figure '+f.id+' : '+esc(f.title)+'"'+
   (edition?' data-edition="redessinee"':'')+'>'+String(f.id).padStart(2,'0')+'</button>';
  }).join('');
@@ -48,8 +57,9 @@ function renderNavigator(){
 }
 function render(){
  const q=state.q.toLocaleLowerCase('fr');
- const rows=FIGURES.filter(f=>(!state.chapter||f.chapter===state.chapter)&&(!q||(f.title+' '+f.note+' '+f.chapter).toLocaleLowerCase('fr').includes(q)));
- $('counter').textContent=rows.length+' / '+FIGURES.length+' PLANCHES · '+detailedPlateCount()+' ILLUSTRATIONS DISPONIBLES (01 ET 07 À RECTIFIER) · '+schematicPlateCount()+' SCHÉMAS À REPRENDRE · 70 SOURCES ORIGINALES';
+ const quality=$('qualityFilter').value;
+ const rows=FIGURES.filter(f=>(quality==='all'||(quality==='pending'&&needsArtwork(f))||(quality==='illustrated'&&!needsArtwork(f)))&&(!state.chapter||f.chapter===state.chapter)&&(!q||(f.title+' '+f.note+' '+f.chapter).toLocaleLowerCase('fr').includes(q)));
+ $('counter').textContent=rows.length+' / '+FIGURES.length+' PLANCHES AFFICHÉES · '+(FIGURES.length-platesPending().length)+' ILLUSTRATIONS DÉTAILLÉES À CONTRÔLER · '+platesPending().length+' À REPRENDRE · 70 ORIGINAUX';
  $('gallery').innerHTML=rows.map(f=>{
   const art=redesignedPlate(f.id),src=(art&&!art.defaultOriginal)?art.src:plateAsset(f.id);
   return '<button class="fig-card '+(art?'fig-card-new':'')+'" data-id="'+f.id+'" aria-label="Ouvrir la planche '+f.id+' : '+esc(f.title)+'">'+
@@ -119,4 +129,4 @@ $('nextFigure').onclick=()=>openFigure(state.id===70?1:state.id+1);
 $('close').onclick=()=>{$('details').close()};
 $('details').addEventListener('close',()=>{const u=new URL(location.href);u.searchParams.delete('figure');u.searchParams.delete('view');history.replaceState(history.state,'',u);document.title='Les 70 planches — Chimie douce'});
 window.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('details').open)$('details').close();if($('details').open&&e.key==='ArrowRight')openFigure(state.id===70?1:state.id+1);if($('details').open&&e.key==='ArrowLeft')openFigure(state.id===1?70:state.id-1)});
-renderNavigator();render();if(state.chapter)$('chapter').value=state.chapter;if(state.id)openFigure(state.id);
+$('qualityFilter').addEventListener('change',render);renderNavigator();renderEditorialProgress();render();if(state.chapter)$('chapter').value=state.chapter;if(state.id)openFigure(state.id);
