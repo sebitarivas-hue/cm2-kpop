@@ -11,6 +11,7 @@ import {CONCEPT_SIMPLE_TERMS} from './concept-simple-locales.js';
 import {CONCEPT_DETAIL_TERMS} from './concept-detail-locales.js';
 import {INTERFACE_TERMS} from './interface-locales.js';
 import {PLATE_UI_TERMS} from './plate-ui-locales.js';
+import {PLATE_SAFETY_TERMS} from './plate-safety-locales.js';
 import {FIGURE_TITLE_TERMS} from './figure-title-locales.js';
 import {FIGURE_NOTE_TERMS_A} from './figure-note-locales-a.js';
 import {FIGURE_NOTE_TERMS_B} from './figure-note-locales-b.js';
@@ -104,7 +105,7 @@ const canTranslate=n=>!!n?.parentElement&&!n.parentElement.closest(SKIP);
 const hasLanguage=s=>/[\p{L}]/u.test(s) && s.trim().length>1;
 function localTranslate(s,lang){
  const value=s.trim();
- let translated=CONCEPT_LABELS[value]?.[lang]??CONCEPT_SIMPLE_TERMS[value]?.[lang]??CONCEPT_DETAIL_TERMS[value]?.[lang]??FIGURE_TITLE_TERMS[value]?.[lang]??FIGURE_NOTE_TERMS_A[value]?.[lang]??FIGURE_NOTE_TERMS_B[value]?.[lang]??PLATE_UI_TERMS[value]?.[lang]??INTERFACE_TERMS[value]?.[lang]??ENGINEERING_CONTROL_TERMS[value]?.[lang]??ENGINEERING_SCIENCE_TERMS[value]?.[lang]??ENGINEERING_PHASE_TERMS[value]?.[lang]??ENGINEERING_TERMS[value]?.[lang]??PAGE_INTRO_TERMS[value]?.[lang]??HOME_TERMS[value]?.[lang]??UI[value]?.[lang]??SCIENCE_TERMS[value]?.[lang]??CHAPTER_TERMS[value]?.[lang];
+ let translated=CONCEPT_LABELS[value]?.[lang]??CONCEPT_SIMPLE_TERMS[value]?.[lang]??CONCEPT_DETAIL_TERMS[value]?.[lang]??FIGURE_TITLE_TERMS[value]?.[lang]??FIGURE_NOTE_TERMS_A[value]?.[lang]??FIGURE_NOTE_TERMS_B[value]?.[lang]??PLATE_SAFETY_TERMS[value]?.[lang]??PLATE_UI_TERMS[value]?.[lang]??INTERFACE_TERMS[value]?.[lang]??ENGINEERING_CONTROL_TERMS[value]?.[lang]??ENGINEERING_SCIENCE_TERMS[value]?.[lang]??ENGINEERING_PHASE_TERMS[value]?.[lang]??ENGINEERING_TERMS[value]?.[lang]??PAGE_INTRO_TERMS[value]?.[lang]??HOME_TERMS[value]?.[lang]??UI[value]?.[lang]??SCIENCE_TERMS[value]?.[lang]??CHAPTER_TERMS[value]?.[lang];
  if(!translated){
   const entry=Object.entries(CHAPTER_TERMS).find(([key])=>/^\d+\.\s/.test(key)&&key.includes(value));
   if(entry?.[1]?.[lang])translated=entry[1][lang].replace(/^\d+\.\s*/, '').replace(/\s*\(\d\d:\d\d[^)]*\)$/, '');
