@@ -69,3 +69,33 @@ border-left:3px solid #c08b47;padding:10px 12px;background:#e6ddc9;color:#263b2e
  .fig-dialog .plate-nav-actions button{font-size:13px!important;padding:8px!important}
  .fig-dialog .plate-nav-actions span{display:none}
 }
+
+/* Editorial scientific source comparison — cream paper, neutral hierarchy. */
+.fig-dialog .big-art.comparison-view{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ align-items:start!important;gap:2px!important;
+ padding:10px!important;background:#d7d1c2!important
+}
+.fig-dialog .comparison-panel{
+ display:flex;flex-direction:column;align-items:stretch;gap:8px;
+ background:#f7f1e6;padding:11px;min-width:0
+}
+.fig-dialog .comparison-panel strong{
+ display:block;font:700 11px/1.5 'Space Grotesk',Arial,sans-serif;
+ letter-spacing:.05em;color:#263f30
+}
+.fig-dialog .comparison-panel img{
+ display:block;width:100%;height:auto;max-height:72vh;object-fit:contain;
+ background:#f7f1e6
+}
+.fig-dialog .figure-versions button[data-view="comparison"]{
+ border-color:#d0b483;background:#244632;color:#f8eddb
+}
+.fig-dialog .figure-versions button[data-view="comparison"][aria-pressed="true"]{
+ background:#e2bd7c;color:#192e23
+}
+@media(max-width:720px){
+ .fig-dialog .big-art.comparison-view{grid-template-columns:minmax(0,1fr)!important}
+ .fig-dialog .comparison-panel img{max-height:none}
+ .fig-dialog .comparison-panel{padding:9px}
+}
