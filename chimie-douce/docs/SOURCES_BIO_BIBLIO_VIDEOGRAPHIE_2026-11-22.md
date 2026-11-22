@@ -57,7 +57,7 @@ Concevoir un parcours « idées fondatrices → manifestations dans les cours su
 - [Programmes de 2019](https://www.college-de-france.fr/fr/agenda/cours/materiaux-poreux-le-miracle-des-trous) et [2020](https://www.college-de-france.fr/fr/agenda/cours/chimie-douce-2020) : 12 séances individuelles dont les pages canoniques ont été retrouvées, avec liens d'écoute/téléchargement audio visibles (non téléchargés).
 - [Inaugurale 2011](https://www.college-de-france.fr/fr/agenda/lecon-inaugurale/chimie-des-materiaux-hybrides/chimie-des-materiaux-hybrides) : fiche et lien audio confirmés.
 
-**Donnée structurée liée :** `docs/donnees/enseignements_officiels_confirmes_2011_2020.json` (13 entrées, à compléter jusqu'à la totalité des 53 cours et des autres types d'événements).
+**Donnée structurée liée :** `docs/donnees/enseignements_officiels_confirmes_2011_2020.json` (**54 entrées : 53 fiches institutionnelles individuelles de cours + 1 leçon inaugurale** ; 9 cycles actifs). La vérification des médias des premières années et le corpus séparé des séminaires/colloques restent à compléter.
 
 ## 5. Avertissements scientifiques et éditoriaux
 
