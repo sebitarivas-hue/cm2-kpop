@@ -3,7 +3,7 @@ import {FIGURES} from './figures.js';
 import {sceneResources,plateAsset} from './knowledge-graph.js';
 import {ensureConceptDialog,conceptButton} from './concept-ui.js';
 import {translateTerm} from '../i18n.js';
-import {redesignedPlate} from './redesigned-plates.js';
+import {redesignedPlate,isPlateArtworkPrimary,editorialPlateStatus} from './redesigned-plates.js';
 const tr=s=>translateTerm(s);
 const el=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -12,10 +12,16 @@ const chapterId=ch=>chapters.indexOf(ch)+1;
 let currentScene=null,activePlate=null;
 function photo(f){
  const enhanced=redesignedPlate(f.id);
- const image=enhanced?.src||plateAsset(f.id);
- const heading=enhanced?'RECONSTRUCTION SCIENTIFIQUE · FIG. ':'ARCHIVE DU COURS · FIG. ';
- const original=enhanced?'<details class="source-original-access"><summary>VOIR LA DIAPOSITIVE ORIGINALE · SOURCE 2020</summary><a href="./planches/?figure='+f.id+'&view=original"><img src="'+plateAsset(f.id)+'" loading="lazy" alt="Diapositive originale du cours, figure '+f.id+'"></a><p>La source originale est conservée sans modification. La reconstruction ci-dessus n’est pas une mesure ni une micrographie.</p></details>':'';
- return '<figure class="source-original'+(enhanced?' source-enhanced':'')+'"><a href="./planches/?figure='+f.id+'" title="Ouvrir les deux versions de la planche"><img src="'+esc(image)+'" alt="'+(enhanced?'Reconstruction conceptuelle ':'Diapositive originale ')+f.id+' — '+esc(tr(f.title))+'" loading="lazy"><span class="original-seal">'+heading+String(f.id).padStart(2,'0')+'</span></a><figcaption><b>'+esc(tr(f.title))+'</b><p>'+esc(tr(f.note))+'</p><div class="source-credits">D’après le cours de Clément Sanchez · <a href="'+videoAt(f.time)+'" target="_blank" rel="noopener noreferrer">Vidéo à '+formatTime(f.time)+' ↗</a> · <a href="./planches/?figure='+f.id+'">Fiche canonique ↗</a></div>'+original+'</figcaption></figure>';
+ const primary=isPlateArtworkPrimary(f.id);
+ const image=primary?enhanced.src:plateAsset(f.id);
+ const heading=primary?'ILLUSTRATION CONCEPTUELLE · FIG. ':'DIAPOSITIVE ORIGINALE · FIG. ';
+ const flagged=[1,7].includes(f.id);
+ // A schematic draft is accessible for critical comparison, never as the default.
+ // Mis-titled images 01 and 07 are quarantined from this introductory dossier.
+ const alternative=enhanced&&!flagged
+  ?'<details class="source-original-access"><summary>'+(primary?'CONSULTER LA DIAPOSITIVE ORIGINALE':'CONSULTER L’ESQUISSE NON VALIDÉE')+'</summary><a href="./planches/?figure='+f.id+'&view='+(primary?'original':'illustration')+'"><img src="'+esc(primary?plateAsset(f.id):enhanced.src)+'" loading="lazy" alt="'+(primary?'Source primaire de la figure ':'Esquisse non validée de la figure ')+f.id+'"></a><p>'+(primary?'La diapositive du cours demeure la source primaire.':'Esquisse pédagogique en cours de refonte : ni mesure, ni micrographie, ni preuve expérimentale.')+'</p></details>'
+  :'';
+ return '<figure class="source-original'+(primary?' source-enhanced':'')+'"><a href="./planches/?figure='+f.id+'" title="Consulter la fiche scientifique canonique"><img src="'+esc(image)+'" alt="'+(primary?'Illustration conceptuelle ':'Diapositive originale ')+f.id+' — '+esc(tr(f.title))+'" loading="lazy"><span class="original-seal">'+heading+String(f.id).padStart(2,'0')+'</span></a><figcaption><b>'+esc(tr(f.title))+'</b><p>'+esc(tr(f.note))+'</p><p class="plate-editorial-status">'+esc(editorialPlateStatus(f.id))+'</p><div class="source-credits">D’après le cours de Clément Sanchez · <a href="'+videoAt(f.time)+'" target="_blank" rel="noopener noreferrer">Vidéo à '+formatTime(f.time)+' ↗</a> · <a href="./planches/?figure='+f.id+'">Fiche canonique ↗</a></div>'+alternative+'</figcaption></figure>';
 }
 function formatTime(t){const s=Math.floor(t);return String(Math.floor(s/3600)).padStart(2,'0')+':'+String(Math.floor(s%3600/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
 function setImage(id){
