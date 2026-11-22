@@ -2,15 +2,11 @@
 
 **Source primaire :** Clément Sanchez, *Vers des matériaux hybrides vivants*, Collège de France, 18 février 2020.
 
-**État au 22 novembre 2026 : **58/70 illustrations détaillées disponibles pour relecture**, dont plusieurs sous réserve de vérification scientifique ; **12/70 schémas provisoires à remplacer**. Les 70 diapositives originales sont conservées.
+**État au 22 novembre 2026 : **62/70 illustrations détaillées disponibles pour relecture**, dont plusieurs sous réserve de vérification scientifique ; **8/70 schémas provisoires à remplacer**. Les 70 diapositives originales sont conservées.
 
-## Planches restant à refaire (12)
+## Planches restant à refaire (8)
 | N° | Titre exact et immuable du catalogue | Statut |
 |---:|---|---|
-| 47 | Assemblage de nanoparticules sur cellule HeLa | Schéma provisoire : illustration éditoriale à refaire |
-| 48 | Réponse à une sonde fonctionnalisée | Schéma provisoire : illustration éditoriale à refaire |
-| 49 | Ligands polyfonctionnels de couplage | Schéma provisoire : illustration éditoriale à refaire |
-| 50 | Stabilité biologique de supracellules | Schéma provisoire : illustration éditoriale à refaire |
 | 63 | Exemples de traitement de rejets | Schéma provisoire : illustration éditoriale à refaire |
 | 64 | Papier thermoélectrique cellulose–nanotubes | Schéma provisoire : illustration éditoriale à refaire |
 | 65 | Surface autonettoyante biologiquement active | Schéma provisoire : illustration éditoriale à refaire |
@@ -68,3 +64,13 @@ Ces images ne reproduisent aucune mesure ou micrographie expérimentale du cours
 Les figures 03 à 10 ont une illustration scientifique individuelle avec le titre canonique conservé dans `src/figures.js` ; leur diapositive originale reste accessible. La figure 07 distingue carbonatation chimique et réparation bactérienne. La nouvelle figure 37 est une simulation visuelle d’une enveloppe MOF, **non une micrographie d’échantillon** : original affiché par défaut. Les légendes, échelles et phénomènes figurés demandent encore une relecture spécialisée.
 
 **Douze illustrations restent schématiques : 47–50 et 63–70.** La présence d’une image ne constitue pas une validation scientifique définitive ni un accord de Clément Sanchez.
+
+
+## Correctifs 47–50 — version du 22 novembre
+
+- **47** Assemblage de nanoparticules sur cellule HeLa : titre exact corrigé, illustration conceptuelle ; l’effet protecteur n’est pas une mesure.
+- **48** Réponse à une sonde fonctionnalisée : titre exact corrigé, original affiché par défaut car la sélectivité et le signal ne sont pas démontrés par l’illustration.
+- **49** Ligands polyfonctionnels de couplage : titre exact corrigé, différencier coordination, électrostatique et liaison covalente ; le greffage n’est pas quantifié.
+- **50** Stabilité biologique de supracellules : avertissement explicite sur les courbes inventées, original affiché par défaut pour la lecture scientifique.
+
+**État : 62 illustrations détaillées dont certaines avec réserves scientifiques ; 8 derniers SVG (63–70) à reprendre.**
