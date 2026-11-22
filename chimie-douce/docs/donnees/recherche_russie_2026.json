@@ -1,0 +1,435 @@
+{
+  "schema_version": "0.1",
+  "status": "candidate_review_docs_only",
+  "date": "2026-11-22",
+  "country": "Russie",
+  "user_goal": "Etendre l'atlas de chimie douce en Russie et distinguer co-publications Sanchez / analogies thématiques",
+  "separation_of_evidence": "La co-signature d'une publication démontre une collaboration sur cette publication uniquement. Un rapprochement thématique ne prouve ni citation ni filiation.",
+  "existing_catalogue_modified": false,
+  "licenses_reproduction_reviewed": false,
+  "records": [
+    {
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "country": "Russie",
+      "date_checked": "2026-11-22",
+      "copyright": "Liens et métadonnées seulement; pas de reprise des figures, vidéos, PDF ou textes tiers",
+      "id": "RU-DIRECT-2005-TIPHEMA",
+      "kind": "publication",
+      "priority": "P0",
+      "title_original": "New photoactive hybrid organic–inorganic materials based on titanium-oxo-PHEMA nanocomposites exhibiting mixed valence properties",
+      "year": 2005,
+      "doi": "10.1039/B507305G",
+      "journal": "Journal of Materials Chemistry",
+      "url": "https://pubs.rsc.org/en/content/articlelanding/2005/jm/b507305g",
+      "source_secondary": "https://openalex.org/W1972954931",
+      "research_partners": "Lobachevsky State University, Nizhny Novgorod; Institute of Applied Physics RAS; laboratoires français CNRS",
+      "authors_core": [
+        "O. Kameneva",
+        "A. I. Kuznestov",
+        "L. A. Smirnova",
+        "L. Rozes",
+        "C. Sanchez",
+        "A. Alexandrov",
+        "N. Bityurin",
+        "K. Chhor",
+        "A. Kanaev"
+      ],
+      "sanchez_relation": "coauthor_direct_verifie",
+      "related_axes": [
+        "AX-01",
+        "AX-02",
+        "AX-07"
+      ],
+      "scientific_summary": "Monolithes transparents de réseaux interpénétrés PHEMA et motifs titanium-oxo, synthèse one-pot, photocoloration sous irradiation laser; démonstration de couplage aux interfaces organique–inorganique.",
+      "limits": "Une réponse photochromique n'est pas un matériau vivant. Le caractère photoactif ne prouve pas une performance industrielle.",
+      "evidence_level": "article_editeur_auteurs_et_affiliations_verifies",
+      "notes": "Travail antérieur à l'inaugurale 2011. Priorité pour la rubrique « coopérations scientifiques de Clément Sanchez »."
+    },
+    {
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "country": "Russie",
+      "date_checked": "2026-11-22",
+      "copyright": "Liens et métadonnées seulement; pas de reprise des figures, vidéos, PDF ou textes tiers",
+      "id": "RU-DIRECT-2009-PHOTOPATTERN",
+      "kind": "publication",
+      "priority": "P0",
+      "title_original": "Laser-induced photopatterning of organic-inorganic TiO2-based hybrid materials with tunable interfacial electron transfer",
+      "year": 2009,
+      "doi": "10.1039/B814494J",
+      "journal": "Physical Chemistry Chemical Physics",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/19209369/",
+      "source_secondary": "https://openalex.org/W2146047773",
+      "research_partners": "Chercheurs franco-russes, notamment Arseniy Kuznetsov et Nikita Bityurin liés à l'Institute of Applied Physics RAS",
+      "authors_core": [
+        "A. I. Kuznetsov",
+        "O. Kameneva",
+        "N. Bityurin",
+        "L. Rozes",
+        "C. Sanchez",
+        "A. Kanaev"
+      ],
+      "sanchez_relation": "coauthor_direct_verifie",
+      "related_axes": [
+        "AX-01",
+        "AX-02",
+        "AX-07"
+      ],
+      "scientific_summary": "Réseaux hybrides gel de TiO2 / PHEMA, modulation du transfert électronique à l'interface et de la réponse photochromique par l'ordre de gélification et de polymérisation; preuve expérimentale des effets de procédé dans l'article.",
+      "limits": "Les paramètres et rendements propres aux conditions publiées ne doivent pas être extrapolés à d'autres matrices.",
+      "evidence_level": "pubmed_et_identification_auteurs_verifies",
+      "notes": "Le registre bibliographique du Collège de France et le papier 2005 constituent une piste de filiation documentaire à reconstituer."
+    },
+    {
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "country": "Russie",
+      "date_checked": "2026-11-22",
+      "copyright": "Liens et métadonnées seulement; pas de reprise des figures, vidéos, PDF ou textes tiers",
+      "id": "RU-ITMO-2016-ENZYMES",
+      "kind": "publication",
+      "priority": "P0",
+      "title_original": "Entrapment of Enzymes within Sol–Gel-Derived Magnetite",
+      "year": 2016,
+      "doi": "10.1021/acs.chemmater.6b00193",
+      "journal": "Chemistry of Materials",
+      "url": "https://cris.huji.ac.il/en/publications/entrapment-of-enzymes-within-sol-gel-derived-magnetite/",
+      "source_secondary": "https://news.itmo.ru/ru/science/life_science/news/5546/",
+      "research_partners": "ITMO University et Hebrew University of Jerusalem",
+      "authors_core": [
+        "Andrey S. Drozdov",
+        "Olga E. Shapovalova",
+        "Vladimir Ivanovski",
+        "David Avnir",
+        "Vladimir V. Vinogradov"
+      ],
+      "sanchez_relation": "aucune_collaboration_ou_citation_etablie",
+      "related_axes": [
+        "AX-04",
+        "AX-07"
+      ],
+      "scientific_summary": "Encapsulation directe d'enzymes dans une matrice sol-gel de magnétite; l'activité de plusieurs enzymes confinées est testée, avec stabilité thermique augmentée dans les conditions étudiées.",
+      "limits": "Une enzyme confinée n'est pas une cellule vivante. Les résultats ne prouvent ni innocuité humaine ni délivrance thérapeutique efficace.",
+      "evidence_level": "publisher_and_institutional_bibliography",
+      "notes": "Excellent cas scientifique pour la différence « enzyme immobilisée » vs « cellule encapsulée »."
+    },
+    {
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "country": "Russie",
+      "date_checked": "2026-11-22",
+      "copyright": "Liens et métadonnées seulement; pas de reprise des figures, vidéos, PDF ou textes tiers",
+      "id": "RU-IVANOVO-2018-CELLULOSE",
+      "kind": "publication",
+      "priority": "P0",
+      "title_original": "Hybrid Drug Delivery Patches Based on Spherical Cellulose Nanocrystals and Colloid Titania—Synthesis and Antibacterial Properties",
+      "year": 2018,
+      "doi": "10.3390/nano8040228",
+      "journal": "Nanomaterials",
+      "url": "https://www.mdpi.com/2079-4991/8/4/228",
+      "source_secondary": "https://pubmed.ncbi.nlm.nih.gov/29642486/",
+      "research_partners": "G. A. Krestov Institute of Solution Chemistry RAS (Ivanovo) et Swedish University of Agricultural Sciences",
+      "authors_core": [
+        "Olga L. Evdokimova",
+        "Fredric G. Svensson",
+        "Alexander V. Agafonov",
+        "Sebastian Håkansson",
+        "Gulaim A. Seisenbaeva",
+        "Vadim G. Kessler"
+      ],
+      "sanchez_relation": "aucune_collaboration_ou_citation_etablie",
+      "related_axes": [
+        "AX-01",
+        "AX-04",
+        "AX-05"
+      ],
+      "scientific_summary": "Nanocristaux de cellulose associés à une phase titane/titania et à une molécule modèle pour étudier le relargage contrôlé et les propriétés antibactériennes d'un matériau composite.",
+      "limits": "Le composé modèle testé est le triclosan : ne pas en tirer d'affirmations d'innocuité ou d'utilisation médicale contemporaine sans actualisation réglementaire.",
+      "evidence_level": "publisher_and_pubmed_checked",
+      "notes": "Apport au thème cellule–matrice et délivrance contrôlée, pas à la démonstration de viabilité d'une cellule."
+    },
+    {
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "country": "Russie",
+      "date_checked": "2026-11-22",
+      "copyright": "Liens et métadonnées seulement; pas de reprise des figures, vidéos, PDF ou textes tiers",
+      "id": "RU-ITMO-2022-MAGNETITE",
+      "kind": "publication",
+      "priority": "P0",
+      "title_original": "Hierarchical Porous Magnetite Structures: From Nanoparticle Assembly to Monolithic Aerogels",
+      "year": 2022,
+      "doi": "10.1016/j.jcis.2022.01.154",
+      "journal": "Journal of Colloid and Interface Science",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/35131501/",
+      "source_secondary": "https://news.itmo.ru/en/news/12463/",
+      "research_partners": "ITMO University et South Ural State University",
+      "authors_core": [
+        "Elizaveta I. Anastasova",
+        "Anastasia A. Belyaeva",
+        "Sergey A. Tsymbal",
+        "Denis A. Vinnik",
+        "Vladimir V. Vinogradov"
+      ],
+      "sanchez_relation": "aucune_collaboration_ou_citation_etablie",
+      "related_axes": [
+        "AX-02",
+        "AX-06",
+        "AX-07"
+      ],
+      "scientific_summary": "Hydrosols de magnétite transformés en xérogels, cryogels et aérogels poreux selon la concentration et le séchage. Études de seuil de percolation, cytotoxicité sur HeLa et potentiel hémostatique ex vivo.",
+      "limits": "La cytotoxicité a été évaluée dans des conditions et concentrations précises; résultats ex vivo/cultures ne démontrent pas une efficacité clinique.",
+      "evidence_level": "pubmed_abstract_primary_bibliography",
+      "notes": "Permettrait une comparaison expérimentale des procédés de séchage, sans inventer courbes ou mesures."
+    },
+    {
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "country": "Russie",
+      "date_checked": "2026-11-22",
+      "copyright": "Liens et métadonnées seulement; pas de reprise des figures, vidéos, PDF ou textes tiers",
+      "id": "RU-SPB-2026-PVA-HKUST1",
+      "kind": "publication",
+      "priority": "P1-CORRIGENDUM",
+      "title_original": "Development of biocompatible MOF-impregnated PVA films with broad-spectrum antimicrobial surface properties by efficient in-situ method",
+      "year": 2026,
+      "doi": "10.1016/j.apsusc.2026.167301",
+      "journal": "Applied Surface Science",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0169433226015059",
+      "source_secondary": "https://rscf.ru/news/chemistry/v-peterburge-sozdali-novyy-material-dlya-lecheniya-kozhi/",
+      "research_partners": "Peter the Great St. Petersburg Polytechnic University et ITMO University",
+      "authors_core": [
+        "Alexander S. Timin",
+        "Evgeniia I. Pochkaeva",
+        "Natalya A. Nosova",
+        "Radmila R. Sergeeva",
+        "Sergei A. Shipilovskikh"
+      ],
+      "sanchez_relation": "aucune_collaboration_ou_citation_etablie",
+      "related_axes": [
+        "AX-01",
+        "AX-04",
+        "AX-08"
+      ],
+      "scientific_summary": "Films polymères PVA contenant des particules MOF HKUST-1 à base de cuivre, développés et testés pour leurs propriétés antimicrobiennes et la compatibilité biologique en conditions expérimentales.",
+      "limits": "Éviter « pansement clinique validé »; un corrigendum en date du 18 novembre 2026 est signalé (DOI 10.1016/j.apsusc.2026.168930), contenu de la correction NON vérifié auprès de l'éditeur, résultats et figures à revoir AVANT toute intégration publique.",
+      "evidence_level": "publisher_index_and_rscf_news; publisher_page_403; corrigendum_secondary_index",
+      "notes": "La photo illustrant le communiqué du RSF est signalée comme créée par une IA; ne pas la reprendre comme photo scientifique.",
+      "corrigendum_doi": "10.1016/j.apsusc.2026.168930",
+      "corrigendum_status": "metadata_identified_content_not_reviewed"
+    },
+    {
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "country": "Russie",
+      "date_checked": "2026-11-22",
+      "copyright": "Liens et métadonnées seulement; pas de reprise des figures, vidéos, PDF ou textes tiers",
+      "id": "RU-RSCF-2022-MOF-FE",
+      "kind": "research_project",
+      "priority": "P1",
+      "title_original": "Получение, физико-химическая характеристика и прооксидантные свойства новых железосодержащих мезопористых материалов",
+      "title_fr": "Synthèse, caractérisation et propriétés pro-oxydantes de matériaux mésoporeux à base de fer",
+      "year": 2022,
+      "doi": null,
+      "journal": null,
+      "url": "https://www.rscf.ru/project/22-73-10222/",
+      "source_secondary": null,
+      "research_partners": "Projet de recherche soutenu par le Russian Science Foundation",
+      "authors_core": [],
+      "sanchez_relation": "aucune_collaboration_ou_citation_etablie",
+      "related_axes": [
+        "AX-03",
+        "AX-04",
+        "AX-06"
+      ],
+      "scientific_summary": "Projet et résultats partiels sur matrices poreuses à base de fer, structures MOF et nanomatériaux magnétiques; la fiche décrit des précurseurs préassemblés et des évaluations de propriétés pro-oxydantes en systèmes modèles.",
+      "limits": "Distinguer la proposition (« seront synthétisés ») des résultats de rapports finaux; ne pas promouvoir l'induction de ferroptose comme résultat clinique.",
+      "evidence_level": "fonds_financeur_texte_projet_et_extrait_de_rapports",
+      "notes": "Proche des notions « nanobriques » mais le lien historique avec Sanchez n'est PAS démontré."
+    },
+    {
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "country": "Russie",
+      "date_checked": "2026-11-22",
+      "copyright": "Liens et métadonnées seulement; pas de reprise des figures, vidéos, PDF ou textes tiers",
+      "id": "RU-RSCF-2025-MOF-SENSORS",
+      "kind": "research_project",
+      "priority": "P1",
+      "title_original": "Азолкарбоксилатные металл-органические координационные полимеры для люминесцентного определения загрязнителей окружающей среды и биомаркеров заболеваний",
+      "title_fr": "Polymères de coordination azole-carboxylate pour capteurs luminescents",
+      "year": 2025,
+      "doi": null,
+      "journal": null,
+      "url": "https://rscf.ru/project/25-13-00395/",
+      "source_secondary": "https://doi.org/10.26902/JSC_id156860",
+      "research_partners": "Projet russe avec publications rapportées en Journal of Structural Chemistry",
+      "authors_core": [],
+      "sanchez_relation": "aucune_collaboration_ou_citation_etablie",
+      "related_axes": [
+        "AX-03",
+        "AX-08"
+      ],
+      "scientific_summary": "Synthèses de ligands et de polymères de coordination luminescents; des résultats sont décrits sur la détection de biomarqueurs modèles de bactéries sporulées.",
+      "limits": "Projet et publications à distinguer; un signal fluorescent sur un analyte en suspension ne suffit pas à établir la sensibilité clinique d'un test.",
+      "evidence_level": "fonds_financeur_rapport_et_references_bibliographiques",
+      "notes": "Ne pas attribuer à Sanchez la préparation ni les résultats de ce projet."
+    },
+    {
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "country": "Russie",
+      "date_checked": "2026-11-22",
+      "copyright": "Liens et métadonnées seulement; pas de reprise des figures, vidéos, PDF ou textes tiers",
+      "id": "RU-KURNAKOV-SOLGEL-2024",
+      "kind": "scientific_review",
+      "priority": "P1",
+      "title_original": "Sol-gel synthesis and research of inorganic compounds, hybrid functional materials and disperse systems",
+      "year": 2024,
+      "doi": null,
+      "journal": "Russian Journal of Inorganic Chemistry",
+      "url": "https://journals.eco-vector.com/0044-457X/article/view/666554",
+      "source_secondary": "https://journals.rcsi.science/0044-457X/issue/view/17191",
+      "research_partners": "Kurnakov Institute of General and Inorganic Chemistry, Russian Academy of Sciences",
+      "authors_core": [
+        "E. P. Simonenko",
+        "V. K. Ivanov"
+      ],
+      "sanchez_relation": "aucune_collaboration_ou_citation_etablie",
+      "related_axes": [
+        "AX-01",
+        "AX-06",
+        "AX-07"
+      ],
+      "scientific_summary": "Synthèse des thématiques d'une conférence Sol-gel 2023 : films, membranes, xerogels, matériaux hybrides organiques-minéraux et nanostructuration.",
+      "limits": "Une synthèse de conférence n'est pas une publication primaire présentant un protocole unique ou une mesure nouvelle.",
+      "evidence_level": "publisher_journal_page_confirmed",
+      "notes": "Ressource de cartographie du champ russe, sans réutiliser les figures."
+    },
+    {
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "country": "Russie",
+      "date_checked": "2026-11-22",
+      "copyright": "Liens et métadonnées seulement; pas de reprise des figures, vidéos, PDF ou textes tiers",
+      "id": "RU-ISC-IVANOVO-LAB",
+      "kind": "institution",
+      "priority": "P1",
+      "title_original": "Laboratory Chemistry of hybrid nanomaterials and supramolecular systems",
+      "year": null,
+      "doi": null,
+      "journal": null,
+      "url": "https://www.isc-ras.ru/en/structure/research-departments/laboratory-chemistry-hybrid-nanomaterials-and-supramolecular-systems",
+      "source_secondary": "https://www.isc-ras.ru/en/structure/staff/agafonov-alexander-viktorovich",
+      "research_partners": "G. A. Krestov Institute of Solution Chemistry RAS, Ivanovo",
+      "authors_core": [],
+      "sanchez_relation": "aucune_collaboration_ou_citation_etablie",
+      "related_axes": [
+        "AX-02",
+        "AX-06"
+      ],
+      "scientific_summary": "Laboratoire spécialisé en assemblage en solution, gels et nanocomposites organiques-minéraux, avec page de publications et programmes de recherche.",
+      "limits": "Page institutionnelle, non preuve d'une caractérisation expérimentale précise.",
+      "evidence_level": "institutional_primary",
+      "notes": "Récupérer les articles en DOI individuellement."
+    },
+    {
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "country": "Russie",
+      "date_checked": "2026-11-22",
+      "copyright": "Liens et métadonnées seulement; pas de reprise des figures, vidéos, PDF ou textes tiers",
+      "id": "RU-ITMO-SCAMT",
+      "kind": "institution",
+      "priority": "P1",
+      "title_original": "Solution Chemistry of Advanced Materials and Technologies",
+      "year": null,
+      "doi": null,
+      "journal": null,
+      "url": "https://en.itmo.ru/en/faculty/110/himiko-biologicheskiy_klaster.htm",
+      "source_secondary": "https://news.itmo.ru/en/news/12463/",
+      "research_partners": "ITMO University Saint Petersburg",
+      "authors_core": [],
+      "sanchez_relation": "aucune_collaboration_ou_citation_etablie",
+      "related_axes": [
+        "AX-02",
+        "AX-04",
+        "AX-06"
+      ],
+      "scientific_summary": "Laboratoire universitaire de chimie des solutions pour matériaux hybrides, applications biomédicales, optiques et matériaux fonctionnels.",
+      "limits": "Aucune affiliation directe à Sanchez affirmée.",
+      "evidence_level": "institutional_primary",
+      "notes": "Examiner la liste des publications SCAMT pour étendre la couverture."
+    },
+    {
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "country": "Russie",
+      "date_checked": "2026-11-22",
+      "copyright": "Liens et métadonnées seulement; pas de reprise des figures, vidéos, PDF ou textes tiers",
+      "id": "RU-ITMO-MOF-PHOTONICS",
+      "kind": "institution",
+      "priority": "P2",
+      "title_original": "MOF Nanoparticles",
+      "year": null,
+      "doi": null,
+      "journal": null,
+      "url": "https://physics.itmo.ru/en/research/17",
+      "source_secondary": null,
+      "research_partners": "ITMO University, St Petersburg",
+      "authors_core": [],
+      "sanchez_relation": "aucune_collaboration_ou_citation_etablie",
+      "related_axes": [
+        "AX-03",
+        "AX-06"
+      ],
+      "scientific_summary": "Groupe / thème de recherche consacré à la synthèse et aux propriétés optiques des nanoparticules de MOFs.",
+      "limits": "La page institutionnelle ne liste pas de publications : sélectionner celles-ci sur des sources primaires avant de décrire des résultats.",
+      "evidence_level": "institutional_primary",
+      "notes": "Données de publication insuffisantes sur la fiche."
+    }
+  ],
+  "scientific_gates": [
+    "Réexaminer le corrigendum 2026 via éditeur et définir précisément la correction",
+    "Exiger la publication primaire pour chaque projet avant d'attribuer une performance",
+    "Vérifier les auteurs et organismes pour chaque référence bibliographique",
+    "Aucune reprise d'images ou PDF de tiers sans licence vérifiée"
+  ]
+}
