@@ -40,9 +40,9 @@ function setMobileCatalogueOpen(open){
 function keepActiveVisible(){
  const list=$('sceneList'),active=list.querySelector('.scene-item.active');
  if(!active)return;
- const top=active.offsetTop-list.offsetTop,bottom=top+active.offsetHeight;
- if(top<list.scrollTop)list.scrollTop=Math.max(0,top-16);
- else if(bottom>list.scrollTop+list.clientHeight)list.scrollTop=bottom-list.clientHeight+16;
+ const item=active.getBoundingClientRect(),viewport=list.getBoundingClientRect();
+ if(item.top<viewport.top)list.scrollTop-=viewport.top-item.top+12;
+ else if(item.bottom>viewport.bottom)list.scrollTop+=item.bottom-viewport.bottom+12;
 }
 function selectScene(id,preserveHash=false){const exhibit=byId[id]||SCENES[0];DATA.scene=exhibit;DATA.values=Object.fromEntries(exhibit.controls.map(x=>[x.key,x.value]));
  $('stageChapter').textContent=exhibit.n+' / '+exhibit.group;$('stageType').textContent=exhibit.tag;$('scaleText').textContent=exhibit.scale;$('stageTitle').textContent=exhibit.title;$('stageTagline').textContent=exhibit.subtitle;$('sceneNum').textContent=exhibit.n;
