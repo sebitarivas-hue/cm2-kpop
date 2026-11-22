@@ -308,3 +308,36 @@ body.essay-page :is(p,li){color:#e0e2d8!important}
 .fig-card-new .redesigned-status{display:block;font:600 10px/1.4 var(--atlas-sans);letter-spacing:.03em;color:#704f2f;margin-top:10px}
 .fig-dialog .figure-versions{display:flex;gap:10px;flex-wrap:wrap}
 @media(max-width:750px){.source-enhanced .source-original-access summary{font-size:13px}}
+
+/* Research provenance is deliberately visible on every route, not buried in the footer. */
+#atlasGlobalNav .nav-signature .sanchez-brand{display:flex;flex-direction:column;gap:3px;line-height:1.05;min-width:0;white-space:nowrap}
+#atlasGlobalNav .nav-signature .sanchez-brand strong{
+ font:700 clamp(12px,1.15vw,15px)/1.05 var(--atlas-sans)!important;
+ letter-spacing:.055em;color:#fff3de!important
+}
+#atlasGlobalNav .nav-signature .sanchez-brand small{
+ font:500 8px/1.1 var(--atlas-sans)!important;
+ letter-spacing:.09em;color:#dfc497!important
+}
+.sanchez-attribution{
+ min-height:35px;display:flex;justify-content:center;align-items:center;gap:18px;
+ padding:7px 20px;background:#e7ddc9;color:#23392a;
+ border-bottom:1px solid #af9970;
+ font:600 11px/1.4 var(--atlas-sans);letter-spacing:.035em;
+}
+.sanchez-attribution span:first-child{font-weight:800;letter-spacing:.09em}
+.sanchez-attribution a{color:#294d33;text-underline-offset:3px;font-weight:800}
+.sanchez-attribution a:focus-visible{outline:2px solid #7f5c30}
+.editorial-hero .sanchez-source-line{margin-top:18px;font-size:12px;line-height:1.65;color:#f0dfbf!important;letter-spacing:.045em}
+.editorial-hero .sanchez-source-line a{color:#f7ce87!important;text-underline-offset:4px}
+.editorial-hero .hero-copy h1{max-width:850px;font-size:clamp(58px,6.5vw,104px)!important;line-height:1.05!important}
+@media(max-width:1300px){
+ #atlasGlobalNav .nav-signature .sanchez-brand small{display:none}
+ #atlasGlobalNav .nav-signature .sanchez-brand strong{font-size:12px!important}
+}
+@media(max-width:800px){
+ .sanchez-attribution{gap:8px;justify-content:space-between;flex-wrap:wrap;font-size:9px;padding:7px 12px}
+ .sanchez-attribution span:nth-child(2){display:none}
+ #atlasGlobalNav .nav-signature .sanchez-brand strong{font-size:11px!important}
+ .editorial-hero .hero-copy h1{font-size:clamp(49px,10vw,68px)!important}
+}
