@@ -2,12 +2,11 @@
 
 **Source primaire :** Clément Sanchez, *Vers des matériaux hybrides vivants*, Collège de France, 18 février 2020.
 
-**État au 22 novembre 2026 :** 50/70 illustrations détaillées présentes sous réserve de relecture, dont la planche 01 nouvellement refaite ; 20 SVG provisoires encore à remplacer. La planche 07 reste à corriger pour son titre intégré.
+**État au 22 novembre 2026 :** 51/70 illustrations détaillées présentes sous réserve de relecture, dont les planches 01 et 02 nouvellement refaites ; 19 SVG provisoires encore à remplacer. La planche 07 reste à corriger pour son titre intégré.
 
-## Planches restant à reprendre ou à corriger (21)
+## Planches restant à reprendre ou à corriger (20)
 | N° | Titre exact et immuable du catalogue | Statut |
 |---:|---|---|
-| 02 | Le vivant et la diversité cellulaire | Schéma provisoire : illustration éditoriale à refaire |
 | 03 | Barrières cellulaires et interfaces | Schéma provisoire : illustration éditoriale à refaire |
 | 04 | Façades végétalisées | Schéma provisoire : illustration éditoriale à refaire |
 | 05 | Cycle de fabrication des composites de mycélium | Schéma provisoire : illustration éditoriale à refaire |
@@ -62,3 +61,11 @@
 - **62 — Pile microbienne et effluent réel** : réacteur, effluent entrant/sortant, biofilm et paramètres de bilan (DCO, débit, courant, tension sous charge) ; aucun rendement fictif.
 
 Ces images ne reproduisent aucune mesure ou micrographie expérimentale du cours. La source originale reste consultable sur chaque fiche.
+
+## Remplacement individuel 02
+
+- **Titre strict :** Le vivant et la diversité cellulaire.
+- **Source :** figure 02 du cours, Clément Sanchez, Collège de France (2020).
+- **Éléments distingués :** Bactéries, Archées et Eucaryotes ; procaryotes versus eucaryotes ; membrane plasmique universelle, parois non universelles et de composition variable.
+- **Statut :** illustration détaillée sur fond crème, à faire relire ; les dimensions et barres d’échelle insérées dans le rendu sont artistiques et **ne constituent pas des mesures ni des micrographies calibrées**.
+- **Original :** conservé et disponible dans la comparaison du catalogue.
