@@ -106,6 +106,15 @@
 <dialog id="overlayDialog" class="overlay-dialog"><div class="dialog-head"><div><span class="eyebrow gold" id="dialogKicker">ARCHIVES & TRAÇABILITÉ</span><h2 id="dialogTitle">Atlas documentaire</h2></div><button id="closeDialog" class="x-btn" aria-label="Fermer">×</button></div><div id="dialogBody" class="dialog-body"></div></dialog>
 
 <script>window.__atlasBooted=false;setTimeout(()=>{if(!window.__atlasBooted){const l=document.getElementById('loading');if(l)l.innerHTML='<strong style="color:#e5bf80">Moteur WebGL non chargé</strong><span>Vérifiez la connexion Internet et les autorisations du navigateur.</span><a href="./research/" style="color:#91d2d8">Lire la monographie scientifique ↗</a>'}},9000);</script>
+<script>
+document.getElementById('activateApprovedScene')?.addEventListener('click',()=>{
+  const target=document.getElementById('laboratoire');
+  if(target){
+    location.hash='solgel';
+    target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});
+  }
+});
+</script>
 <script type="module" src="./src/app.js"></script>
 <script type="module" src="./src/scene-resources.js"></script>
 <script type="module" src="./organic-home.js"></script><script type="module" src="./discovery-home.js"></script>
