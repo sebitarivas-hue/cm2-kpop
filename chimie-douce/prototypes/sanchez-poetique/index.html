@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Prototype de l'atlas scientifique et éditorial Clément Sanchez — La matière en relation.">
+<meta name="color-scheme" content="light">
+<title>La matière en relation — Clément Sanchez · Prototype éditorial</title>
+<style>
+:root{--paper:#f2eee3;--paper-alt:#eae4d6;--cream:#fbf8ef;--ink:#26332e;--sub:#5b665e;--fine:#c7c6b7;--terracotta:#a3533d;--olive:#566e58;--copper:#b07c59;--serif:Georgia,"Times New Roman",serif;--sans:"Helvetica Neue",Arial,sans-serif;--mono:"SFMono-Regular",Consolas,monospace}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:6rem}
+body{margin:0;color:var(--ink);background:var(--paper);font-family:var(--sans);font-size:16px;line-height:1.62}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:8;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='8' r='.45' fill='%235c665b'/%3E%3Ccircle cx='61' cy='53' r='.5' fill='%239b907e'/%3E%3Ccircle cx='30' cy='71' r='.42' fill='%235c665b'/%3E%3C/svg%3E")}
+a{color:inherit;text-underline-offset:4px}
+button,input{font:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--terracotta);outline-offset:4px}
+img,svg{max-width:100%}
+.skip{position:absolute;left:-9999px;background:var(--cream);padding:.5rem 1rem}
+.skip:focus{left:1rem;top:1rem;z-index:200}
+.shell{width:min(1440px,calc(100% - clamp(36px,8vw,128px)));margin-inline:auto}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(242,238,227,.96);border-bottom:1px solid var(--fine);backdrop-filter:blur(14px)}
+.top-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem;min-height:78px}
+.logo{text-decoration:none;display:inline-flex;align-items:center;gap:1rem}
+.logo-mark{width:38px;height:38px;display:grid;place-items:center;font-family:var(--serif);font-size:21px;border:1px solid var(--ink);border-radius:50%;letter-spacing:-.1em;padding-right:3px}
+.logo span:last-child{font-size:.75rem;line-height:1.45;font-weight:700;letter-spacing:.09em;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:clamp(.8rem,1.6vw,2rem);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
+.nav-links a{text-decoration:none;border-bottom:1px solid transparent;padding:.5rem 0}
+.nav-links a:hover{border-color:var(--terracotta)}
+.issue{padding:8px 0;background:var(--ink);color:var(--cream);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;text-align:center}
+.issue strong{color:#d2c3a3;font-weight:500}
+.eyebrow{display:inline-flex;align-items:center;gap:1rem;font:600 .7rem/1.45 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--terracotta)}
+.eyebrow::before{content:"";display:inline-block;width:28px;height:1px;background:currentColor}
+.hero{padding-top:clamp(42px,5vw,85px);padding-bottom:65px;min-height:750px;display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,47%);align-items:center;gap:4.5vw}
+.hero h1{font:normal clamp(3.5rem,6.3vw,8rem)/.99 var(--serif);letter-spacing:-.062em;margin:28px 0 27px;max-width:12ch}
+.hero h1 em{font-weight:normal;color:var(--terracotta);font-style:italic}
+.hero .leadin{max-width:590px;font:normal clamp(1.16rem,1.65vw,1.55rem)/1.65 var(--serif);color:#394840;margin-bottom:23px}
+.hero .micro{max-width:560px;font-size:.84rem;color:var(--sub);line-height:1.8;margin-bottom:34px}
+.action-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.action{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 19px;text-decoration:none;border:1px solid var(--ink);font-size:.73rem;line-height:1.2;letter-spacing:.105em;text-transform:uppercase;transition:background .2s,color .2s}
+.action.primary{background:var(--ink);color:#fff}
+.action:hover{background:var(--terracotta);border-color:var(--terracotta);color:white}
+.hero-art{width:100%;position:relative}
+.art-surface{background:#eae6da;border:1px solid #ccc5b4;min-height:560px;padding:14px;display:flex;align-items:center}
+.art-surface svg{display:block;width:100%;height:auto}
+.art-meta{display:flex;gap:15px;justify-content:space-between;margin-top:14px;color:var(--sub);font:normal .67rem/1.5 var(--mono);letter-spacing:.035em}
+.tag{border:1px solid #bcc0b6;padding:.15rem .4rem;color:#5d665d;white-space:nowrap;font-size:.65rem}
+.metrics{border-top:1px solid var(--fine);border-bottom:1px solid var(--fine);display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.metric{padding:26px 20px 28px;border-right:1px solid var(--fine)}
+.metric:first-child{padding-left:0}
+.metric:last-child{border:0}
+.metric strong{font:normal clamp(2rem,3.5vw,3.6rem)/1.1 var(--serif);display:block;letter-spacing:-.05em}
+.metric span{display:block;margin-top:9px;color:var(--sub);font-size:.65rem;text-transform:uppercase;letter-spacing:.12em}
+.section{padding:clamp(70px,9vw,130px) 0;scroll-margin-top:55px;border-bottom:1px solid var(--fine)}
+.section.narrow{padding-top:85px;padding-bottom:85px}
+.section-lead{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:55px}
+.kicker{font:.7rem/1.5 var(--mono);letter-spacing:.14em;color:var(--terracotta);text-transform:uppercase;margin-bottom:12px}
+.section h2{font:normal clamp(2.5rem,4.7vw,5rem)/1.09 var(--serif);letter-spacing:-.048em;margin:0}
+.section-lead p{max-width:520px;color:var(--sub);font:normal 1.25rem/1.65 var(--serif);margin:3.1rem 0 0}
+.movement{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--fine);border:1px solid var(--fine)}
+.movement article{background:var(--paper);min-height:290px;padding:27px;display:flex;flex-direction:column}
+.movement .ord{font:.75rem var(--mono);color:var(--terracotta)}
+.movement h3{font:normal 1.85rem/1.1 var(--serif);margin:29px 0 16px}
+.movement p{font-size:.9rem;color:var(--sub);margin:0;line-height:1.7}
+.movement .notes{font:.62rem var(--mono);text-transform:uppercase;letter-spacing:.1em;margin-top:auto;padding-top:20px;color:var(--olive)}
+.exhibit{display:grid;grid-template-columns:37% 63%;border:1px solid var(--fine);margin-top:48px;background:var(--cream)}
+.exhibit-note{padding:clamp(25px,4vw,50px);background:var(--paper-alt)}
+.exhibit-note h3{font:normal 2.3rem/1.12 var(--serif);letter-spacing:-.035em;margin:15px 0}
+.exhibit-note p{color:var(--sub);font-size:.93rem}
+.exhibit-note .source-link{font-size:.76rem;font-weight:600}
+.axis-nav{display:grid;gap:0;border-right:1px solid var(--fine);background:#e6e2d5}
+.axis-button{border:0;border-bottom:1px solid var(--fine);background:transparent;color:var(--ink);text-align:left;padding:19px 26px;display:flex;gap:20px;align-items:center}
+.axis-button span{font:normal .7rem var(--mono);color:var(--terracotta)}
+.axis-button strong{font-weight:500;font-size:.9rem}
+.axis-button[aria-pressed="true"]{background:var(--ink);color:var(--cream)}
+.axis-button[aria-pressed="true"] span{color:#dfb59b}
+.axis-pane{display:grid;grid-template-columns:40% 60%;min-height:400px}
+.axis-content{padding:clamp(30px,5vw,70px)}
+.axis-content h3{font:normal clamp(2rem,3.3vw,3.45rem)/1.16 var(--serif);letter-spacing:-.045em;margin:15px 0 26px}
+.axis-content p{color:var(--sub);font-size:.99rem;line-height:1.85;max-width:540px}
+.axis-visual{border-left:1px solid var(--fine);display:flex;align-items:center;justify-content:center;background:#e1dfd3;padding:24px}
+.axis-visual svg{max-height:360px}
+.provenance{font:.65rem/1.65 var(--mono);text-transform:uppercase;letter-spacing:.055em;color:#706c5e}
+.switcher{display:flex;flex-wrap:wrap;gap:6px;border:1px solid var(--fine);padding:5px;width:max-content;max-width:100%;margin-bottom:30px}
+.switcher button{background:transparent;border:0;padding:10px 14px;font:.68rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--sub)}
+.switcher button[aria-pressed="true"]{background:var(--ink);color:white}
+.reading{background:var(--paper-alt);padding:20px 24px;margin-top:27px;border-left:2px solid var(--terracotta);font-size:.86rem;line-height:1.75}
+.reading strong{display:block;text-transform:uppercase;letter-spacing:.1em;font-size:.65rem;margin-bottom:7px}
+.timeline-head{display:flex;justify-content:space-between;align-items:end;gap:25px;flex-wrap:wrap;margin-bottom:25px}
+.search{width:min(390px,100%);padding:15px;background:var(--cream);border:1px solid var(--fine);color:var(--ink)}
+#course-results{min-height:70px}
+.course-row{display:grid;grid-template-columns:120px 1fr auto;gap:22px;align-items:baseline;padding:20px 10px;border-top:1px solid var(--fine);font-size:.91rem}
+.course-row time{color:var(--terracotta);font:normal .75rem var(--mono)}
+.course-row a{text-decoration:none}
+.course-row a:hover{text-decoration:underline}
+.course-row small{color:var(--sub);font-size:.68rem;text-align:right}
+.course-foot{display:flex;justify-content:space-between;flex-wrap:wrap;align-items:center;gap:15px;padding-top:20px;font-size:.77rem;color:var(--sub)}
+.sector-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.sector{padding:26px 25px 27px;min-height:315px;border:1px solid var(--fine);display:flex;flex-direction:column;gap:12px;background:var(--cream)}
+.sector .sector-top{font:normal .66rem var(--mono);color:var(--terracotta);text-transform:uppercase;letter-spacing:.06em}
+.sector h3{font:normal 1.88rem/1.19 var(--serif);letter-spacing:-.025em;margin:8px 0 4px}
+.sector p{font-size:.85rem;line-height:1.8;color:var(--sub);margin:0}
+.sector footer{margin-top:auto;padding-top:18px;border-top:1px solid var(--fine);display:flex;gap:12px;align-items:center;justify-content:space-between;font-size:.71rem}
+.sector footer span{color:var(--terracotta);font-weight:600}
+.sector footer a{font-weight:600}
+.lab-structure{display:grid;grid-template-columns:1.05fr .95fr;gap:0;border:1px solid var(--fine);background:var(--cream)}
+.lab-panel{padding:clamp(30px,5vw,65px)}
+.lab-panel h3{font:normal 2.5rem/1.15 var(--serif);letter-spacing:-.04em}
+.lab-panel p{color:var(--sub);font-size:.93rem}
+.fidelity{display:flex;gap:10px;flex-wrap:wrap;margin:25px 0}
+.fid{border:1px solid var(--fine);padding:9px 11px;font:.64rem var(--mono)}
+.fid b{color:var(--terracotta)}
+.lab-diagram{background:#dfe0d6;display:flex;align-items:center;justify-content:center;position:relative;min-height:470px;border-left:1px solid var(--fine);padding:28px}
+.lab-diagram figcaption{position:absolute;bottom:17px;left:17px;right:17px;font:.66rem/1.5 var(--mono);color:var(--sub);text-align:center}
+.no-imitation{width:min(400px,100%);height:300px;border:1px dashed #a9ad9e;position:relative;display:grid;place-items:center}
+.no-imitation::before,.no-imitation::after{content:"";position:absolute;width:1px;height:75%;background:#aeb9aa;transform:rotate(45deg)}
+.no-imitation::after{transform:rotate(-45deg)}
+.no-imitation p{background:#dfe0d6;position:relative;z-index:1;padding:10px;text-align:center;font:normal .88rem var(--mono);max-width:23ch}
+.global{display:grid;grid-template-columns:1fr 1fr;gap:45px}
+.global h3{font:normal 1.65rem var(--serif);margin:20px 0 12px}
+.global p{color:var(--sub);font-size:.9rem;line-height:1.85}
+.global-tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}
+.global-tags span{padding:8px 12px;border:1px solid var(--fine);font:normal .68rem var(--mono)}
+.last{padding:72px 0 40px}
+.last-inner{display:grid;grid-template-columns:1fr 1fr;gap:45px;border-top:1px solid var(--ink);padding-top:28px}
+.last h2{font:normal clamp(2.7rem,4.2vw,4.8rem)/1.05 var(--serif);margin:0}
+.last p{max-width:530px;color:var(--sub)}
+.bottom{font:.68rem/1.7 var(--mono);margin-top:60px;padding:24px 0;border-top:1px solid var(--fine);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+#load-note{color:var(--sub);font-size:.79rem}
+@media(max-width:1050px){
+.hero{grid-template-columns:1fr .8fr;gap:30px;min-height:650px}
+.hero h1{font-size:clamp(3.4rem,6.7vw,6rem)}
+.art-surface{min-height:440px}
+.nav-links{gap:15px}
+.nav-links a{font-size:.68rem}
+.axis-pane{grid-template-columns:1fr}
+.axis-visual{border-left:0;border-top:1px solid var(--fine);min-height:230px}
+.axis-visual svg{max-height:250px}
+}
+@media(max-width:760px){
+.shell{width:calc(100% - 32px)}
+.top-inner{min-height:64px;align-items:flex-start;padding:11px 0;flex-wrap:wrap;gap:9px}
+.logo-mark{width:34px;height:34px;font-size:17px}
+.logo span:last-child{font-size:.66rem}
+.nav-links{width:100%;overflow-x:auto;padding-bottom:5px;white-space:nowrap;gap:20px;scrollbar-width:thin}
+.issue{font-size:.55rem;padding:7px 16px}
+.hero{display:flex;flex-direction:column;padding-top:46px;padding-bottom:38px;min-height:0;align-items:stretch}
+.hero h1{font-size:clamp(3.8rem,13vw,5.7rem);max-width:12ch}
+.hero .leadin{font-size:1.2rem}
+.hero-art{max-width:620px}
+.art-surface{min-height:0}
+.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+.metric{padding:19px 10px!important;border-bottom:1px solid var(--fine)}
+.metric:nth-child(2){border-right:0}
+.metric:nth-child(3),.metric:nth-child(4){border-bottom:0}
+.section-lead,.exhibit,.global,.lab-structure,.last-inner{grid-template-columns:1fr}
+.section-lead p{margin:0;font-size:1.08rem}
+.movement,.sector-grid{grid-template-columns:1fr}
+.movement article{min-height:210px}
+.exhibit-note{padding:22px}
+.axis-pane{grid-template-columns:1fr}
+.lab-diagram{border-left:0;border-top:1px solid var(--fine);min-height:320px}
+.course-row{grid-template-columns:1fr;gap:4px}
+.course-row small{text-align:left}
+.section{padding:70px 0}
+.last-inner{gap:20px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#principal">Aller au contenu</a>
+<div class="issue">Prototype indépendant · <strong>Sources institutionnelles et scientifiques identifiées</strong> · Non affilié au Collège de France</div>
+<header class="topbar">
+<div class="shell top-inner">
+<a href="#accueil" class="logo" aria-label="Accueil de l'atlas Clément Sanchez"><span class="logo-mark">CS</span><span>Clément Sanchez<br>La matière en relation</span></a>
+<nav class="nav-links" aria-label="Navigation principale">
+<a href="#recit">Le récit</a><a href="#idees">Les idées</a><a href="#cours">Enseignements</a><a href="#industries">Applications</a><a href="#laboratoire">Atlas 3D</a><a href="#monde">Le monde</a>
+</nav>
+</div>
+</header>
+<main id="principal">
+<section id="accueil" class="shell hero" aria-labelledby="hero-title">
+<div>
+<span class="eyebrow">Clément Sanchez · Atlas scientifique et sensible</span>
+<h1 id="hero-title">La matière <em>en relation.</em></h1>
+<p class="leadin">Un coquillage. Une argile. Une cellule. Deux matières se rencontrent, une interface apparaît, une propriété nouvelle devient possible.</p>
+<p class="micro">De l’imaginaire de l’hybride aux architectures moléculaires, de la leçon inaugurale de 2011 aux matériaux vivants et à leurs usages : une lecture documentée d’une œuvre scientifique.</p>
+<div class="action-row">
+<a class="action primary" href="#recit">Entrer dans le récit</a>
+<a class="action" href="https://www.college-de-france.fr/fr/agenda/lecon-inaugurale/chimie-des-materiaux-hybrides/chimie-des-materiaux-hybrides" target="_blank" rel="noopener noreferrer">Leçon inaugurale officielle ↗</a>
+</div>
+</div>
+<div class="hero-art">
+<div class="art-surface">
+<svg viewBox="0 0 560 560" role="img" aria-label="Composition graphique abstraite montrant la rencontre de géométries minérales et de lignes organiques, sans prétention de représentation atomique">
+<defs><pattern id="grain" width="21" height="21" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r=".6" fill="#536456" opacity=".25"/></pattern><clipPath id="circleclip"><circle cx="280" cy="270" r="223"/></clipPath></defs>
+<rect width="560" height="560" fill="#eae6da"/>
+<circle cx="280" cy="270" r="223" fill="url(#grain)" stroke="#aab2a1" stroke-width=".9"/>
+<g clip-path="url(#circleclip)">
+<path d="M-20 120 L102 39 L183 132 L122 251 L14 229Z M183 132 L294 18 L386 89 L324 227 L122 251Z M122 251 L324 227 L260 358 L101 387 Z M260 358 L324 227 L444 301 L374 481 L216 511Z M14 229 L122 251 L101 387 L-50 440Z" fill="none" stroke="#67796c" stroke-width="1.3"/>
+<path d="M14 229L183 132 M102 39L122 251 M122 251L260 358 M324 227L374 481 M260 358L444 301 M183 132L324 227" fill="none" stroke="#a8b3a3" stroke-width=".7"/>
+<path d="M-5 500 C75 366 112 430 193 309 S304 150 352 203 S458 300 580 111" fill="none" stroke="#a3533d" stroke-width="5"/>
+<path d="M-18 482 C85 366 149 470 222 340 S337 177 387 237 S470 326 592 160" fill="none" stroke="#b47860" stroke-width="1.6"/>
+<path d="M-25 519 C79 393 141 486 224 368 S333 185 401 241 S477 340 592 184" fill="none" stroke="#b47860" stroke-width="1.6"/>
+<g stroke="#a3533d" stroke-width="1.4" fill="#eae6da">
+<circle cx="76" cy="440" r="7"/><circle cx="162" cy="355" r="8"/><circle cx="242" cy="258" r="11"/><circle cx="321" cy="188" r="5"/><circle cx="405" cy="252" r="6"/><circle cx="490" cy="242" r="7"/>
+</g>
+<g fill="#435e4e"><circle cx="102" cy="39" r="4"/><circle cx="122" cy="251" r="5"/><circle cx="324" cy="227" r="6"/><circle cx="260" cy="358" r="5"/><circle cx="183" cy="132" r="4"/><circle cx="444" cy="301" r="4"/></g>
+</g>
+<path d="M58 488L230 488" stroke="#46554a" stroke-width=".8"/>
+<path d="M230 488l-8 -4 M230 488l-8 4" stroke="#46554a" fill="none"/>
+<text x="58" y="511" fill="#4b5f50" font-family="Georgia,serif" font-size="13">minéral</text>
+<text x="482" y="511" text-anchor="end" fill="#a3533d" font-family="Georgia,serif" font-size="13">organique</text>
+<text x="280" y="540" text-anchor="middle" fill="#6c7169" font-family="monospace" font-size="10" letter-spacing="2">L’INTERFACE</text>
+<text x="280" y="26" text-anchor="middle" fill="#5e6c5f" font-family="monospace" font-size="9" letter-spacing="1.5">COMPOSITION ÉDITORIALE · NON QUANTITATIVE</text>
+</svg>
+</div>
+<div class="art-meta"><span>Fig. 00 — Relation, structure, émergence</span><span class="tag">Pas une micrographie</span></div>
+</div>
+</section>
+<div class="shell metrics" aria-label="Référentiel documentaire en construction">
+<div class="metric"><strong>2011</strong><span>Leçon inaugurale</span></div>
+<div class="metric"><strong>53</strong><span>Cours individuels recensés</span></div>
+<div class="metric"><strong>70</strong><span>Planches originales de 2020</span></div>
+<div class="metric"><strong>18</strong><span>Laboratoires 3D à auditer</span></div>
+</div>
+<section id="recit" class="section">
+<div class="shell">
+<div class="section-lead"><div><div class="kicker">I — La poétique de la matière</div><h2>Six mouvements.<br>Une même intuition.</h2></div><p>Le récit suit les idées de l’inaugurale, sans prétendre reproduire son plan minute par minute. Chaque image, chaque relation, chaque hypothèse doit pouvoir rejoindre sa source.</p></div>
+<div class="movement">
+<article><div class="ord">01 / L’imaginaire</div><h3>Le mythe<br>des hybrides</h3><p>Avant d’être un domaine scientifique, l’hybridation traverse les récits, les êtres et les classifications.</p><div class="notes">Question : qu’est-ce qu’un hybride ?</div></article>
+<article><div class="ord">02 / La rencontre</div><h3>Deux mondes,<br>une interface</h3><p>Organique et minéral : leurs propriétés ne se juxtaposent pas simplement. L’interface peut devenir la source d’une fonction.</p><div class="notes">Interactions · matière</div></article>
+<article><div class="ord">03 / La construction</div><h3>La chimie<br>comme assemblage</h3><p>Précurseurs moléculaires, auto-organisation, nanobriques et légochimie : construire avec des unités caractérisées.</p><div class="notes">Structure · liaison</div></article>
+<article><div class="ord">04 / Le vivant</div><h3>Apprendre<br>de la nature</h3><p>Le vivant peut être composant actif, modèle à reproduire ou source d’un principe de conception.</p><div class="notes">Bio-inspiration · biomimétisme</div></article>
+<article><div class="ord">05 / La transformation</div><h3>La forme<br>est un procédé</h3><p>De la molécule à l’objet, l’architecture dépend aussi de la fabrication et des conditions de synthèse.</p><div class="notes">Procédés · échelles</div></article>
+<article><div class="ord">06 / La transmission</div><h3>Une chimie<br>intégrative</h3><p>Chimie, physique, biologie et ingénierie se croisent pour élaborer des usages — à vérifier un à un.</p><div class="notes">Recherche · société</div></article>
+</div>
+<p class="provenance" style="margin-top:25px">Six mouvements : création éditoriale. Source des thèmes : résumé institutionnel de l’inaugurale, Collège de France, 10 février 2011.</p>
+</div>
+</section>
+<section id="idees" class="section">
+<div class="shell">
+<div class="section-lead"><div><div class="kicker">II — Comprendre l’œuvre</div><h2>Huit axes.<br>Des preuves.</h2></div><p>Sélectionne une idée. Son sens, sa portée scientifique et ses prolongements apparaissent sans inventer de résultats ou de filiations historiques.</p></div>
+<div class="exhibit">
+<div class="axis-nav" id="axis-list" aria-label="Choisir un axe scientifique"></div>
+<div class="axis-pane">
+<div class="axis-content">
+<div class="kicker" id="axis-num">AX–01</div>
+<h3 id="axis-title">Qu’est-ce qu’un matériau hybride ?</h3>
+<p id="axis-summary">Deux familles de constituants peuvent donner naissance à des propriétés nouvelles lorsqu’une interface est conçue et caractérisée.</p>
+<div class="switcher" role="group" aria-label="Niveau de lecture">
+<button type="button" data-mode="discovery" aria-pressed="true">Découverte</button>
+<button type="button" data-mode="research" aria-pressed="false">Recherche</button>
+<button type="button" data-mode="industry" aria-pressed="false">Industrie</button>
+</div>
+<div class="reading" aria-live="polite"><strong id="mode-label">Lecture découverte</strong><span id="axis-reading"></span></div>
+<p class="provenance" style="margin-top:25px"><a href="https://www.college-de-france.fr/fr/agenda/lecon-inaugurale/chimie-des-materiaux-hybrides/chimie-des-materiaux-hybrides" target="_blank" rel="noopener noreferrer">Résumé de la leçon inaugurale ↗</a></p>
+</div>
+<div class="axis-visual">
+<svg viewBox="0 0 300 340" role="img" aria-label="Diagramme conceptuel : lien entre un principe, une expérience et sa source">
+<rect width="300" height="340" fill="none"/>
+<g fill="none" stroke="#a1ac9f" stroke-width="1">
+<circle cx="150" cy="165" r="96"/><circle cx="150" cy="165" r="60"/><circle cx="150" cy="165" r="23"/>
+<path d="M150 28 V302 M14 165 H286 M53 68 L247 262 M247 68 L53 262"/>
+</g>
+<path d="M150 69 C220 101 193 175 150 165 S81 233 150 261" fill="none" stroke="#a3533d" stroke-width="2.5"/>
+<g fill="#e1dfd3" stroke="#5e7862" stroke-width="1.7"><circle cx="150" cy="69" r="8"/><circle cx="247" cy="165" r="8"/><circle cx="150" cy="261" r="8"/><circle cx="53" cy="165" r="8"/></g>
+<circle cx="150" cy="165" r="9" fill="#a3533d"/>
+<g font-family="monospace" font-size="10" fill="#526053" text-anchor="middle"><text x="150" y="15">IDÉE</text><text x="150" y="332">EXPÉRIENCE</text><text x="35" y="145">SOURCE</text><text x="265" y="145">MODÈLE</text></g>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="cours" class="section">
+<div class="shell">
+<div class="section-lead"><div><div class="kicker">III — Les enseignements</div><h2>Une pensée<br>dans le temps.</h2></div><p>Neuf cycles actifs, 53 leçons et une inaugurale distincte. Un parcours où chaque séance renvoie à sa fiche institutionnelle, et non à une page générique.</p></div>
+<div class="timeline-head">
+<div><strong id="course-count" style="font-family:var(--serif);font-size:1.55rem;font-weight:400">Chargement des 53 cours…</strong><div id="load-note">Référentiel documentaire versionné sur GitHub.</div></div>
+<input class="search" id="course-search" aria-label="Rechercher parmi les enseignements" placeholder="Rechercher une année, un matériau, une leçon…" autocomplete="off">
+</div>
+<div id="course-results" aria-live="polite"></div>
+<div class="course-foot"><span id="course-footnote">Le lecteur de cours dépend de la disponibilité du référentiel local.</span><a href="https://github.com/sebitarivas-hue/cm2-kpop/blob/plan/chimie-corpus-international-20261122/chimie-douce/docs/INDEX_53_COURS_LIENS_INSTITUTIONNELS.md" target="_blank" rel="noopener noreferrer">Index officiel intégral ↗</a></div>
+</div>
+</section>
+<section id="industries" class="section">
+<div class="shell">
+<div class="section-lead"><div><div class="kicker">IV — Des idées aux usages</div><h2>La science<br>et ses devenirs.</h2></div><p>Un brevet décrit une invention ; il ne démontre pas à lui seul une commercialisation. Les applications sont classées par niveau de preuve, et chaque fiche conserve ses titulaires et ses sources.</p></div>
+<div class="sector-grid">
+<article class="sector"><div class="sector-top">Brevet publié · US 11519072 B2 · 2022</div><h3>Protéger<br>les surfaces</h3><p>Revêtements anticorrosion par voie sol-gel, développés dans un cadre inventif associant notamment EDF, Sorbonne Université et le CNRS.</p><footer><span>Exploitation non vérifiée</span><a href="https://patents.justia.com/inventor/clement-sanchez" target="_blank" rel="noopener noreferrer">Source ↗</a></footer></article>
+<article class="sector"><div class="sector-top">Brevet publié · US 9656421 B2 · 2017</div><h3>Hiérarchiser<br>les pores</h3><p>Matériaux sphériques comportant plusieurs échelles de porosité et des particules métalliques. Travail breveté avec IFP Énergies nouvelles.</p><footer><span>Exploitation non vérifiée</span><a href="https://patents.justia.com/inventor/clement-sanchez" target="_blank" rel="noopener noreferrer">Source ↗</a></footer></article>
+<article class="sector"><div class="sector-top">Demande européenne · EP 1978055 A1 · 2008</div><h3>Inventer<br>des revêtements</h3><p>Protection de surfaces métalliques par matériau nanostructuré ; dossier associant EADS et des établissements de recherche français.</p><footer><span>Déploiement non établi</span><a href="https://patents.google.com/patent/EP1978055A1/en" target="_blank" rel="noopener noreferrer">Brevet ↗</a></footer></article>
+</div>
+<p class="provenance" style="margin-top:25px">Trois dossiers pilotes, non une revue exhaustive des familles de brevets ou une validation de fabrication industrielle.</p>
+</div>
+</section>
+<section id="laboratoire" class="section">
+<div class="shell">
+<div class="section-lead"><div><div class="kicker">V — Un atlas de structures</div><h2>Voir juste.<br>Avant de voir beau.</h2></div><p>Le programme 3D ne doit pas transformer une hypothèse en résultat. Les modèles atomiques doivent provenir de structures expérimentales authentifiées ; les autres portent leur niveau de fidélité.</p></div>
+<div class="lab-structure">
+<div class="lab-panel">
+<div class="kicker">Échelle et vérification</div><h3>Le protocole de précision</h3>
+<p>Chaque laboratoire doit distinguer une illustration pédagogique, une géométrie mesurée, une structure cristallographique indexée et une simulation numérique validée.</p>
+<div class="fidelity"><span class="fid"><b>D0</b> Conceptuel</span><span class="fid"><b>D1</b> Géométrie mesurée</span><span class="fid"><b>D2</b> Structure CIF/PDB</span><span class="fid"><b>D3</b> Simulation validée</span></div>
+<p>Une interface scientifique doit aussi afficher la provenance des coordonnées, les unités, les hypothèses, la licence des données et les limites du modèle. Le rendu 3D devient une couche d’accès à la preuve, non une décoration.</p>
+<div class="action-row" style="margin-top:30px"><a class="action primary" href="../../lab/" target="_blank" rel="noopener noreferrer">Voir les laboratoires existants ↗</a><a class="action" href="https://cod.psdi.ac.uk/index.php" target="_blank" rel="noopener noreferrer">Structures ouvertes COD ↗</a></div>
+</div>
+<figure class="lab-diagram" style="margin:0">
+<div class="no-imitation"><p>Aucune structure atomique fictive chargée comme modèle « exact ».</p></div>
+<figcaption>Prototype de gouvernance du laboratoire 3D. Une vraie vue D2 attend un jeu de coordonnées cristallographiques contrôlé et sourcé.</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="monde" class="section narrow">
+<div class="shell">
+<div class="section-lead"><div><div class="kicker">VI — La recherche mondiale</div><h2>Un réseau,<br>pas une frontière.</h2></div><p>Collaborations avérées de Sanchez, travaux parallèles et découvertes postérieures : trois catégories différentes, que le site doit rendre immédiatement lisibles.</p></div>
+<div class="global">
+<article><div class="kicker">Collaborations historiques</div><h3>France – Russie, 2005 et 2009</h3><p>Des articles cosignés par Clément Sanchez et des chercheurs associés à Nijni Novgorod documentent le travail sur les hybrides photoactifs titane–polymère et sur les transferts de charges interfaciaux.</p><a href="https://doi.org/10.1039/B507305G" target="_blank" rel="noopener noreferrer">Publication 2005 ↗</a> · <a href="https://doi.org/10.1039/B814494J" target="_blank" rel="noopener noreferrer">Publication 2009 ↗</a></article>
+<article><div class="kicker">Comparaisons de recherches</div><h3>Japon, Chine, États-Unis, Europe</h3><p>Les travaux sur MOFs, biofilms, sol-gel, hydrogels et protocellules ne deviennent liés à Sanchez que lorsque les preuves le démontrent. Les analogies de sujet sont conservées comme telles.</p><div class="global-tags"><span>Japon</span><span>Chine</span><span>États-Unis</span><span>Russie</span><span>Europe</span></div></article>
+</div>
+</div>
+</section>
+</main>
+<footer class="shell last">
+<div class="last-inner"><div><div class="kicker">Clément Sanchez · La matière en relation</div><h2>La beauté<br>de la preuve.</h2></div><div><p>Prototype éditorial indépendant. La direction scientifique repose sur les sources primaires du Collège de France, les publications d’éditeurs et les documents de brevets. Les modèles et images de recherche non autorisés ne sont pas reproduits.</p><a href="https://www.college-de-france.fr/fr/personne/clement-sanchez" target="_blank" rel="noopener noreferrer">Biographie institutionnelle ↗</a></div></div>
+<div class="bottom"><span>Prototype non publié · Les fiches et validations restent en cours.</span><span>Conception éditoriale originale · 22 novembre 2026</span></div>
+</footer>
+<script>
+(function(){
+"use strict";
+var axis=[
+ {name:"Qu’est-ce qu’un matériau hybride ?",sum:"L’interface organique–minéral peut jouer un rôle essentiel dans les propriétés accessibles. La seule addition de composants ne suffit pas à caractériser la fonction.",d:"Une matière hybride fait dialoguer des composants organiques et minéraux : le résultat dépend de leur manière d’interagir.",r:"Identifier les familles de composants et les interfaces ; distinguer interactions faibles, liaisons covalentes et organisation multi-échelles. Les données quantitatives sont spécifiques à chaque publication.",i:"Application possible aux revêtements et composites, mais aucune performance d’usage ni production industrielle ne découle de la définition seule."},
+ {name:"Précurseurs et auto-assemblage",sum:"Des unités moléculaires fonctionnelles peuvent s’assembler selon les interactions et conditions du milieu.",d:"Des molécules servent de point de départ à une architecture plus grande.",r:"Précurseurs, hydrolyse, condensation, espèces formées, contrôle de l’assemblage et caractérisation structurale doivent être documentés.",i:"Sélectivité et tenue des matériaux supposent des essais avec conditions et protocoles reproductibles."},
+ {name:"Légochimie et nanobriques",sum:"Des objets préformés dotés de fonctions chimiques peuvent être assemblés en matériaux complexes.",d:"Préparer des briques, contrôler leurs surfaces, puis construire.",r:"La nature chimique, la stabilité et la réactivité des ligands de surface conditionnent l’assemblage ; ne pas confondre dessin schématique et coordonnées atomiques.",i:"Capteurs et catalyseurs sont des usages possibles ; chaque preuve de performance doit renvoyer à un article ou un brevet précis."},
+ {name:"Encapsulation de bio-composants",sum:"Le vivant peut fonctionner comme un composant actif d’un matériau hybride, mais confinement, viabilité et activité sont trois observations distinctes.",d:"Protéger une enzyme ou une cellule sans empêcher les échanges indispensables.",r:"Quantifier activité, diffusion, survie et stabilité séparément. Ne pas assimiler encapsulation enzymatique et coque autour d’une cellule vivante.",i:"Applications biocatalytiques et biomédicales à classer selon preuves expérimentales et étapes réglementaires."},
+ {name:"Biomimétisme et bio-inspiration",sum:"La matière vivante peut fournir des modèles de fonction ou des principes de fabrication.",d:"Observer comment une structure naturelle agit, puis en tirer une stratégie de conception.",r:"Isoler le mécanisme biomimétique réellement reproduit, sa caractérisation et ses limites de transférabilité.",i:"La qualification « bio-inspiré » ne prouve pas la durabilité ou une empreinte environnementale favorable."},
+ {name:"Hiérarchies et porosité",sum:"La structure d’un matériau change avec l’échelle, et la distribution de ses pores peut conditionner ses usages.",d:"Observer un matériau de la molécule à l’objet : ce n’est pas la même structure à chaque échelle.",r:"Relier taille, distribution, connectivité, surface et accès moléculaire à des instruments de mesure et méthodes appropriés.",i:"Séparation, catalyse, filtration et isolation peuvent dépendre de la texture ; ces performances nécessitent des essais spécifiques."},
+ {name:"Couplage chimie–procédés",sum:"La méthode de formation fait partie de la définition pratique du matériau.",d:"Changer la manière de fabriquer peut changer le résultat.",r:"Décrire la séquence de fabrication, les paramètres, la croissance et la caractérisation in situ. Les rendements non publiés restent inconnus.",i:"La montée en échelle exige stabilité, répétabilité, sécurité et analyse des coûts, non la seule démonstration de laboratoire."},
+ {name:"Chimie intégrative et applications",sum:"La démarche de Sanchez croise chimie, physique, vivant et ingénierie pour concevoir des architectures fonctionnelles.",d:"La recherche devient une conversation entre plusieurs sciences et plusieurs métiers.",r:"Distinguer hypothèses, preuves expérimentales, généralisation et recherches ultérieures. Chaque affirmation a son origine.",i:"Brevet, pilote et commercialisation sont trois étapes documentaires distinctes : ne pas les fusionner."}
+];
+var active=0, mode="discovery";
+var list=document.getElementById("axis-list");
+axis.forEach(function(a,i){var btn=document.createElement("button");btn.type="button";btn.className="axis-button";btn.setAttribute("aria-pressed",String(i===0));btn.innerHTML="<span>0"+(i+1)+"</span><strong></strong>";btn.querySelector("strong").textContent=a.name;btn.addEventListener("click",function(){active=i;paint()});list.appendChild(btn)});
+function paint(){var a=axis[active];document.getElementById("axis-num").textContent="AX–0"+(active+1);document.getElementById("axis-title").textContent=a.name;document.getElementById("axis-summary").textContent=a.sum;document.getElementById("axis-reading").textContent=a[mode==="discovery"?"d":mode==="research"?"r":"i"];document.getElementById("mode-label").textContent=mode==="discovery"?"Lecture découverte":mode==="research"?"Lecture recherche":"Lecture industrie";list.querySelectorAll("button").forEach(function(b,i){b.setAttribute("aria-pressed",String(i===active))});document.querySelectorAll("[data-mode]").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-mode")===mode))})}
+document.querySelectorAll("[data-mode]").forEach(function(b){b.addEventListener("click",function(){mode=b.getAttribute("data-mode");paint()})});paint();
+var lessons=[], search=document.getElementById("course-search"), holder=document.getElementById("course-results"), note=document.getElementById("load-note"),count=document.getElementById("course-count");
+function drawCourses(){var q=search.value.toLocaleLowerCase("fr").trim();var matched=lessons.filter(function(x){return (x.title+" "+x.cycle+" "+x.date).toLocaleLowerCase("fr").includes(q)});var n=0;holder.replaceChildren();matched.slice(0,14).forEach(function(x){var row=document.createElement("div");row.className="course-row";var date=document.createElement("time");date.textContent=x.date;date.dateTime=x.date;var a=document.createElement("a");a.textContent=x.title;a.href=x.official_url;a.target="_blank";a.rel="noopener noreferrer";var small=document.createElement("small");small.textContent=x.cycle;row.append(date,a,small);holder.appendChild(row);n++});if(!n){var msg=document.createElement("p");msg.textContent="Aucun résultat pour ce filtre.";holder.appendChild(msg)}document.getElementById("course-footnote").textContent=matched.length+" cours trouvés, "+n+" affichés. Chaque titre mène à la fiche officielle."}
+search.addEventListener("input",drawCourses);
+fetch("../../docs/donnees/enseignements_officiels_confirmes_2011_2020.json").then(function(r){if(!r.ok)throw Error("référentiel indisponible");return r.json()}).then(function(d){lessons=d.lesson.filter(function(x){return x.type==="cours"});if(lessons.length!==53)throw Error("corpus de cours incomplet");count.textContent="53 cours documentés, 2011–2020";note.textContent="Données chargées depuis le référentiel documentaire local.";drawCourses()}).catch(function(){count.textContent="53 cours recensés";note.textContent="Le fichier complet nécessite une consultation via un serveur local ou le dépôt GitHub.";holder.textContent="Le catalogue peut être consulté depuis le lien « Index officiel intégral » ci-dessous.";search.disabled=true;document.getElementById("course-footnote").textContent="Mode fichier isolé : chargement JSON indisponible."});
+})();
+</script>
+</body>
+</html>
