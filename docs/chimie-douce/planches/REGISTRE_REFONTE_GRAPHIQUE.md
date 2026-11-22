@@ -2,9 +2,9 @@
 
 **Source primaire :** Clément Sanchez, *Vers des matériaux hybrides vivants*, Collège de France, 18 février 2020.
 
-**État au 22 novembre 2026 :** 45/70 illustrations détaillées présentes, dont plusieurs à revoir scientifiquement ; **25/70 SVG provisoires**. Le registre comporte **26 numéros à reprendre ou corriger**, car la planche 07 est une image détaillée dont le titre intégré reste erroné. La présence d’un fichier ne vaut pas validation scientifique ou artistique. L’existence d’un fichier SVG/WEBP ne constitue pas une validation scientifique ni artistique.
+**État au 22 novembre 2026 :** 46/70 illustrations détaillées présentes, dont plusieurs à revoir scientifiquement ; **24/70 SVG provisoires**. Le registre comporte **25 numéros à reprendre ou corriger**, car la planche 07 est une image détaillée dont le titre intégré reste erroné. La présence d’un fichier ne vaut pas validation scientifique ou artistique. L’existence d’un fichier SVG/WEBP ne constitue pas une validation scientifique ni artistique.
 
-## Planches à reprendre ou corriger (26)
+## Planches à reprendre ou corriger (25)
 | N° | Titre exact et immuable du catalogue | Statut |
 |---:|---|---|
 | 01 | Plan analytique du cours | Titre intégré dans l'image à corriger |
@@ -21,7 +21,6 @@
 | 48 | Réponse à une sonde fonctionnalisée | Schéma provisoire : illustration éditoriale à refaire |
 | 49 | Ligands polyfonctionnels de couplage | Schéma provisoire : illustration éditoriale à refaire |
 | 50 | Stabilité biologique de supracellules | Schéma provisoire : illustration éditoriale à refaire |
-| 59 | Bio-impression de bactéries dans des matériaux | Schéma provisoire : illustration éditoriale à refaire |
 | 60 | Biofabrication : tissus et démonstrateurs | Schéma provisoire : illustration éditoriale à refaire |
 | 61 | Architecture de pile microbienne | Schéma provisoire : illustration éditoriale à refaire |
 | 62 | Pile microbienne et effluent réel | Schéma provisoire : illustration éditoriale à refaire |
@@ -51,3 +50,11 @@
 6. **État de validation :** fichier source vérifié → illustration individuelle produite → titre confronté → légendes contrôlées → intégration → GitHub Pages vérifié. Aucun lot de mosaïques ne compte comme dix planches réalisées.
 
 *Ce document est un inventaire éditorial de travail, pas une attestation d'approbation par Clément Sanchez ou par le Collège de France.*
+
+## Remplacement individuel 59
+
+- **Titre canonique :** Bio-impression de bactéries dans des matériaux
+- **Source du cours :** figure 59, *Vers des matériaux hybrides vivants*, Clément Sanchez, Collège de France (2020)
+- **Publication scientifique citée :** M. Schaffner et al., *Science Advances* (2017), *3D printing of bacteria into functional complex materials*
+- **Distinctions :** *Pseudomonas putida* / dégradation de phénols ; *Acetobacter xylinum* / cellulose bactérienne. Le visuel est une reconstruction explicative et non une micrographie.
+- **Limites :** aucune donnée de viabilité, biodégradation ou production de cellulose déduite de l'illustration ; l'original reste conservé.
