@@ -2,12 +2,11 @@
 
 **Source primaire :** Clément Sanchez, *Vers des matériaux hybrides vivants*, Collège de France, 18 février 2020.
 
-**État au 22 novembre 2026 :** 49/70 illustrations détaillées présentes sous réserve de relecture ; **21/70 SVG provisoires**. Le registre comporte **22 numéros à reprendre ou corriger**, dont la planche 07 au titre intégré erroné. La présence d’une image ne constitue pas sa validation scientifique.
+**État au 22 novembre 2026 :** 50/70 illustrations détaillées présentes sous réserve de relecture, dont la planche 01 nouvellement refaite ; 20 SVG provisoires encore à remplacer. La planche 07 reste à corriger pour son titre intégré.
 
-## Planches à reprendre ou corriger (22)
+## Planches restant à reprendre ou à corriger (21)
 | N° | Titre exact et immuable du catalogue | Statut |
 |---:|---|---|
-| 01 | Plan analytique du cours | Titre intégré dans l'image à corriger |
 | 02 | Le vivant et la diversité cellulaire | Schéma provisoire : illustration éditoriale à refaire |
 | 03 | Barrières cellulaires et interfaces | Schéma provisoire : illustration éditoriale à refaire |
 | 04 | Façades végétalisées | Schéma provisoire : illustration éditoriale à refaire |
