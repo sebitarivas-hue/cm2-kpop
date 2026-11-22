@@ -47,7 +47,7 @@ function displayFigureArt(){
 function openFigure(id){
  const f=FIGURES.find(f=>f.id===id);if(!f)return;
  state.id=f.id;
- state.view=redesignedPlate(f.id)?'illustration':'original';
+ state.view=(new URLSearchParams(location.search).get('view')==='original')?'original':(redesignedPlate(f.id)?'illustration':'original');
  $('dialogMeta').textContent='ATLAS SCIENTIFIQUE / FIGURE '+String(f.id).padStart(2,'0')+' / '+time(f.time);
  $('dialogChapter').textContent='CHAPITRE '+String(chapterNames.indexOf(f.chapter)+1).padStart(2,'0')+' · '+f.chapter;
  $('dialogTitle').textContent=f.title;

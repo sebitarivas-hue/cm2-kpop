@@ -297,3 +297,14 @@ body.essay-page :is(p,li){color:#e0e2d8!important}
  #atlasGlobalNav,.mobileAtlasNav{display:none!important}
  body:has(.layout>aside){background:#fff!important;color:#111!important}
 }
+
+/* Scientific reconstructions appear beside, never in place of, original course evidence. */
+.source-enhanced .source-original-access{margin-top:17px;border-top:1px solid #bdaf8e;padding-top:12px}
+.source-enhanced .source-original-access summary{cursor:pointer;font:600 12px/1.5 var(--atlas-sans);color:#8a542e;letter-spacing:.03em}
+.source-enhanced .source-original-access img{display:block;max-width:100%;height:auto;margin:12px 0;border:1px solid #a9a48d}
+.source-enhanced .source-original-access p{font-size:13px;line-height:1.5;color:#384d3c}
+.source-enhanced .original-seal{color:#f4e4bf!important;background:#1d3c2cf0!important}
+.fig-card-new .fig-art img{object-fit:contain!important;background:#f1ecdf!important}
+.fig-card-new .redesigned-status{display:block;font:600 10px/1.4 var(--atlas-sans);letter-spacing:.03em;color:#704f2f;margin-top:10px}
+.fig-dialog .figure-versions{display:flex;gap:10px;flex-wrap:wrap}
+@media(max-width:750px){.source-enhanced .source-original-access summary{font-size:13px}}

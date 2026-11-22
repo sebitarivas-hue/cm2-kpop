@@ -1,5 +1,6 @@
 import {conceptRelations,plateAsset} from './knowledge-graph.js';
 import {FIGURES} from './figures.js';
+import {redesignedPlate} from './redesigned-plates.js';
 import {translateTerm} from '../i18n.js';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const base=new URL('../',import.meta.url);
@@ -23,7 +24,7 @@ export function openConcept(id){
  const d=ensureConceptDialog(),el=d.querySelector('#conceptDetail');
  const scene=c.scene;
  const chapters=[...new Set(FIGURES.map(x=>x.chapter))];const chapter=chapters.indexOf(c.plates[0]?.chapter)+1;
- const figures=c.plates.slice(0,4).map(f=>'<a class="concept-plate" href="'+link('planches/?figure='+f.id)+'"><img src="'+plateAsset(f.id)+'" loading="lazy" alt="'+esc(L('Planche originale'))+' '+f.id+' : '+esc(L(f.title))+'"><span>FIG. '+String(f.id).padStart(2,'0')+' · '+esc(L(f.title))+'</span></a>').join('');
+ const figures=c.plates.slice(0,4).map(f=>{const art=redesignedPlate(f.id);return '<a class="concept-plate" href="'+link('planches/?figure='+f.id)+'"><img src="'+esc(art?.src||plateAsset(f.id))+'" loading="lazy" alt="'+esc(art?'Reconstruction conceptuelle':'Diapositive originale')+' '+f.id+' : '+esc(L(f.title))+'"><span>FIG. '+String(f.id).padStart(2,'0')+' · '+esc(L(f.title))+(art?' · ILLUSTRATION + SOURCE':'')+'</span></a>'}).join('');
  el.innerHTML='<span class="concept-eyebrow">'+esc(L('NOTION'))+' / '+esc(c.id.toUpperCase())+'</span><h2>'+esc(L(c.label))+'</h2><p class="concept-simple">'+esc(L(c.simple))+'</p><h3>'+esc(L('Le mécanisme et ses limites'))+'</h3><p>'+esc(L(c.detail))+'</p><h3>'+esc(L('Source originale et expérimentation'))+'</h3><p>'+esc(L('Le modèle est une reconstruction pédagogique. Les planches ci-dessous sont extraites du cours de Clément Sanchez, Collège de France, 18 février 2020.'))+'</p><div class="concept-actions"><a href="'+link('#'+scene.id)+'" >'+esc(L('◉ EXPÉRIMENTER EN 3D ↗'))+'</a><a href="'+link('notions/?notion='+encodeURIComponent(c.id))+'" >'+esc(L('⌕ FICHE CANONIQUE ↗'))+'</a><a href="'+link('bibliographie/?scene='+scene.id)+'" >'+esc(L('↗ PUBLICATIONS'))+'</a><a href="'+link('research/#chapitre-'+(chapter>0?chapter:1))+'" >'+esc(L('▤ CHAPITRE DU COURS'))+'</a></div><div class="concept-plates">'+figures+'</div>';
  if(!d.open)d.showModal();
 }
