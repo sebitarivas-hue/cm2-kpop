@@ -1,6 +1,6 @@
 /* Non-interactive educational reconstructions. Original source slides are always retained. */
 const SOURCE='Clément Sanchez — Collège de France, 18 février 2020';
-const IDS=Object.freeze([1,2,7,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,51,52,53,54,55,56,57,58,59,60,61,62]);
+const IDS=Object.freeze([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,51,52,53,54,55,56,57,58,59,60,61,62]);
 const LEGACY=Object.fromEntries(IDS.map(id=>[
   id,Object.freeze({
     src:new URL('../assets/atlas-redessine/planche-'+String(id).padStart(2,'0')+'.webp',import.meta.url).href,
@@ -11,7 +11,7 @@ const LEGACY=Object.fromEntries(IDS.map(id=>[
   })
 ]));
 /* Scientific vector edition, drawn on cream stock. All original slides remain available. */
-const VECTOR_IDS=Object.freeze([3,4,5,6,8,9,10,47,48,49,50,63,64,65,66,67,68,69,70]);
+const VECTOR_IDS=Object.freeze([47,48,49,50,63,64,65,66,67,68,69,70]);
 const VECTOR_NOTES=Object.freeze({
  1:'Carte du cours : illustration conceptuelle sans hiérarchie expérimentale.',
  2:'Bactéries, archées et eucaryotes sont distincts ; la diversité biologique est schématisée.',
@@ -60,11 +60,28 @@ const REVIEWED=Object.freeze({
   defaultOriginal:false
  })
 });
-const REDESIGNED=Object.freeze({...LEGACY,...VECTOR,...REVIEWED});
+/* The reconstructed images are conceptual. Never infer a measured physiological
+   or structural result from a rendered 3D illustration. */
+const UPDATED_SCIENCE_NOTES=Object.freeze({
+ 3:'Coupe comparative conceptuelle de cellules bactériennes et eucaryotes : les enveloppes et compositions chimiques varient selon espèces et conditions ; le dessin ne mesure ni perméabilité ni interaction cellulaire.',
+ 4:'Façade végétalisée reconstituée : architecture et échanges schématiques. Les gains thermiques, la qualité de l’air et les services écosystémiques nécessitent des mesures adaptées ; aucune valeur n’est établie ici.',
+ 5:'Procédé de croissance mycélienne expliqué conceptuellement : substrat, inoculation, colonisation, mise en forme et inactivation. Les températures et durées montrées sont illustratives, non une recette validée pour toutes les souches.',
+ 6:'Applications potentielles des composites mycéliens : les propriétés mécaniques, thermiques, acoustiques, la résistance au feu et la durabilité sont dépendantes de la formulation et nécessitent essais normalisés.',
+ 7:'La carbonatation chimique du ciment et la minéralisation associée à des bactéries sont deux mécanismes distincts. Une fissure obturée ne prouve pas la restauration de résistance mécanique.',
+ 8:'Reconstruction d’un système à spores et lactate de calcium : les schémas d’activation, de dissolution et de précipitation sont pédagogiques. Ni taux de fermeture, ni résistance récupérée, ni survie prolongée ne sont mesurés.',
+ 9:'Actionnement hygroscopique par changement de volume de spores dans une matrice souple : aucun déplacement, nombre de cycles ou force n’est une mesure expérimentale ; la réponse dépend de l’humidité et du montage.',
+ 10:'Interfaces entre cellules encapsulées, biomatériau et tissus : la diffusion des nutriments et la réponse immunitaire exigent une caractérisation expérimentale. Les tailles et morphologies dessinées sont illustratives.',
+ 37:'Image de synthèse, NON une micrographie d’échantillon MOF : les représentations de surface et de réseau sont conceptuelles ; identifier composition, cristallinité, distribution et protection physiologique nécessite analyses et essais réels.'
+});
+const REDESIGNED=Object.freeze(Object.fromEntries(
+ Object.entries({...LEGACY,...VECTOR,...REVIEWED}).map(([id,plate])=>
+ [id,UPDATED_SCIENCE_NOTES[id]?
+  Object.freeze({...plate,caution:UPDATED_SCIENCE_NOTES[id],defaultOriginal:Number(id)===37}):plate])
+));
 export const redesignedPlate=id=>REDESIGNED[Number(id)]||null;
 export const redesignedCount=()=>new Set([...IDS,...VECTOR_IDS,...Object.keys(REVIEWED).map(Number)]).size;
 /* Presence does not mean art-direction approval: precise progress categories. */
 export const detailedPlateCount=()=>new Set([...IDS,...Object.keys(REVIEWED).map(Number)]).size;
 export const schematicPlateCount=()=>VECTOR_IDS.filter(id=>!REVIEWED[id]).length;
-export const editorialPlateStatus=id=>([7].includes(Number(id))?'titre intégré à corriger':REVIEWED[id]?'illustration détaillée disponible':VECTOR_IDS.includes(Number(id))?'reconstruction schématique à reprendre':'illustration détaillée disponible');
+export const editorialPlateStatus=id=>(REVIEWED[id]?'illustration détaillée disponible':VECTOR_IDS.includes(Number(id))?'reconstruction schématique à reprendre':'illustration détaillée disponible · relecture scientifique requise');
 export const redesignedIds=()=>[...new Set([...IDS,...VECTOR_IDS,...Object.keys(REVIEWED).map(Number)])].sort((a,b)=>a-b);

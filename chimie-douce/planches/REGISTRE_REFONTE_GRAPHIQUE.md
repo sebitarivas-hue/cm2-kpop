@@ -2,19 +2,11 @@
 
 **Source primaire :** Clément Sanchez, *Vers des matériaux hybrides vivants*, Collège de France, 18 février 2020.
 
-**État au 22 novembre 2026 :** 51/70 illustrations détaillées présentes sous réserve de relecture, dont les planches 01 et 02 nouvellement refaites ; 19 SVG provisoires encore à remplacer. La planche 07 reste à corriger pour son titre intégré.
+**État au 22 novembre 2026 : **58/70 illustrations détaillées disponibles pour relecture**, dont plusieurs sous réserve de vérification scientifique ; **12/70 schémas provisoires à remplacer**. Les 70 diapositives originales sont conservées.
 
-## Planches restant à reprendre ou à corriger (20)
+## Planches restant à refaire (12)
 | N° | Titre exact et immuable du catalogue | Statut |
 |---:|---|---|
-| 03 | Barrières cellulaires et interfaces | Schéma provisoire : illustration éditoriale à refaire |
-| 04 | Façades végétalisées | Schéma provisoire : illustration éditoriale à refaire |
-| 05 | Cycle de fabrication des composites de mycélium | Schéma provisoire : illustration éditoriale à refaire |
-| 06 | Composites de mycélium : applications | Schéma provisoire : illustration éditoriale à refaire |
-| 07 | Béton et mécanisme de carbonatation | Titre intégré dans l'image à corriger |
-| 08 | Granulats, spores et lactate de calcium | Schéma provisoire : illustration éditoriale à refaire |
-| 09 | Déformation des spores sous humidité | Schéma provisoire : illustration éditoriale à refaire |
-| 10 | Cellules, surfaces et implantation | Schéma provisoire : illustration éditoriale à refaire |
 | 47 | Assemblage de nanoparticules sur cellule HeLa | Schéma provisoire : illustration éditoriale à refaire |
 | 48 | Réponse à une sonde fonctionnalisée | Schéma provisoire : illustration éditoriale à refaire |
 | 49 | Ligands polyfonctionnels de couplage | Schéma provisoire : illustration éditoriale à refaire |
@@ -69,3 +61,10 @@ Ces images ne reproduisent aucune mesure ou micrographie expérimentale du cours
 - **Éléments distingués :** Bactéries, Archées et Eucaryotes ; procaryotes versus eucaryotes ; membrane plasmique universelle, parois non universelles et de composition variable.
 - **Statut :** illustration détaillée sur fond crème, à faire relire ; les dimensions et barres d’échelle insérées dans le rendu sont artistiques et **ne constituent pas des mesures ni des micrographies calibrées**.
 - **Original :** conservé et disponible dans la comparaison du catalogue.
+
+
+## Remplacements du lot 03–10 et 37
+
+Les figures 03 à 10 ont une illustration scientifique individuelle avec le titre canonique conservé dans `src/figures.js` ; leur diapositive originale reste accessible. La figure 07 distingue carbonatation chimique et réparation bactérienne. La nouvelle figure 37 est une simulation visuelle d’une enveloppe MOF, **non une micrographie d’échantillon** : original affiché par défaut. Les légendes, échelles et phénomènes figurés demandent encore une relecture spécialisée.
+
+**Douze illustrations restent schématiques : 47–50 et 63–70.** La présence d’une image ne constitue pas une validation scientifique définitive ni un accord de Clément Sanchez.
