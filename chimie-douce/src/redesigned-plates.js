@@ -11,20 +11,34 @@ const LEGACY=Object.fromEntries(IDS.map(id=>[
   })
 ]));
 /* Scientific vector edition, drawn on cream stock. All original slides remain available. */
-const VECTOR_IDS=Object.freeze([52,53,54,55,56]);
+const VECTOR_IDS=Object.freeze([52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70]);
 const VECTOR_NOTES=Object.freeze({
  52:'Assemblage multifonctionnel conceptuel : les fonctions biologiques sont à caractériser séparément.',
  53:'Schéma de cryopréservation sans valeurs de température ni rendement biologique déduits.',
  54:'Hémolyse et récupération illustrées sans courbes ni pourcentages expérimentaux fictifs.',
  55:'Localisation de nucléation MOF dans les tissus végétaux : hypothèse de mécanisme à confirmer.',
- 56:'Carte cellulaire et végétale schématique : aucune fausse micrographie ou intensité mesurée.'
+ 56:'Carte cellulaire et végétale schématique : aucune fausse micrographie ou intensité mesurée.',
+ 57:'Schémas de procédés : les contraintes imposées aux cellules diffèrent selon la technique.',
+ 58:'Fibrilles et membrane cellulosique représentées sans données quantitatives de pureté.',
+ 59:'Le dépôt bio-imprimé ne prouve pas la viabilité ni la fonction biologique.',
+ 60:'Démonstrateurs conceptuels ; aucune preuve de compatibilité médicale ou d’implantation.',
+ 61:'Pile microbienne : schéma conceptuel, sans puissance ni rendement mesurés.',
+ 62:'Effluent et réacteur schématiques ; une tension isolée ne permet aucun bilan énergétique.',
+ 63:'Traitement d’effluents conceptuel ; absence de débit et de charge mesurés.',
+ 64:'Réseau cellulose–nanotubes schématique ; aucune valeur de coefficient Seebeck ou de puissance.',
+ 65:'Surface bioactive conceptuelle ; aucune mesure de dégradation ni de durabilité.',
+ 66:'Bactéries attachées à la surface externe des zéolithes, non à l’intérieur des micropores moléculaires.',
+ 67:'Charges représentées comme états possibles ; elles dépendent du pH et de la force ionique.',
+ 68:'Association E. coli–zéolithe illustrative, non micrographie ni mesure de rendement.',
+ 69:'Schéma intégratif de synthèse, sans démonstration de performance multi-fonctionnelle.',
+ 70:'Perspectives conceptuelles : sécurité, impact et industrialisation requièrent vérification.'
 });
 const VECTOR=Object.fromEntries(VECTOR_IDS.map(id=>[id,Object.freeze({
  src:new URL('../assets/atlas-redessine/planche-'+String(id).padStart(2,'0')+'.svg',import.meta.url).href,
  kind:'reconstruction',
  source:SOURCE,
  caution:VECTOR_NOTES[id],
- defaultOriginal:id===54||id===56
+ defaultOriginal:[54,56,60,62,63,68].includes(id)
 })]));
 const REDESIGNED=Object.freeze({...LEGACY,...VECTOR});
 export const redesignedPlate=id=>REDESIGNED[Number(id)]||null;
