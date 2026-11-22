@@ -26,3 +26,16 @@ border-left:3px solid #c08b47;padding:10px 12px;background:#e6ddc9;color:#263b2e
  .fig-dialog .big-art{min-height:180px}
  .fig-dialog .big-art img{max-height:50vh}
 }
+
+/* Course provenance on every source and redraw; no misleading institutional endorsement. */
+.sanchez-plate-credit{
+ display:block;margin-top:13px;padding-top:9px;border-top:1px solid #97836366;
+ font:700 10px/1.4 'Space Grotesk',sans-serif!important;
+ color:#3f5b44!important;letter-spacing:.04em
+}
+.fig-dialog .scientific-review{
+ border-left:3px solid #deb77c;margin:14px 0 24px;
+ padding:12px 15px;background:#284535;color:#f3ebd7;
+ font:500 13px/1.65 'Space Grotesk',sans-serif
+}
+.fig-dialog .scientific-review[hidden]{display:none!important}
