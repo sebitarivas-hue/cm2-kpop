@@ -2,9 +2,9 @@
 
 **Source primaire :** Clément Sanchez, *Vers des matériaux hybrides vivants*, Collège de France, 18 février 2020.
 
-**État au 22 novembre 2026 :** 46/70 illustrations détaillées présentes, dont plusieurs à revoir scientifiquement ; **24/70 SVG provisoires**. Le registre comporte **25 numéros à reprendre ou corriger**, car la planche 07 est une image détaillée dont le titre intégré reste erroné. La présence d’un fichier ne vaut pas validation scientifique ou artistique. L’existence d’un fichier SVG/WEBP ne constitue pas une validation scientifique ni artistique.
+**État au 22 novembre 2026 :** 49/70 illustrations détaillées présentes sous réserve de relecture ; **21/70 SVG provisoires**. Le registre comporte **22 numéros à reprendre ou corriger**, dont la planche 07 au titre intégré erroné. La présence d’une image ne constitue pas sa validation scientifique.
 
-## Planches à reprendre ou corriger (25)
+## Planches à reprendre ou corriger (22)
 | N° | Titre exact et immuable du catalogue | Statut |
 |---:|---|---|
 | 01 | Plan analytique du cours | Titre intégré dans l'image à corriger |
@@ -21,9 +21,6 @@
 | 48 | Réponse à une sonde fonctionnalisée | Schéma provisoire : illustration éditoriale à refaire |
 | 49 | Ligands polyfonctionnels de couplage | Schéma provisoire : illustration éditoriale à refaire |
 | 50 | Stabilité biologique de supracellules | Schéma provisoire : illustration éditoriale à refaire |
-| 60 | Biofabrication : tissus et démonstrateurs | Schéma provisoire : illustration éditoriale à refaire |
-| 61 | Architecture de pile microbienne | Schéma provisoire : illustration éditoriale à refaire |
-| 62 | Pile microbienne et effluent réel | Schéma provisoire : illustration éditoriale à refaire |
 | 63 | Exemples de traitement de rejets | Schéma provisoire : illustration éditoriale à refaire |
 | 64 | Papier thermoélectrique cellulose–nanotubes | Schéma provisoire : illustration éditoriale à refaire |
 | 65 | Surface autonettoyante biologiquement active | Schéma provisoire : illustration éditoriale à refaire |
@@ -58,3 +55,11 @@
 - **Publication scientifique citée :** M. Schaffner et al., *Science Advances* (2017), *3D printing of bacteria into functional complex materials*
 - **Distinctions :** *Pseudomonas putida* / dégradation de phénols ; *Acetobacter xylinum* / cellulose bactérienne. Le visuel est une reconstruction explicative et non une micrographie.
 - **Limites :** aucune donnée de viabilité, biodégradation ou production de cellulose déduite de l'illustration ; l'original reste conservé.
+
+## Remplacements publiés dans ce lot
+
+- **60 — Biofabrication : tissus et démonstrateurs** : coupe 3D d’une architecture bio-imprimée ; reconstitution conceptuelle, aucune preuve de compatibilité pour implantation.
+- **61 — Architecture de pile microbienne** : anode colonisée, circuit externe, transport ionique, cathode ; aucune puissance mesurée déduite du visuel.
+- **62 — Pile microbienne et effluent réel** : réacteur, effluent entrant/sortant, biofilm et paramètres de bilan (DCO, débit, courant, tension sous charge) ; aucun rendement fictif.
+
+Ces images ne reproduisent aucune mesure ou micrographie expérimentale du cours. La source originale reste consultable sur chaque fiche.
