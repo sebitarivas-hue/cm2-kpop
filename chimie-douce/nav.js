@@ -1,5 +1,11 @@
 import {SCENES} from './src/content.js';
 import {initI18n,currentLanguage} from './i18n.js';
+// One authoritative site-wide art-direction layer loaded after every route's local stylesheet.
+const masterStyle=document.createElement('link');
+masterStyle.rel='stylesheet';
+masterStyle.href=new URL('./atlas-master.css',import.meta.url).href;
+masterStyle.dataset.atlasDesign='approved-master';
+document.head.appendChild(masterStyle);
 const root=new URL('./',import.meta.url),links=[['Accueil','', '⌂'],['Atlas 3D','#laboratoire','◉'],['Ingénierie','ingenierie/','✥'],['Planches','planches/','▧'],['Notions','notions/','⌕'],['Cours','research/','◫'],['Bibliographie','bibliographie/','⌕'],['Essai','chimie_douce_interactive.html','✦'],['Labo','lab/','◇']];
 const url=path=>new URL(path,root).href;
 const h=(s)=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
