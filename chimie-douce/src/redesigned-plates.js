@@ -48,7 +48,7 @@ const VECTOR_NOTES=Object.freeze({
  70:'Perspectives conceptuelles : sécurité, impact et industrialisation requièrent vérification.'
 });
 const VECTOR=Object.fromEntries(VECTOR_IDS.map(id=>[id,Object.freeze({
- src:new URL('../assets/atlas-redessine/planche-'+String(id).padStart(2,'0')+'.svg',import.meta.url).href,
+ src:new URL('../assets/atlas-redessine/planche-'+String(id).padStart(2,'0')+(id===1?'.webp':'.svg'),import.meta.url).href,
  kind:'reconstruction',
  source:SOURCE,
  caution:VECTOR_NOTES[id],
