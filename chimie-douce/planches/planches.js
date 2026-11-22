@@ -21,6 +21,16 @@ chapterNames.forEach((n,i)=>$('chapter').add(new Option(String(i+1).padStart(2,'
 const params=new URLSearchParams(location.search);
 const state={chapter:params.get('chapter')||'',q:'',id:Number(params.get('figure')||0),view:'illustration'};
 function relevantScenes(f){return SCENES.filter(s=>SCENE_RESOURCE_MAP[s.id]?.plates.includes(f.id)).slice(0,4)}
+function renderNavigator(){
+ const nav=$('plateNavigator');if(!nav)return;
+ nav.innerHTML=FIGURES.map(f=>{
+  const edition=redesignedPlate(f.id);
+  return '<button type="button" data-figure-jump="'+f.id+'" class="plate-index-item'+(edition?' has-edition':'')+
+  '" title="'+esc(f.title)+'" aria-label="Voir la figure '+f.id+' : '+esc(f.title)+'"'+
+  (edition?' data-edition="redessinee"':'')+'>'+String(f.id).padStart(2,'0')+'</button>';
+ }).join('');
+ nav.querySelectorAll('[data-figure-jump]').forEach(b=>b.addEventListener('click',()=>openFigure(Number(b.dataset.figureJump))));
+}
 function render(){
  const q=state.q.toLocaleLowerCase('fr');
  const rows=FIGURES.filter(f=>(!state.chapter||f.chapter===state.chapter)&&(!q||(f.title+' '+f.note+' '+f.chapter).toLocaleLowerCase('fr').includes(q)));
@@ -75,11 +85,15 @@ function openFigure(id){
  $('dialogLinks').innerHTML=ln;
  const d=$('details');if(!d.open)d.showModal();
  const url=new URL(location.href);url.searchParams.set('figure',id);history.replaceState({},'',url);
- document.title='Figure '+String(f.id).padStart(2,'0')+' — '+f.title+' · Chimie douce';
+ document.title='Figure '+String(f.id).padStart(2,'0')+' — '+f.title+' · Clément Sanchez · Collège de France';
+ document.querySelectorAll('.plate-index-item').forEach(el=>el.setAttribute('aria-current',String(Number(el.dataset.figureJump)===f.id)));
+
 }
 $('query').oninput=e=>{state.q=e.target.value;render()};
 $('chapter').onchange=e=>{state.chapter=e.target.value;render()};
+$('prevFigure').onclick=()=>openFigure(state.id===1?70:state.id-1);
+$('nextFigure').onclick=()=>openFigure(state.id===70?1:state.id+1);
 $('close').onclick=()=>{$('details').close()};
 $('details').addEventListener('close',()=>{const u=new URL(location.href);u.searchParams.delete('figure');history.replaceState({},'',u);document.title='Les 70 planches — Chimie douce'});
 window.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('details').open)$('details').close();if($('details').open&&e.key==='ArrowRight')openFigure(state.id===70?1:state.id+1);if($('details').open&&e.key==='ArrowLeft')openFigure(state.id===1?70:state.id-1)});
-render();if(state.chapter)$('chapter').value=state.chapter;if(state.id)openFigure(state.id);
+renderNavigator();render();if(state.chapter)$('chapter').value=state.chapter;if(state.id)openFigure(state.id);
