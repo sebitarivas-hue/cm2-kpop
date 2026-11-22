@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Prototype de l'atlas scientifique et éditorial Clément Sanchez — La matière en relation.">
 <meta name="color-scheme" content="light">
-<title>La matière en relation — Clément Sanchez · Prototype éditorial</title>
+<title>Clément Sanchez — La matière en relation | Atlas scientifique et éditorial</title>
 <style>
 :root{--paper:#f2eee3;--paper-alt:#eae4d6;--cream:#fbf8ef;--ink:#26332e;--sub:#5b665e;--fine:#c7c6b7;--terracotta:#a3533d;--olive:#566e58;--copper:#b07c59;--serif:Georgia,"Times New Roman",serif;--sans:"Helvetica Neue",Arial,sans-serif;--mono:"SFMono-Regular",Consolas,monospace}
 *,*::before,*::after{box-sizing:border-box}
@@ -168,15 +168,16 @@ img,svg{max-width:100%}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
+<link rel="stylesheet" href="./museum-v2.css">
 </head>
 <body>
 <a class="skip" href="#principal">Aller au contenu</a>
 <div class="issue">Prototype indépendant · <strong>Sources institutionnelles et scientifiques identifiées</strong> · Non affilié au Collège de France</div>
 <header class="topbar">
 <div class="shell top-inner">
-<a href="#accueil" class="logo" aria-label="Accueil de l'atlas Clément Sanchez"><span class="logo-mark">CS</span><span>Clément Sanchez<br>La matière en relation</span></a>
+<a href="#accueil" class="logo" aria-label="Accueil de l'atlas Clément Sanchez"><span class="logo-mark" aria-hidden="true">C.</span><span>Clément Sanchez<br>La matière en relation</span></a>
 <nav class="nav-links" aria-label="Navigation principale">
-<a href="#recit">Le récit</a><a href="#idees">Les idées</a><a href="#cours">Enseignements</a><a href="#industries">Applications</a><a href="#laboratoire">Atlas 3D</a><a href="#monde">Le monde</a>
+<a href="#recit">Le récit</a><a href="#idees">Les idées</a><a href="#cours">Enseignements</a><a href="#sources">Documents</a><a href="#industries">Applications</a><a href="#laboratoire">Atlas 3D</a><a href="#monde">Le monde</a>
 </nav>
 </div>
 </header>
@@ -192,32 +193,26 @@ img,svg{max-width:100%}
 <a class="action" href="https://www.college-de-france.fr/fr/agenda/lecon-inaugurale/chimie-des-materiaux-hybrides/chimie-des-materiaux-hybrides" target="_blank" rel="noopener noreferrer">Leçon inaugurale officielle ↗</a>
 </div>
 </div>
-<div class="hero-art">
-<div class="art-surface">
-<svg viewBox="0 0 560 560" role="img" aria-label="Composition graphique abstraite montrant la rencontre de géométries minérales et de lignes organiques, sans prétention de représentation atomique">
-<defs><pattern id="grain" width="21" height="21" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r=".6" fill="#536456" opacity=".25"/></pattern><clipPath id="circleclip"><circle cx="280" cy="270" r="223"/></clipPath></defs>
-<rect width="560" height="560" fill="#eae6da"/>
-<circle cx="280" cy="270" r="223" fill="url(#grain)" stroke="#aab2a1" stroke-width=".9"/>
-<g clip-path="url(#circleclip)">
-<path d="M-20 120 L102 39 L183 132 L122 251 L14 229Z M183 132 L294 18 L386 89 L324 227 L122 251Z M122 251 L324 227 L260 358 L101 387 Z M260 358 L324 227 L444 301 L374 481 L216 511Z M14 229 L122 251 L101 387 L-50 440Z" fill="none" stroke="#67796c" stroke-width="1.3"/>
-<path d="M14 229L183 132 M102 39L122 251 M122 251L260 358 M324 227L374 481 M260 358L444 301 M183 132L324 227" fill="none" stroke="#a8b3a3" stroke-width=".7"/>
-<path d="M-5 500 C75 366 112 430 193 309 S304 150 352 203 S458 300 580 111" fill="none" stroke="#a3533d" stroke-width="5"/>
-<path d="M-18 482 C85 366 149 470 222 340 S337 177 387 237 S470 326 592 160" fill="none" stroke="#b47860" stroke-width="1.6"/>
-<path d="M-25 519 C79 393 141 486 224 368 S333 185 401 241 S477 340 592 184" fill="none" stroke="#b47860" stroke-width="1.6"/>
-<g stroke="#a3533d" stroke-width="1.4" fill="#eae6da">
-<circle cx="76" cy="440" r="7"/><circle cx="162" cy="355" r="8"/><circle cx="242" cy="258" r="11"/><circle cx="321" cy="188" r="5"/><circle cx="405" cy="252" r="6"/><circle cx="490" cy="242" r="7"/>
-</g>
-<g fill="#435e4e"><circle cx="102" cy="39" r="4"/><circle cx="122" cy="251" r="5"/><circle cx="324" cy="227" r="6"/><circle cx="260" cy="358" r="5"/><circle cx="183" cy="132" r="4"/><circle cx="444" cy="301" r="4"/></g>
-</g>
-<path d="M58 488L230 488" stroke="#46554a" stroke-width=".8"/>
-<path d="M230 488l-8 -4 M230 488l-8 4" stroke="#46554a" fill="none"/>
-<text x="58" y="511" fill="#4b5f50" font-family="Georgia,serif" font-size="13">minéral</text>
-<text x="482" y="511" text-anchor="end" fill="#a3533d" font-family="Georgia,serif" font-size="13">organique</text>
-<text x="280" y="540" text-anchor="middle" fill="#6c7169" font-family="monospace" font-size="10" letter-spacing="2">L’INTERFACE</text>
-<text x="280" y="26" text-anchor="middle" fill="#5e6c5f" font-family="monospace" font-size="9" letter-spacing="1.5">COMPOSITION ÉDITORIALE · NON QUANTITATIVE</text>
-</svg>
-</div>
-<div class="art-meta"><span>Fig. 00 — Relation, structure, émergence</span><span class="tag">Pas une micrographie</span></div>
+<div class="hero-art" aria-label="Planches scientifiques originales de la conférence du 18 février 2020">
+  <div class="hero-archive">
+    <div class="archive-head"><span>Atlas documentaire · conférence 2020</span><b>Pièces originales</b></div>
+    <a class="plate-feature" href="../../planches/?figure=28&amp;view=original" aria-label="Ouvrir la planche originale numéro 28, diatomées et radiolaires">
+      <img src="../../assets/planches/fig-28.webp" loading="eager" decoding="async" alt="Planche scientifique originale 28 du cours : diatomées, radiolaires et architectures naturelles, avec ses figures et légendes d'origine">
+      <span class="number">ARCHIVE 028</span>
+      <span class="plate-caption">Diatomées, radiolaires et architectures naturelles</span>
+    </a>
+    <div class="plate-twins">
+      <a href="../../planches/?figure=33&amp;view=original" aria-label="Ouvrir l'original de la planche 33, échafaudage des MOFs">
+        <img src="../../assets/planches/fig-33.webp" loading="lazy" decoding="async" alt="Planche originale 33 : analogie de l'échafaudage des MOFs">
+        <span>033 · Réseaux métallo-organiques</span>
+      </a>
+      <a href="../../planches/?figure=58&amp;view=original" aria-label="Ouvrir l'original de la planche 58, cellulose bactérienne">
+        <img src="../../assets/planches/fig-58.webp" loading="lazy" decoding="async" alt="Planche originale 58 : cellulose bactérienne produite par le vivant">
+        <span>058 · Matière produite par le vivant</span>
+      </a>
+    </div>
+  </div>
+  <div class="art-meta"><span>Sources : 70 planches · Cours du 18 février 2020</span><span class="tag">Provenance et droits en cours de vérification</span></div>
 </div>
 </section>
 <div class="shell metrics" aria-label="Référentiel documentaire en construction">
@@ -286,6 +281,19 @@ img,svg{max-width:100%}
 <div class="course-foot"><span id="course-footnote">Le lecteur de cours dépend de la disponibilité du référentiel local.</span><a href="https://github.com/sebitarivas-hue/cm2-kpop/blob/plan/chimie-corpus-international-20261122/chimie-douce/docs/INDEX_53_COURS_LIENS_INSTITUTIONNELS.md" target="_blank" rel="noopener noreferrer">Index officiel intégral ↗</a></div>
 </div>
 </section>
+<section id="sources" class="section" aria-labelledby="sources-title">
+<div class="shell">
+  <div class="section-lead"><div><div class="kicker">IV — L’archive comme matière première</div><h2 id="sources-title">La preuve<br>à regarder.</h2></div>
+  <p>Chaque visuel scientifique doit rester relié à sa source d’origine. Les pièces ci-dessous proviennent de l’archive du cours de 2020 ; elles ne sont pas des images générées ni des mesures nouvelles.</p></div>
+  <div class="source-gallery">
+    <figure class="source-figure"><a href="../../planches/?figure=19&amp;view=original" aria-label="Voir la planche 19 et sa source primaire"><img loading="lazy" decoding="async" src="../../assets/planches/fig-19.webp" alt="Diapositive originale du cours 2020 : diatomées dans la matrice siliceuse"></a><figcaption><small>PLAN 019 · DOCUMENT DU COURS · 2020</small><b>Diatomées et silice</b><p>Document primaire lié aux interactions biologiques avec la matrice minérale.</p></figcaption></figure>
+    <figure class="source-figure"><a href="../../planches/?figure=36&amp;view=original" aria-label="Voir la planche 36 et sa source primaire"><img loading="lazy" decoding="async" src="../../assets/planches/fig-36.webp" alt="Diapositive originale du cours 2020 : formation d'une coque ZIF-8 autour d'une cellule"></a><figcaption><small>PLAN 036 · DOCUMENT DU COURS · 2020</small><b>Coques de ZIF-8</b><p>L’échelle d'une cellule et celle de la microporosité d’un cristal doivent rester distinctes.</p></figcaption></figure>
+    <figure class="source-figure"><a href="../../planches/?figure=44&amp;view=original" aria-label="Voir la planche 44 et sa source primaire"><img loading="lazy" decoding="async" src="../../assets/planches/fig-44.webp" alt="Diapositive originale du cours 2020 : coques nanométriques sur bactéries"></a><figcaption><small>PLAN 044 · DOCUMENT DU COURS · 2020</small><b>Interfaces du vivant</b><p>Documentation expérimentale sur les revêtements nanoparticulaires de cellules.</p></figcaption></figure>
+    <figure class="source-figure"><a href="../../planches/?figure=64&amp;view=original" aria-label="Voir la planche 64 et sa source primaire"><img loading="lazy" decoding="async" src="../../assets/planches/fig-64.webp" alt="Diapositive originale du cours 2020 : papier thermoélectrique cellulose-nanotubes"></a><figcaption><small>PLAN 064 · DOCUMENT DU COURS · 2020</small><b>Cellulose et énergie</b><p>Réseaux de cellulose et nanotubes conducteurs : mécanismes à confronter aux résultats sources.</p></figcaption></figure>
+  </div>
+  <p class="provenance" style="margin-top:26px">Diapositives d’origine du cours « Vers des matériaux hybrides vivants », 18 février 2020. Consultation au sein du dépôt ; droits de reproduction publique à vérifier. <a href="../../planches/">Comparer les 70 planches originales et reconstructions ↗</a></p>
+</div>
+</section>
 <section id="industries" class="section">
 <div class="shell">
 <div class="section-lead"><div><div class="kicker">IV — Des idées aux usages</div><h2>La science<br>et ses devenirs.</h2></div><p>Un brevet décrit une invention ; il ne démontre pas à lui seul une commercialisation. Les applications sont classées par niveau de preuve, et chaque fiche conserve ses titulaires et ses sources.</p></div>
@@ -309,8 +317,21 @@ img,svg{max-width:100%}
 <div class="action-row" style="margin-top:30px"><a class="action primary" href="../../lab/" target="_blank" rel="noopener noreferrer">Voir les laboratoires existants ↗</a><a class="action" href="https://cod.psdi.ac.uk/index.php" target="_blank" rel="noopener noreferrer">Structures ouvertes COD ↗</a></div>
 </div>
 <figure class="lab-diagram" style="margin:0">
-<div class="no-imitation"><p>Aucune structure atomique fictive chargée comme modèle « exact ».</p></div>
-<figcaption>Prototype de gouvernance du laboratoire 3D. Une vraie vue D2 attend un jeu de coordonnées cristallographiques contrôlé et sourcé.</figcaption>
+<div class="lab-preview" id="lab-preview">
+  <div class="visual-meta">LABORATOIRE EXISTANT · PROTOCOLE DIDACTIQUE</div>
+  <div class="orbital" aria-hidden="true">
+    <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#4b7560" stroke-width=".7"><circle cx="150" cy="150" r="77"/><circle cx="150" cy="150" r="111"/><path d="M40 149h220M150 40v220M76 76l148 148M224 76L76 224"/></g><g fill="#42634e"><circle cx="73" cy="143" r="6"/><circle cx="150" cy="73" r="5"/><circle cx="219" cy="119" r="6"/><circle cx="183" cy="221" r="5"/><circle cx="105" cy="211" r="6"/></g><g stroke="#ae754e" stroke-width="2" fill="none"><path d="M85 160Q144 82 219 146Q191 233 116 210Q95 200 85 160Z"/></g><circle cx="150" cy="150" r="13" fill="#af7150"/></svg>
+  </div>
+  <div class="visual-title">L’espace de l’expérience</div>
+  <div class="visual-meta">Trois protocoles : diffusion · sol–gel · coque MOF</div>
+  <button type="button" id="launch-lab" aria-controls="lab-live" aria-expanded="false">Ouvrir le laboratoire WebGL interactif ↗</button>
+  <div class="provenance">Modèles pédagogiques existants · Pas des structures cristallines mesurées</div>
+</div>
+<div class="lab-live" id="lab-live" hidden>
+  <button type="button" class="lab-close" id="close-lab">Fermer l’expérience ×</button>
+  <iframe id="lab-iframe" title="Laboratoire de chimie douce avec trois expériences WebGL pédagogiques" loading="lazy" referrerpolicy="no-referrer" allow="fullscreen"></iframe>
+</div>
+<figcaption>Laboratoire interactif déjà présent dans le dépôt : diffusion par Fick, réseau sol-gel et coque MOF conceptuelle. Connexion Web nécessaire pour la bibliothèque Three.js.</figcaption>
 </figure>
 </div>
 </div>
@@ -351,6 +372,27 @@ var lessons=[], search=document.getElementById("course-search"), holder=document
 function drawCourses(){var q=search.value.toLocaleLowerCase("fr").trim();var matched=lessons.filter(function(x){return (x.title+" "+x.cycle+" "+x.date).toLocaleLowerCase("fr").includes(q)});var n=0;holder.replaceChildren();matched.slice(0,14).forEach(function(x){var row=document.createElement("div");row.className="course-row";var date=document.createElement("time");date.textContent=x.date;date.dateTime=x.date;var a=document.createElement("a");a.textContent=x.title;a.href=x.official_url;a.target="_blank";a.rel="noopener noreferrer";var small=document.createElement("small");small.textContent=x.cycle;row.append(date,a,small);holder.appendChild(row);n++});if(!n){var msg=document.createElement("p");msg.textContent="Aucun résultat pour ce filtre.";holder.appendChild(msg)}document.getElementById("course-footnote").textContent=matched.length+" cours trouvés, "+n+" affichés. Chaque titre mène à la fiche officielle."}
 search.addEventListener("input",drawCourses);
 fetch("../../docs/donnees/enseignements_officiels_confirmes_2011_2020.json").then(function(r){if(!r.ok)throw Error("référentiel indisponible");return r.json()}).then(function(d){lessons=d.lesson.filter(function(x){return x.type==="cours"});if(lessons.length!==53)throw Error("corpus de cours incomplet");count.textContent="53 cours documentés, 2011–2020";note.textContent="Données chargées depuis le référentiel documentaire local.";drawCourses()}).catch(function(){count.textContent="53 cours recensés";note.textContent="Le fichier complet nécessite une consultation via un serveur local ou le dépôt GitHub.";holder.textContent="Le catalogue peut être consulté depuis le lien « Index officiel intégral » ci-dessous.";search.disabled=true;document.getElementById("course-footnote").textContent="Mode fichier isolé : chargement JSON indisponible."});
+
+/* Chargement du véritable laboratoire existant uniquement à la demande de l'utilisateur. */
+var launch=document.getElementById("launch-lab");
+var closeLab=document.getElementById("close-lab");
+var live=document.getElementById("lab-live");
+var preview=document.getElementById("lab-preview");
+var frame=document.getElementById("lab-iframe");
+launch.addEventListener("click",function(){
+ preview.hidden=true;
+ live.hidden=false;
+ launch.setAttribute("aria-expanded","true");
+ if(!frame.getAttribute("src"))frame.src="../../lab/";
+ closeLab.focus();
+});
+closeLab.addEventListener("click",function(){
+ live.hidden=true;
+ preview.hidden=false;
+ frame.removeAttribute("src");
+ launch.setAttribute("aria-expanded","false");
+ launch.focus();
+});
 })();
 </script>
 </body>
