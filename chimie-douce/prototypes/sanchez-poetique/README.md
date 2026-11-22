@@ -40,3 +40,33 @@ Contrôle statique du fichier HTML avec l'API GitHub : balisage racine présent,
 L'ouverture est une composition éditoriale originale basée sur les thèmes de l'inaugurale ; aucune phrase originale n'est attribuée comme citation de Sanchez. La composition SVG n'est **pas** une micrographie ni une simulation. Les cartes brevet ne sont pas une preuve d'exploitation industrielle, et les laboratoires 3D déjà disponibles ne sont pas par défaut des structures atomiques authentiques.
 
 **Ne pas copier ce prototype sur `main`, ni remplacer l'accueil existant sans validation graphique, scientifique et juridique.** Il s'agit de la porte D (prototype hors production) du plan directeur.
+
+
+## V2 — Reprise de direction artistique et contenu primaire
+
+Cette branche ajoute `museum-v2.css` et actualise `index.html`. Elle corrige les défauts relevés dans le premier essai :
+- Suppression du **grand SVG abstrait de couverture**, remplacé par trois diapositives originales existantes (28, 33 et 58), affichées sans rognage scientifique et avec lien vers la fiche canonique.
+- Une nouvelle **salle d'archives** utilise quatre autres diapositives originales (19, 36, 44, 64), sans copie physique d'asset ; chaque visuel conserve son numéro, son année, son titre documenté et son lien source.
+- Refonte de la hiérarchie, des rythmes et des proportions du contenu : typographie éditoriale, fond ivoire, olive et terre cuite, absence de bordures artificielles systématiques.
+- Navigation vers la salle d'archives et révision des numéros de sections.
+- Lancement intégré **à la demande** du laboratoire WebGL existant (`../../lab/`), en `iframe` contextualisée, avec fermeture et retour du focus. Ce laboratoire contient des modes didactiques diffusion, sol-gel et coque MOF ; **il ne fournit pas des coordonnées cristallographiques expérimentales D2**.
+- La page n'ajoute **aucun nouveau fichier de mesure, aucune structure inventée, aucun texte de source recopié**.
+- Les visuels d'archive étant ceux du cours initial, **les droits de reproduction publique restent à vérifier** avant tout déploiement.
+
+**Branche :** `design/sanchez-museum-editorial-v2-20261122`
+
+### Test local V2
+
+```bash
+git clone --single-branch --branch design/sanchez-museum-editorial-v2-20261122 https://github.com/sebitarivas-hue/cm2-kpop.git ~/cm2-sanchez-v2
+cd ~/cm2-sanchez-v2
+python3 -m http.server 8123
+```
+
+Ouvrir `http://localhost:8123/chimie-douce/prototypes/sanchez-poetique/`. Le laboratoire a besoin d'Internet pour charger les modules Three.js depuis jsDelivr.
+
+### Porte qualité obligatoire avant diffusion
+
+**Vérifié statiquement :** existence des assets originaux, cohérence de leurs numéros/titres dans `src/figures.js`, URLs internes, HTML et conditions de chargement du laboratoire, branche documentaire/prototype distincte de `main`.
+
+**Non vérifié :** rendu réel dans Safari iOS, Chrome desktop, navigation VoiceOver et TalkBack, performance, comportement WebGL sur tous appareils, droits d'images et relecture scientifique complète de chaque planche. Ne pas décrire les contrôles statiques comme une recette visuelle.
