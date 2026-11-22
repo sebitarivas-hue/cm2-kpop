@@ -66,6 +66,19 @@ const REVIEWED=Object.freeze({
 });
 const REDESIGNED=Object.freeze({...LEGACY,...VECTOR,...REVIEWED});
 export const redesignedPlate=id=>REDESIGNED[Number(id)]||null;
+// Single editorial gate for every page: a draft or a scientifically sensitive
+// reconstruction must never supersede the primary source by default.
+export const isPlateArtworkPrimary=id=>{
+ const art=redesignedPlate(id);
+ return Boolean(art&&!art.defaultOriginal);
+};
 export const redesignedCount=()=>IDS.length+VECTOR_IDS.length;
-export const editorialPlateStatus=id=>([1,7].includes(Number(id))?'titre à corriger':VECTOR_IDS.includes(Number(id))?'refonte graphique nécessaire':'illustration scientifique disponible');
+export const editorialPlateStatus=id=>{
+ const n=Number(id);
+ if([1,7].includes(n))return 'titre de reconstruction à rectifier';
+ if(REVIEWED[n])return 'illustration détaillée · lecture critique requise';
+ if(VECTOR_IDS.includes(n))return 'esquisse graphique · refonte nécessaire';
+ if(LEGACY[n])return LEGACY[n].defaultOriginal?'reconstruction sensible · source prioritaire':'illustration détaillée · lecture critique requise';
+ return 'source originale disponible';
+};
 export const redesignedIds=()=>[...IDS,...VECTOR_IDS].sort((a,b)=>a-b);
