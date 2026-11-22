@@ -3,7 +3,7 @@
 **Date : 22 novembre 2026**  
 **Branche de documentation :** `plan/chimie-corpus-international-20261122` (aucun changement de production).  
 **Base auditée :** `main` `6a3554a1701d6ee1aebd1ee0e1a45656d813a02c`.  
-**Statut : audit partiel vérifié, inventaire structurel complet ; recette fonctionnelle et revue scientifique exhaustive non effectuées.**
+**Statut : audit partiel vérifié, inventaire structurel et 53 permaliens de cours confirmés ; recette fonctionnelle et revue scientifique exhaustive non effectuées.**
 
 ## 1. Portée et limites
 
@@ -115,12 +115,16 @@ Règle pour chaque arête : `source_id`, `target_id`, `relation_type`, `evidence
 ## 9. Critères de clôture de l'audit avant architecture validée
 
 - Arborescence GitHub et versions figées, fichiers sources listés : **atteint**.
-- Programmation de la chaire et ensemble des 53 cours : **structure et titres accessibles dans les 9 programmes officiels ; médias individuels non tous vérifiés**.
+- Programmation de la chaire et ensemble des 53 cours : **atteint pour les 53 cours : 53 permaliens institutionnels individuels vérifiés ; médias, transcriptions et licences non tous vérifiés**.
 - Inventaire biographique/bibliographique/vidéographique exhaustif : **non atteint**.
 - Vérification HTTP/licence/DOI de 38 ressources : **non atteinte**.
 - Matrice de correspondances fondées sur des preuves (38 × concepts/cours) : **non atteinte**.
 - Tests navigateur, accessibilité et non-régression : **non atteints**.
 - Plan de structuration : **proposé**, soumis à validation après compléments.
+
+### Mise à jour documentaire — vérification individuelle des 53 cours
+
+La base JSON `docs/donnees/enseignements_officiels_confirmes_2011_2020.json` contient **53 permaliens de cours officiellement ouverts et contrôlés**, plus la leçon inaugurale de 2011 (54 événements), classés dans neuf cycles actifs. Un contrôle automatique de cardinalité et d'unicité est exécuté avant l'écriture du fichier. Les 70 figures ne sont rattachées comme source primaire qu'à la cinquième séance du cycle 2020. Les références aux médias des premières années demeurent expressément « non vérifiées » lorsque leur lecteur n'a pas été inspecté.
 
 ## 10. Décision
 
