@@ -2,7 +2,7 @@ import {FIGURES} from '../src/figures.js';
 import {SCENES,videoAt} from '../src/content.js';
 import {SCENE_RESOURCE_MAP} from '../src/knowledge-graph.js';
 import {plateAsset} from '../src/knowledge-graph.js';
-import {redesignedPlate,editorialPlateStatus} from '../src/redesigned-plates.js';
+import {redesignedPlate,editorialPlateStatus,detailedPlateCount,schematicPlateCount} from '../src/redesigned-plates.js';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const scientificReview=Object.freeze({
@@ -49,7 +49,7 @@ function renderNavigator(){
 function render(){
  const q=state.q.toLocaleLowerCase('fr');
  const rows=FIGURES.filter(f=>(!state.chapter||f.chapter===state.chapter)&&(!q||(f.title+' '+f.note+' '+f.chapter).toLocaleLowerCase('fr').includes(q)));
- $('counter').textContent=rows.length+' / '+FIGURES.length+' PLANCHES · 38 ILLUSTRATIONS DÉTAILLÉES (01 ET 07 À RECTIFIER) · 32 SVG EN REFONTE · 70 SOURCES ORIGINALES';
+ $('counter').textContent=rows.length+' / '+FIGURES.length+' PLANCHES · '+detailedPlateCount()+' ILLUSTRATIONS DISPONIBLES (01 ET 07 À RECTIFIER) · '+schematicPlateCount()+' SCHÉMAS À REPRENDRE · 70 SOURCES ORIGINALES';
  $('gallery').innerHTML=rows.map(f=>{
   const art=redesignedPlate(f.id),src=(art&&!art.defaultOriginal)?art.src:plateAsset(f.id);
   return '<button class="fig-card '+(art?'fig-card-new':'')+'" data-id="'+f.id+'" aria-label="Ouvrir la planche '+f.id+' : '+esc(f.title)+'">'+
