@@ -43,14 +43,16 @@
           "official_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur",
           "relation": "theme_elabore_dans_un_cours_posterieur",
           "evidence_strength": "resume_detaille",
-          "evidence_summary": "La première séance définit explicitement deux familles selon les types d'interactions à l'interface."
+          "evidence_summary": "La première séance définit explicitement deux familles selon les types d'interactions à l'interface.",
+          "evidence_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur"
         },
         {
           "id": "cdf-sanchez-2011a-02",
           "official_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/materiaux-lamellaires-hybridation-un-probleme-insertion",
           "relation": "theme_elabore_dans_un_cours_posterieur",
           "evidence_strength": "resume_detaille",
-          "evidence_summary": "L'intercalation dans des solides lamellaires développe l'une des voies d'hybridation."
+          "evidence_summary": "L'intercalation dans des solides lamellaires développe l'une des voies d'hybridation.",
+          "evidence_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/materiaux-lamellaires-hybridation-un-probleme-insertion"
         }
       ],
       "public_explanation": "Combiner des propriétés du minéral et de l'organique pour inventer des fonctions nouvelles sans supposer que les performances s'additionnent automatiquement.",
@@ -74,10 +76,11 @@
       "proposed_followups": [
         {
           "id": "cdf-sanchez-2011b-04",
-          "official_url": "https://www.college-de-france.fr/fr/agenda/cours/chimie-douce-et-polymeres-un-mariage-reussi",
+          "official_url": "https://www.college-de-france.fr/fr/agenda/cours/chimie-douce-et-polymeres-un-mariage-reussi/sol-gel-et-polymeres-des-assemblages-fonctionnels-tres-varies-la-construction-de-materiaux-sur",
           "relation": "theme_elabore_dans_un_cours_posterieur",
           "evidence_strength": "resume_du_cycle",
-          "evidence_summary": "Le cycle 2011-2012 traite le couplage sol-gel-polymères et les architectures fonctionnelles."
+          "evidence_summary": "Le cycle 2011-2012 traite le couplage sol-gel-polymères et les architectures fonctionnelles. Le résumé source est celui du cycle, pas une vérification du contenu intégral du cours individuel.",
+          "evidence_url": "https://www.college-de-france.fr/fr/agenda/cours/chimie-douce-et-polymeres-un-mariage-reussi"
         }
       ],
       "public_explanation": "Des molécules conçues pour réagir et s'organiser servent de point de départ à la construction de structures plus grandes.",
@@ -103,11 +106,12 @@
           "official_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/approche-legochimique-des-materiaux-hybrides",
           "relation": "theme_elabore_dans_un_cours_posterieur",
           "evidence_strength": "resume_detaille",
-          "evidence_summary": "Le cours du 23 mars 2011 décrit les propriétés des cœurs et des ligands de surface et les contraintes de stabilité lors de l'assemblage."
+          "evidence_summary": "Le cours du 23 mars 2011 décrit les propriétés des cœurs et des ligands de surface et les contraintes de stabilité lors de l'assemblage.",
+          "evidence_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/approche-legochimique-des-materiaux-hybrides"
         }
       ],
       "public_explanation": "Préparer des unités dotées de fonctions de surface compatibles, puis les assembler au lieu de tout synthétiser d'un seul bloc.",
-      "research_question": "Comment garantir l'intégrité des nanobriques pendant leur fonctionnalisaton et leur assemblage ?"
+      "research_question": "Comment garantir l'intégrité des nanobriques pendant leur fonctionnalisation et leur assemblage ?"
     },
     {
       "id": "AX-04",
@@ -130,7 +134,8 @@
           "official_url": "https://www.college-de-france.fr/fr/agenda/cours/chimie-douce-2020/vers-des-materiaux-hybrides-vivants",
           "relation": "theme_elabore_dans_un_cours_posterieur",
           "evidence_strength": "titre_et_fiche_officielle",
-          "evidence_summary": "Le cours du 18 février 2020 porte sur les matériaux hybrides vivants ; les exemples scientifiques précis doivent être vérifiés dans le contenu audio/vidéo."
+          "evidence_summary": "Le cours du 18 février 2020 porte sur les matériaux hybrides vivants ; les exemples scientifiques précis doivent être vérifiés dans le contenu audio/vidéo.",
+          "evidence_url": "https://www.college-de-france.fr/fr/agenda/cours/chimie-douce-2020/vers-des-materiaux-hybrides-vivants"
         }
       ],
       "public_explanation": "Protéger un élément vivant ou une enzyme dans un matériau tout en préservant les échanges nécessaires à son fonctionnement.",
@@ -157,7 +162,8 @@
           "official_url": "https://www.college-de-france.fr/fr/agenda/cours/interfaces-chimie-des-materiaux-biologie-medecine/vers-des-materiaux-bio-inspires",
           "relation": "theme_elabore_dans_un_cours_posterieur",
           "evidence_strength": "titre_et_fiche_officielle",
-          "evidence_summary": "Le cours du 20 novembre 2013 est dédié aux matériaux bio-inspirés."
+          "evidence_summary": "Le cours du 20 novembre 2013 est dédié aux matériaux bio-inspirés.",
+          "evidence_url": "https://www.college-de-france.fr/fr/agenda/cours/interfaces-chimie-des-materiaux-biologie-medecine/vers-des-materiaux-bio-inspires"
         }
       ],
       "public_explanation": "Observer comment la nature obtient une propriété, puis s'en servir pour concevoir un matériau artificiel.",
@@ -183,7 +189,8 @@
           "official_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/materiaux-poreux-nanostructures",
           "relation": "theme_elabore_dans_un_cours_posterieur",
           "evidence_strength": "resume_detaille",
-          "evidence_summary": "Le cours du 16 mars 2011 explique tailles de pores, transport, adsorption et structures poreuses hiérarchiques."
+          "evidence_summary": "Le cours du 16 mars 2011 explique tailles de pores, transport, adsorption et structures poreuses hiérarchiques.",
+          "evidence_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/materiaux-poreux-nanostructures"
         }
       ],
       "public_explanation": "Une même matière peut être organisée de la molécule jusqu'à l'objet fini, et cette organisation influe sur son comportement.",
@@ -208,7 +215,8 @@
           "official_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/materiaux-poreux-nanostructures",
           "relation": "theme_elabore_dans_un_cours_posterieur",
           "evidence_strength": "resume_detaille",
-          "evidence_summary": "Le cours insiste sur les conditions de synthèse permettant la structuration de la porosité."
+          "evidence_summary": "Le cours insiste sur les conditions de synthèse permettant la structuration de la porosité.",
+          "evidence_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/materiaux-poreux-nanostructures"
         }
       ],
       "public_explanation": "Le résultat dépend autant de la manière de fabriquer que des molécules utilisées.",
@@ -234,7 +242,8 @@
           "official_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur",
           "relation": "theme_elabore_dans_un_cours_posterieur",
           "evidence_strength": "resume_detaille",
-          "evidence_summary": "Le premier cours développe l'histoire du champ et le rôle des communautés de recherche."
+          "evidence_summary": "Le premier cours développe l'histoire du champ et le rôle des communautés de recherche.",
+          "evidence_url": "https://www.college-de-france.fr/fr/agenda/cours/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur/une-courte-histoire-des-materiaux-hybrides-un-mariage-de-sable-argiles-et-de-couleur"
         }
       ],
       "public_explanation": "Concevoir des matériaux exige un dialogue entre chimie, physique, biologie, fabrication et usages.",
