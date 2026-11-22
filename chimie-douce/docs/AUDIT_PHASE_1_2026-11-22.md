@@ -23,6 +23,16 @@ Composantes existantes : 70 diapositives originales `assets/planches/fig-XX.webp
 
 **Présence de ces artefacts ≠ validation de leur fonctionnement**. Aucun workflow GitHub Actions et aucun fichier `package.json` ne figurent dans l'arborescence de cette révision ; les tests `tests/validate.mjs`, `tests/unified-resources.mjs`, `ingenierie/tests/kinetics.test.mjs` et l'outil `tools/audit-i18n.mjs` existent, mais leur passage n'a pas été démontré dans cet audit.
 
+### Contrôles statiques supplémentaires (API GitHub + analyse des structures, sans build)
+
+- `src/figures.js` : **70 fiches, 70 IDs distincts, 16 chapitres**.
+- `assets/planches` : **70 images WebP originales**, exactement une pour chaque ID 01–70 ; aucune origine manquante dans l'index.
+- `assets/atlas-redessine` : **72 fichiers pour 70 numéros**. Les planches **51 et 52** existent en deux formats (SVG et WebP) : conserver la traçabilité, ne pas assimiler ce chevauchement à deux contenus scientifiques indépendants.
+- `SCENE_RESOURCE_MAP` : **18 scènes, 73 associations scène→planche**, impliquant **66 numéros distincts**. Les numéros 1, 4, 69 et 70 ne sont associés à aucun laboratoire et doivent rester des planches de lecture seulement (à vérifier dans la navigation).
+- Catalogue international : **38 IDs différents, 38 URL HTTPS, 0 lien explicite vers les IDs internes** ; ce contrôle est **syntaxique**, pas une preuve de disponibilité HTTP ou de licéité.
+
+Ces cinq constats proviennent d'un contrôle croisé des fichiers, pas d'une recette navigateur.
+
 ## 3. Non-conformités et risques
 
 | Sévérité | Constat vérifié dans le code | Conséquence et mesure proposée |
