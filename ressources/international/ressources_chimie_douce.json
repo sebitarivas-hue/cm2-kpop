@@ -1,0 +1,846 @@
+{
+  "catalogue": "Chimie douce – bibliotheque internationale de ressources",
+  "date": "2026-11-22",
+  "scope": "Inventaire documentaire initial, pas de collecte exhaustive de fichiers",
+  "resources": [
+    {
+      "id": "JP-HOK-01",
+      "title": "Hokkaido – catalogue de publications Soft & Wet Matter",
+      "country": "Japon",
+      "resource_type": "Bibliographie",
+      "topics": [
+        "hydrogels",
+        "réseaux doubles",
+        "mécanique des gels"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://altair.sci.hokudai.ac.jp/g2/en/publication",
+      "rights_status": "Métadonnées bibliographiques : indexation et liens ; articles selon éditeur",
+      "access_mode": "Référencer",
+      "site_integration": "Catalogue de publications par thèmes, DOI et liens OA",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "JP-HOK-02",
+      "title": "Hokkaido – projets de recherche",
+      "country": "Japon",
+      "resource_type": "Projets",
+      "topics": [
+        "hydrogels",
+        "mécanochimie",
+        "autocicatrisation"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://altair.sci.hokudai.ac.jp/g2/en/project",
+      "rights_status": "Descriptions, images et textes protégés par défaut",
+      "access_mode": "Référencer",
+      "site_integration": "Cartes thématiques et connexions applications",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "JP-HOK-03",
+      "title": "Hokkaido – présentation du laboratoire",
+      "country": "Japon",
+      "resource_type": "Laboratoire",
+      "topics": [
+        "gels",
+        "biomatériaux",
+        "mécanique"
+      ],
+      "audiences": [
+        "Recherche",
+        "Grand public"
+      ],
+      "source_url": "https://altair.sci.hokudai.ac.jp/g2/en/about-lsw",
+      "rights_status": "Contenu propriétaire, autorisation avant reprise d’illustrations",
+      "access_mode": "Référencer",
+      "site_integration": "Portrait scientifique et glossaire",
+      "priority": 2,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "JP-HOK-04",
+      "title": "Hokkaido – laboratoire Soft & Wet Matter",
+      "country": "Japon",
+      "resource_type": "Recherche",
+      "topics": [
+        "hydrogels",
+        "biohybrides",
+        "adhésifs sous-marins"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "source_url": "https://life.sci.hokudai.ac.jp/en/fr/lab/soft-and-wet-matter",
+      "rights_status": "Textes et visuels sous droits réservés présumés",
+      "access_mode": "Référencer",
+      "site_integration": "Panorama matériaux fonctionnels",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "JP-RIK-01",
+      "title": "RIKEN Ishida – axes de recherche",
+      "country": "Japon",
+      "resource_type": "Recherche",
+      "topics": [
+        "matériaux biomimétiques",
+        "auto-organisation",
+        "soft matter"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "source_url": "https://soft-matter-riken.jp/research-en/",
+      "rights_status": "Textes et images : autorisation à obtenir pour redistribution",
+      "access_mode": "Référencer",
+      "site_integration": "Notions reliées à des publications",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "JP-RIK-02",
+      "title": "RIKEN Ishida – publications",
+      "country": "Japon",
+      "resource_type": "Bibliographie",
+      "topics": [
+        "supramoléculaire",
+        "hydrogels",
+        "matériaux bio-inspirés"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://soft-matter-riken.jp/publication-en/",
+      "rights_status": "Métadonnées et liens exploitables ; vérifier la licence de chaque article",
+      "access_mode": "Référencer",
+      "site_integration": "Index DOI international et sélection de publications",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "JP-RIK-03",
+      "title": "RIKEN Ishida – galerie",
+      "country": "Japon",
+      "resource_type": "Iconographie",
+      "topics": [
+        "matériaux",
+        "microstructure",
+        "visualisation"
+      ],
+      "audiences": [
+        "Grand public",
+        "Recherche"
+      ],
+      "source_url": "https://soft-matter-riken.jp/gallery-en/",
+      "rights_status": "Reproduction non autorisée sans confirmation",
+      "access_mode": "Lien uniquement",
+      "site_integration": "Références visuelles, demander licences image",
+      "priority": 2,
+      "notes": "URL de sous-page à confirmer avant import",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "JP-RIK-04",
+      "title": "RIKEN CEMS – équipe de recherche",
+      "country": "Japon",
+      "resource_type": "Laboratoire",
+      "topics": [
+        "matière molle",
+        "biomimétisme"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://cems.riken.jp/en/laboratory/ebsmrt",
+      "rights_status": "Contenu institutionnel, droits à vérifier",
+      "access_mode": "Référencer",
+      "site_integration": "Fiche laboratoire et collaborations",
+      "priority": 2,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "CN-CAS-01",
+      "title": "CAS – Technical Institute of Physics and Chemistry",
+      "country": "Chine",
+      "resource_type": "Institut",
+      "topics": [
+        "interfaces intelligentes",
+        "biomatériaux",
+        "photochemie"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "source_url": "https://english.ipc.cas.cn/aboutus/introduction_21822/",
+      "rights_status": "Reprise limitée aux liens/métadonnées tant que droits inconnus",
+      "access_mode": "Référencer",
+      "site_integration": "Cartographie des centres, domaines et transferts",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "CN-CAS-02",
+      "title": "CAS Qingdao – bioinspired interfaces for energy",
+      "country": "Chine",
+      "resource_type": "Recherche",
+      "topics": [
+        "interfaces bio-inspirées",
+        "énergie",
+        "catalyse"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://english.qibebt.cas.cn/re/rd/BITEARC/202109/t20210908_282775.html",
+      "rights_status": "Contenu protégé présumé",
+      "access_mode": "Référencer",
+      "site_integration": "Cas industriel énergie et catalyse",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "CN-SCUT-01",
+      "title": "SCUT – axes de recherche en soft matter",
+      "country": "Chine",
+      "resource_type": "Recherche",
+      "topics": [
+        "matériaux hybrides",
+        "biomatériaux",
+        "chimie verte"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://www2.scut.edu.cn/softmatter/40900/list.htm",
+      "rights_status": "Contenu institutionnel protégé par défaut",
+      "access_mode": "Référencer",
+      "site_integration": "Taxonomie des champs et fiche laboratoire",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "CN-SCUT-02",
+      "title": "SCUT – école de matière molle",
+      "country": "Chine",
+      "resource_type": "Institution",
+      "topics": [
+        "recherche",
+        "formation doctorale",
+        "industrie"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://www2.scut.edu.cn/softmatter/",
+      "rights_status": "Contenu institutionnel protégé par défaut",
+      "access_mode": "Référencer",
+      "site_integration": "Réseau international et formations",
+      "priority": 2,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "EU-MC-01",
+      "title": "Materials Cloud – portail général",
+      "country": "Suisse",
+      "resource_type": "Plateforme",
+      "topics": [
+        "science des matériaux",
+        "données",
+        "simulations"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://www.materialscloud.org/",
+      "rights_status": "Réutilisation des jeux soumise à chaque licence de dépôt",
+      "access_mode": "Liens et API",
+      "site_integration": "Portail fédéré de données et modèles",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "EU-MC-02",
+      "title": "Materials Cloud Archive – conditions",
+      "country": "Suisse",
+      "resource_type": "Données et licences",
+      "topics": [
+        "archives",
+        "DOI",
+        "données de recherche"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://archive.materialscloud.org/information",
+      "rights_status": "Licence au niveau de chaque dépôt",
+      "access_mode": "Métadonnées + contrôle",
+      "site_integration": "Gestion de droits par jeu de données",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "EU-MC-03",
+      "title": "Materials Cloud – découverte et pédagogie",
+      "country": "Suisse",
+      "resource_type": "Plateforme",
+      "topics": [
+        "visualisation",
+        "cours",
+        "calcul"
+      ],
+      "audiences": [
+        "Recherche",
+        "Grand public"
+      ],
+      "source_url": "https://materialscloud-org.github.io/mc-frontend/",
+      "rights_status": "Licences distinctes selon contenu et outils",
+      "access_mode": "Référencer",
+      "site_integration": "Modèle pour architecture savoir→calcul→données",
+      "priority": 2,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "INT-MV-01",
+      "title": "MatterViz – code et composants",
+      "country": "International",
+      "resource_type": "Code open source",
+      "topics": [
+        "visualisation 3D",
+        "cristaux",
+        "diagrammes de phase"
+      ],
+      "audiences": [
+        "Recherche",
+        "Grand public"
+      ],
+      "source_url": "https://github.com/janosh/matterviz",
+      "rights_status": "MIT pour le code du dépôt ; vérifier licences données et dépendances",
+      "access_mode": "Réutilisation conditionnelle",
+      "site_integration": "Composants interactifs dans pages notion",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "INT-MV-02",
+      "title": "MatterViz – démonstration",
+      "country": "International",
+      "resource_type": "Visualisation",
+      "topics": [
+        "cristaux",
+        "molécules",
+        "trajectoires"
+      ],
+      "audiences": [
+        "Recherche",
+        "Grand public"
+      ],
+      "source_url": "https://janosh.github.io/matterviz/",
+      "rights_status": "Code MIT ; vérifier ressources tierces",
+      "access_mode": "Lien / intégration technique",
+      "site_integration": "Tester manipulations 3D",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "US-PHET-01",
+      "title": "PhET – catalogue simulations chimie",
+      "country": "États-Unis",
+      "resource_type": "Simulation",
+      "topics": [
+        "chimie générale",
+        "molécules",
+        "phases"
+      ],
+      "audiences": [
+        "Grand public",
+        "Recherche"
+      ],
+      "source_url": "https://phet.colorado.edu/fr/simulations/filter?subjects=chemistry",
+      "rights_status": "Simulations HTML sous CC BY-NC 4.0 : incompatible avec certaines réutilisations commerciales",
+      "access_mode": "Lien, intégration selon conditions",
+      "site_integration": "Parcours découverte et démonstrations",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "US-PHET-02",
+      "title": "PhET – licences officielles",
+      "country": "États-Unis",
+      "resource_type": "Juridique",
+      "topics": [
+        "licences",
+        "simulation",
+        "réutilisation"
+      ],
+      "audiences": [
+        "Industrie / investisseurs",
+        "Recherche"
+      ],
+      "source_url": "https://phet.colorado.edu/en/licensing/",
+      "rights_status": "Page officielle des conditions ; ne pas inférer autorisation commerciale",
+      "access_mode": "Vérification obligatoire",
+      "site_integration": "Blocage licence dans pipeline import",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "US-CHEM-01",
+      "title": "ChemCollective – laboratoire virtuel",
+      "country": "États-Unis",
+      "resource_type": "Simulation",
+      "topics": [
+        "thermochimie",
+        "solubilité",
+        "acides bases"
+      ],
+      "audiences": [
+        "Grand public",
+        "Recherche"
+      ],
+      "source_url": "https://chemcollective.org/vlabs",
+      "rights_status": "Licence de redistribution/intégration non confirmée",
+      "access_mode": "Lien uniquement",
+      "site_integration": "Référence UX pour expériences",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "US-CHEM-02",
+      "title": "ChemCollective – téléchargement du labo",
+      "country": "États-Unis",
+      "resource_type": "Logiciel",
+      "topics": [
+        "laboratoire virtuel",
+        "simulations"
+      ],
+      "audiences": [
+        "Grand public",
+        "Recherche"
+      ],
+      "source_url": "https://chemcollective.org/vlab_download",
+      "rights_status": "Téléchargement possible ≠ droit de redistribution commerciale",
+      "access_mode": "Vérifier avant intégration",
+      "site_integration": "Étude technique et juridique",
+      "priority": 2,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "INT-MOL-01",
+      "title": "MolView – outil de modélisation",
+      "country": "International",
+      "resource_type": "Visualisation",
+      "topics": [
+        "molécules",
+        "spectroscopie",
+        "cristaux"
+      ],
+      "audiences": [
+        "Grand public",
+        "Recherche"
+      ],
+      "source_url": "https://molview.org/",
+      "rights_status": "Possibilité d’embed de modèles annoncée ; respecter conditions site",
+      "access_mode": "Embed sous réserve",
+      "site_integration": "Voir molécules dans fiche notion",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "INT-MOL-02",
+      "title": "MolView – code historique et avis juridique",
+      "country": "International",
+      "resource_type": "Code et licences",
+      "topics": [
+        "molécules",
+        "éditeur chimique"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://github.com/molview/molview",
+      "rights_status": "Code ancien ; correctifs depuis 2023 non diffusés sous licence open source",
+      "access_mode": "Étude juridique",
+      "site_integration": "Ne pas supposer que le produit actuel est libre",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "INT-COD-01",
+      "title": "Crystallography Open Database",
+      "country": "International",
+      "resource_type": "Données structurées",
+      "topics": [
+        "cristallographie",
+        "structure",
+        "CIF"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "source_url": "https://cod.psdi.ac.uk/index.php",
+      "rights_status": "CC0 – données et base",
+      "access_mode": "Données réutilisables",
+      "site_integration": "Modèles 3D de structures cristallines",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "INT-COD-02",
+      "title": "COD – guide de récupération des fichiers",
+      "country": "International",
+      "resource_type": "Documentation API",
+      "topics": [
+        "CIF",
+        "données cristallographiques"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://wiki.crystallography.net/howtoobtaincod/",
+      "rights_status": "Données CC0 ; préserver provenance et citations scientifiques",
+      "access_mode": "Téléchargement conforme",
+      "site_integration": "Import CIF puis rendu 3D",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "US-PUB-01",
+      "title": "PubChem – API PUG REST",
+      "country": "États-Unis",
+      "resource_type": "API",
+      "topics": [
+        "chimie moléculaire",
+        "formules",
+        "propriétés"
+      ],
+      "audiences": [
+        "Recherche",
+        "Grand public",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest",
+      "rights_status": "Les contributions tierces peuvent avoir des droits distincts ; limites d’API",
+      "access_mode": "API selon conditions",
+      "site_integration": "Fiches molécules enrichies automatiquement",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "EU-PMC-01",
+      "title": "Europe PMC – API REST",
+      "country": "Europe",
+      "resource_type": "API bibliographique",
+      "topics": [
+        "publications",
+        "texte intégral",
+        "DOI"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://dev.europepmc.org/RestfulWebService",
+      "rights_status": "Métadonnées et abstracts selon service ; textes/images selon licence de chaque article",
+      "access_mode": "API et vérification",
+      "site_integration": "Recherche bibliographique avec filtres de licence",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "EU-PMC-02",
+      "title": "Europe PMC – jeu Open Access",
+      "country": "Europe",
+      "resource_type": "Publications OA",
+      "topics": [
+        "articles",
+        "figures",
+        "supplements"
+      ],
+      "audiences": [
+        "Recherche",
+        "Grand public"
+      ],
+      "source_url": "https://dev.europepmc.org/downloads/openaccess",
+      "rights_status": "Licences article par article : CC BY et CC BY-NC non interchangeables",
+      "access_mode": "Téléchargement sélectif",
+      "site_integration": "Fiches recherche avec images sous licence admissible",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "EU-ZEN-01",
+      "title": "Zenodo – API et moissonnage",
+      "country": "Europe",
+      "resource_type": "API de dépôts",
+      "topics": [
+        "datasets",
+        "protocoles",
+        "DOI"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://developers.zenodo.org/",
+      "rights_status": "Licence de chaque dépôt ; moissonnage massif via OAI-PMH/dumps",
+      "access_mode": "API/OAI-PMH",
+      "site_integration": "Import métadonnées, DOI, licence et fichiers permis",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "INT-IUP-01",
+      "title": "IUPAC – définition procédé sol-gel",
+      "country": "International",
+      "resource_type": "Terminologie scientifique",
+      "topics": [
+        "sol-gel",
+        "définitions",
+        "processus"
+      ],
+      "audiences": [
+        "Recherche",
+        "Grand public"
+      ],
+      "source_url": "https://goldbook.iupac.org/terms/view/ST07151",
+      "rights_status": "Définition sous droits du référentiel, citer/réécrire sans recopier intégralement",
+      "access_mode": "Lien et paraphrase",
+      "site_integration": "Glossaire contrôlé et références",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "INT-IUP-02",
+      "title": "IUPAC – transition sol-gel",
+      "country": "International",
+      "resource_type": "Terminologie scientifique",
+      "topics": [
+        "sol-gel",
+        "transition",
+        "gélification"
+      ],
+      "audiences": [
+        "Recherche",
+        "Grand public"
+      ],
+      "source_url": "https://goldbook.iupac.org/terms/view/S05731",
+      "rights_status": "Citer source et reformuler",
+      "access_mode": "Lien et paraphrase",
+      "site_integration": "Notion interactive passage sol-gel",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "INT-IUP-03",
+      "title": "IUPAC – concentration critique sol-gel",
+      "country": "International",
+      "resource_type": "Terminologie scientifique",
+      "topics": [
+        "colloïdes",
+        "gélification",
+        "concentration"
+      ],
+      "audiences": [
+        "Recherche",
+        "Grand public"
+      ],
+      "source_url": "https://goldbook.iupac.org/terms/view/ST07634",
+      "rights_status": "Citer source et reformuler",
+      "access_mode": "Lien et paraphrase",
+      "site_integration": "Paramètre scientifique de simulation",
+      "priority": 2,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "INT-RSC-01",
+      "title": "RSC – histoire de la synthèse sol–gel",
+      "country": "International",
+      "resource_type": "Revue scientifique",
+      "topics": [
+        "sol-gel",
+        "synthèse",
+        "applications"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "source_url": "https://pubs.rsc.org/is/content/articlehtml/2016/mh/c5mh00260e",
+      "rights_status": "Accès public ≠ licence libre ; vérifier avant reproduire figures",
+      "access_mode": "Lien et synthèse originale",
+      "site_integration": "Chronologie et monographie",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "JP-HOK-05",
+      "title": "Article – hydrogels réseaux doubles et dégradation",
+      "country": "Japon",
+      "resource_type": "Publication DOI",
+      "topics": [
+        "hydrogels",
+        "réseaux doubles",
+        "fracture"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://doi.org/10.1021/acs.macromol.1c01214",
+      "rights_status": "Sous droits de l’article ; lien OA institutionnel depuis bibliographie labo",
+      "access_mode": "DOI et lien OA",
+      "site_integration": "Cas étude fracture / fatigue",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "JP-HOK-06",
+      "title": "Article – hydrogel auto-cicatrisant et fatigue",
+      "country": "Japon",
+      "resource_type": "Publication DOI",
+      "topics": [
+        "hydrogels",
+        "fatigue",
+        "autocicatrisation"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://doi.org/10.1126/sciadv.abe8210",
+      "rights_status": "Vérifier licence de version OA pour figures",
+      "access_mode": "DOI et OA",
+      "site_integration": "Cas étude comportement mécanique",
+      "priority": 1,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "JP-HOK-07",
+      "title": "Article – hydrogels mémoire dynamique",
+      "country": "Japon",
+      "resource_type": "Publication DOI",
+      "topics": [
+        "hydrogels",
+        "mémoire",
+        "dynamique"
+      ],
+      "audiences": [
+        "Recherche",
+        "Grand public"
+      ],
+      "source_url": "https://doi.org/10.1073/pnas.2006842117",
+      "rights_status": "Vérifier licence article/figures",
+      "access_mode": "DOI et OA",
+      "site_integration": "Expérience virtuelle état et histoire du matériau",
+      "priority": 2,
+      "notes": "",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "JP-HOK-08",
+      "title": "Article – hydrogels auto-croissants mécanosensibles",
+      "country": "Japon",
+      "resource_type": "Publication DOI",
+      "topics": [
+        "hydrogels",
+        "mécanochimie",
+        "croissance"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs",
+        "Grand public"
+      ],
+      "source_url": "https://doi.org/10.1126/science.aau9533",
+      "rights_status": "Vérifier licence et métadonnées exactes avant diffusion",
+      "access_mode": "DOI",
+      "site_integration": "Cas recherche bio-inspiration et matériaux adaptatifs",
+      "priority": 2,
+      "notes": "Référence DOI à revalider manuellement avant publication",
+      "checked": "2026-11-22"
+    },
+    {
+      "id": "INT-RIK-PDF",
+      "title": "RIKEN CEMS – catalogue scientifique PDF",
+      "country": "Japon",
+      "resource_type": "PDF institutionnel",
+      "topics": [
+        "soft matter",
+        "laboratoires",
+        "applications"
+      ],
+      "audiences": [
+        "Recherche",
+        "Industrie / investisseurs"
+      ],
+      "source_url": "https://cems.riken.jp/wp-content/themes/riken/material/pdf/cems-catalog-en.pdf",
+      "rights_status": "PDF protégé ; ne pas recopier ni héberger sans autorisation",
+      "access_mode": "Lien seulement",
+      "site_integration": "Dossier référentiel / recherche de partenaires",
+      "priority": 2,
+      "notes": "",
+      "checked": "2026-11-22"
+    }
+  ]
+}
