@@ -2,19 +2,65 @@ import {FIGURES} from '../src/figures.js';
 import {SCENES,videoAt} from '../src/content.js';
 import {SCENE_RESOURCE_MAP} from '../src/knowledge-graph.js';
 import {plateAsset} from '../src/knowledge-graph.js';
+import {redesignedPlate,redesignedCount} from '../src/redesigned-plates.js';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const chapterNames=[...new Set(FIGURES.map(f=>f.chapter))];
 chapterNames.forEach((n,i)=>$('chapter').add(new Option(String(i+1).padStart(2,'0')+' · '+n,n)));
 const params=new URLSearchParams(location.search);
-const state={chapter:params.get('chapter')||'',q:'',id:Number(params.get('figure')||0)};
+const state={chapter:params.get('chapter')||'',q:'',id:Number(params.get('figure')||0),view:'illustration'};
 function relevantScenes(f){return SCENES.filter(s=>SCENE_RESOURCE_MAP[s.id]?.plates.includes(f.id)).slice(0,4)}
-function render(){const q=state.q.toLocaleLowerCase('fr');const rows=FIGURES.filter(f=>(!state.chapter||f.chapter===state.chapter)&&(!q||(f.title+' '+f.note+' '+f.chapter).toLocaleLowerCase('fr').includes(q)));$('counter').textContent=rows.length+' / '+FIGURES.length+' PLANCHES · PLANCHES ORIGINALES · OUVRIR POUR LIRE LA SOURCE';$('gallery').innerHTML=rows.map(f=>'<button class="fig-card" data-id="'+f.id+'" aria-label="Ouvrir la planche '+f.id+' : '+esc(f.title)+'"><span class="fig-art">'+'<img src="'+plateAsset(f.id)+'" alt="Diapositive originale '+f.id+' — '+esc(f.title)+'" loading="lazy">'+'</span><span class="fig-body"><span class="fig-number">FIG. '+String(f.id).padStart(2,'0')+' / '+time(f.time)+' · CH. '+String(chapterNames.indexOf(f.chapter)+1).padStart(2,'0')+'</span><span class="fig-title">'+esc(f.title)+'</span><span class="fig-chapter">'+esc(f.chapter)+'</span><span class="fig-visit">OUVRIR LA PLANCHE ↗</span></span></button>').join('');document.querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>openFigure(Number(b.dataset.id)))}
+function render(){
+ const q=state.q.toLocaleLowerCase('fr');
+ const rows=FIGURES.filter(f=>(!state.chapter||f.chapter===state.chapter)&&(!q||(f.title+' '+f.note+' '+f.chapter).toLocaleLowerCase('fr').includes(q)));
+ $('counter').textContent=rows.length+' / '+FIGURES.length+' PLANCHES · '+redesignedCount()+' ILLUSTRATIONS REDESSINÉES · SOURCES ORIGINALES CONSERVÉES';
+ $('gallery').innerHTML=rows.map(f=>{
+  const art=redesignedPlate(f.id),src=art?.src||plateAsset(f.id);
+  return '<button class="fig-card '+(art?'fig-card-new':'')+'" data-id="'+f.id+'" aria-label="Ouvrir la planche '+f.id+' : '+esc(f.title)+'">'+
+   '<span class="fig-art"><img src="'+esc(src)+'" alt="'+(art?'Reconstruction scientifique de la planche ':'Diapositive originale ')+f.id+' — '+esc(f.title)+'" loading="lazy" decoding="async"></span>'+
+   '<span class="fig-body"><span class="fig-number">FIG. '+String(f.id).padStart(2,'0')+' / '+time(f.time)+' · CH. '+String(chapterNames.indexOf(f.chapter)+1).padStart(2,'0')+'</span>'+
+   '<span class="fig-title">'+esc(f.title)+'</span><span class="fig-chapter">'+esc(f.chapter)+'</span>'+
+   '<span class="fig-visit">'+(art?'ILLUSTRATION + SOURCE ORIGINALE ↗':'OUVRIR LA SOURCE ↗')+'</span>'+
+   (art?'<span class="redesigned-status">ILLUSTRATION CONCEPTUELLE · NON EXPÉRIMENTALE</span>':'')+
+   '</span></button>';
+ }).join('');
+ document.querySelectorAll('.fig-card[data-id]').forEach(b=>b.onclick=()=>openFigure(Number(b.dataset.id)));
+}
 function time(t){const s=Math.round(t);return String(Math.floor(s/3600)).padStart(2,'0')+':'+String(Math.floor((s%3600)/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
-function openFigure(id){const f=FIGURES.find(f=>f.id===id);if(!f)return;state.id=f.id;$('dialogMeta').textContent='ATLAS SCIENTIFIQUE / FIGURE '+String(f.id).padStart(2,'0')+' / '+time(f.time);$('dialogChapter').textContent='CHAPITRE '+String(chapterNames.indexOf(f.chapter)+1).padStart(2,'0')+' · '+f.chapter;$('dialogTitle').textContent=f.title;$('dialogText').textContent=f.note;$('bigArt').innerHTML='<img src="'+plateAsset(f.id)+'" alt="Diapositive originale '+f.id+' — '+esc(f.title)+'">';
- const scenes=relevantScenes(f);let ln='<a target="_blank" rel="noopener noreferrer" href="'+esc(videoAt(f.time))+'">VOIR LA DIAPOSITIVE DANS LA VIDÉO ↗</a><a href="../research/#figure-'+f.id+'">LIRE LA LÉGENDE SCIENTIFIQUE ↗</a><a href="../notions/">EXPLORER LE VOCABULAIRE ↗</a>';
+function displayFigureArt(){
+ const f=FIGURES.find(x=>x.id===state.id);if(!f)return;
+ const enhanced=redesignedPlate(f.id);
+ const newView=Boolean(enhanced&&state.view==='illustration');
+ const src=newView?enhanced.src:plateAsset(f.id);
+ const description=newView?'Illustration scientifique redessinée : reconstruction explicative, sans données expérimentales mesurées.':'Diapositive originale du cours de Clément Sanchez (2020), conservée comme document source.';
+ $('bigArt').innerHTML='<img src="'+esc(src)+'" alt="'+esc(description)+' Planche '+f.id+' — '+esc(f.title)+'">';
+ const versions=$('figureVersions');
+ versions.hidden=!enhanced;
+ versions.innerHTML=enhanced?'<button type="button" data-view="illustration" aria-pressed="'+newView+'">ILLUSTRATION REDESSINÉE</button><button type="button" data-view="original" aria-pressed="'+(!newView)+'">SOURCE ORIGINALE 2020</button>':'';
+ versions.querySelectorAll('button[data-view]').forEach(button=>button.onclick=()=>{
+  state.view=button.dataset.view;displayFigureArt();
+ });
+ const note=$('artStatus');
+ note.textContent=description;
+ note.classList.toggle('source-original-note',!newView);
+}
+function openFigure(id){
+ const f=FIGURES.find(f=>f.id===id);if(!f)return;
+ state.id=f.id;
+ state.view=redesignedPlate(f.id)?'illustration':'original';
+ $('dialogMeta').textContent='ATLAS SCIENTIFIQUE / FIGURE '+String(f.id).padStart(2,'0')+' / '+time(f.time);
+ $('dialogChapter').textContent='CHAPITRE '+String(chapterNames.indexOf(f.chapter)+1).padStart(2,'0')+' · '+f.chapter;
+ $('dialogTitle').textContent=f.title;
+ $('dialogText').textContent=f.note;
+ displayFigureArt();
+ const scenes=relevantScenes(f);
+ let ln='<a target="_blank" rel="noopener noreferrer" href="'+esc(videoAt(f.time))+'">VOIR LA DIAPOSITIVE DANS LA VIDÉO ↗</a><a href="../research/#figure-'+f.id+'">LIRE LA LÉGENDE SCIENTIFIQUE ↗</a><a href="../notions/">EXPLORER LE VOCABULAIRE ↗</a>';
  if(scenes.length)ln+=scenes.slice(0,2).map(s=>'<a href="../#'+esc(s.id)+'">EXPLORER EN 3D : '+esc(s.title)+' ↗</a>').join('');
- $('dialogLinks').innerHTML=ln;const d=$('details');if(!d.open)d.showModal();const url=new URL(location.href);url.searchParams.set('figure',id);history.replaceState({},'',url);document.title='Figure '+String(f.id).padStart(2,'0')+' — '+f.title+' · Chimie douce'}
+ $('dialogLinks').innerHTML=ln;
+ const d=$('details');if(!d.open)d.showModal();
+ const url=new URL(location.href);url.searchParams.set('figure',id);history.replaceState({},'',url);
+ document.title='Figure '+String(f.id).padStart(2,'0')+' — '+f.title+' · Chimie douce';
+}
 $('query').oninput=e=>{state.q=e.target.value;render()};
 $('chapter').onchange=e=>{state.chapter=e.target.value;render()};
 $('close').onclick=()=>{$('details').close()};
