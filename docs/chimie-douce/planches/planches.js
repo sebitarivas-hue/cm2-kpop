@@ -54,7 +54,7 @@ function displayFigureArt(){
  const enhanced=redesignedPlate(f.id);
  const newView=Boolean(enhanced&&state.view==='illustration');
  const src=newView?enhanced.src:plateAsset(f.id);
- const description=newView?'Illustration scientifique redessinée : reconstruction explicative, sans données expérimentales mesurées.':'Diapositive originale du cours de Clément Sanchez (2020), conservée comme document source.';
+ const description=newView?enhanced.caution:'Diapositive originale du cours de Clément Sanchez (2020), conservée comme document source.';
  $('bigArt').innerHTML='<img src="'+esc(src)+'" alt="'+esc(description)+' Planche '+f.id+' — '+esc(f.title)+'">';
  const versions=$('figureVersions');
  versions.hidden=!enhanced;
