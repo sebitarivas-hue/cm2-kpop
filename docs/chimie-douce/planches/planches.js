@@ -5,6 +5,17 @@ import {plateAsset} from '../src/knowledge-graph.js';
 import {redesignedPlate,redesignedCount} from '../src/redesigned-plates.js';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const scientificReview=Object.freeze({
+ 32:'Cultures d’algues : distinguer croissance, productivité, transfert du CO₂, distribution de lumière et contraintes de changement d’échelle. Les architectures illustrées ne démontrent aucune performance mesurée.',
+ 33:'MOFs : la topologie d’un réseau résulte du choix de nœuds de coordination et de ligands. L’analogie d’échafaudage est structurale ; elle ne constitue pas une structure cristallographique déterminée.',
+ 34:'Chimie réticulaire : comparer composition, connectivité et géométrie des pores sans assimiler toutes les familles de MOFs à une topologie unique.',
+ 35:'Croissance près de cellules : distinguer nucléation, dépôt minéral, continuité de la coque et survie cellulaire ; ces phénomènes requièrent des essais indépendants.',
+ 36:'ZIF-8 : réseau zinc–2-méthylimidazolate ; l’existence d’une coque ne démontre ni son étanchéité ni une immunoprotection biologique.',
+ 37:'Microscopie : documenter l’échelle, la préparation, la technique et les témoins avant de qualifier une couche d’exosquelette cristallin.',
+ 38:'Réponse au stress : séparer viabilité, intégrité membranaire, reprise métabolique et prolifération ; toute protection dépend du stress et du protocole.',
+ 39:'Enzymes et MOFs : distinguer incorporation, adsorption et activité catalytique conservée ; l’accessibilité du substrat et la stabilité sont à mesurer.',
+ 40:'Transport : la perméabilité dépend du type de molécule, de la porosité effective, des défauts et des interactions ; une coque ZIF-8 n’est pas une membrane idéale.'
+});
 const chapterNames=[...new Set(FIGURES.map(f=>f.chapter))];
 chapterNames.forEach((n,i)=>$('chapter').add(new Option(String(i+1).padStart(2,'0')+' · '+n,n)));
 const params=new URLSearchParams(location.search);
@@ -21,6 +32,7 @@ function render(){
    '<span class="fig-body"><span class="fig-number">FIG. '+String(f.id).padStart(2,'0')+' / '+time(f.time)+' · CH. '+String(chapterNames.indexOf(f.chapter)+1).padStart(2,'0')+'</span>'+
    '<span class="fig-title">'+esc(f.title)+'</span><span class="fig-chapter">'+esc(f.chapter)+'</span>'+
    '<span class="fig-visit">'+(art?'ILLUSTRATION + SOURCE ORIGINALE ↗':'OUVRIR LA SOURCE ↗')+'</span>'+
+   '<span class="sanchez-plate-credit">CLÉMENT SANCHEZ · COLLÈGE DE FRANCE · 2020</span>'+ 
    (art?'<span class="redesigned-status">ILLUSTRATION CONCEPTUELLE · NON EXPÉRIMENTALE</span>':'')+
    '</span></button>';
  }).join('');
@@ -48,10 +60,14 @@ function openFigure(id){
  const f=FIGURES.find(f=>f.id===id);if(!f)return;
  state.id=f.id;
  state.view=(new URLSearchParams(location.search).get('view')==='original')?'original':(redesignedPlate(f.id)?'illustration':'original');
- $('dialogMeta').textContent='ATLAS SCIENTIFIQUE / FIGURE '+String(f.id).padStart(2,'0')+' / '+time(f.time);
+ $('dialogMeta').textContent='CLÉMENT SANCHEZ · COLLÈGE DE FRANCE / FIGURE '+String(f.id).padStart(2,'0')+' / '+time(f.time);
  $('dialogChapter').textContent='CHAPITRE '+String(chapterNames.indexOf(f.chapter)+1).padStart(2,'0')+' · '+f.chapter;
  $('dialogTitle').textContent=f.title;
  $('dialogText').textContent=f.note;
+ const critical=$('scientificReview');if(critical){
+  critical.hidden=!scientificReview[f.id];
+  critical.textContent=scientificReview[f.id]||'';
+ }
  displayFigureArt();
  const scenes=relevantScenes(f);
  let ln='<a target="_blank" rel="noopener noreferrer" href="'+esc(videoAt(f.time))+'">VOIR LA DIAPOSITIVE DANS LA VIDÉO ↗</a><a href="../research/#figure-'+f.id+'">LIRE LA LÉGENDE SCIENTIFIQUE ↗</a><a href="../notions/">EXPLORER LE VOCABULAIRE ↗</a>';

@@ -10,10 +10,15 @@ const root=new URL('./',import.meta.url),links=[['Accueil','', '⌂'],['Atlas 3D
 const url=path=>new URL(path,root).href;
 const h=(s)=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function route(){let p=location.pathname;return p.includes('/chimie_douce_interactive.html')?'Essai':p.includes('/planches/')?'Planches':p.includes('/notions/')?'Notions':p.includes('/bibliographie/')?'Bibliographie':p.includes('/research/')?'Cours':p.includes('/ingenierie/')?'Ingénierie':p.includes('/lab/')?'Labo':'Atlas 3D'}
-const n=document.createElement('nav');n.id='atlasGlobalNav';n.setAttribute('aria-label','Navigation principale et fil d’Ariane');n.innerHTML='<a class="nav-signature" href="'+url('')+'"><span class="sig-orb"></span>CHIMIE × DOUCE</a><span class="nav-divider"></span><div class="breadcrumbs" id="atlasBreadcrumb"></div><div class="route-menu">'+links.map(([name,path])=>'<a href="'+url(path)+'" data-route="'+name+'" class="'+(route()===name?'active':'')+'">'+name+'</a>').join('')+'</div><button type="button" class="nav-back" id="atlasBack" title="Revenir à la page précédente">← RETOUR</button>';
+const n=document.createElement('nav');n.id='atlasGlobalNav';n.setAttribute('aria-label','Navigation principale et fil d’Ariane');n.innerHTML='<a class="nav-signature" href="'+url('')+'"><span class="sig-orb"></span><span class="sanchez-brand"><strong>CLÉMENT SANCHEZ</strong><small>CHIMIE DOUCE · MATÉRIAUX HYBRIDES VIVANTS</small></span></a><span class="nav-divider"></span><div class="breadcrumbs" id="atlasBreadcrumb"></div><div class="route-menu">'+links.map(([name,path])=>'<a href="'+url(path)+'" data-route="'+name+'" class="'+(route()===name?'active':'')+'">'+name+'</a>').join('')+'</div><button type="button" class="nav-back" id="atlasBack" title="Revenir à la page précédente">← RETOUR</button>';
 n.insertAdjacentHTML('beforeend','<button type="button" id="atlasMobileMenuBtn" class="atlas-mobile-toggle" aria-expanded="false" aria-controls="atlasGlobalNavLinks" aria-label="Ouvrir le menu du site">☰ <span>MENU</span></button>');
 n.querySelector('.route-menu').id='atlasGlobalNavLinks';
 document.body.prepend(n);
+const attribution=document.createElement('div');
+attribution.className='sanchez-attribution';
+attribution.innerHTML='<span>CLÉMENT SANCHEZ</span><span>VERS DES MATÉRIAUX HYBRIDES VIVANTS · COLLÈGE DE FRANCE · 2020</span><a href="https://www.youtube.com/watch?v=LkvdhO6XWZ4" target="_blank" rel="noopener noreferrer">CONFÉRENCE SOURCE ↗</a>';
+n.insertAdjacentElement('afterend',attribution);
+
 initI18n(n);
 const mobileToggle=document.getElementById('atlasMobileMenuBtn');
 const mobileLabels={fr:['MENU','FERMER'],en:['MENU','CLOSE'],es:['MENÚ','CERRAR'],it:['MENU','CHIUDI'],zh:['菜单','关闭']};
