@@ -11,8 +11,22 @@ const LEGACY=Object.fromEntries(IDS.map(id=>[
   })
 ]));
 /* Scientific vector edition, drawn on cream stock. All original slides remain available. */
-const VECTOR_IDS=Object.freeze([52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70]);
+const VECTOR_IDS=Object.freeze([1,2,3,4,5,6,8,9,10,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70]);
 const VECTOR_NOTES=Object.freeze({
+ 1:'Carte du cours : illustration conceptuelle sans hiérarchie expérimentale.',
+ 2:'Bactéries, archées et eucaryotes sont distincts ; la diversité biologique est schématisée.',
+ 3:'Enveloppes et échanges représentés à titre explicatif, sans perméabilité mesurée.',
+ 4:'Façade végétalisée schématique : aucune économie d’énergie ou performance chiffrée.',
+ 5:'Mycélium : la croissance précède l’inactivation éventuelle du matériau fini.',
+ 6:'Objets mycéliens illustratifs : propriétés mécaniques non déterminées.',
+ 8:'Béton autocicatrisant : schéma sans résistance ni fermeture de fissure mesurées.',
+ 9:'Actionnement hygroscopique schématique : amplitude et force non mesurées.',
+ 10:'Matrice protectrice conceptuelle : tolérance cellulaire et immunoprotection non établies.',
+ 47:'Couche de nanoparticules autour de cellules HeLa représentée à titre conceptuel.',
+ 48:'Sondes et ciblage : les réponses optiques et sélectivités requièrent des témoins expérimentaux.',
+ 49:'Liaison chimique et rendement de greffage sont des propriétés distinctes.',
+ 50:'Aucune mesure de stabilité ou de viabilité reproduite ; consulter les courbes sources.',
+ 51:'Nanoindentation de système cellule–coque : aucune dureté ni valeur de module mesurées reproduites.',
  52:'Assemblage multifonctionnel conceptuel : les fonctions biologiques sont à caractériser séparément.',
  53:'Schéma de cryopréservation sans valeurs de température ni rendement biologique déduits.',
  54:'Hémolyse et récupération illustrées sans courbes ni pourcentages expérimentaux fictifs.',
@@ -38,7 +52,7 @@ const VECTOR=Object.fromEntries(VECTOR_IDS.map(id=>[id,Object.freeze({
  kind:'reconstruction',
  source:SOURCE,
  caution:VECTOR_NOTES[id],
- defaultOriginal:[54,56,60,62,63,68].includes(id)
+ defaultOriginal:[48,50,51,54,56,60,62,63,68].includes(id)
 })]));
 const REDESIGNED=Object.freeze({...LEGACY,...VECTOR});
 export const redesignedPlate=id=>REDESIGNED[Number(id)]||null;
